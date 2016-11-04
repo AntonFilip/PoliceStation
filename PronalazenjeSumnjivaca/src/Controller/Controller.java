@@ -1,13 +1,20 @@
 package Controller;
 
-import Model.Database;
-import Model.Person;
-import View.MainWindow;
+import Model.*;
+import View.*;
 
-public class Controller {
+public class Controller implements ViewDelegate {
 	
-	MainWindow mW = null;
-	Person person = null;
-	Database db = null;
+	MainWindow mW = new MainWindow();
+	Osoba person = null;
+	PristupBaziPodataka db = null;
+	
+	Slucaj selectedCase = null;
+	Dokaz evidance = null;
+	Osumnjiceni suspect = null;
+	
+	public static void main(String[] args) {
+		
+	}
 
 }
