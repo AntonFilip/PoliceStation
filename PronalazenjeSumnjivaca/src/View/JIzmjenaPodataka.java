@@ -1,7 +1,5 @@
 package View;
 
-import javax.swing.JFrame;
-
-public class JIzmjenaPodataka extends JFrame {
+public class JIzmjenaPodataka extends JAbstractFrame {
 
 }

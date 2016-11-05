@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 
 import Controller.ViewDelegate;
 
-public class MainWindow extends JFrame{
+public abstract class JAbstractFrame extends JFrame {
+	
+	ViewDelegate vd;
 
 }

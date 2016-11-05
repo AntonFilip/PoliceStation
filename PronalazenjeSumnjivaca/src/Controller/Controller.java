@@ -6,12 +6,12 @@ import View.*;
 public class Controller implements ViewDelegate {
 	
 	MainWindow mW = new MainWindow();
-	Osoba person = null;
-	PristupBaziPodataka db = null;
+	Policajac policajac;
+	PristupBaziPodataka db;
 	
-	Slucaj selectedCase = null;
-	Dokaz evidance = null;
-	Osumnjiceni suspect = null;
+	Slucaj slucaj;
+	Dokaz dokaz;
+	Osumnjiceni osumjiceni;
 	
 	public static void main(String[] args) {
 		

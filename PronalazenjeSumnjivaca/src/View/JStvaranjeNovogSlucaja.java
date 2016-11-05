@@ -1,7 +1,5 @@
 package View;
 
-import javax.swing.JFrame;
-
-public class JStvaranjeNovogSlucaja extends JFrame {
+public class JStvaranjeNovogSlucaja extends JAbstractFrame {
 
 }
