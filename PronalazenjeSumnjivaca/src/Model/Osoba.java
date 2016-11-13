@@ -1,6 +1,6 @@
 package Model;
 
-public abstract class Osoba {
+public class Osoba {
 	
 	String ime;
 	String prezime;

@@ -8,7 +8,7 @@ public class Osumnjiceni extends Osoba{
 	String adresa;
 	HashSet<String> poznateAdrese = new HashSet<String>();
 	String brojTelefona;
-	HashSet<Integer> povezaniSlucajevi = new HashSet<Integer>();
+	HashSet<Slucaj> povezaniSlucajevi = new HashSet<Slucaj>();
 	FizickeOsobine fizickeOsobine;
 	KarakterneOsobine karakterneOsobine;
 	String opisKriminalnihDjelatnosti;
