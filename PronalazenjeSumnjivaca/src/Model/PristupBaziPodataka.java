@@ -10,9 +10,10 @@ public class PristupBaziPodataka{
 		return 0;
 	}
 	
-	public static Policajac logIn(String username, String password){
+	public static Pozornik logIn(String username, String password){
+		//Ovdje se spaja na server i ide provjera u bazu podataka
 		//if () postoji
-		return new Policajac();
+		return new Pozornik();
 		//else return null;
 	}
 

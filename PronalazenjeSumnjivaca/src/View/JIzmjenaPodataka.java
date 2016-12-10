@@ -1,5 +1,5 @@
 package View;
 
-public class JIzmjenaPodataka extends JAbstractFrame {
+public class JIzmjenaPodataka extends JAbstractPanel {
 
 }

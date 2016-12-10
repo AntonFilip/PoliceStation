@@ -1,5 +1,5 @@
 package View;
 
-public class JPostavljanjeUpita extends JAbstractFrame {
+public class JPostavljanjeUpita extends JAbstractPanel {
 
 }

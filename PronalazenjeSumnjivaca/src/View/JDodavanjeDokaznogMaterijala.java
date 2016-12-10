@@ -1,5 +1,5 @@
 package View;
 
-public class JDodavanjeDokaznogMaterijala extends JAbstractFrame {
+public class JDodavanjeDokaznogMaterijala extends JAbstractPanel {
 
 }

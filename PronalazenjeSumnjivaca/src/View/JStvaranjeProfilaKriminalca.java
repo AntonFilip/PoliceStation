@@ -1,5 +1,5 @@
 package View;
 
-public class JStvaranjeProfilaKriminalca extends JAbstractFrame {
+public class JStvaranjeProfilaKriminalca extends JAbstractPanel {
 
 }

@@ -14,6 +14,6 @@ public class Slucaj {
 	HashSet<String> popisAdresa = new HashSet<String>();
 	HashSet<LocalTime> popisVremena = new HashSet<LocalTime>();
 	HashSet<Dokaz> popisDokaza = new HashSet<Dokaz>();
-	HashSet<Policajac> popisPolicajaca = new HashSet<Policajac>();
+	HashSet<Pozornik> popisPolicajaca = new HashSet<Pozornik>();
 	TrenutniStatusSlucaja status;
 }

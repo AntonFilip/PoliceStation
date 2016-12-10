@@ -1,5 +1,5 @@
 package View;
 
-public class JPopisStavkiPremaUpitu extends JAbstractFrame {
+public class JPopisStavkiPremaUpitu extends JAbstractPanel {
 
 }

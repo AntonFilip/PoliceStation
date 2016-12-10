@@ -2,11 +2,19 @@ package Model;
 
 import Controller.RazinaPristupa;
 
-public class Policajac extends Osoba {
+public class Pozornik extends Osoba {
 	
 	RazinaPristupa access;
 	String username;
 	String password;
+	
+	public Pozornik() {
+		access = RazinaPristupa.LOW;
+	}
+	
+	static public Pozornik logIn(String username, String password){
+		return PristupBaziPodataka.logIn(username, password);
+	}
 	
 	public Osumnjiceni posaljiUpitZaOsumnjicenog(String ime){
 		PristupBaziPodataka.posaljiUpit(ime);

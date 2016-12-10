@@ -1,5 +1,5 @@
 package View;
 
-public class JStatistika extends JAbstractFrame {
+public class JStatistika extends JAbstractPanel {
 
 }

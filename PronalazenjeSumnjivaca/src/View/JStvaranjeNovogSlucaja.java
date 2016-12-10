@@ -1,5 +1,5 @@
 package View;
 
-public class JStvaranjeNovogSlucaja extends JAbstractFrame {
+public class JStvaranjeNovogSlucaja extends JAbstractPanel {
 
 }

@@ -1,5 +1,5 @@
 package View;
 
-public class JPrikazOdabraneStavke extends JAbstractFrame {
+public class JPrikazOdabraneStavke extends JAbstractPanel {
 
 }

@@ -1,5 +1,5 @@
 package View;
 
-public class JDnevnikPretrazivanja extends JAbstractFrame {
+public class JDnevnikPretrazivanja extends JAbstractPanel {
 
 }
