@@ -12,6 +12,18 @@ public class Pozornik extends Osoba {
 		access = RazinaPristupa.LOW;
 	}
 	
+	public Pozornik(String ime, String prezime) {
+		
+		this.ime = ime;
+		this.prezime = prezime;
+		access = RazinaPristupa.LOW;
+		
+	}
+	
+	public RazinaPristupa getAccess(){
+		return this.access;
+	}
+	
 	static public Pozornik logIn(String username, String password){
 		return PristupBaziPodataka.logIn(username, password);
 	}

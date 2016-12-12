@@ -7,4 +7,11 @@ public class Kapetan extends Narednik {
 		access = RazinaPristupa.HIGH;
 		}
 
+	public Kapetan(String ime, String prezime) {
+		this.ime = ime;
+		this.prezime = prezime;
+		access = RazinaPristupa.HIGH;
+		
+	}
+
 }
