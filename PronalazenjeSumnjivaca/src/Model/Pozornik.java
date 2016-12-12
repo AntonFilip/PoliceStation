@@ -24,8 +24,8 @@ public class Pozornik extends Osoba {
 		return this.razinaPristupa;
 	}
 
-	static public Pozornik logIn(String username, String password) {
-		return PristupBaziPodataka.logIn(username, password);
+	static public Pozornik prijava(String korisnickoIme, String lozinka) {
+		return PristupBaziPodataka.prijava(korisnickoIme, lozinka);
 	}
 
 	public Osumnjiceni posaljiUpitZaOsumnjicenog(String ime) {

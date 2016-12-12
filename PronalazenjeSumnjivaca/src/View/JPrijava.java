@@ -62,7 +62,7 @@ public class JPrijava extends JAbstractPanel {
 
 					@Override
 					public void run() {
-						delegate.logIn(username.getText(), password.getText());
+						delegate.prijava(username.getText(), password.getText());
 					}
 				});
 				t.start();

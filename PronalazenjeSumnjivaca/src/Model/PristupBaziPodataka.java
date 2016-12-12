@@ -13,7 +13,7 @@ public class PristupBaziPodataka {
 		return 0;
 	}
 
-	public static Pozornik logIn(String username, String password) {
+	public static Pozornik prijava(String username, String password) {
 		// Ovdje se spaja na server i ide provjera u bazu podataka
 		String query = "SELECT osoba.imeosobe, osoba.prezimeosobe, policajac.razinapristupa FROM osoba JOIN policajac ON osoba.oib=policajac.osobaoib WHERE "
 				+ "policajac.korisnickoime=\""
