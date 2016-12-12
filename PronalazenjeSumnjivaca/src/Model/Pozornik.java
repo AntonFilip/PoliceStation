@@ -4,24 +4,24 @@ import Controller.RazinaPristupa;
 
 public class Pozornik extends Osoba {
 
-	RazinaPristupa access;
+	RazinaPristupa razinaPristupa;
 	String username;
 	String password;
 
 	public Pozornik() {
-		access = RazinaPristupa.LOW;
+		razinaPristupa = RazinaPristupa.NISKA;
 	}
 
 	public Pozornik(String ime, String prezime) {
 
 		this.ime = ime;
 		this.prezime = prezime;
-		access = RazinaPristupa.LOW;
+		razinaPristupa = RazinaPristupa.NISKA;
 
 	}
 
 	public RazinaPristupa getAccess() {
-		return this.access;
+		return this.razinaPristupa;
 	}
 
 	static public Pozornik logIn(String username, String password) {
@@ -44,7 +44,7 @@ public class Pozornik extends Osoba {
 	}
 
 	public int izmjeni(String ime) {
-		if (!access.equals(RazinaPristupa.HIGH)) {
+		if (!razinaPristupa.equals(RazinaPristupa.VISOKA)) {
 			return -1;
 		}
 		return PristupBaziPodataka.izmjena(ime);

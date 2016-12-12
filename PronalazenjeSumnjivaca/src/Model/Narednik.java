@@ -4,13 +4,13 @@ import Controller.RazinaPristupa;
 
 public class Narednik extends Pozornik {
 	public Narednik() {
-		access = RazinaPristupa.MEDIUM;
+		razinaPristupa = RazinaPristupa.SREDNJA;
 	}
 
 	public Narednik(String ime, String prezime) {
 		this.ime = ime;
 		this.prezime = prezime;
-		access = RazinaPristupa.MEDIUM;
+		razinaPristupa = RazinaPristupa.SREDNJA;
 
 	}
 
