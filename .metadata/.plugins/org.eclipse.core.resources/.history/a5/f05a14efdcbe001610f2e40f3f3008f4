@@ -1,0 +1,48 @@
+package Controller;
+
+import javax.swing.SwingUtilities;
+
+
+
+import Model.*;
+import View.*;
+
+public class Controller implements ViewDelegate {
+	
+	MainWindow mW;
+	Policajac policajac;
+	
+	Slucaj slucaj;
+	Dokaz dokaz;
+	Osumnjiceni osumjiceni;
+	
+	public static void main(String[] args) {
+		new Controller().initGUI();
+		SwingUtilities.invokeLater(()->{
+			MainWindow mW = new MainWindow();
+			mW.add(new JPrijava(this));
+		});
+	}
+	public void initGUI(){
+		
+	}
+
+	@Override
+	public void logIn(String username, String password) {
+		policajac=PristupBaziPodataka.logIn(username, password);
+		if(policajac==null){
+			return;
+		}
+		else{
+			mW.removeAll();
+			mW.add(new JGlavniIzbornik());
+		}
+	}//Otprilike
+
+	@Override
+	//TODO popunit sve varijable
+	public void posaljiUpitOsumnjiceni(String ime, String prezime) {
+		policajac.posaljiUpitZaOsumnjicenog(ime);
+	}
+
+}

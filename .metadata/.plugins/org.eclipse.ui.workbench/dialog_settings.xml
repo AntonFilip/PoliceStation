@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item value="311" key="DIALOG_X_ORIGIN"/>
+		<item value="0" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.ui.internal.QuickAccess">
+		<item value="556" key="dialogHeight"/>
+		<item value="894" key="dialogWidth"/>
+		<list key="textEntries">
+		</list>
+		<list key="orderedElements">
+		</list>
+		<list key="orderedProviders">
+		</list>
+		<list key="textArray">
+		</list>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="ImportExportAction">
+		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+		</list>
+	</section>
+	<section name="ZipFileImportWizard">
+		<item value="true" key="WizardZipFileResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID"/>
+		<list key="WizardZipFileResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="/home/mirko/workspace-opp/PronalazenjeSumnjivaca/librarije/mysql-connector-java-5.1.40.zip"/>
+			<item value="/home/mirko/workspace-opp/PS.zip"/>
+		</list>
+	</section>
+</section>

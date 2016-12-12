@@ -1,0 +1,13 @@
+package View;
+
+import javax.swing.JLabel;
+
+public class JGlavniIzbornik extends JAbstractPanel {
+	JLabel text  = new JLabel();
+	public JGlavniIzbornik() {
+		
+		text.setText("Cestitam");
+		this.add(text);
+	}
+
+}

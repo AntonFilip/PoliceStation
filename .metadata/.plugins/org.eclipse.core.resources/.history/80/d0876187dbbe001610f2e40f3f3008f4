@@ -1,0 +1,23 @@
+package View;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import Controller.ViewDelegate;
+
+public class JPrijava extends JAbstractFrame {
+	ViewDelegate delegate;
+	JTextField username;
+	JPasswordField password;
+	JButton prijava;
+	
+	public JPrijava(ViewDelegate del){
+		delegate = del;
+		setLayout(new BorderLayout(5, 5));
+		
+	}
+
+}

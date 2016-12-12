@@ -31,15 +31,17 @@ public class Controller implements ViewDelegate {
 		if (policajac == null) {
 			return;
 		} else {
-			SwingUtilities.invokeLater(() -> {
-				mW.getContentPane().removeAll();
-				System.out.println("Ime: " + policajac.getIme());
-				System.out.println("Razina pristupa: " + policajac.getAccess());
-				// System.out.println("tu sam");
-				mW.getContentPane().add(new JGlavniIzbornik(policajac));
-				mW.getContentPane().validate();
-				mW.getContentPane().repaint();
-			});
+			SwingUtilities
+					.invokeLater(() -> {
+						mW.getContentPane().removeAll();
+						System.out.println("Ime: " + policajac.getIme());
+						System.out.println("Razina pristupa: "
+								+ policajac.getAccess());
+						// System.out.println("tu sam");
+						mW.getContentPane().add(new JGlavniIzbornik(policajac));
+						mW.getContentPane().validate();
+						mW.getContentPane().repaint();
+					});
 
 		}
 	}// Otprilike

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="Model.Evidance"/>
+<fullyQualifiedTypeName name="Model.Suspect"/>
+<fullyQualifiedTypeName name="Model.Access"/>
+<fullyQualifiedTypeName name="View.AbstractFrame"/>
+<fullyQualifiedTypeName name="View.JAbstractFrame"/>
+<fullyQualifiedTypeName name="Model.Osoba"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.time.LocalTime"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="Model.Svjedok"/>
+<fullyQualifiedTypeName name="Model.Osumnjiceni"/>
+<fullyQualifiedTypeName name="Model.Dokaz"/>
+<fullyQualifiedTypeName name="Model.Policajac"/>
+<fullyQualifiedTypeName name="View.JGlavniIzbornik"/>
+<fullyQualifiedTypeName name="Model.Slucaj"/>
+<fullyQualifiedTypeName name="Controller.ViewDelegate"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="Controller.Controller"/>
+<fullyQualifiedTypeName name="View.MainWindow"/>
+<fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
+<fullyQualifiedTypeName name="View.JPrijava"/>
+<fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="javax.swing.JPasswordField"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="java.awt.Rectangle"/>
+<fullyQualifiedTypeName name="Controller.RazinaPristupa"/>
+<fullyQualifiedTypeName name="Model.PristupBaziPodataka"/>
+<fullyQualifiedTypeName name="javax.swing.JLabel"/>
+<fullyQualifiedTypeName name="Model.Pozornik"/>
+<fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
+<fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+<fullyQualifiedTypeName name="java.awt.Container"/>
+<fullyQualifiedTypeName name="org.omg.CORBA.portable.ApplicationException"/>
+<fullyQualifiedTypeName name="javax.management.modelmbean.ModelMBeanAttributeInfo"/>
+<fullyQualifiedTypeName name="javafx.application.Application"/>
+<fullyQualifiedTypeName name="com.mysql.jdbc.Driver"/>
+</qualifiedTypeNameHistroy>

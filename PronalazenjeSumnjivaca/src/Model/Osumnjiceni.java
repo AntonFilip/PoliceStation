@@ -2,8 +2,8 @@ package Model;
 
 import java.util.HashSet;
 
-public class Osumnjiceni extends Osoba{
-	
+public class Osumnjiceni extends Osoba {
+
 	HashSet<String> popisAliasa = new HashSet<String>();
 	String adresa;
 	HashSet<String> poznateAdrese = new HashSet<String>();

@@ -1,0 +1,18 @@
+package View;
+
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import Controller.ViewDelegate;
+
+public class JPrijava extends JAbstractFrame {
+	ViewDelegate delegate;
+	JTextField username;
+	JPasswordField password;
+	
+	public JPrijava(ViewDelegate del){
+		delegate = del;
+		
+	}
+
+}

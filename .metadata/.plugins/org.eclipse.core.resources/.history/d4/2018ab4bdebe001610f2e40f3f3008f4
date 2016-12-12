@@ -1,0 +1,13 @@
+package View;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import Controller.ViewDelegate;
+
+public class MainWindow extends JFrame{
+	
+	public MainWindow() {
+	}
+
+}

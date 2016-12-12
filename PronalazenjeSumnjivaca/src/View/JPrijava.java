@@ -21,14 +21,14 @@ public class JPrijava extends JAbstractPanel {
 	private JTextField username;
 	private JPasswordField password;
 	private JButton btnLogIn;
-	
+
 	public JPrijava(ViewDelegate del) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[] { 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0 };
 
 		setLayout(gridBagLayout);
-		
+
 		username = new JTextField();
 		GridBagConstraints gbc_username = new GridBagConstraints();
 		gbc_username.insets = new Insets(0, 0, 5, 0);
@@ -37,7 +37,7 @@ public class JPrijava extends JAbstractPanel {
 		gbc_username.gridy = 0;
 		add(username, gbc_username);
 		username.setColumns(10);
-		
+
 		password = new JPasswordField();
 		GridBagConstraints gbc_password = new GridBagConstraints();
 		gbc_password.insets = new Insets(0, 0, 5, 0);
@@ -46,14 +46,14 @@ public class JPrijava extends JAbstractPanel {
 		gbc_password.gridy = 1;
 		add(password, gbc_password);
 		password.setColumns(10);
-		
+
 		btnLogIn = new JButton("Prijava");
 		GridBagConstraints gbc_btnPrijava = new GridBagConstraints();
 		gbc_btnPrijava.gridx = 0;
 		gbc_btnPrijava.gridy = 2;
 		add(btnLogIn, gbc_btnPrijava);
 		delegate = del;
-		
+
 		btnLogIn.addActionListener(new ActionListener() {
 
 			@Override

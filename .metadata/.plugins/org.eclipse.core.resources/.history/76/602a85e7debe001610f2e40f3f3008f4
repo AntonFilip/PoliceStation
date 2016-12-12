@@ -1,0 +1,11 @@
+package View;
+
+import javax.swing.JPanel;
+
+import Controller.ViewDelegate;
+
+public abstract class JAbstractFrame extends JPanel {
+	
+	ViewDelegate vd;
+
+}
