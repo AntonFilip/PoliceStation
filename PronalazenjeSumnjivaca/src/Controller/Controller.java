@@ -17,18 +17,24 @@ public class Controller implements ViewDelegate {
 
 	public static void main(String[] args) {
 		Controller c = new Controller();
-		SwingUtilities.invokeLater(() -> {
+		/*SwingUtilities.invokeLater(() -> {
 			c.mW = new MainWindow();
 			c.mW.add(new JPrijava(c));
-		});
-
+		});*/
+		Pozornik novi=new Pozornik();
+        Dokaz dokaz=new Dokaz();
+        dokaz.setDNASekvenca("aa");
+        dokaz.setNazivSlucaja("sadada");
+        dokaz.setTipOruzja("maè");
+        dokaz.setKrvnaGrupa("ss#");
+        novi.posaljiUpit(dokaz);
 	}
 
 	@Override
 	public void prijava(String username, String password) {
 		System.out.println(username + " " + password);
 		policajac = PristupBaziPodataka.prijava(username, password);
-
+		 
 		if (policajac == null) {
 			return;
 		} else {
@@ -45,6 +51,7 @@ public class Controller implements ViewDelegate {
 					});
 
 		}
+		
 	}// Otprilike
 
     @Override
@@ -84,7 +91,7 @@ public class Controller implements ViewDelegate {
 
     @Override
     public void posaljiUpitDokaz(int ID, int idSlucaja, String naziv, String krvnaGrupa, String DNASekvenca, String tipOruzja) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -18,7 +18,7 @@ public interface ViewDelegate {
                 String tetovaze, String fizickiNedostatci, String bolesti, String ostaleFiz,
                 String nacinGovora, String razinaApstrIntel, String psiholoskiProblemi, String ostaleKar,
                 String opisKrimDjelatnosti, String popisPovezanihKrim, String status); // upisani podaci -> klik na posalji upit
-	public void posaljiUpitKriminalac(Osumnjiceni kriminalac);
+        public void posaljiUpitKriminalac(Osumnjiceni kriminalac);
         public void posaljiUpitSlucaj(int ID, String naziv, String opis, String glavniOsumnjiceni, 
                 String popisOsumnjicenih, String popisSvjedoka, String popisAdresa, String popisVremena, 
                 String popisDokaza, String popisPolicajaca, String status); // upisani podaci -> klik na posalji upit
