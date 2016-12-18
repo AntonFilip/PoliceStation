@@ -1,7 +1,7 @@
 package Model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class Pozornik extends Osoba {
 		return this.razinaPristupa;
 	}
 
-	static public Pozornik prijava(String korisnickoIme, String lozinka) {
+	static public Pozornik prijava(String korisnickoIme, String lozinka) throws SQLException {
 		return PristupBaziPodataka.prijava(korisnickoIme, lozinka);
 	}
 
@@ -56,28 +56,28 @@ public class Pozornik extends Osoba {
 		return PristupBaziPodataka.izmjena(ime);
 	}
 
-	public List<Map<Dokaz, Integer>> posaljiUpit( Dokaz dokaz){
+	public List<Map<Dokaz, Integer>> posaljiUpit( Dokaz dokaz) throws SQLException{
 		LinkedHashMap<String, String> listaAtributa=new LinkedHashMap();
 		List<Map<Dokaz, Integer>> rezultat=new ArrayList<Map<Dokaz,Integer>>();
 		
 		if(!(dokaz.getDNASekvenca()==null)){
-			listaAtributa.put("nazivDNASekvenca", dokaz.getDNASekvenca());
+			listaAtributa.put("dnasekvenca.nazivDNASekvenca", dokaz.getDNASekvenca());
 		}
 		if(!(dokaz.getNazivSlucaja()==null)){
 		
-			listaAtributa.put("nazivSlu�aja", dokaz.getNazivSlucaja());
+			listaAtributa.put("policijskislučaj.nazivSlučaja", dokaz.getNazivSlucaja());
 		}
 		System.out.println(dokaz.getKrvnaGrupa());
 		
 		if(!(dokaz.getKrvnaGrupa()==null)) {
-			listaAtributa.put("nazivKrvnaGrupa", dokaz.getKrvnaGrupa());
+			listaAtributa.put("krvnagrupa.nazivKrvnaGrupa", dokaz.getKrvnaGrupa());
 		}
 	
 		if(!(dokaz.getTipOruzja()==null)) {
-			listaAtributa.put("nazivOru�ja", dokaz.getTipOruzja());;
+			listaAtributa.put("tiporužja.nazivOružja", dokaz.getTipOruzja());;
 		}
 		if(!(dokaz.getNaziv()==null)) {
-			listaAtributa.put("nazivDokaznogMaterijala", dokaz.getNaziv());
+			listaAtributa.put("dokaznimaterijal.nazivDokaznogMaterijala", dokaz.getNaziv());
 		}
 		System.out.println("lista atributa: "+listaAtributa+"\n");
 		List<LinkedHashMap<String, String>> kombAtributa=Kombinacije.sloziKombinacije(listaAtributa);
@@ -86,12 +86,16 @@ public class Pozornik extends Osoba {
 		}
 		
 		for (LinkedHashMap<String, String> mapa:kombAtributa){
+			if (PristupBaziPodataka.vratiDokaze(mapa)!=null){
 			List<Dokaz> liDokaza=PristupBaziPodataka.vratiDokaze(mapa);
 			Integer postotakSlaganja=mapa.size()/5;
 			for(Dokaz dok: liDokaza){
-				LinkedHashMap<Dokaz, Integer> unos=new LinkedHashMap<>();
-				unos.put(dok, postotakSlaganja);
-				rezultat.add(unos);
+				if (dok!=null) {
+					LinkedHashMap<Dokaz, Integer> unos=new LinkedHashMap<>();
+					unos.put(dok, postotakSlaganja);
+					rezultat.add(unos);
+				}
+			}
 			}
 		}
 		

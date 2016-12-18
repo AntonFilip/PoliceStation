@@ -1,12 +1,14 @@
 package Controller;
 
 import Model.*;
+
+import java.sql.SQLException;
 import java.util.Map;
 
 public interface ViewDelegate {
 
 	public void postaviScenuPrijava(ViewDelegate vd); // pocetak
-        public void prijava(String korisnickoIme, String lozinka);// klik na prijava
+        public void prijava(String korisnickoIme, String lozinka) throws SQLException;// klik na prijava
         public void prikaziGlavniIzbornik(ViewDelegate vd); // uspjesna prijava -> ime, prezime, razina trenutnog korisnika (atribut u controlleru)
 	public void postaviScenuUpitKriminalac(ViewDelegate vd); // klik na postavi upit o kriminalcu
 	public void postaviScenuUpitSlucaj(ViewDelegate vd); // klik na postavi upit o slucaju

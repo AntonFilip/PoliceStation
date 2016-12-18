@@ -1,15 +1,89 @@
 package Model;
 
+import java.lang.Thread.State;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
-import com.mysql.jdbc.Driver;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 
 public class PristupBaziPodataka {
+	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String DB_CONNECTION = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7144607?useUnicode=yes&characterEncoding=UTF-8";	
+	private static final String DB_USER = "sql7144607";
+	private static final String DB_PASSWORD = "PJ87Rlph4r";
+	
+	
+	private static Connection getDBConnection() {
+		Connection dbConnection = null;
+		try {
+			Class.forName(DB_DRIVER);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,DB_PASSWORD);
+			return dbConnection;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return dbConnection;
+	}
+	
+	
+	
+	public static Pozornik prijava (String username, String password) throws SQLException {
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String query = "SELECT osoba.imeosobe, osoba.prezimeosobe, policajac.razinapristupa "
+						+ "FROM osoba JOIN policajac ON osoba.oib=policajac.osobaoib "
+						+ "WHERE policajac.korisnickoime= ? AND policajac.lozinka= ? ";
+		
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement=dbConnection.prepareStatement(query);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+			
+			ResultSet rs =preparedStatement.executeQuery();
+			
+		
+			while (rs.next()) {
+				switch (rs.getString(3)) {
+				case "osnovna":
+					Pozornik pozornik = new Pozornik(rs.getString(1),
+							rs.getString(2));
+					return pozornik;
 
+				case "srednja":
+					Pozornik narednik = new Narednik(rs.getString(1),
+							rs.getString(2));
+					return narednik;
+				
+				case "visoka":
+					Pozornik kapetan = new Kapetan(rs.getString(1),
+							rs.getString(2));
+					return kapetan;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+		}
+		return null;
+	}
+	
 	public static String posaljiUpit(String upit) {
 		return null;
 	}
@@ -18,108 +92,92 @@ public class PristupBaziPodataka {
 		return 0;
 	}
 
-	public static Pozornik prijava(String username, String password) {
-		// Ovdje se spaja na server i ide provjera u bazu podataka
-		String query = "SELECT osoba.imeosobe, osoba.prezimeosobe, policajac.razinapristupa FROM osoba JOIN policajac ON osoba.oib=policajac.osobaoib WHERE "
-				+ "policajac.korisnickoime=\""
-				+ username
-				+ "\" AND policajac.lozinka=\"" + password + "\"";
-
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7144607",
-					"sql7144607", "PJ87Rlph4r");
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+	
+	
+	
+	public static List<Dokaz> vratiDokaze (LinkedHashMap<String, String> kombinacija) throws SQLException {
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+		Context<Dokaz> dokazi=new Context<>(new OpisDokaza<>());
+		String query = dokazi.izgenerirajUpit(kombinacija);
 		
-			while (rs.next()) {
-				switch (rs.getString(3)) {
-				case "osnovna":
-					Pozornik pozornik = new Pozornik(rs.getString(1),
-							rs.getString(2));
-					con.close();
-					return pozornik;
-					// break;
-
-				case "srednja":
-					Pozornik narednik = new Narednik(rs.getString(1),
-							rs.getString(2));
-					return narednik;
-					// break;
-
-				case "visoka":
-					Pozornik kapetan = new Kapetan(rs.getString(1),
-							rs.getString(2));
-					return kapetan;
-					// break;
-
-				}
-
+		
+		try {
+			dbConnection = getDBConnection();
+			if (dbConnection==null) {System.out.println("fail");
+				
 			}
-			// con.close();
-
+			System.out.println(query);
+			preparedStatement=dbConnection.prepareStatement(query);
+			
+			int z=1;
+			System.out.println(kombinacija.size());
+			for (Entry<String, String> str : kombinacija.entrySet()){
+				preparedStatement.setString(z, str.getValue());
+				System.out.println(z+str.getValue());
+				z++;
+				
+			}
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if(!rs.first()) System.out.println("Nema poklapanja u bazi :( :( :(");
+			while (rs.next()) {
+				System.out.println("vide se rez");
+			}
 		} catch (Exception e) {
 			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if (preparedStatement != null) {
+				System.out.println("zatvor");
+				preparedStatement.close();
+			}
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
 		}
 		return null;
-
-		// if () postoji
-		// return new Pozornik();
-		// else return null;
-	}
-	
-	public static List<Dokaz> vratiDokaze (LinkedHashMap<String, String> kombinacija) {
-		String where="";
-		int i=0;
-		for (Entry<String, String> entry: kombinacija.entrySet()){
-			if (i==0) where+= " "+entry.getKey()+"="+entry.getValue()+" ";
-			else where+= " AND "+entry.getKey()+"="+entry.getValue()+" ";
-			i++;
-		}
-		
-		// Ovdje se spaja na server i ide provjera u bazu podataka
-		String query = "SELECT DokazniMaterijal.*, KrvnaGrupa.nazivKrvnaGrupa,PolicijskiSluèaj.nazivSluèaja"
-				+ "OtisakPrsta.fotografijaURL,DNASekvenca.nazivDNASekvenca,TipOružja.nazivOružja "
-				+ "FROM DokazniMaterijal join ListaDNASekvenciNaDokaznomMaterijalu on dokazniMaterijalID=brojDokaznogMaterijala join"
-				+ " DNASekvenca on DNASekvenca.dnaSekvencaID=ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID join "
-				+ "ListaKrvnihGrupaNaDokaznomMaterijalu on dokazniMaterijalID=brojDokaznogMaterijala join "
-				+ "KrvnaGrupa on KrvnaGrupa.krvnaGrupaID=ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID join "
-				+ "ListaOružja on ListaOružja.brojDokaznogMaterijala=DokazniMaterijal.brojDokaznogMaterijala join "
-				+ "TipOružja on TipOružja.tipOružjaID=ListaOružja.tipOružjaID join "
-				+ "PolicijskiSluèaj "
-				+ "WHERE "+where;
-		
-		String kar = "";
-		int j=0;
-		for (Entry<String, String> entry: kombinacija.entrySet()){
-			if (j==0) kar+= " "+entry.getKey()+"-"+entry.getValue();
-			else kar+= ", "+entry.getKey()+"-"+entry.getValue()+" ";
-			i++;
-		}
-		
-		String textOpis =" Traži se dokaz sa sljedeæim karakteristikama: "+kar;
 		
 		
-		try {
+		/*try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(
+			con = DriverManager.getConnection(
 					"jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7144607",
 					"sql7144607", "PJ87Rlph4r");
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-		
+			
+			PreparedStatement st=con.prepareStatement(query);
+			int z=0;
+			for (z=0;z<kombinacija.size();z++){
+				st.setString(z+1, polje[z]);
+				System.out.println(z+1+", " +polje[z]);
+			}
+			//st.executeQuery();
+			//Statement stmt = con.createStatement();
+			ResultSet rs = st.executeQuery();
+			con.commit();
+			System.out.println(st);
+			if(rs==null)System.out.println("hehehe");
 			while (rs.next()) {
 				System.out.println(rs);
 			}
 			// con.close();
 
 		} catch (Exception e) {
+	        if (con != null) {
+	            try {
+	                System.err.print("Transaction is being rolled back");
+	                con.rollback();
+	            } catch(SQLException excep) {
+	                System.out.println(excep);
+	            }
+	        }
 			System.out.println(e);
 		}
 		return null;
+	}*/
+	
 	}
-	
-	
 
 }

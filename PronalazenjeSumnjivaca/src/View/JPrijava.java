@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -62,7 +63,12 @@ public class JPrijava extends JAbstractPanel {
 
 					@Override
 					public void run() {
-						delegate.prijava(username.getText(), password.getText());
+						try {
+							delegate.prijava(username.getText(), password.getText());
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				});
 				t.start();

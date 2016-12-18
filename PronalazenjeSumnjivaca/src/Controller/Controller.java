@@ -4,6 +4,9 @@ import javax.swing.SwingUtilities;
 
 import Model.*;
 import View.*;
+
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 public class Controller implements ViewDelegate {
@@ -15,23 +18,29 @@ public class Controller implements ViewDelegate {
 	Dokaz dokaz;
 	Osumnjiceni osumjiceni;
 
-	public static void main(String[] args) {
-		Controller c = new Controller();
-		/*SwingUtilities.invokeLater(() -> {
+	public static void main(String[] args) throws SQLException {
+		/*Controller c = new Controller();
+		SwingUtilities.invokeLater(() -> {
 			c.mW = new MainWindow();
 			c.mW.add(new JPrijava(c));
 		});*/
-		Pozornik novi=new Pozornik();
+		/*Pozornik novi=new Pozornik();
         Dokaz dokaz=new Dokaz();
         dokaz.setDNASekvenca("aa");
         dokaz.setNazivSlucaja("sadada");
-        dokaz.setTipOruzja("maè");
+        dokaz.setTipOruzja("maï¿½");
         dokaz.setKrvnaGrupa("ss#");
-        novi.posaljiUpit(dokaz);
+        novi.posaljiUpit(dokaz);*/
+        
+        Pozornik novi=new Pozornik();
+        Dokaz dokaz=new Dokaz();
+        dokaz.setTipOruzja("Glock");
+        dokaz.setKrvnaGrupa("A");
+        List<Map<Dokaz, Integer>> rezultat = novi.posaljiUpit(dokaz);
 	}
 
 	@Override
-	public void prijava(String username, String password) {
+	public void prijava(String username, String password) throws SQLException {
 		System.out.println(username + " " + password);
 		policajac = PristupBaziPodataka.prijava(username, password);
 		 
