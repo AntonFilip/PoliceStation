@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class Osumnjiceni extends Osoba {
 
@@ -14,5 +15,5 @@ public class Osumnjiceni extends Osoba {
 	String opisKriminalnihDjelatnosti;
 	HashSet<Osumnjiceni> popisPovezanihKriminalaca = new HashSet<Osumnjiceni>();
 	TrenutniStatusKriminalca status;
-
+	List<String> fotografije;
 }

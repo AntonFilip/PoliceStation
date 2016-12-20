@@ -7,14 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
 
 public class PristupBaziPodataka {
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7144607?useUnicode=yes&characterEncoding=UTF-8";	
-	private static final String DB_USER = "sql7144607";
-	private static final String DB_PASSWORD = "PJ87Rlph4r";
+	private static final String DB_CONNECTION = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7150265?useUnicode=yes&characterEncoding=UTF-8";	
+	private static final String DB_USER = "sql7150265";
+	private static final String DB_PASSWORD = "Xshx7bdSHe";
 	
 	
 	private static Connection getDBConnection() {
@@ -39,9 +37,9 @@ public class PristupBaziPodataka {
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String query = "SELECT osoba.imeosobe, osoba.prezimeosobe, policajac.razinapristupa "
-						+ "FROM osoba JOIN policajac ON osoba.oib=policajac.osobaoib "
-						+ "WHERE policajac.korisnickoime= ? AND policajac.lozinka= ? ";
+		String query = "SELECT Osoba.imeosobe, Osoba.prezimeosobe, Policajac.razinapristupa "
+						+ "FROM Osoba JOIN policajac ON osoba.oib=policajac.osobaoib "
+						+ "WHERE Policajac.korisnickoime= ? AND policajac.lozinka= ? ";
 		
 		try {
 			dbConnection = getDBConnection();
@@ -96,11 +94,12 @@ public class PristupBaziPodataka {
 	
 	
 	public static List<Dokaz> vratiDokaze (LinkedHashMap<String, String> kombinacija) throws SQLException {
+		List<Dokaz> listaDokaza=new ArrayList<>();
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
-		Context<Dokaz> dokazi=new Context<>(new OpisDokaza<>());
+		Context<Dokaz> dokazi=new Context<>(new Dokaz());
 		String query = dokazi.izgenerirajUpit(kombinacija);
-		
+		System.out.println("***************"+query);
 		
 		try {
 			dbConnection = getDBConnection();
@@ -123,8 +122,11 @@ public class PristupBaziPodataka {
 			
 			if(!rs.first()) System.out.println("Nema poklapanja u bazi :( :( :(");
 			while (rs.next()) {
+				Dokaz dokaz= new Dokaz(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(8), rs.getString(9), rs.getString(7));
+				listaDokaza.add(dokaz);
 				System.out.println("vide se rez");
 			}
+			return listaDokaza;
 		} catch (Exception e) {
 			System.out.println(e);
 			e.printStackTrace();
