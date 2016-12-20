@@ -3,9 +3,12 @@ package Controller;
 import Model.*;
 import View.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,67 +16,77 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Controller extends Application implements ViewDelegate, ShowScene {
-        
-        private Stage stage;
-        
+
+	private Stage stage;
+
 	Pozornik policajac;
 	Slucaj slucaj;
 	Dokaz dokaz;
-	Osumnjiceni osumjiceni;   
-        
-        @Override
-        public void start(Stage primaryStage) throws Exception {
-            stage = primaryStage;
-            postaviScenuPrijava();
-        }
-    
-        public static void main(String[] args) {
-            launch(args);
-        }
-        
-        @Override
-        public void postaviScenuPrijava() {    
-            FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/View/FXMLPrijava.fxml"));
-            Parent loadScreen = null;
-            try {
-                loadScreen = (Parent) myLoader.load();
-            } catch (IOException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            ControlledScreen prijavaController = (PrijavaController) myLoader.getController();
-            prijavaController.init(this);
-            Scene scene = new Scene(loadScreen);
-            stage.setScene(scene);
-            stage.show();
-        }
-        
+	Osumnjiceni osumjiceni;
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		stage = primaryStage;
+		postaviScenuPrijava();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void postaviScenuPrijava() {
+		Loader loader = new Loader("/View/FXMLPrijava.fxml");
+		ControlledScreen prijavaController = (PrijavaController) loader.getMyLoader().getController();
+		prijavaController.init(this);
+		Scene scene = new Scene(loader.getLoadScreen());
+		stage.setScene(scene);
+		stage.show();
+	}
+
 	@Override
 	public void prijava(String username, String password) throws IOException {
 		System.out.println(username + " " + password);
 		policajac = new Pozornik();
-                        /*PristupBaziPodataka.prijava(username, password);*/
+		
+//TODO		try {
+//			policajac = PristupBaziPodataka.prijava(username, password);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		if (policajac == null) {
+//			return;
+//		} else {
+//			prikaziGlavniIzbornik(policajac);
+//		}
+
+		
 		if (policajac == null) {
 			return;
 		} else {
-                    prikaziGlavniIzbornik("Mirko", "Glupan", RazinaPristupa.NISKA);   
-                }
+			prikaziGlavniIzbornik("Mirko", "Glupan", RazinaPristupa.NISKA);
+		}
 	}
         
     @Override
-    public void prikaziGlavniIzbornik(String ime, String prezime, RazinaPristupa razina) {
-        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/View/FXMLGlavniIzbornik.fxml"));
-        Parent loadScreen = null;
-            try {
-                loadScreen = (Parent) myLoader.load();
-            } catch (IOException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        GlavniIzbornikController glavniIzbornikController = (GlavniIzbornikController) myLoader.getController();
+    public void prikaziGlavniIzbornik(String ime, String prezime, RazinaPristupa razina) { //TODO treba primati argument policajac
+    	Loader loader = new Loader("/View/FXMLGlavniIzbornik.fxml");
+        GlavniIzbornikController glavniIzbornikController = (GlavniIzbornikController) loader.getMyLoader().getController();
         glavniIzbornikController.init(this);
         glavniIzbornikController.setIme(ime); //ovdje možemo postavljati neke podatke na scenu
-        Scene scene = new Scene(loadScreen);         
+        Scene scene = new Scene(loader.getLoadScreen());         
         stage.setScene(scene);
         stage.show();
+        
+        
+//        try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        odjava();
     }
 
     @Override
@@ -153,12 +166,16 @@ public class Controller extends Application implements ViewDelegate, ShowScene {
 
     @Override
     public void pristupiDnevniku() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void odjava() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        policajac = null;
+    	slucaj = null;
+    	dokaz = null;
+    	osumjiceni = null;
+    	postaviScenuPrijava();
     }
 
     @Override
@@ -211,5 +228,34 @@ public class Controller extends Application implements ViewDelegate, ShowScene {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+ 
+	private class Loader {
+		FXMLLoader myLoader;
+		Parent loadScreen;
+		/**
+		 * @return the myLoader
+		 */
+		public FXMLLoader getMyLoader() {
+			return myLoader;
+		}
+
+		/**
+		 * @return the loadScreen
+		 */
+		public Parent getLoadScreen() {
+			return loadScreen;
+		}
+
+		public Loader(String argument) {
+			myLoader = new FXMLLoader(getClass().getResource(argument));
+			loadScreen = null;
+			try {
+				loadScreen = (Parent) myLoader.load();
+			} catch (IOException ex) {
+				Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+	}
+
 }
