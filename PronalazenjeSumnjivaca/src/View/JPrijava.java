@@ -63,12 +63,12 @@ public class JPrijava extends JAbstractPanel {
 
 					@Override
 					public void run() {
-						try {
+	/*					try {
 							delegate.prijava(username.getText(), password.getText());
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
+						}*/
 					}
 				});
 				t.start();
