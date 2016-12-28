@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.GlavniIzbornikController">
+   <children>
+      <SplitPane dividerPositions="0.1285140562248996" orientation="VERTICAL" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxHeight="60.0" minHeight="60.0" minWidth="0.0" prefHeight="41.0" prefWidth="698.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="toplabela" prefHeight="27.0" prefWidth="240.0" textAlignment="RIGHT" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <SplitPane dividerPositions="0.2423728813559322" layoutX="2.0" prefHeight="333.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="postaviUpit" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#klikPostaviUpit" prefHeight="25.0" prefWidth="103.0" text="Postavi Upit" />
+                              <Button fx:id="statistika" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" onAction="#postaviScenuStatistike" prefHeight="25.0" prefWidth="103.0" text="Statistika" />
+                              <Button fx:id="izmjeni" layoutX="24.0" layoutY="81.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Izmjeni" />
+                              <Button fx:id="dodaj" layoutX="24.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Dodaj" />
+                              <Button fx:id="dnevnik" layoutX="24.0" layoutY="149.0" mnemonicParsing="false" onAction="#postaviScenuDnevnika" prefHeight="33.0" prefWidth="103.0" text="Dnevnik pretrazivanja" />
+                           </children>
+                        </AnchorPane>
+                        <Pane fx:id="pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
