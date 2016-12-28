@@ -1,12 +1,12 @@
 package Model;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import javax.swing.undo.UndoableEditSupport;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import Controller.RazinaPristupa;
 
@@ -58,49 +58,34 @@ public class Pozornik extends Osoba {
 		return PristupBaziPodataka.izmjena(ime);
 	}
 
-	public Map<Dokaz, Float> posaljiUpit( Dokaz dokaz) throws SQLException{
-		LinkedHashMap<String, String> listaAtributa=new LinkedHashMap();
-		List<Map<Dokaz, Integer>> rezultat=new ArrayList<Map<Dokaz,Integer>>();
-		LinkedHashMap<Dokaz, Float> unos=new LinkedHashMap<>();
-		Integer brojAtributaDokaza=0;
-
-		if(!(dokaz.getDNASekvenca()==null)){
-			listaAtributa.put("DNASekvenca.nazivDNASekvenca", dokaz.getDNASekvenca());
-			brojAtributaDokaza++;
-		}
-		if(!(dokaz.getNazivSlucaja()==null)){
-			listaAtributa.put("PolicijskiSlučaj.nazivSlučaja", dokaz.getNazivSlucaja());
-			brojAtributaDokaza++;
-		}
-
-		if(!(dokaz.getKrvnaGrupa()==null)) {
-			listaAtributa.put("KrvnaGrupa.nazivKrvnaGrupa", dokaz.getKrvnaGrupa());
-			brojAtributaDokaza++;
-		}
-
-		if(!(dokaz.getTipOruzja()==null)) {
-			listaAtributa.put("TipOružja.nazivOružja", dokaz.getTipOruzja());;
-			brojAtributaDokaza++;
-		}
-		if(!(dokaz.getNaziv()==null)) {
-			listaAtributa.put("DokazniMaterijal.nazivDokaznogMaterijala", dokaz.getNaziv());
-			brojAtributaDokaza++;
-		}
-
-
-		List<LinkedHashMap<String, String>> kombAtributa=Kombinacije.sloziKombinacije(listaAtributa);
-		for (LinkedHashMap<String, String> mapa:kombAtributa){
+	public Map<Dokaz, Float> posaljiUpit(Dokaz dokaz) throws SQLException{		
+		Map<String, String> listaAtributa=new LinkedHashMap<>();
+		Integer brojAtributaDokaza;
+		Map<Dokaz, Float> unos=new LinkedHashMap<>();
+		Context<Dokaz> dokazi=new Context<>(new Dokaz());
+		brojAtributaDokaza=dokazi.generirajKombinacijeAtributa(dokaz, listaAtributa);
+		
+		List<Map<String, String>> kombAtributa=Kombinacije.sloziKombinacije(listaAtributa);
+		
+		kombAtributa.toArray();
+		for (int i=kombAtributa.size()-1;i>=0;i--){
+			Map<String, String> mapa=kombAtributa.get(i);
 			if (PristupBaziPodataka.vratiDokaze(mapa)!=null){
 				List<Dokaz> liDokaza=PristupBaziPodataka.vratiDokaze(mapa);
 				Float postotakSlaganja=(float) (mapa.size())/(float) brojAtributaDokaza *100;	
 				for(Dokaz dok: liDokaza){
 					if (dok!=null) {
-						unos.put(dok, postotakSlaganja);
+						if(!unos.containsKey(dok)) unos.put(dok, postotakSlaganja);
+						
 					}
 				}
 			}
 		}
-		System.out.println(unos);
+		
+		for (Entry<Dokaz, Float> en:unos.entrySet()){
+			System.out.println("PostotakSlaganja: "+en.getValue()+ "   Dokaz: " + en.getKey());
+		}
+		
 		return unos;
 	}
 

@@ -1,43 +1,69 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
-import javax.xml.crypto.dsig.spec.SignatureMethodParameterSpec;
 
-public class Dokaz extends PristupBaziPodataka implements Strategija<Dokaz> {
 
-	
+public class Dokaz implements StrategijaUpit<Dokaz> {
+
 	private Integer ID;
 	private String  nazivSlucaja;
 	private String  naziv;
-	private String  krvnaGrupa;
-	private String  DNASekvenca;
-	private String  tipOruzja;
-	private String  otisakPrsta; 
 	private String  fotografija;
-	
+	private Set<String> krvnaGrupa;
+	private Set<String> DNASekvenca;
+	private Set<String> tipOruzja;
+	private Set<String> otisakPrsta; 
+
+
 
 	public Dokaz() {
 		super();
+		krvnaGrupa=new LinkedHashSet<>();
+		DNASekvenca=new LinkedHashSet<>();
+		tipOruzja=new LinkedHashSet<>();
+		otisakPrsta=new LinkedHashSet<>();
 	}
 
-	public Dokaz(Integer iD, String naziv,String fotografija, String krvnaGrupa, String nazivSlucaja,String dNASekvenca, String tipOruzja,
-			String otisakPrsta) {
-		super();
-		ID = iD;
+
+	public Dokaz(Integer iD, String nazivSlucaja, String naziv, List<String> krvnaGrupa, List<String> dNASekvenca,
+			List<String> tipOruzja, List<String> otisakPrsta, String fotografija) {
+
+		this.ID = iD;
 		this.nazivSlucaja = nazivSlucaja;
 		this.naziv = naziv;
-		this.krvnaGrupa = krvnaGrupa;
-		DNASekvenca = dNASekvenca;
-		this.tipOruzja = tipOruzja;
-		this.otisakPrsta = otisakPrsta;
-		this.fotografija = fotografija;
+		this.fotografija=fotografija;
+
+		this.tipOruzja=new LinkedHashSet<>(tipOruzja);
+		this.otisakPrsta=new LinkedHashSet<>(otisakPrsta);
+		this.DNASekvenca=new LinkedHashSet<>(dNASekvenca);
+		this.krvnaGrupa=new LinkedHashSet<>(krvnaGrupa);
+	}
+
+	public Dokaz(Integer iD, String nazivSlucaja, String naziv, String krvnaGrupa, String dNASekvenca,
+			String tipOruzja, String otisakPrsta, String fotografija) {
+
+		this.ID = iD;
+		this.nazivSlucaja = nazivSlucaja;
+		this.naziv = naziv;
+
+		this.tipOruzja=new LinkedHashSet<>();
+		this.tipOruzja.add(tipOruzja);
+		this.otisakPrsta=new LinkedHashSet<>();
+		this.otisakPrsta.add(otisakPrsta);
+		this.DNASekvenca=new LinkedHashSet<>();
+		this.DNASekvenca.add(dNASekvenca);
+		this.krvnaGrupa=new LinkedHashSet<>();
+		this.krvnaGrupa.add(krvnaGrupa);
 	}
 
 
-
-	
 	public String generirajTextualniOpis (Map<String, String> kombinacija) {
 		String textOpis="";
 		String kar ="";	
@@ -50,46 +76,115 @@ public class Dokaz extends PristupBaziPodataka implements Strategija<Dokaz> {
 		textOpis +=" Traži se dokaz sa sljedećim karakteristikama: "+kar;
 		return  textOpis;
 	}
-	
-	
+
 	@Override
-	public String generirajSQLupit(Map<String, String> kombinacija){
-		String where="";
-		String query;
-		Boolean prvi= true;
+	public Integer generirajKombinacijeAtributa(Dokaz dokaz,Map<String, String> listaAtributa) {
+		Integer brojAtributaDokaza=0;
 		
-		for (Entry<String, String> entry: kombinacija.entrySet()){
-			if(prvi) {
-				where+=entry.getKey()+"="+" ?"; prvi=false;
+		if(dokaz.getDNASekvenca()!=null){
+			for (String s:dokaz.getDNASekvenca()){
+				listaAtributa.put(s, "DNASekvenca.nazivDNASekvenca");
+				brojAtributaDokaza++;
 			}
-			else where+= " AND "+entry.getKey()+"="+" ?";	
 		}
-		query = "SELECT distinct DokazniMaterijal.*, KrvnaGrupa.nazivKrvnaGrupa, "
-				+"				 PolicijskiSlučaj.nazivSlučaja, OtisakPrsta.fotografijaURL, "
-				+"				 DNASekvenca.nazivDNASekvenca, TipOružja.nazivOružja "
-				+"FROM  DokazniMaterijal" 
-				+"		left  join ListaDNASekvenciNaDokaznomMaterijalu "
-				+"   		on ListaDNASekvenciNaDokaznomMaterijalu.dokazniMaterijalID=DokazniMaterijal.brojDokaznogMaterijala"
-				+"      left  join DNASekvenca" 
-				+"   		on DNASekvenca.dnaSekvencaID=ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID"
-				+"      left  join ListaKrvnihGrupaNaDokaznomMaterijalu" 	 
-				+"   		on ListaKrvnihGrupaNaDokaznomMaterijalu.dokazniMaterijalID=DokazniMaterijal.brojDokaznogMaterijala"
-				+"      left  join KrvnaGrupa" 	  
-				+"  		on KrvnaGrupa.krvnaGrupaID=ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID"
-				+"      left  join ListaOružja" 	  
-				+"   		on ListaOružja.brojDokaznogMaterijala=DokazniMaterijal.brojDokaznogMaterijala"
-				+"      left  join TipOružja"    
-				+"   		on TipOružja.tipOružjaID=ListaOružja.tipOružjaID "
-				+"      left  join PolicijskiSlučaj" 	   
-				+"   		on PolicijskiSlučaj.brojSlučaja=DokazniMaterijal.brojSlučaja "
-				+"      left  join ListaOtisakaPrstijuNaDokaznomMaterijalu" 	
-				+" 	    	on ListaOtisakaPrstijuNaDokaznomMaterijalu.dokazniMaterijalID=DokazniMaterijal.brojDokaznogMaterijala"				
-				+"      left  join OtisakPrsta "    
-				+"			on OtisakPrsta.otisakPrstaID=ListaOtisakaPrstijuNaDokaznomMaterijalu.otisakPrstaID "
-				+"WHERE ";
 		
-		System.out.println(query+where);
-		return query+where;
+		if(dokaz.getNazivSlucaja()!=null){
+			listaAtributa.put( dokaz.getNazivSlucaja(),"PolicijskiSlučaj.nazivSlučaja");
+			brojAtributaDokaza++;
+		}
+
+		if(dokaz.getKrvnaGrupa()!=null) {
+			for (String s:dokaz.getKrvnaGrupa()){
+				listaAtributa.put(s,"KrvnaGrupa.nazivKrvnaGrupa");
+				brojAtributaDokaza++;
+			}
+		}
+
+		if(dokaz.getTipOruzja()!=null) {
+			for(String s:dokaz.getTipOruzja()){
+				listaAtributa.put( s,"TipOružja.nazivOružja");
+				brojAtributaDokaza++;
+			}
+		}
+		if(dokaz.getNaziv()!=null) {
+			listaAtributa.put(dokaz.getNaziv(),"DokazniMaterijal.nazivDokaznogMaterijala");
+			brojAtributaDokaza++;
+		}
+		
+		return brojAtributaDokaza;
+	}
+
+	@Override
+	public ArrayList<String> generirajSQLupit(Map<String, String> kombinacija){
+		String select=" SELECT distinct  DokazniMaterijal.brojDokaznogMaterijala,"
+				+ "						DokazniMaterijal.nazivDokaznogMaterijala, "
+				+ "						DokazniMaterijal.fotografijaDokaznogMaterijalaURL, "
+				+ "						PolicijskiSlučaj.nazivSlučaja ";
+		
+		String from=" FROM  DokazniMaterijal  "
+				+"		left  join PolicijskiSlučaj on PolicijskiSlučaj.brojSlučaja=DokazniMaterijal.brojSlučaja ";
+		String where="";
+		Boolean prvi= true;
+		Integer brojKrvnihGrupa=0;
+		Integer brojOružja=0;
+		Integer brojDNA=0;
+		String oruzje="";
+		String krvneGrupe="";
+		String dnaSek="";
+
+
+
+		for (Entry<String, String> entry: kombinacija.entrySet()){
+			String value=entry.getValue();
+			if(value.equals("DNASekvenca.nazivDNASekvenca")){
+				brojDNA++;
+				from+="left  join ListaDNASekvenciNaDokaznomMaterijalu l"+brojDNA
+						+" on l"+brojDNA+".dokazniMaterijalID=DokazniMaterijal.brojDokaznogMaterijala "
+						+"      left  join DNASekvenca dna"+brojDNA 
+						+"   		on dna"+brojDNA +".dnaSekvencaID=l"+brojDNA+".dnaSekvencaID ";
+				dnaSek+=", dna"+brojDNA+".nazivDNASekvenca ";
+				if (prvi) {
+					where+=" WHERE dna"+brojDNA+".nazivDNASekvence=\""+entry.getKey()+"\""; 
+					prvi=false;
+				}else where+= " AND dna"+brojDNA+".nazivDNASekvence=\""+entry.getKey()+"\"";	
+			}	
+
+			else if(value.equals("KrvnaGrupa.nazivKrvnaGrupa"))	{
+				brojKrvnihGrupa++;
+				from+=" left  join ListaKrvnihGrupaNaDokaznomMaterijalu lk"+brojKrvnihGrupa
+					+" on lk"+brojKrvnihGrupa+".dokazniMaterijalID=DokazniMaterijal.brojDokaznogMaterijala "
+					+ "    left  join KrvnaGrupa k"+brojKrvnihGrupa 	  
+					+"  		on k"+brojKrvnihGrupa+".krvnaGrupaID=lk"+brojKrvnihGrupa+".krvnaGrupaID ";
+				krvneGrupe+=", k"+brojKrvnihGrupa+".nazivKrvnaGrupa ";
+				if(prvi) {where+=" WHERE k"+brojKrvnihGrupa+".nazivKrvnaGrupa=\""+entry.getKey()+"\"";
+					prvi=false;
+				}
+				else where+=" AND k"+brojKrvnihGrupa+".nazivKrvnaGrupa=\""+entry.getKey()+"\"";
+			}
+			
+			else if(value.equals("TipOružja.nazivOružja"))	{
+				brojOružja++;
+				from+="left  join ListaOružja lo"+brojOružja
+						+" 			on lo"+brojOružja+".brojDokaznogMaterijala=DokazniMaterijal.brojDokaznogMaterijala"      
+						+"		left  join TipOružja t"+brojOružja    
+						+"   		on t"+brojOružja+".tipOružjaID=lo"+brojOružja+".tipOružjaID ";
+				
+				oruzje+=", t"+brojOružja+".nazivOružja";
+				if(prvi) {
+					where+=" WHERE t"+brojOružja+".nazivOružja=\""+entry.getKey()+"\"";
+					prvi=false;
+				}
+				else where+=" AND t"+brojOružja+".nazivOružja=\""+entry.getKey()+"\"";
+			}
+		}
+		select+=krvneGrupe+dnaSek+oruzje;
+		ArrayList<String> rez=new ArrayList<>();
+		rez.add(select+from+where);
+		rez.add(brojDNA.toString());
+		rez.add(brojKrvnihGrupa.toString());
+		rez.add(brojOružja.toString());
+		
+		return rez;
 	}
 
 	public Integer getID() {
@@ -116,37 +211,57 @@ public class Dokaz extends PristupBaziPodataka implements Strategija<Dokaz> {
 		this.naziv = naziv;
 	}
 
-	public String getKrvnaGrupa() {
+	public Set<String> getKrvnaGrupa() {
 		return krvnaGrupa;
 	}
 
-	public void setKrvnaGrupa(String krvnaGrupa) {
-		this.krvnaGrupa = krvnaGrupa;
+	public boolean addKrvnaGrupa(String krvnaGrupa){
+		return this.krvnaGrupa.add(krvnaGrupa);
 	}
 
-	public String getDNASekvenca() {
+	public void addAllKrvnaGrupa(Collection<String> krvnaGrupa) {
+		this.krvnaGrupa.addAll(krvnaGrupa);
+	}
+
+	public Set<String> getDNASekvenca() {
 		return DNASekvenca;
 	}
 
-	public void setDNASekvenca(String dNASekvenca) {
-		DNASekvenca = dNASekvenca;
+	public boolean addDNASekvenca(String dna){
+		return DNASekvenca.add(dna);
 	}
 
-	public String getTipOruzja() {
+	public void addAllDNASekvenca(Collection<String> dNASekvenca) {
+		DNASekvenca.addAll(dNASekvenca);
+	}
+
+
+	public Set<String> getTipOruzja() {
 		return tipOruzja;
 	}
 
-	public void setTipOruzja(String tipOruzja) {
-		this.tipOruzja = tipOruzja;
+	public boolean addTipOruzja(String oruzje){
+		return tipOruzja.add(oruzje);
 	}
 
-	public String getOtisakPrsta() {
+	public void addAllTipOruzja(Collection <String> tipOruzja) {
+		this.tipOruzja.addAll(tipOruzja);
+	}
+
+
+	public Set<String> getOtisakPrsta() {
 		return otisakPrsta;
 	}
 
-	public void setOtisakPrsta(String otisakPrsta) {
-		this.otisakPrsta = otisakPrsta;
+	public boolean addOtisakPrsta(String otisak){
+		return otisakPrsta.add(otisak);
 	}
+
+
+	public void setOtisakPrsta(Collection<String> otisakPrsta) {
+		this.otisakPrsta.addAll(otisakPrsta);
+	}
+
 
 	public String getFotografija() {
 		return fotografija;
@@ -158,10 +273,41 @@ public class Dokaz extends PristupBaziPodataka implements Strategija<Dokaz> {
 
 	@Override
 	public String toString() {
-		return "Dokaz [ID=" + ID + ", nazivSlucaja=" + nazivSlucaja + ", naziv=" + naziv + ", krvnaGrupa=" + krvnaGrupa
+		return "Dokaz [ID=" + ID +  ", naziv=" + naziv + ", krvnaGrupa=" + krvnaGrupa
 				+ ", DNASekvenca=" + DNASekvenca + ", tipOruzja=" + tipOruzja + ", otisakPrsta=" + otisakPrsta
 				+ ", fotografija=" + fotografija + "]";
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ID == null) ? 0 : ID.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dokaz other = (Dokaz) obj;
+		if (ID == null) {
+			if (other.ID != null)
+				return false;
+		} else if (!ID.equals(other.ID))
+			return false;
+		return true;
+	}
+
+
 	
-	
+
+
+
 }

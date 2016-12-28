@@ -1,11 +1,11 @@
 package Model;
 
-import java.lang.Thread.State;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Map;
 
 
 public class PristupBaziPodataka {
@@ -91,40 +91,54 @@ public class PristupBaziPodataka {
 	}
 
 	
-	
-	
-	public static List<Dokaz> vratiDokaze (LinkedHashMap<String, String> kombinacija) throws SQLException {
-		List<Dokaz> listaDokaza=new ArrayList<>();
+	public static List<Dokaz> vratiDokaze (Map<String, String> mapa) throws SQLException {
 		Connection dbConnection = null;
-		PreparedStatement preparedStatement = null;
+		Statement statement = null;
 		Context<Dokaz> dokazi=new Context<>(new Dokaz());
-		String query = dokazi.izgenerirajUpit(kombinacija);
-		System.out.println("***************"+query);
-		
+		ArrayList<String> upit=dokazi.izgenerirajUpit(mapa);
+		String query = upit.get(0);
+		Integer brojDNA=Integer.parseInt(upit.get(1));
+		Integer brojKrvnihGrupa=Integer.parseInt(upit.get(2));
+		Integer brojOruzja=Integer.parseInt(upit.get(3));
+		List<Dokaz> listaDokaza=new LinkedList<>();
+	
 		try {
 			dbConnection = getDBConnection();
-			if (dbConnection==null) {System.out.println("fail");
-				
-			}
-			System.out.println(query);
-			preparedStatement=dbConnection.prepareStatement(query);
-			
-			int z=1;
-			System.out.println(kombinacija.size());
-			for (Entry<String, String> str : kombinacija.entrySet()){
-				preparedStatement.setString(z, str.getValue());
-				System.out.println(z+str.getValue());
-				z++;
-				
+			if (dbConnection==null) {System.out.println("fail");	
 			}
 			
-			ResultSet rs = preparedStatement.executeQuery();
+			statement=dbConnection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery(query);
 			
-			if(!rs.first()) System.out.println("Nema poklapanja u bazi :( :( :(");
 			while (rs.next()) {
-				Dokaz dokaz= new Dokaz(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(8), rs.getString(9), rs.getString(7));
+				
+				Dokaz dokaz=new Dokaz();
+				dokaz.setID(rs.getInt(1));
+				dokaz.setNaziv(rs.getString(2));
+				dokaz.setFotografija(rs.getString(3));
+				dokaz.setNazivSlucaja(rs.getString(4));
+				int i=5;
+				
+				if(brojKrvnihGrupa!=0){
+					for(int j=brojKrvnihGrupa;j>0;j--){
+						dokaz.addKrvnaGrupa(rs.getString(i));
+						i++;
+					}
+				}
+				if(brojDNA!=0){
+					for(int j=brojDNA;j>0;j--){
+						dokaz.addDNASekvenca(rs.getString(i));
+						i++;
+					}
+				}
+				if(brojOruzja!=0){
+					for(int j=brojOruzja;j>0;j--){
+						dokaz.addTipOruzja(rs.getString(i));
+						i++;
+					}
+				}
+				
 				listaDokaza.add(dokaz);
-				System.out.println("vide se rez");
 			}
 			return listaDokaza;
 		} catch (Exception e) {
@@ -132,54 +146,14 @@ public class PristupBaziPodataka {
 			e.printStackTrace();
 		}
 		finally {
-			if (preparedStatement != null) {
-				System.out.println("zatvor");
-				preparedStatement.close();
+			if (statement != null) {
+				statement.close();
 			}
 			if (dbConnection != null) {
 				dbConnection.close();
 			}
 		}
 		return null;
-		
-		
-		/*try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(
-					"jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7144607",
-					"sql7144607", "PJ87Rlph4r");
-			
-			PreparedStatement st=con.prepareStatement(query);
-			int z=0;
-			for (z=0;z<kombinacija.size();z++){
-				st.setString(z+1, polje[z]);
-				System.out.println(z+1+", " +polje[z]);
-			}
-			//st.executeQuery();
-			//Statement stmt = con.createStatement();
-			ResultSet rs = st.executeQuery();
-			con.commit();
-			System.out.println(st);
-			if(rs==null)System.out.println("hehehe");
-			while (rs.next()) {
-				System.out.println(rs);
-			}
-			// con.close();
-
-		} catch (Exception e) {
-	        if (con != null) {
-	            try {
-	                System.err.print("Transaction is being rolled back");
-	                con.rollback();
-	            } catch(SQLException excep) {
-	                System.out.println(excep);
-	            }
-	        }
-			System.out.println(e);
-		}
-		return null;
-	}*/
-	
 	}
 
 }
