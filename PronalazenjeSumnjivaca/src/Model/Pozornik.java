@@ -67,15 +67,22 @@ public class Pozornik extends Osoba {
 		
 		List<Map<String, String>> kombAtributa=Kombinacije.sloziKombinacije(listaAtributa);
 		
+		
 		kombAtributa.toArray();
 		for (int i=kombAtributa.size()-1;i>=0;i--){
+		
 			Map<String, String> mapa=kombAtributa.get(i);
+		
 			if (PristupBaziPodataka.vratiDokaze(mapa)!=null){
 				List<Dokaz> liDokaza=PristupBaziPodataka.vratiDokaze(mapa);
 				Float postotakSlaganja=(float) (mapa.size())/(float) brojAtributaDokaza *100;	
 				for(Dokaz dok: liDokaza){
 					if (dok!=null) {
-						if(!unos.containsKey(dok)) unos.put(dok, postotakSlaganja);
+						if(!unos.containsKey(dok)) {
+							System.out.println(mapa.size());
+							System.out.println(mapa);
+							unos.put(dok, postotakSlaganja);
+						}
 						
 					}
 				}

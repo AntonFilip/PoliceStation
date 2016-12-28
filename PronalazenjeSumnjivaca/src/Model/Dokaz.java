@@ -176,6 +176,14 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 				}
 				else where+=" AND t"+brojOružja+".nazivOružja=\""+entry.getKey()+"\"";
 			}
+			else if (value.equals("DokazniMaterijal.nazivDokaznogMaterijala") || value.equals("PolicijskiSlučaj.nazivSlučaja")) {
+				if(prvi) {
+					where+=" WHERE "+value+"=\""+entry.getKey()+"\"";
+					prvi=false;
+				}
+				else where+=" AND "+value+"=\""+entry.getKey()+"\"";
+			}
+			
 		}
 		select+=krvneGrupe+dnaSek+oruzje;
 		ArrayList<String> rez=new ArrayList<>();
@@ -267,17 +275,19 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 		return fotografija;
 	}
 
+	
+
 	public void setFotografija(String fotografija) {
 		this.fotografija = fotografija;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Dokaz [ID=" + ID +  ", naziv=" + naziv + ", krvnaGrupa=" + krvnaGrupa
-				+ ", DNASekvenca=" + DNASekvenca + ", tipOruzja=" + tipOruzja + ", otisakPrsta=" + otisakPrsta
-				+ ", fotografija=" + fotografija + "]";
+		return "Dokaz [ID=" + ID + ", nazivSlucaja=" + nazivSlucaja + ", naziv=" + naziv + ", fotografija="
+				+ fotografija + ", krvnaGrupa=" + krvnaGrupa + ", DNASekvenca=" + DNASekvenca + ", tipOruzja="
+				+ tipOruzja + ", otisakPrsta=" + otisakPrsta + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -304,10 +314,5 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 			return false;
 		return true;
 	}
-
-
-	
-
-
 
 }
