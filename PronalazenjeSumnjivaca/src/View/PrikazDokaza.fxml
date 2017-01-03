@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<ScrollPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PrikazDokazaController">
+   <content>
+      <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0">
+         <children>
+            <ImageView fitHeight="191.0" fitWidth="233.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@secret-file.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="265.0" layoutY="14.0" text="ID:">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="id" layoutX="296.0" layoutY="13.0" prefHeight="17.0" prefWidth="196.0" />
+            <Label layoutX="265.0" layoutY="61.0" text="Naziv slučaja:">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="nazivSlucaja" layoutX="367.0" layoutY="60.0" prefHeight="17.0" prefWidth="298.0" />
+            <Label layoutX="265.0" layoutY="39.0" text="Naziv:">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="naziv" layoutX="316.0" layoutY="38.0" prefHeight="17.0" prefWidth="355.0" />
+            <Label layoutX="266.0" layoutY="85.0" text="Krvna grupa:">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="krvnaGrupa" layoutX="360.0" layoutY="84.0" prefHeight="17.0" prefWidth="237.0" />
+            <Label layoutX="266.0" layoutY="108.0" text="DNA sekvenca:">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="dnaSekvenca" layoutX="367.0" layoutY="107.0" prefHeight="17.0" prefWidth="280.0" />
+            <Label layoutX="266.0" layoutY="133.0" text="Tip oružja:">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="tipOruzja" layoutX="353.0" layoutY="132.0" prefHeight="17.0" prefWidth="303.0" />
+            <Label layoutX="266.0" layoutY="157.0" text="Otisak prsta:">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="otisakPrsta" fitHeight="99.0" fitWidth="64.0" layoutX="367.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@fingerprint.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="ispis" layoutX="580.0" layoutY="300.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="70.0" text="Ispis">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
