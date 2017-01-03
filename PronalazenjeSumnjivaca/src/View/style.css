@@ -1,0 +1,72 @@
+
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+     -fx-background-color: darkgray;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: #202020;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: grey;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+
+
+
+.split-pane:horizontal > .split-pane-divider {
+	-fx-padding:0;
+	-fx-background-color: transparent;
+}
+.split-pane:vertical > .split-pane-divider {
+   	-fx-background-color: transparent;
+	-fx-padding: 0;
+}
+
+
+
+#trazi { 
+    -fx-background-image: url('https://fineartamerica.com/LogoSearchMagnifyingGlass.png');
+    -fx-background-size: 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+
+#gornji, #izbornik {
+	-fx-background-color: #707070
+}
+
+#brza {
+	-fx-text-fill: white;
+	-fx-background-color: grey;
+	-fx-highlight-fill: #606060;
+	-fx-hightlight-text-fill: #7cb4e5 
+	
+}
+
+
+#odjava, #postaviUpit, #izmjeni, #statistika, #dodaj, #dnevnik {
+	-fx-background-color: grey;
+	-fx-color: white;
+	
+	
+}
+
+#pane {
+	-fx-background-color: #E0E0E0
+}
+
+.root {
+	-fx-dark-text-color: black;
+	-fx-mid-text-color: #333;
+	-fx-light-text-color: white;
+}

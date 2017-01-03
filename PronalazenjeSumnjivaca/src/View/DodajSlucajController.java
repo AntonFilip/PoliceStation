@@ -9,18 +9,16 @@ import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 /**
- * Klasa koja upravlja sučeljem za postavljanje upita o slučaju.
+ * FXML Controller class
  */
-public class UpitSlucajController implements Initializable, ControlledScreen{
+public class DodajSlucajController implements Initializable, ControlledScreen {
     
     ViewDelegate delegate;
     
+    @FXML TextField brojSlucaja;
     @FXML TextField nazivSlucaja;
     @FXML TextArea opisSlucaja;
     @FXML TextField glavniOsumnjiceni;
@@ -30,16 +28,17 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
     @FXML TextArea popisPolicajaca;
     @FXML ComboBox statusSlucaja;
     @FXML TextArea popisDogadaja;
-    @FXML Button posalji;
+    @FXML Button dodaj;
     
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
     }
     
-    @FXML private void postaviUpit(ActionEvent event) {
+    @FXML private void dodaj(ActionEvent event) {
         Slucaj slucaj = new Slucaj();
-
+        
+        slucaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
         slucaj.setNazivSlucaja(nazivSlucaja.getText());
         slucaj.setOpis(opisSlucaja.getText());
         
@@ -97,9 +96,12 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
             Dogadaj novi = new Dogadaj();
         }*/
     }
-
+    
+    /**
+     * Initializes the controller class.
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //TODO
-    }   
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }      
 }

@@ -1,43 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.GlavniIzbornikController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.GlavniIzbornikController">
    <children>
-      <SplitPane dividerPositions="0.1285140562248996" orientation="VERTICAL" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.28653295128939826" prefHeight="333.0" prefWidth="592.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxHeight="60.0" minHeight="60.0" minWidth="0.0" prefHeight="41.0" prefWidth="698.0">
+          <AnchorPane fx:id="izbornik" maxWidth="200.0" minHeight="0.0" minWidth="200.0" prefHeight="428.0" prefWidth="165.0">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label fx:id="toplabela" prefHeight="27.0" prefWidth="240.0" textAlignment="RIGHT" />
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <SplitPane dividerPositions="0.2423728813559322" layoutX="2.0" prefHeight="333.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <MenuButton fx:id="izmjeni" alignment="CENTER" layoutX="1.0" layoutY="186.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="200.0" text="Izmjeni" textFill="WHITE">
                     <items>
-                      <AnchorPane maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="160.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="postaviUpit" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#klikPostaviUpit" prefHeight="25.0" prefWidth="103.0" text="Postavi Upit" />
-                              <Button fx:id="statistika" layoutX="24.0" layoutY="45.0" mnemonicParsing="false" onAction="#postaviScenuStatistike" prefHeight="25.0" prefWidth="103.0" text="Statistika" />
-                              <Button fx:id="izmjeni" layoutX="24.0" layoutY="81.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Izmjeni" />
-                              <Button fx:id="dodaj" layoutX="24.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Dodaj" />
-                              <Button fx:id="dnevnik" layoutX="24.0" layoutY="149.0" mnemonicParsing="false" onAction="#postaviScenuDnevnika" prefHeight="33.0" prefWidth="103.0" text="Dnevnik pretrazivanja" />
-                           </children>
-                        </AnchorPane>
-                        <Pane fx:id="pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="200.0" prefWidth="200.0" />
+                      <MenuItem fx:id="izmjeniKriminalac" onAction="#postaviScenuIzmjeneKriminalca" mnemonicParsing="false" text="Kriminalac" />
+                      <MenuItem fx:id="izmjeniSlucaj" onAction="#postaviScenuIzmjeneSlucaja" mnemonicParsing="false" text="Slučaj" />
+                        <MenuItem fx:id="izmjeniDokaz" onAction="#postaviScenuIzmjeneDokaza" mnemonicParsing="false" text="Dokaz" />
                     </items>
-                  </SplitPane>
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+                     </font>
+                  </MenuButton>
+                  <Button fx:id="statistika" layoutY="260.0" mnemonicParsing="false" onAction="#postaviScenuStatistike" prefHeight="32.0" prefWidth="200.0" text="Statistika" textFill="WHITE">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="dnevnik" layoutY="298.0" mnemonicParsing="false" onAction="#postaviScenuDnevnika" prefHeight="32.0" prefWidth="200.0" text="Dnevnik Pretraživanja" textFill="WHITE">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="brza" layoutY="79.0" prefHeight="26.0" prefWidth="173.0" promptText="Pretraga po: OIB/ID">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="trazi" layoutX="173.0" layoutY="79.0" mnemonicParsing="false" onAction="#brzoPretrazi" prefHeight="26.0" prefWidth="26.0" />
+                  <Button fx:id="odjava" layoutY="463.0" mnemonicParsing="false" onAction="#odjava" prefHeight="32.0" prefWidth="200.0" text="Odjava" textFill="WHITE">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="49.0" prefWidth="173.0" text="Plavci 16" textFill="#7cb4e5">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="toplabela" alignment="CENTER" layoutX="14.0" layoutY="439.0" prefHeight="15.0" prefWidth="173.0" text="Slacanac, K." textFill="WHITE">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+                     </font>
+                  </Label>
+                  <MenuButton fx:id="dodaj" alignment="CENTER" layoutY="223.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="200.0" text="Dodaj" textFill="WHITE">
+                    <items>
+                      <MenuItem fx:id="dodajKriminalac" onAction="#postaviScenuDodajKriminalca" mnemonicParsing="false" text="Kriminalac" />
+                      <MenuItem fx:id="dodajSlucaj" onAction="#postaviScenuDodajSlucaj" mnemonicParsing="false" text="Slučaj" />
+                        <MenuItem fx:id="dodajDokaz" onAction="#postaviScenuDodajDokaz" mnemonicParsing="false" text="Dokaz" />
+                    </items>
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+                     </font>
+                  </MenuButton>
+                  <MenuButton fx:id="postaviUpit" alignment="CENTER" layoutX="1.0" layoutY="149.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="200.0" text="Postavi Upit" textFill="WHITE">
+                    <items>
+                      <MenuItem fx:id="postaviKriminalac" onAction="#postaviScenuUpitKriminalac" mnemonicParsing="false" text="Kriminalac" />
+                      <MenuItem fx:id="postaviSlucaj" onAction="#postaviScenuUpitDokaz" mnemonicParsing="false" text="Slučaj" />
+                        <MenuItem fx:id="postaviDokaz" onAction="#postaviScenuUpitSlucaj" mnemonicParsing="false" text="Dokaz" />
+                    </items>
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+                     </font>
+                  </MenuButton>
                </children>
             </AnchorPane>
+            <Pane fx:id="pane" prefHeight="600.0" prefWidth="700.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="229.0" layoutY="238.0" prefHeight="60.0" prefWidth="240.0" text="Dobrodošli." textAlignment="CENTER">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
         </items>
       </SplitPane>
    </children>
+   <stylesheets>
+      <URL value="@style.css" />
+   </stylesheets>
 </AnchorPane>

@@ -1,28 +1,36 @@
 package View;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import Controller.ViewDelegate;
-import Model.*;
+import Model.FizickeOsobine;
+import Model.GradaTijela;
+import Model.KarakterneOsobine;
+import Model.Osumnjiceni;
+import Model.Slucaj;
+import Model.TrenutniStatusKriminalca;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
- * Klasa koja upravlja sučeljem za postavljanje upita o kriminalcu
+ * FXML Controller class
  */
-public class UpitKriminalacController implements Initializable, ControlledScreen {
-
+public class DodajKriminalacController implements Initializable, ControlledScreen {
+    
     ViewDelegate delegate;
     
-    @FXML Button posalji;
+    @FXML Button dodaj;
 
     @FXML TextField ime;
     @FXML TextField prezime;
+    @FXML TextField oib;
     @FXML TextField adresa;
     @FXML TextField brojTelefona;
     @FXML ComboBox status;
@@ -60,11 +68,12 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
     /**
      * Izvlacimo upisane podatke iz View-a i saljemo ih u Controller 
      */
-    @FXML private void postaviUpit(ActionEvent event) {
+    @FXML private void dodaj(ActionEvent event) {
         Osumnjiceni osumnjiceni = new Osumnjiceni();
 
         osumnjiceni.setIme(ime.getText());
         osumnjiceni.setPrezime(prezime.getText());
+        osumnjiceni.setOib(Integer.parseInt(oib.getText()));
         osumnjiceni.setAdresa(adresa.getText());
         osumnjiceni.setBrojTelefona(brojTelefona.getText());
 
@@ -134,7 +143,7 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
 
         osumnjiceni.setKarakterneOsobine(karakterneOsobine);
 
-        delegate.posaljiUpitKriminalac(osumnjiceni);
+        delegate.dodajKriminalca(osumnjiceni);
     }
 
     public static HashSet<String> popis(String[] ulaz) {
@@ -143,10 +152,11 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         return popis;
     }
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-            // TODO Auto-generated method stub
-
-    }
-
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }       
 }

@@ -7,32 +7,45 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PrijavaController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" stylesheets="@style_prijava.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PrijavaController">
    <children>
-      <Button fx:id="prijava" layoutX="267.0" layoutY="217.0" mnemonicParsing="false" onAction="#prijavaKlik" text="Prijava">
-         <font>
-            <Font name="Lucida Sans Typewriter Regular" size="12.0" />
-         </font>
-      </Button>
-      <Label layoutX="219.0" layoutY="47.0" text="Plavci 16">
-         <font>
-            <Font name="Lucida Sans Typewriter Regular" size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="255.0" layoutY="97.0" text="Prijavi se">
-         <font>
-            <Font name="Lucida Sans Typewriter Regular" size="15.0" />
-         </font>
-      </Label>
-      <PasswordField fx:id="lozinka" layoutX="226.0" layoutY="175.0" onAction="#prijavaKlik" prefHeight="23.0" prefWidth="149.0" promptText="lozinka">
-         <font>
-            <Font name="Lucida Sans Typewriter Regular" size="12.0" />
-         </font>
-      </PasswordField>
-      <TextField fx:id="korisnickoIme" layoutX="226.0" layoutY="135.0" onAction="#prijavaKlik" prefHeight="23.0" prefWidth="149.0" promptText="korisničko ime">
-         <font>
-            <Font name="Lucida Sans Typewriter Regular" size="12.0" />
-         </font>
-      </TextField>
+      <BorderPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <Pane fx:id="main" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="korisnickoIme" layoutX="376.0" layoutY="253.0" onAction="#prijavaKlik" prefHeight="23.0" prefWidth="149.0" promptText="korisničko ime">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="prijava" layoutX="417.0" layoutY="338.0" mnemonicParsing="false" onAction="#prijavaKlik" text="Prijava" textFill="WHITE">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="logo" layoutX="369.0" layoutY="82.0" text="Plavci 16" textFill="#7cb4e5">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Regular" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="uputa" layoutX="405.0" layoutY="168.0" text="Prijavi se" textFill="WHITE">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Regular" size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="lozinka" layoutX="376.0" layoutY="289.0" onAction="#prijavaKlik" prefHeight="23.0" prefWidth="149.0" promptText="lozinka">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+                     </font>
+                  </PasswordField>
+                  <Label fx:id="neispravno" layoutX="292.0" layoutY="221.0" prefHeight="16.0" prefWidth="318.0" text="Neispravno korisničko ime i/ili lozinka." textFill="RED" visible="false">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Regular" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
