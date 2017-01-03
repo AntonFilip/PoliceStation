@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,10 +41,14 @@ public class Controller extends Application implements ViewDelegate {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+private FXMLLoader postaviResurs(String s){
+	return new FXMLLoader(getClass().getResource("/View/"+s+".fxml"));
+}
 
 	@Override
 	public void postaviScenuPrijava() {
-		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/View/FXMLPrijava.fxml"));
+		FXMLLoader myLoader = postaviResurs("FXMLPrijava");
 		Parent loadScreen = null;
 		try {
 			loadScreen = (Parent) myLoader.load();
@@ -59,14 +64,14 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void prijava(String username, String password) throws IOException {
-		System.out.println(username + " " + password);
 		try {
-			policajac = new Pozornik("Tomica", "Glupan");
-			//policajac = PristupBaziPodataka.prijava(username, password);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			policajac = PristupBaziPodataka.prijava(username, password);
+		} catch (SQLException e) {
+			//TODO pogledat kaj radi exception  i napravit dobar odgovor
 			e.printStackTrace();
+			return;
 		}
+		
 		if (policajac == null) {
 			return;
 		} else {
@@ -76,7 +81,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void prikaziGlavniIzbornik(Pozornik pozornik) {
-		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/View/FXMLGlavniIzbornik.fxml"));
+		FXMLLoader myLoader = postaviResurs("FXMLGlavniIzbornik");
 		Parent loadScreen = null;
 		try {
 			loadScreen = (Parent) myLoader.load();
@@ -85,10 +90,7 @@ public class Controller extends Application implements ViewDelegate {
 		}
 		GlavniIzbornikController glavniIzbornikController = (GlavniIzbornikController) myLoader.getController();
 		pane=glavniIzbornikController.init(this);
-		glavniIzbornikController.setIme(policajac.getIme()); // ovdje možemo
-																// postavljati
-																// neke podatke
-																// na scenu
+		glavniIzbornikController.setIme(policajac.getIme());
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
 		stage.show();
@@ -96,7 +98,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void postaviScenuUpit() {
-		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/View/PostaviUpit.fxml"));
+		FXMLLoader myLoader = postaviResurs("PostaviUpit");
 		Parent loadScreen = null;
 		try {
 			loadScreen = (Parent) myLoader.load();
@@ -114,7 +116,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void postaviScenuStatistika() {
-		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/View/PrikaziStatistiku.fxml"));
+		FXMLLoader myLoader = postaviResurs("PrikaziStatistiku");
 		Parent loadScreen = null;
 		try {
 			loadScreen = (Parent) myLoader.load();
@@ -132,7 +134,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void postaviScenuDnevnikPretrazivanja() {
-		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/View/PrikaziDnevnik.fxml"));
+		FXMLLoader myLoader = postaviResurs("PrikaziDnevnik");
 		Parent loadScreen = null;
 		try {
 			loadScreen = (Parent) myLoader.load();
@@ -185,16 +187,30 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void posaljiUpitKriminalac(Osumnjiceni kriminalac) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		FXMLLoader myLoader = postaviResurs("UpitKriminalac");
+		Parent loadScreen = null;
+		try {
+			loadScreen = (Parent) myLoader.load();
+		} catch (IOException ex) {
+			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		PrikaziDnevnikController prijavaController = (PrikaziDnevnikController) myLoader.getController();
+		prijavaController.init(this);
+		
+		policajac.posaljiUpitZaOsumnjicenog("");//TODO pricekat cure da naprave kak to treba biti u modelu
+		
+		
+//		ObservableList<String> data = FXCollections.observableArrayList(
+//	            "chocolate", "salmon", "gold", "coral", "darkorchid",
+//	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
+//	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
+//		prijavaController.postaviPodatke(data);
+		
+//		Scene scene = new Scene(loadScreen);
+//		stage.setScene(scene);
+//		stage.show();
+		pane.getChildren().setAll(loadScreen);
+
 	}
 
 	@Override
@@ -213,16 +229,34 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void posaljiUpitDokaz(Dokaz dokaz) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		FXMLLoader myLoader = postaviResurs("UpitDokaz");
+		Parent loadScreen = null;
+		try {
+			loadScreen = (Parent) myLoader.load();
+		} catch (IOException ex) {
+			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		PrikaziDnevnikController prijavaController = (PrikaziDnevnikController) myLoader.getController();
+		prijavaController.init(this);
+		
+		try {
+			policajac.posaljiUpit(dokaz);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//TODO provjeriti s tomislavom il karmelom kak im poslati mapu te isto i napraviti sa sljedecim kodom
+		ObservableList<String> data = FXCollections.observableArrayList(
+	            "chocolate", "salmon", "gold", "coral", "darkorchid",
+	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
+	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
+		prijavaController.postaviPodatke(data);
+		
+//		Scene scene = new Scene(loadScreen);
+//		stage.setScene(scene);
+//		stage.show();
+		pane.getChildren().setAll(loadScreen);
+
 	}
 
 	@Override
