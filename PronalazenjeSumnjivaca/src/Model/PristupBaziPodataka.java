@@ -40,8 +40,8 @@ public class PristupBaziPodataka {
 		PreparedStatement preparedStatement = null;
 		
 		String query = "SELECT Osoba.imeosobe, Osoba.prezimeosobe, Policajac.razinapristupa "
-						+ "FROM Osoba JOIN policajac ON osoba.oib=policajac.osobaoib "
-						+ "WHERE Policajac.korisnickoime= ? AND policajac.lozinka= ? ";
+						+ "FROM Osoba JOIN Policajac ON Osoba.oib=Policajac.osobaOib "
+						+ "WHERE BINARY Policajac.korisnickoime= ? AND BINARY Policajac.lozinka= ? ";
 		
 		try {
 			dbConnection = getDBConnection();

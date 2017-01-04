@@ -23,7 +23,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	private Stage stage;
 
-	Pozornik policajac;
+	Pozornik policajac = null;
 	Slucaj slucaj;
 	Dokaz dokaz;
 	Osumnjiceni osumjiceni;
@@ -33,6 +33,7 @@ public class Controller extends Application implements ViewDelegate {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		stage = primaryStage;
+		stage.setResizable(false);
 		stage.setTitle("PronalaÅ¾enje Sumnjivaca v1.0");
 		postaviScenuPrijava();
 		
@@ -42,21 +43,13 @@ public class Controller extends Application implements ViewDelegate {
 		launch(args);
 	}
 	
-private FXMLLoader postaviResurs(String s){
-	return new FXMLLoader(getClass().getResource("/View/"+s+".fxml"));
-}
 
 	@Override
 	public void postaviScenuPrijava() {
-		FXMLLoader myLoader = postaviResurs("FXMLPrijava");
-		Parent loadScreen = null;
-		try {
-			loadScreen = (Parent) myLoader.load();
-		} catch (IOException ex) {
-			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		ControlledScreen prijavaController = (PrijavaController) myLoader.getController();
-		prijavaController.init(this);
+		Loader loader = new Loader("FXMLPrijava");
+		Parent loadScreen = loader.getLoadScreen();
+		ControlledScreen controller = (PrijavaController) loader.getMyLoader().getController();
+		controller.init(this);
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
 		stage.show();
@@ -68,29 +61,27 @@ private FXMLLoader postaviResurs(String s){
 			policajac = PristupBaziPodataka.prijava(username, password);
 		} catch (SQLException e) {
 			//TODO pogledat kaj radi exception  i napravit dobar odgovor
+			
 			e.printStackTrace();
 			return;
 		}
 		
 		if (policajac == null) {
+			System.out.println("Korisnièko ime i/ili lozinka nisu ipravni!");
 			return;
 		} else {
+			System.out.println("Uspješna prijava!");
 			prikaziGlavniIzbornik(policajac);
 		}
 	}
 
 	@Override
 	public void prikaziGlavniIzbornik(Pozornik pozornik) {
-		FXMLLoader myLoader = postaviResurs("FXMLGlavniIzbornik");
-		Parent loadScreen = null;
-		try {
-			loadScreen = (Parent) myLoader.load();
-		} catch (IOException ex) {
-			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		GlavniIzbornikController glavniIzbornikController = (GlavniIzbornikController) myLoader.getController();
-		pane=glavniIzbornikController.init(this);
-		glavniIzbornikController.setIme(policajac.getIme());
+		Loader loader = new Loader("FXMLGlavniIzbornik");
+		Parent loadScreen = loader.getLoadScreen();
+		GlavniIzbornikController controller = (GlavniIzbornikController) loader.getMyLoader().getController();
+		pane=controller.init(this);
+		controller.setIme(policajac.getIme());
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
 		stage.show();
@@ -98,34 +89,26 @@ private FXMLLoader postaviResurs(String s){
 
 	@Override
 	public void postaviScenuUpit() {
-		FXMLLoader myLoader = postaviResurs("PostaviUpit");
-		Parent loadScreen = null;
-		try {
-			loadScreen = (Parent) myLoader.load();
-		} catch (IOException ex) {
-			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		ControlledScreen prijavaController = (PostaviUpitController) myLoader.getController();
-		prijavaController.init(this);
-//		Scene scene = new Scene(loadScreen);
-//		stage.setScene(scene);
-//		stage.show();
+		Loader loader = new Loader("PostaviUpit");
+		Parent loadScreen = loader.getLoadScreen();
+		
+		ControlledScreen controller = (PostaviUpitController) loader.getMyLoader().getController();
+		controller.init(this);
+		Scene scene = new Scene(loadScreen);
+		stage.setScene(scene);
+		stage.show();
 		pane.getChildren().setAll(loadScreen);
 
 	}
 
 	@Override
 	public void postaviScenuStatistika() {
-		FXMLLoader myLoader = postaviResurs("PrikaziStatistiku");
-		Parent loadScreen = null;
-		try {
-			loadScreen = (Parent) myLoader.load();
-		} catch (IOException ex) {
-			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		PrikaziStatistikuController prijavaController = (PrikaziStatistikuController) myLoader.getController();
-		prijavaController.init(this);
-		prijavaController.postaviPodatke("proba1", "Proba2", "proba333");
+		Loader loader = new Loader("PrikaziStatistiku");
+		Parent loadScreen = loader.getLoadScreen();
+		
+		PrikaziStatistikuController controller = (PrikaziStatistikuController) loader.getMyLoader().getController();
+		controller.init(this);
+		controller.postaviPodatke("proba1", "Proba2", "proba333");
 //		Scene scene = new Scene(loadScreen);
 //		stage.setScene(scene);
 //		stage.show();
@@ -134,21 +117,17 @@ private FXMLLoader postaviResurs(String s){
 
 	@Override
 	public void postaviScenuDnevnikPretrazivanja() {
-		FXMLLoader myLoader = postaviResurs("PrikaziDnevnik");
-		Parent loadScreen = null;
-		try {
-			loadScreen = (Parent) myLoader.load();
-		} catch (IOException ex) {
-			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		PrikaziDnevnikController prijavaController = (PrikaziDnevnikController) myLoader.getController();
-		prijavaController.init(this);
+		Loader loader = new Loader("PrikaziDnevnik");
+		Parent loadScreen = loader.getLoadScreen();
+		
+		PrikaziDnevnikController controller = (PrikaziDnevnikController) loader.getMyLoader().getController();
+		controller.init(this);
 		
 		ObservableList<String> data = FXCollections.observableArrayList(
 	            "chocolate", "salmon", "gold", "coral", "darkorchid",
 	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
 	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
-		prijavaController.postaviPodatke(data);
+		controller.postaviPodatke(data);
 		
 //		Scene scene = new Scene(loadScreen);
 //		stage.setScene(scene);
@@ -187,24 +166,19 @@ private FXMLLoader postaviResurs(String s){
 
 	@Override
 	public void posaljiUpitKriminalac(Osumnjiceni kriminalac) {
-		FXMLLoader myLoader = postaviResurs("UpitKriminalac");
-		Parent loadScreen = null;
-		try {
-			loadScreen = (Parent) myLoader.load();
-		} catch (IOException ex) {
-			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		PrikaziDnevnikController prijavaController = (PrikaziDnevnikController) myLoader.getController();
-		prijavaController.init(this);
+		Loader loader = new Loader("PrikazKriminalca");
+		Parent loadScreen = loader.getLoadScreen();
 		
-		policajac.posaljiUpitZaOsumnjicenog("");//TODO pricekat cure da naprave kak to treba biti u modelu
+		PrikazKriminalcaController controller = (PrikazKriminalcaController) loader.getMyLoader().getController();
+		controller.init(this);
+		controller.prikaziPodatke(policajac.posaljiUpitZaOsumnjicenog(kriminalac));//TODO pricekat cure da naprave kak to treba biti u modelu
 		
 		
 //		ObservableList<String> data = FXCollections.observableArrayList(
 //	            "chocolate", "salmon", "gold", "coral", "darkorchid",
 //	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
 //	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
-//		prijavaController.postaviPodatke(data);
+//		controller.postaviPodatke(data);
 		
 //		Scene scene = new Scene(loadScreen);
 //		stage.setScene(scene);
@@ -229,15 +203,11 @@ private FXMLLoader postaviResurs(String s){
 
 	@Override
 	public void posaljiUpitDokaz(Dokaz dokaz) {
-		FXMLLoader myLoader = postaviResurs("UpitDokaz");
-		Parent loadScreen = null;
-		try {
-			loadScreen = (Parent) myLoader.load();
-		} catch (IOException ex) {
-			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		PrikaziDnevnikController prijavaController = (PrikaziDnevnikController) myLoader.getController();
-		prijavaController.init(this);
+		Loader loader = new Loader("UpitDokaz");
+		Parent loadScreen = loader.getLoadScreen();
+		
+		PrikaziDnevnikController controller = (PrikaziDnevnikController) loader.getMyLoader().getController();
+		controller.init(this);
 		
 		try {
 			policajac.posaljiUpit(dokaz);
@@ -250,7 +220,7 @@ private FXMLLoader postaviResurs(String s){
 	            "chocolate", "salmon", "gold", "coral", "darkorchid",
 	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
 	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
-		prijavaController.postaviPodatke(data);
+		controller.postaviPodatke(data);
 		
 //		Scene scene = new Scene(loadScreen);
 //		stage.setScene(scene);
@@ -415,58 +385,41 @@ private FXMLLoader postaviResurs(String s){
 
 	@Override
 	public void odjava() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		policajac = null;
+		slucaj = null;
+		dokaz = null;
+		osumjiceni = null;
+		postaviScenuPrijava();
 	}
 
 	@Override
 	public void postaviScenuUpitKriminalac() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("UpitKriminalac");
+		Parent loadScreen = loader.getLoadScreen();
+		
+		ControlledScreen controller = (UpitKriminalacController) loader.getMyLoader().getController();
+		controller.init(this);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
 	public void postaviScenuUpitSlucaj() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("UpitSlucaj");
+		Parent loadScreen = loader.getLoadScreen();
+		
+		ControlledScreen controller = (UpitSlucajController) loader.getMyLoader().getController();
+		controller.init(this);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
 	public void postaviScenuUpitDokaz() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("UpitDokaz");
+		Parent loadScreen = loader.getLoadScreen();
+		
+		ControlledScreen controller = (UpitDokazController) loader.getMyLoader().getController();
+		controller.init(this);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
@@ -567,4 +520,31 @@ private FXMLLoader postaviResurs(String s){
 																		// Templates.
 	}
 
+	private class Loader {
+		private FXMLLoader myLoader;
+		private Parent loadScreen = null;
+
+		/**
+		 * @return the loadScreen
+		 */
+		public Parent getLoadScreen() {
+			return loadScreen;
+		}
+
+		/**
+		 * @return the myLoader
+		 */
+		public FXMLLoader getMyLoader() {
+			return myLoader;
+		}
+		
+		public Loader(String fxmlFile) {
+			myLoader = new FXMLLoader(getClass().getResource("/View/"+fxmlFile+".fxml"));
+			try {
+				loadScreen = (Parent) myLoader.load();
+			} catch (IOException ex) {
+				Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
 }

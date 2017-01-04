@@ -19,7 +19,7 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	private Set<Pozornik> popisPolicajaca = new HashSet<Pozornik>();
 	private TrenutniStatusSlucaja status;
 	private Set<String> fotografijeSlučaja=new HashSet<>();
-	private Set<Dogadaj> popisDogadaja= new HashSet<>();
+//TODO	private Set<Dogadaj> popisDogadaja= new HashSet<>();
 	
 	
 	public Slucaj(){

@@ -35,10 +35,10 @@ public class Pozornik extends Osoba {
 	static public Pozornik prijava(String korisnickoIme, String lozinka) throws SQLException {
 		return PristupBaziPodataka.prijava(korisnickoIme, lozinka);
 	}
-
-	public Osumnjiceni posaljiUpitZaOsumnjicenog(String ime) {
+//TODO
+	public Osumnjiceni posaljiUpitZaOsumnjicenog(Osumnjiceni osumnjiceni) { //Pisalo je kao argument: String ime
 		PristupBaziPodataka.posaljiUpit(ime);
-		return new Osumnjiceni();
+		return osumnjiceni;//pisalo je: new Osumnjiceni();
 	}
 
 	public Slucaj posaljiUpitZaSlucaj(String ime) {
