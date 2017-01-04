@@ -67,13 +67,15 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         osumnjiceni.setPrezime(prezime.getText());
         osumnjiceni.setAdresa(adresa.getText());
         osumnjiceni.setBrojTelefona(brojTelefona.getText());
-
-        if (status.getValue().equals("Na slobodi")) {
-            osumnjiceni.setStatus(TrenutniStatusKriminalca.sloboda);
-        } else if (status.getValue().equals("U pritvoru")) {
-            osumnjiceni.setStatus(TrenutniStatusKriminalca.u_pritvoru);
-        } else if (status.getValue().equals("U zatvoru")) {
-            osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru);
+        
+        if (status.getValue() != null) {
+            if (status.getValue().equals("Na slobodi")) {
+                osumnjiceni.setStatus(TrenutniStatusKriminalca.sloboda);
+            } else if (status.getValue().equals("U pritvoru")) {
+                osumnjiceni.setStatus(TrenutniStatusKriminalca.u_pritvoru);
+            } else if (status.getValue().equals("U zatvoru")) {
+                osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru);
+            }
         }
 
         osumnjiceni.setOpisKriminalnihDjelatnosti(opisKriminalnihDjelatnosti.getText());
@@ -86,8 +88,10 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         HashSet<Slucaj> popisSlucajeva = new HashSet<>();
         for (String slucaj : slucajevi) {
             Slucaj novi = new Slucaj();
-            novi.setBrojSlucaja(Integer.parseInt(slucaj));
-            popisSlucajeva.add(novi);
+            if (!slucaj.isEmpty()) {
+                novi.setBrojSlucaja(Integer.parseInt(slucaj));
+                popisSlucajeva.add(novi);
+            }
         }
         osumnjiceni.setPovezaniSlucajevi(popisSlucajeva);
 
@@ -95,28 +99,40 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         HashSet<Osumnjiceni> popisKriminalaca = new HashSet<>();
         for (String kriminalac : kriminalci) {
             Osumnjiceni novi = new Osumnjiceni();
-            novi.setOib(Integer.parseInt(kriminalac)); 
-            popisKriminalaca.add(novi);
+            if (!kriminalac.isEmpty()) {
+                novi.setOib(Integer.parseInt(kriminalac)); 
+                popisKriminalaca.add(novi);
+            }
         }
         osumnjiceni.setPopisPovezanihKriminalaca(popisKriminalaca);
 
         FizickeOsobine fizickeOsobine = new FizickeOsobine();
-        fizickeOsobine.setSpol(spol.getValue().toString());
+        if (spol.getValue() != null) {
+            fizickeOsobine.setSpol(spol.getValue().toString());
+        }
         fizickeOsobine.setRasa(rasa.getText());
-        fizickeOsobine.setVisina(Integer.parseInt(visina.getText()));
-        fizickeOsobine.setTezina(Integer.parseInt(tezina.getText()));
-        fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
+        if (!visina.getText().isEmpty()) {
+            fizickeOsobine.setVisina(Integer.parseInt(visina.getText()));
+        }
+        if (!tezina.getText().isEmpty()) {
+            fizickeOsobine.setTezina(Integer.parseInt(tezina.getText()));
+        }
+        if (!godine.getText().isEmpty()) {
+            fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
+        }
         fizickeOsobine.setBojaKose(bojaKose.getText());
         fizickeOsobine.setOblikGlave(oblikGlave.getText());
         fizickeOsobine.setOblikFrizure(oblikFrizure.getText());
         fizickeOsobine.setBojaOciju(bojaOciju.getText());
-
-        if (gradaTijela.getValue().equals("Slabija")) {
-            fizickeOsobine.setGradaTijela(GradaTijela.slabija);
-        } else if (gradaTijela.getValue().equals("Srednja")) {
-            fizickeOsobine.setGradaTijela(GradaTijela.srednja);
-        } else if (gradaTijela.getValue().equals("Jača")) {
-            fizickeOsobine.setGradaTijela(GradaTijela.jaca);
+        
+        if (gradaTijela.getValue() != null) {
+            if (gradaTijela.getValue().equals("Slabija")) {
+                fizickeOsobine.setGradaTijela(GradaTijela.slabija);
+            } else if (gradaTijela.getValue().equals("Srednja")) {
+                fizickeOsobine.setGradaTijela(GradaTijela.srednja);
+            } else if (gradaTijela.getValue().equals("Jača")) {
+                fizickeOsobine.setGradaTijela(GradaTijela.jaca);
+            }
         }
 
         fizickeOsobine.setTetovaze(tetovaze.getText());

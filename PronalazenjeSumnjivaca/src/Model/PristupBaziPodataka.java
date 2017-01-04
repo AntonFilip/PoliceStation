@@ -38,9 +38,9 @@ public class PristupBaziPodataka {
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 
-		String query = "SELECT Osoba.imeosobe, Osoba.prezimeosobe, Policajac.razinapristupa "
-				+ "FROM Osoba JOIN policajac ON osoba.oib=policajac.osobaoib "
-				+ "WHERE Policajac.korisnickoime= ? AND policajac.lozinka= ? ";
+		String query = "SELECT Osoba.imeOsobe, Osoba.prezimeOsobe, Policajac.razinaPristupa "
+				+ "FROM Osoba JOIN Policajac ON Osoba.oib=Policajac.osobaOib "
+				+ "WHERE Policajac.korisnickoIme= ? AND Policajac.lozinka= ? ";
 
 		try {
 			dbConnection = getDBConnection();

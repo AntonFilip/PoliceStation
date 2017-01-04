@@ -7,17 +7,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<ScrollPane prefHeight="428.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpitDokazController">
+<ScrollPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpitDokazController">
    <content>
-      <AnchorPane id="AnchorPane" prefHeight="430.0" prefWidth="584.0">
+      <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="699.0">
          <children>
             <Label layoutX="14.0" layoutY="15.0" text="Upit o dokaznom materijalu">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="posalji" layoutX="489.0" layoutY="13.0" mnemonicParsing="false" onAction="#postaviUpit" text="Pošalji" />
+            <Button fx:id="posalji" layoutX="597.0" layoutY="13.0" mnemonicParsing="false" onAction="#postaviUpit" prefHeight="25.0" prefWidth="71.0" text="Pošalji">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font></Button>
             <Label layoutX="277.0" layoutY="17.0" prefHeight="17.0" prefWidth="205.0" textFill="RED" />
             <TextField fx:id="naziv" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv dokaznog materijala" />
             <TextField fx:id="nazivSlucaja" layoutX="14.0" layoutY="78.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv slučaja" />

@@ -70,12 +70,16 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
         oib.setText(Integer.toString(osumnjiceni.getOib()));
         adresa.setText(osumnjiceni.getAdresa());
         brojTelefona.setText(osumnjiceni.getBrojTelefona());
-        status.setText(osumnjiceni.getStatus().toString());
+        if (osumnjiceni.getStatus() != null) {
+            status.setText(osumnjiceni.getStatus().toString());
+        }
         
         List<String> list = new ArrayList<>();
         list.add(osumnjiceni.getOpisKriminalnihDjelatnosti());
         ObservableList<String> observableList = FXCollections.observableList(list);
-        opisKriminalnihDjelatnosti.setItems(observableList);
+        if (!observableList.get(0).equals("")) {
+            opisKriminalnihDjelatnosti.setItems(observableList);
+        }
         
         list.clear();
         for (String alias : osumnjiceni.getPopisAliasa()) {
@@ -83,7 +87,9 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
         }
         observableList.clear();
         observableList = FXCollections.observableList(list);
-        popisAliasa.setItems(observableList);
+        if (!observableList.isEmpty()) {
+            popisAliasa.setItems(observableList);
+        }
         
         list.clear();
         observableList.clear();
@@ -91,7 +97,9 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
             list.add(adresa);
         }
         observableList = FXCollections.observableList(list);
+        if (!observableList.isEmpty()) {
         poznateAdrese.setItems(observableList);
+        }
         
         list.clear();
         observableList.clear();
@@ -99,7 +107,9 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
             list.add(Integer.toString(slucaj.getBrojSlucaja()));
         }
         observableList = FXCollections.observableList(list);
+        if (!observableList.isEmpty()) {
         popisPovezanihSlucajeva.setItems(observableList);
+        }
         
         list.clear();
         observableList.clear();
@@ -107,7 +117,9 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
             list.add(Integer.toString(krimi.getOib()));
         }
         observableList = FXCollections.observableList(list);
+        if (!observableList.isEmpty()) {
         popisPovezanihKriminalaca.setItems(observableList);
+        }
         
         spol.setText(osumnjiceni.getFizickeOsobine().getSpol());
         rasa.setText(osumnjiceni.getFizickeOsobine().getRasa());

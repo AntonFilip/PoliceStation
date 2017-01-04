@@ -36,7 +36,7 @@ public interface ViewDelegate {
         public void postaviScenuUpitKriminalac(); // klik na postavi upit o kriminalcu
         public void postaviScenuUpitSlucaj(); // klik na postavi upit o slucaju
         public void postaviScenuUpitDokaz(); // klik na postavi upit o dokazu
-        public void postaviScenuPopis(String predmet, Map<String,Integer> popis); // predmet: kriminalac, slucaj ili dokaz
+        public void postaviScenuPopis(String predmet, Map<Dokaz,Float> popis); // predmet: kriminalac, slucaj ili dokaz
         public void postaviScenuIzmjeneKriminalca(); // klik na izmjenu kriminalca
         public void postaviScenuIzmjeneSlucaja(); // klik na izmjenu slucaja
         public void postaviScenuIzmjeneDokaza(); // klik na izmjenu dokaza

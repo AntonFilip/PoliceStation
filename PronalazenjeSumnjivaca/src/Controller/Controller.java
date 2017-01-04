@@ -210,7 +210,7 @@ public class Controller extends Application implements ViewDelegate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+                postaviScenuPopis("Dokaz", mapaDokaz);
 	}
 
 	@Override
@@ -410,8 +410,13 @@ public class Controller extends Application implements ViewDelegate {
 	}
 
 	@Override
-	public void postaviScenuPopis(String predmet, Map<String, Integer> popis) {
-		
+	public void postaviScenuPopis(String predmet, Map<Dokaz, Float> popis) {
+		Loader loader = new Loader("ListaStavki");
+                Parent loadScreen = loader.getLoadScreen();
+                        
+                ControlledScreen controller = (ListaStavkiController) loader.getMyLoader().getController();
+                controller.init(this);
+                pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
