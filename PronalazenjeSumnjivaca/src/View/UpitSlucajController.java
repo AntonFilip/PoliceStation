@@ -47,7 +47,7 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
         osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
         slucaj.setGlavniOsumnjiceni(osumnjiceni);
         
-        Set<Osumnjiceni> popis1 = new HashSet<>();
+        Set<Osoba> popis1 = new HashSet<>();
         String[] sumnjivci = popisOsumnjicenih.getText().split(";");
         for (String sumnjivac : sumnjivci) {
             Osumnjiceni novi = new Osumnjiceni();
@@ -84,7 +84,7 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
         slucaj.setPopisPolicajaca(popis4);
         
         if (statusSlucaja.getValue().equals("Riješen")) {
-            slucaj.setStatus(TrenutniStatusSlucaja.rijesen);
+            slucaj.setStatus(TrenutniStatusSlucaja.riješen);
         } else if (statusSlucaja.getValue().equals("Otvoren")) {
             slucaj.setStatus(TrenutniStatusSlucaja.otvoren);
         } else if (statusSlucaja.getValue().equals("Zatvoren")) {

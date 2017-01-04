@@ -51,7 +51,7 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML TextArea ostaleFizickeOsobine;
 
     @FXML TextField nacinGovora;
-    @FXML TextField razinaApstraktneInteligencije;
+    @FXML ComboBox razinaApstraktneInteligencije;
     @FXML TextArea psiholoskiProblemi;
     @FXML TextArea ostaleKarakterneOsobine;      
 
@@ -156,7 +156,16 @@ public class DodajKriminalacController implements Initializable, ControlledScree
 
         KarakterneOsobine karakterneOsobine = new KarakterneOsobine();
         karakterneOsobine.setNacinGovora(nacinGovora.getText());
-        //karakterneOsobine.setRazinaApstraktneInteligencije(razinaApstraktneInteligencije.getText());
+        
+        if (razinaApstraktneInteligencije.getValue() != null) {
+            if (razinaApstraktneInteligencije.getValue().equals("Niska")) {
+                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.niska);
+            } else if (razinaApstraktneInteligencije.getValue().equals("Srednja")) {
+                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.srednja);
+            } else if (razinaApstraktneInteligencije.getValue().equals("Visoka")) {
+                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.visoka);
+            }  
+        }
         karakterneOsobine.setPsiholoskiProblemi(popis(psiholoskiProblemi.getText().split(";")));
         karakterneOsobine.setOstaleKarakterneOsobine(popis(ostaleKarakterneOsobine.getText().split(";")));
 

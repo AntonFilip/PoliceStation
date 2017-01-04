@@ -24,7 +24,6 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
     @FXML TextField glavniOsumnjiceni;
     @FXML TextArea popisOsumnjicenih;
     @FXML TextArea popisSvjedoka;
-    @FXML TextArea popisDokaza;
     @FXML TextArea popisPolicajaca;
     @FXML ComboBox statusSlucaja;
     @FXML TextArea popisDogadaja;
@@ -46,7 +45,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
         osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
         slucaj.setGlavniOsumnjiceni(osumnjiceni);
         
-        Set<Osumnjiceni> popis1 = new HashSet<>();
+        Set<Osoba> popis1 = new HashSet<>();
         String[] sumnjivci = popisOsumnjicenih.getText().split(";");
         for (String sumnjivac : sumnjivci) {
             Osumnjiceni novi = new Osumnjiceni();
@@ -64,15 +63,6 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
         }
         slucaj.setPopisSvjedoka(popis2);
         
-        Set<Dokaz> popis3 = new HashSet<>();
-        String[] dokazi = popisDokaza.getText().split(";");
-        for (String dokaz : dokazi) {
-            Dokaz novi = new Dokaz();
-            novi.setID(Integer.parseInt(dokaz));
-            popis3.add(novi);
-        }
-        slucaj.setPopisDokaza(popis3);
-        
         Set<Pozornik> popis4 = new HashSet<>();
         String[] policajci = popisPolicajaca.getText().split(";");
         for (String policajac : policajci) {
@@ -83,7 +73,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
         slucaj.setPopisPolicajaca(popis4);
         
         if (statusSlucaja.getValue().equals("Riješen")) {
-            slucaj.setStatus(TrenutniStatusSlucaja.rijesen);
+            slucaj.setStatus(TrenutniStatusSlucaja.riješen);
         } else if (statusSlucaja.getValue().equals("Otvoren")) {
             slucaj.setStatus(TrenutniStatusSlucaja.otvoren);
         } else if (statusSlucaja.getValue().equals("Zatvoren")) {

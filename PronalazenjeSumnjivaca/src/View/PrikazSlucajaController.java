@@ -42,7 +42,7 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         broj.setText(Integer.toString(slucaj.getBrojSlucaja()));
         naziv.setText(slucaj.getNazivSlucaja());
         opis.setText(slucaj.getOpis());
-        glavniOsumnjiceni.setText(Integer.toString(slucaj.getGlavniOsumnjiceni().getOib()));
+        glavniOsumnjiceni.setText(Long.toString(slucaj.getGlavniOsumnjiceni().getOib()));
         status.setText(slucaj.getStatus().toString());
         
     }
