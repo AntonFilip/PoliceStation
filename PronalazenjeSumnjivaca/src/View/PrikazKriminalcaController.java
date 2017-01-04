@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javax.swing.text.html.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 /**
  * FXML Controller class
@@ -61,7 +63,7 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     
     public void prikaziPodatke(Osumnjiceni osumnjiceni) {
         
-        //fotografija.setImage(osumnjiceni.getFotografije());
+        fotografija.setImage((Image) osumnjiceni.getFotografije());
         
         ime.setText(osumnjiceni.getIme());
         prezime.setText(osumnjiceni.getPrezime());
