@@ -1,131 +1,257 @@
 package Model;
 
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+
 public class FizickeOsobine {
-	String spol;
-	String rasa;
-	int visina;
-	int tezina;
-	int godine;
-	String bojaKose;
-	String oblikGlave;
-	String oblikFrizure;
-	String bojaOciju;
+	private Spol spol;
+	private String rasa;
+	
+	private Float visina;
+	private Float visinaMin;
+	private Float visinaMax;
+	
+	
+	private Float tezina;
+	private Float tezinaMin;
+	private Float tezinaMax;
+	
+	
+	private Integer godine;
+	private Integer godineMin;
+	private Integer godineMax;
+
+	private String bojaKose;
+	private String oblikGlave;
+	private String oblikFrizure;
+	private String bojaOciju;
 	GradaTijela gradaTijela;
-	String tetovaze;
-	String fizickiNedostatci;
-	String bolesti;
-	String ostalo;
+	private Set<String> tetovaze = new HashSet<>();
+	private Set<String> fizickiNedostatci=new HashSet<>();
+	private Set<String> bolesti=new HashSet<>();
+	private Set<String> ostaleFizickeOsobine=new HashSet<>();
+	
+	public FizickeOsobine() {
+		super();
+	}
 
-    public String getSpol() {
-        return spol;
-    }
+	public FizickeOsobine(Spol spol, String rasa, Float visina, Float tezina, Integer godine, String bojaKose,
+			String oblikGlave, String oblikFrizure, String bojaOciju, GradaTijela gradaTijela, Set<String> tetovaze,
+			Set<String> fizickiNedostatci, Set<String> bolesti, Set<String> ostaleFizickeOsobine) {
+		super();
+		this.spol = spol;
+		this.rasa = rasa;
+		this.visina = visina;
+		this.tezina = tezina;
+		this.godine = godine;
+		this.bojaKose = bojaKose;
+		this.oblikGlave = oblikGlave;
+		this.oblikFrizure = oblikFrizure;
+		this.bojaOciju = bojaOciju;
+		this.gradaTijela = gradaTijela;
+		this.tetovaze = tetovaze;
+		this.fizickiNedostatci = fizickiNedostatci;
+		this.bolesti = bolesti;
+		this.ostaleFizickeOsobine = ostaleFizickeOsobine;
+	}
+	
+	
 
-    public String getRasa() {
-        return rasa;
-    }
+	public Float getVisinaMin() {
+		return visinaMin;
+	}
 
-    public int getVisina() {
-        return visina;
-    }
+	public void setVisinaMin(Float visinaMin) {
+		this.visinaMin = visinaMin;
+	}
 
-    public int getTezina() {
-        return tezina;
-    }
+	public Float getVisinaMax() {
+		return visinaMax;
+	}
 
-    public int getGodine() {
-        return godine;
-    }
+	public void setVisinaMax(Float visinaMax) {
+		this.visinaMax = visinaMax;
+	}
 
-    public String getBojaKose() {
-        return bojaKose;
-    }
+	public Float getTezinaMin() {
+		return tezinaMin;
+	}
 
-    public String getOblikGlave() {
-        return oblikGlave;
-    }
+	public void setTezinaMin(Float tezinaMin) {
+		this.tezinaMin = tezinaMin;
+	}
 
-    public String getOblikFrizure() {
-        return oblikFrizure;
-    }
+	public Float getTezinaMax() {
+		return tezinaMax;
+	}
 
-    public String getBojaOciju() {
-        return bojaOciju;
-    }
+	public void setTezinaMax(Float tezinaMax) {
+		this.tezinaMax = tezinaMax;
+	}
 
-    public GradaTijela getGradaTijela() {
-        return gradaTijela;
-    }
+	public Integer getGodineMin() {
+		return godineMin;
+	}
 
-    public String getTetovaze() {
-        return tetovaze;
-    }
+	public void setGodineMin(Integer godineMin) {
+		this.godineMin = godineMin;
+	}
 
-    public String getFizickiNedostatci() {
-        return fizickiNedostatci;
-    }
+	public Integer getGodineMax() {
+		return godineMax;
+	}
 
-    public String getBolesti() {
-        return bolesti;
-    }
+	public void setGodineMax(Integer godineMax) {
+		this.godineMax = godineMax;
+	}
 
-    public String getOstalo() {
-        return ostalo;
-    }
+	public Spol getSpol() {
+		return spol;
+	}
 
-    public void setSpol(String spol) {
-        this.spol = spol;
-    }
+	public void setSpol(Spol spol) {
+		this.spol = spol;
+	}
 
-    public void setRasa(String rasa) {
-        this.rasa = rasa;
-    }
+	public String getRasa() {
+		return rasa;
+	}
 
-    public void setVisina(int visina) {
-        this.visina = visina;
-    }
+	public void setRasa(String rasa) {
+		this.rasa = rasa;
+	}
 
-    public void setTezina(int tezina) {
-        this.tezina = tezina;
-    }
+	public Float getVisina() {
+		return visina;
+	}
 
-    public void setGodine(int godine) {
-        this.godine = godine;
-    }
+	public void setVisina(Float visina) {
+		this.visina = visina;
+	}
 
-    public void setBojaKose(String bojaKose) {
-        this.bojaKose = bojaKose;
-    }
+	public Float getTezina() {
+		return tezina;
+	}
 
-    public void setOblikGlave(String oblikGlave) {
-        this.oblikGlave = oblikGlave;
-    }
+	public void setTezina(Float tezina) {
+		this.tezina = tezina;
+	}
 
-    public void setOblikFrizure(String oblikFrizure) {
-        this.oblikFrizure = oblikFrizure;
-    }
+	public Integer getGodine() {
+		return godine;
+	}
 
-    public void setBojaOciju(String bojaOciju) {
-        this.bojaOciju = bojaOciju;
-    }
+	public void setGodine(Integer godine) {
+		this.godine = godine;
+	}
 
-    public void setGradaTijela(GradaTijela gradaTijela) {
-        this.gradaTijela = gradaTijela;
-    }
+	public String getBojaKose() {
+		return bojaKose;
+	}
 
-    public void setTetovaze(String tetovaze) {
-        this.tetovaze = tetovaze;
-    }
+	public void setBojaKose(String bojaKose) {
+		this.bojaKose = bojaKose;
+	}
 
-    public void setFizickiNedostatci(String fizickiNedostatci) {
-        this.fizickiNedostatci = fizickiNedostatci;
-    }
+	public String getOblikGlave() {
+		return oblikGlave;
+	}
 
-    public void setBolesti(String bolesti) {
-        this.bolesti = bolesti;
-    }
+	public void setOblikGlave(String oblikGlave) {
+		this.oblikGlave = oblikGlave;
+	}
 
-    public void setOstalo(String ostalo) {
-        this.ostalo = ostalo;
-    }
+	public String getOblikFrizure() {
+		return oblikFrizure;
+	}
+
+	public void setOblikFrizure(String oblikFrizure) {
+		this.oblikFrizure = oblikFrizure;
+	}
+
+	public String getBojaOciju() {
+		return bojaOciju;
+	}
+
+	public void setBojaOciju(String bojaOciju) {
+		this.bojaOciju = bojaOciju;
+	}
+
+	public GradaTijela getGradaTijela() {
+		return gradaTijela;
+	}
+
+	public void setGradaTijela(GradaTijela gradaTijela) {
+		this.gradaTijela = gradaTijela;
+	}
+
+	public Set<String> getTetovaze() {
+		return tetovaze;
+	}
+
+	public void setTetovaze(Set<String> tetovaze) {
+		this.tetovaze = tetovaze;
+	}
+	
+	public boolean addTetovaza (String tetovaza){
+		return tetovaze.add(tetovaza);
+	}
+	
+	public boolean addAllTetovaze (Collection<String> tetovaze){
+		return tetovaze.addAll(tetovaze);
+	}
+
+	public Set<String> getFizickiNedostatci() {
+		return fizickiNedostatci;
+	}
+
+	public void setFizickiNedostatci(Set<String> fizickiNedostatci) {
+		this.fizickiNedostatci = fizickiNedostatci;
+	}
+	
+	public boolean addFizickiNedostatak(String fizickiN){
+		return fizickiNedostatci.add(fizickiN);
+	}
+	
+
+	public boolean addAllFizickiNedostatak(Collection<String> fizickiN){
+		return fizickiNedostatci.addAll(fizickiN);
+	}
+	
+
+	public Set<String> getBolesti() {
+		return bolesti;
+	}
+
+	public void setBolesti(Set<String> bolesti) {
+		this.bolesti = bolesti;
+	}
+	
+	public boolean addBolest(String bolest){
+		return bolesti.add(bolest);
+	}
+	
+	public boolean addAllBolest(Collection<String> bolest){
+		return bolesti.addAll(bolest);
+	}
+	
+	public Set<String> getOstaleFizickeOsobine() {
+		return ostaleFizickeOsobine;
+	}
+
+	public void setOstaleFizickeOsobine(Set<String> ostaleFizickeOsobine) {
+		this.ostaleFizickeOsobine = ostaleFizickeOsobine;
+	}
+	
+	public boolean addOstalo(String ostalo){
+		return ostaleFizickeOsobine.add(ostalo);
+	}
+
+	public boolean addAllOstalo(Collection <String> ostalo){
+		return ostaleFizickeOsobine.addAll(ostalo);
+	}
 
 }

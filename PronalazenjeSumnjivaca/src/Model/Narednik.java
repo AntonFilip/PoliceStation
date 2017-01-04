@@ -1,5 +1,7 @@
 package Model;
 
+import java.sql.SQLException;
+
 import Controller.RazinaPristupa;
 
 public class Narednik extends Pozornik {
@@ -13,5 +15,18 @@ public class Narednik extends Pozornik {
 		razinaPristupa = RazinaPristupa.SREDNJA;
 
 	}
-
+	
+	public boolean dodajNoviDokaz(Dokaz dokaz) {
+		PristupBaziPodataka.dodajNoviDokaz(dokaz);
+		return true;	
+	}
+	
+	public boolean izmjeniSlucaj(Slucaj slucaj){
+		try {
+			PristupBaziPodataka.izmjenaSlucaja(slucaj);
+		} catch (SQLException e) {
+			return false;
+		}
+		return true;
+	}
 }

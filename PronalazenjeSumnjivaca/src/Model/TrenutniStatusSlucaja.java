@@ -1,5 +1,5 @@
 package Model;
 
 public enum TrenutniStatusSlucaja {
-	rijesen, zatvoren, otvoren;
+	riješen, zatvoren , otvoren;
 }
