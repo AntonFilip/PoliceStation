@@ -6,18 +6,28 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Model.*;
-import View.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import Model.Dokaz;
+import Model.Osumnjiceni;
+import Model.Pozornik;
+import Model.PristupBaziPodataka;
+import Model.Slucaj;
+import View.ControlledScreen;
+import View.GlavniIzbornikController;
+import View.PostaviUpitController;
+import View.PrijavaController;
+import View.PrikaziDnevnikController;
+import View.PrikaziStatistikuController;
+import View.UpitDokazController;
+import View.UpitKriminalacController;
+import View.UpitSlucajController;
 
 public class Controller extends Application implements ViewDelegate {
 
@@ -27,7 +37,11 @@ public class Controller extends Application implements ViewDelegate {
 	Slucaj slucaj;
 	Dokaz dokaz;
 	Osumnjiceni osumjiceni;
-	
+
+	Map<Osumnjiceni, Float> mapaOsumnjiceni;
+	Map<Dokaz, Float> mapaDokaz;
+	Map<Slucaj, Float> mapaSlucaj;
+
 	private Pane pane;
 
 	@Override
@@ -36,19 +50,19 @@ public class Controller extends Application implements ViewDelegate {
 		stage.setResizable(false);
 		stage.setTitle("PronalaÅ¾enje Sumnjivaca v1.0");
 		postaviScenuPrijava();
-		
+
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
 
 	@Override
 	public void postaviScenuPrijava() {
 		Loader loader = new Loader("FXMLPrijava");
 		Parent loadScreen = loader.getLoadScreen();
-		ControlledScreen controller = (PrijavaController) loader.getMyLoader().getController();
+		ControlledScreen controller = (PrijavaController) loader.getMyLoader()
+				.getController();
 		controller.init(this);
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
@@ -60,17 +74,17 @@ public class Controller extends Application implements ViewDelegate {
 		try {
 			policajac = PristupBaziPodataka.prijava(username, password);
 		} catch (SQLException e) {
-			//TODO pogledat kaj radi exception  i napravit dobar odgovor
-			
+			// TODO pogledat kaj radi exception i napravit dobar odgovor
+
 			e.printStackTrace();
 			return;
 		}
-		
+
 		if (policajac == null) {
-			System.out.println("Korisnièko ime i/ili lozinka nisu ipravni!");
+			System.out.println("Korisniï¿½ko ime i/ili lozinka nisu ipravni!");
 			return;
 		} else {
-			System.out.println("Uspješna prijava!");
+			System.out.println("Uspjeï¿½na prijava!");
 			prikaziGlavniIzbornik(policajac);
 		}
 	}
@@ -79,8 +93,9 @@ public class Controller extends Application implements ViewDelegate {
 	public void prikaziGlavniIzbornik(Pozornik pozornik) {
 		Loader loader = new Loader("FXMLGlavniIzbornik");
 		Parent loadScreen = loader.getLoadScreen();
-		GlavniIzbornikController controller = (GlavniIzbornikController) loader.getMyLoader().getController();
-		pane=controller.init(this);
+		GlavniIzbornikController controller = (GlavniIzbornikController) loader
+				.getMyLoader().getController();
+		pane = controller.init(this);
 		controller.setIme(policajac.getIme());
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
@@ -91,8 +106,9 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuUpit() {
 		Loader loader = new Loader("PostaviUpit");
 		Parent loadScreen = loader.getLoadScreen();
-		
-		ControlledScreen controller = (PostaviUpitController) loader.getMyLoader().getController();
+
+		ControlledScreen controller = (PostaviUpitController) loader
+				.getMyLoader().getController();
 		controller.init(this);
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
@@ -105,13 +121,14 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuStatistika() {
 		Loader loader = new Loader("PrikaziStatistiku");
 		Parent loadScreen = loader.getLoadScreen();
-		
-		PrikaziStatistikuController controller = (PrikaziStatistikuController) loader.getMyLoader().getController();
+
+		PrikaziStatistikuController controller = (PrikaziStatistikuController) loader
+				.getMyLoader().getController();
 		controller.init(this);
 		controller.postaviPodatke("proba1", "Proba2", "proba333");
-//		Scene scene = new Scene(loadScreen);
-//		stage.setScene(scene);
-//		stage.show();
+		// Scene scene = new Scene(loadScreen);
+		// stage.setScene(scene);
+		// stage.show();
 		pane.getChildren().setAll(loadScreen);
 	}
 
@@ -119,19 +136,21 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuDnevnikPretrazivanja() {
 		Loader loader = new Loader("PrikaziDnevnik");
 		Parent loadScreen = loader.getLoadScreen();
-		
-		PrikaziDnevnikController controller = (PrikaziDnevnikController) loader.getMyLoader().getController();
+
+		PrikaziDnevnikController controller = (PrikaziDnevnikController) loader
+				.getMyLoader().getController();
 		controller.init(this);
-		
+
 		ObservableList<String> data = FXCollections.observableArrayList(
-	            "chocolate", "salmon", "gold", "coral", "darkorchid",
-	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
-	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
+				"chocolate", "salmon", "gold", "coral", "darkorchid",
+				"darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
+				"blueviolet", "brown", "karmela1", "karmela2", "karmela3",
+				"karmela4", "karmela5");
 		controller.postaviPodatke(data);
-		
-//		Scene scene = new Scene(loadScreen);
-//		stage.setScene(scene);
-//		stage.show();
+
+		// Scene scene = new Scene(loadScreen);
+		// stage.setScene(scene);
+		// stage.show();
 		pane.getChildren().setAll(loadScreen);
 
 	}
@@ -166,24 +185,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void posaljiUpitKriminalac(Osumnjiceni kriminalac) {
-		Loader loader = new Loader("PrikazKriminalca");
-		Parent loadScreen = loader.getLoadScreen();
-		
-		PrikazKriminalcaController controller = (PrikazKriminalcaController) loader.getMyLoader().getController();
-		controller.init(this);
-		controller.prikaziPodatke(policajac.posaljiUpitZaOsumnjicenog(kriminalac));//TODO pricekat cure da naprave kak to treba biti u modelu
-		
-		
-//		ObservableList<String> data = FXCollections.observableArrayList(
-//	            "chocolate", "salmon", "gold", "coral", "darkorchid",
-//	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
-//	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
-//		controller.postaviPodatke(data);
-		
-//		Scene scene = new Scene(loadScreen);
-//		stage.setScene(scene);
-//		stage.show();
-		pane.getChildren().setAll(loadScreen);
+		mapaOsumnjiceni = policajac.posaljiUpit(kriminalac);
 
 	}
 
@@ -203,29 +205,11 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void posaljiUpitDokaz(Dokaz dokaz) {
-		Loader loader = new Loader("UpitDokaz");
-		Parent loadScreen = loader.getLoadScreen();
-		
-		PrikaziDnevnikController controller = (PrikaziDnevnikController) loader.getMyLoader().getController();
-		controller.init(this);
-		
 		try {
-			policajac.posaljiUpit(dokaz);
+			mapaDokaz = policajac.posaljiUpit(dokaz);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//TODO provjeriti s tomislavom il karmelom kak im poslati mapu te isto i napraviti sa sljedecim kodom
-		ObservableList<String> data = FXCollections.observableArrayList(
-	            "chocolate", "salmon", "gold", "coral", "darkorchid",
-	            "darkgoldenrod", "lightsalmon", "black", "rosybrown", "blue",
-	            "blueviolet", "brown", "karmela1", "karmela2", "karmela3", "karmela4", "karmela5");
-		controller.postaviPodatke(data);
-		
-//		Scene scene = new Scene(loadScreen);
-//		stage.setScene(scene);
-//		stage.show();
-		pane.getChildren().setAll(loadScreen);
 
 	}
 
@@ -396,8 +380,9 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuUpitKriminalac() {
 		Loader loader = new Loader("UpitKriminalac");
 		Parent loadScreen = loader.getLoadScreen();
-		
-		ControlledScreen controller = (UpitKriminalacController) loader.getMyLoader().getController();
+
+		ControlledScreen controller = (UpitKriminalacController) loader
+				.getMyLoader().getController();
 		controller.init(this);
 		pane.getChildren().setAll(loadScreen);
 	}
@@ -406,8 +391,9 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuUpitSlucaj() {
 		Loader loader = new Loader("UpitSlucaj");
 		Parent loadScreen = loader.getLoadScreen();
-		
-		ControlledScreen controller = (UpitSlucajController) loader.getMyLoader().getController();
+
+		ControlledScreen controller = (UpitSlucajController) loader
+				.getMyLoader().getController();
 		controller.init(this);
 		pane.getChildren().setAll(loadScreen);
 	}
@@ -416,24 +402,16 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuUpitDokaz() {
 		Loader loader = new Loader("UpitDokaz");
 		Parent loadScreen = loader.getLoadScreen();
-		
-		ControlledScreen controller = (UpitDokazController) loader.getMyLoader().getController();
+
+		ControlledScreen controller = (UpitDokazController) loader
+				.getMyLoader().getController();
 		controller.init(this);
 		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
 	public void postaviScenuPopis(String predmet, Map<String, Integer> popis) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		
 	}
 
 	@Override
@@ -537,13 +515,15 @@ public class Controller extends Application implements ViewDelegate {
 		public FXMLLoader getMyLoader() {
 			return myLoader;
 		}
-		
+
 		public Loader(String fxmlFile) {
-			myLoader = new FXMLLoader(getClass().getResource("/View/"+fxmlFile+".fxml"));
+			myLoader = new FXMLLoader(getClass().getResource(
+					"/View/" + fxmlFile + ".fxml"));
 			try {
 				loadScreen = (Parent) myLoader.load();
 			} catch (IOException ex) {
-				Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(Controller.class.getName()).log(Level.SEVERE,
+						null, ex);
 			}
 		}
 	}
