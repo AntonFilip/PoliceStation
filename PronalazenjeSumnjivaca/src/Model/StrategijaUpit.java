@@ -9,7 +9,7 @@ public interface StrategijaUpit <E> {
 	public String generirajTextualniOpis(Set< String> kombinacija);
 	public String generirajSQLupit(String vrijednostPretrage,String relacijaAtributDB);
 	public Set<String>  generirajListuAtributa();
-	public List<E> vratiCon(String vrijednostPretrage,String relacijaAtributDB) throws SQLException;
+	public List<E> vratiCon(String vrijednostPretrage,String relacijaAtributDB,List<String> upitSQL) throws SQLException;
 
 
 	public static String generirajWhere(String relacijaAtributDB,String vrijednostPretrage){

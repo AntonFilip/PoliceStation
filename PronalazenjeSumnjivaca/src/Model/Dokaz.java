@@ -243,12 +243,44 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 	}
 
 	@Override
-	public List<Dokaz> vratiCon(String vrijednostPretrage,String relacijaAtribut) throws SQLException {
-		return PristupBaziPodataka.vratiDokaze(vrijednostPretrage,relacijaAtribut);
+	public List<Dokaz> vratiCon(String vrijednostPretrage,String relacijaAtribut,List<String> upiti) throws SQLException {
+		return PristupBaziPodataka.vratiDokaze(vrijednostPretrage,relacijaAtribut,upiti);
 	}
 
 	@Override
 	public String generirajTextualniOpis(Set<String> listaAtributa) {
-		return null;
+		StringBuilder sbBuilder=new StringBuilder();
+		sbBuilder.append("Traži se dokaz sa sljedećim obilježjima: ");
+
+		for (String string: listaAtributa){
+			String [] parts=string.split("\\*");
+			String obiljezje=parts[1];
+			String vrijednost=parts[0];
+			switch (obiljezje){
+
+			case "DNASekvenca.nazivDNASekvenca":
+				sbBuilder.append("dna sekvenca - "+vrijednost+", ");
+				System.out.println(sbBuilder.toString());
+				break;
+			case "DokazniMaterijal.brojDokaznogMaterijala": 
+				sbBuilder.append("broj dokaznog materijala - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.nazivSlučaja":
+				sbBuilder.append("naziv slučaja - "+vrijednost+", ");
+				break;
+			case "KrvnaGrupa.nazivKrvnaGrupa":
+				sbBuilder.append("krvna grupa - "+vrijednost+", ");
+				break;
+			case "TipOružja.nazivOružja":
+				sbBuilder.append("oružje - "+vrijednost+", ");
+				break;
+			case "DokazniMaterijal.nazivDokaznogMaterijala":
+				sbBuilder.append("naziv - "+vrijednost+", ");
+				break;
+			}
+		}
+		String opis=sbBuilder.toString();
+		System.out.println(opis.substring(0, opis.lastIndexOf(",")));
+		return opis.substring(0, opis.lastIndexOf(","));
 	}
 }

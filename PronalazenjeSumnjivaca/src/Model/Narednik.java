@@ -9,9 +9,10 @@ public class Narednik extends Pozornik {
 		razinaPristupa = RazinaPristupa.SREDNJA;
 	}
 
-	public Narednik(String ime, String prezime) {
+	public Narednik(String ime, String prezime,Integer jedinstveniBrojPolicajca) {
 		this.ime = ime;
 		this.prezime = prezime;
+		super.setJedinstveniBroj(jedinstveniBrojPolicajca);
 		razinaPristupa = RazinaPristupa.SREDNJA;
 
 	}

@@ -301,14 +301,51 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	}
 
 	@Override
-	public List<Slucaj> vratiCon(String vrijednostPretrage,String relacijaAtribut) throws SQLException {
-		return PristupBaziPodataka.vratiSlucajeve(vrijednostPretrage,relacijaAtribut);
+	public List<Slucaj> vratiCon(String vrijednostPretrage,String relacijaAtribut,List<String>upiti) throws SQLException {
+		return PristupBaziPodataka.vratiSlucajeve(vrijednostPretrage,relacijaAtribut,upiti);
 	}
 
 	@Override
-	public String generirajTextualniOpis(Set<String> lista) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public String generirajTextualniOpis(Set<String> listaAtributa) {
+		StringBuilder sbBuilder=new StringBuilder();
+		sbBuilder.append("Traži se policijski slučaj sa sljedećim obilježjima: ");
+		if(listaAtributa.isEmpty()) return null;
+		for (String string: listaAtributa){
+			String [] parts=string.split("\\*");
+			String obiljezje=parts[1];
+			String vrijednost=parts[0];
+			switch (obiljezje){
 
+			case "PolicijskiSlučaj.brojSlučaja":
+				sbBuilder.append("broj slučaja - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.nazivSlučaja": 
+				sbBuilder.append("naziv slučaja - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.trenutniStatus":
+				sbBuilder.append("trenutni status - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.glavnaOsumljicenaOsobaOib":
+				sbBuilder.append("glavna osumnjicena osoba oib - "+vrijednost+", ");
+				break;
+			case "ListaDogađaja.nazivDogađaja":
+				sbBuilder.append("naziv događaja - "+vrijednost+", ");
+				break;
+			case "DokazniMaterijal.brojDokaznogMaterijala":
+				sbBuilder.append("broj dokaznog materijala - "+vrijednost+", ");
+				break;
+			case "ListaOsumnjicenihOsoba.osobaOib":
+				sbBuilder.append("osumnjicena osoba oib - "+vrijednost+", ");
+				break;
+			case "PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca":
+				sbBuilder.append("jedinstveni broj policajca - "+vrijednost+", ");
+				break;
+			case "ListaSvjedoka.osobaOib":
+				sbBuilder.append("svjedok oib - "+vrijednost+", ");
+				break;
+			}
+		}
+		System.out.println(sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(",")));
+		return sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(","));
+	}
 }

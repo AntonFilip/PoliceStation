@@ -1,6 +1,8 @@
 package Model;
 
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,9 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 public class PristupBaziPodataka {
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7150265?useUnicode=yes&characterEncoding=UTF-8";	
+	private static final String DB_CONNECTION = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7150265?useUnicode=yes&characterEncoding=UTF-8&allowMultiQueries=true";	
 	private static final String DB_USER = "sql7150265";
 	private static final String DB_PASSWORD = "Xshx7bdSHe";
 	private static List<String> vrati=new ArrayList<String>();
@@ -38,7 +42,7 @@ public class PristupBaziPodataka {
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 
-		String query = "SELECT Osoba.imeOsobe, Osoba.prezimeOsobe, Policajac.razinaPristupa "
+		String query = "SELECT Osoba.imeOsobe, Osoba.prezimeOsobe, Policajac.razinaPristupa,jedinstveniBrojPolicajca "
 				+ "FROM Osoba JOIN Policajac ON Osoba.oib=Policajac.osobaOib "
 				+ "WHERE Policajac.korisnickoIme= ? AND Policajac.lozinka= ? ";
 
@@ -53,18 +57,15 @@ public class PristupBaziPodataka {
 			while (rs.next()) {
 				switch (rs.getString(3)) {
 				case "osnovna":
-					Pozornik pozornik = new Pozornik(rs.getString(1),
-							rs.getString(2));
+					Pozornik pozornik = new Pozornik(rs.getString(1),rs.getString(2),rs.getInt(4));
 					return pozornik;
 
 				case "srednja":
-					Pozornik narednik = new Narednik(rs.getString(1),
-							rs.getString(2));
+					Pozornik narednik = new Narednik(rs.getString(1),rs.getString(2),rs.getInt(4));
 					return narednik;
 
 				case "visoka":
-					Pozornik kapetan = new Kapetan(rs.getString(1),
-							rs.getString(2));
+					Pozornik kapetan = new Kapetan(rs.getString(1),rs.getString(2),rs.getInt(4));
 					return kapetan;
 				}
 			}
@@ -82,10 +83,12 @@ public class PristupBaziPodataka {
 		return null;
 	}
 
-	public static List<Slucaj> vratiSlucajeve(String vrijednostPretrage,String relacijaAtributDB) throws SQLException {
+	public static List<Slucaj> vratiSlucajeve(String vrijednostPretrage,String relacijaAtributDB,List<String>upiti) throws SQLException {
 		Context<Slucaj> slucajevi=new Context<>(new Slucaj());
 		String query=slucajevi.izgenerirajUpit(vrijednostPretrage, relacijaAtributDB);
+		upiti.add(query+"; ");
 		List<Slucaj> listaSlucajeva=new LinkedList<>();
+		
 
 		try {
 			dbConnection = getDBConnection();
@@ -128,9 +131,10 @@ public class PristupBaziPodataka {
 		return null;
 	}
 	
-	public static List<Dokaz> vratiDokaze (String vrijednostPretrage,String relacijaAtributDB) throws SQLException {
+	public static List<Dokaz> vratiDokaze (String vrijednostPretrage,String relacijaAtributDB,List<String>upiti) throws SQLException {
 		Context<Dokaz> dokazi=new Context<>(new Dokaz());
 		String query=dokazi.izgenerirajUpit(vrijednostPretrage,relacijaAtributDB);
+		upiti.add(query+"; ");
 		List<Dokaz> listaDokaza=new LinkedList<>();
 
 		try {
@@ -165,9 +169,10 @@ public class PristupBaziPodataka {
 		return null;
 	}
 	
-	public static List<Osumnjiceni> vratiOsumnjicene (String vrijednostPretrage,String relacijaAtributDB) throws SQLException {
+	public static List<Osumnjiceni> vratiOsumnjicene (String vrijednostPretrage,String relacijaAtributDB,List<String>upiti) throws SQLException {
 		Context<Osumnjiceni> osumnjiceni=new Context<>(new Osumnjiceni());
 		String query=osumnjiceni.izgenerirajUpit(vrijednostPretrage,relacijaAtributDB);
+		upiti.add(query+"; ");
 		List<Osumnjiceni> listaOsumnjicenih=new LinkedList<>();
 
 		try {
@@ -805,7 +810,7 @@ public class PristupBaziPodataka {
 			else zarez=true;
 			upit+=StrategijaUpit.generirajUpdate("glavnaOsumljicenaOsobaOib",slucaj.getGlavniOsumnjiceni().getOib().toString());
 		}
-		upit+=" WHERE `nazivSlučaja`= '" + slucaj.getNazivSlucaja()+"'";
+		upit+=" WHERE `brojSlučaja`= '" + slucaj.getNazivSlucaja()+"'";
 		try {
 			dbConnection = getDBConnection();
 			if (dbConnection==null) {System.out.println("fail");	
@@ -840,5 +845,111 @@ public class PristupBaziPodataka {
 		
 		return true;
 		
+	}
+
+	public static boolean upisiDnevnikPretrazivanja (String textUpita,String sqlUpit,Integer jedinstveniBrojPolicajca){
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+		String query= "SET NAMES utf8mb4; INSERT INTO DnevnikPretraživanja (ipAdresa,tekstUpita,tekstUpitaSQLoblik,vrijemeUpita,jedinstveniBrojPolicajca) VALUES (?,?,?,?,?);";
+		InetAddress IP;
+		try {
+			IP = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			return false;
+		}
+		String ipAdresa=IP.getHostAddress();
+		System.out.println(sqlUpit);
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement=dbConnection.prepareStatement(query);
+			preparedStatement.setString(1, ipAdresa);
+			preparedStatement.setString(2,textUpita);
+			preparedStatement.setString(3, sqlUpit);
+			preparedStatement.setTimestamp(4,java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+			preparedStatement.setInt(5, jedinstveniBrojPolicajca);
+			preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (dbConnection != null) {
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return true;
+	}
+	
+	public static Statistika izracunajStatistiku (){
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+		Statistika statistika=new Statistika();
+		String query="SELECT COUNT( Kriminalac.oib ) FROM Kriminalac;"
+				+ "	select count(brojSlučaja) from PolicijskiSlučaj"
+				+ "select count(brojSlučaja) from PolicijskiSlučaj where trenutniStatus='riješen'"
+				+ "select distinct nazivOružja, count(brojDokaznogMaterijala) from ListaOružja join TipOružja on ListaOružja.tipOružjaID=TipOružja.tipOružjaID Group by nazivOružja";
+		
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement=dbConnection.prepareStatement(query);
+			boolean isResultSet = preparedStatement.execute();
+			int count = 0;
+			
+			while(true) {
+				ResultSet rs1=preparedStatement.getResultSet();
+				ResultSet rs2=preparedStatement.getMoreResults();
+				ResultSet rs3=preparedStatement.getMoreResults();
+				ResultSet rs4=preparedStatement.getMoreResults();
+				
+			    if(isResultSet) {
+			        rs = preparedStatement.getResultSet();
+			        while(rs.next()) {
+			            processEachRow(rs);
+			        }
+			        rs.close();
+			    } else {
+			        if(stmt.getUpdateCount() == -1) {
+			            break;
+			        }
+			        log.info("Result {} is just a count: {}", count, stmt.getUpdateCount());
+			    }
+
+			    count ++;
+			    isResultSet =preparedStatement.getMoreResults();
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		finally {
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (dbConnection != null) {
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return true;
+		return statistika;
 	}
 }

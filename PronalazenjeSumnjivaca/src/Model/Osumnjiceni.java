@@ -308,6 +308,7 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 				sbBuilder.append("adresa prebivališta - "+adresaNaziv2+" u mjestu "+mjestoNaziv2+", ");
 			}
 		}
+		System.out.println(sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(",")));
 		return sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(","));
 	}
 
@@ -529,8 +530,8 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	}
 
 	@Override
-	public List<Osumnjiceni> vratiCon(String vrijednostPretrage, String relacijaAtributDB) throws SQLException {
-		return PristupBaziPodataka.vratiOsumnjicene(vrijednostPretrage, relacijaAtributDB);
+	public List<Osumnjiceni> vratiCon(String vrijednostPretrage, String relacijaAtributDB,List<String >upiti) throws SQLException {
+		return PristupBaziPodataka.vratiOsumnjicene(vrijednostPretrage, relacijaAtributDB,upiti);
 	}
 
 	@Override
