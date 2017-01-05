@@ -381,7 +381,7 @@ public class PristupBaziPodataka {
 	}
 
 	public static Osumnjiceni dohvatiPodatkeOsumnjiceni(String oib) {
-		String query="select Kriminalac.*, Osoba.ime, Osoba.prezime,Osoba.adresaPrebivališta,Mjesto.pbrMjesto,Mjesto.nazivMjesto from Kriminalac join Osoba on Kriminalac.oib=Osoba.oib join mjesto on Osoba.Mjesto_pbrMjesto=Mjesto.pbrMjesto where oib='"+oib+"'";
+		String query="select Kriminalac.*, Osoba.ime, Osoba.prezime,Osoba.adresaPrebivališta,Mjesto.pbrMjesto,Mjesto.nazivMjesto from Kriminalac join Osoba on Kriminalac.oib=Osoba.oib join Mjesto on Osoba.Mjesto_pbrMjesto=Mjesto.pbrMjesto where Osoba.oib='"+oib+"'";
 		Osumnjiceni osumnjiceni=new Osumnjiceni();
 		FizickeOsobine fOsobina=new FizickeOsobine();
 		KarakterneOsobine kOsobine=new KarakterneOsobine();
@@ -1113,7 +1113,8 @@ public class PristupBaziPodataka {
 		}
 		return true;
 	}
-
+	
+	
 	public static boolean upisiDnevnikPretrazivanja (String textUpita,String sqlUpit,Integer jedinstveniBrojPolicajca){
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
@@ -1159,7 +1160,48 @@ public class PristupBaziPodataka {
 		return true;
 	}
 
+	public static List<DnevnikPretrazivanja> dohvatiZapiseDnevnika(){
+		Connection dbConnection = null;
+		Statement statement = null;
+		List<DnevnikPretrazivanja> listaZapisa=new LinkedList<>();
+		String query="Select dnevnikPretraživanjaID, ipAdresa,vrijemeUpita, jedinstveniBrojPolicajca";
+		try {
+			dbConnection = getDBConnection();
+			statement=dbConnection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery(query);
 
+			while (rs.next()) {
+				Dokaz dokaz=new Dokaz();
+				dokaz.setID(rs.getInt(1));
+				dokaz.setNaziv(rs.getString(2));
+				dokaz.setFotografija(rs.getString(3));
+				dokaz.setNazivSlucaja(rs.getString(4));
+				listaDokaza.add(dokaz);
+			}
+			return listaDokaza;
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if (statement != null) {
+				statement.close();
+			}
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+		}
+		return null;
+	}
+	public static DnevnikPretrazivanja izaberiZapisUDnevniku(Integer brojZapisa){
+		Connection dbConnection = null;
+		Statement statement = null;
+		DnevnikPretrazivanja zapis=new DnevnikPretrazivanja();
+		String query="Select * from DnevnikPretraživanja where dnevnikPretraživanjaID='"+brojZapisa+"'";
+		
+		
+	}
+	
 	public static Statistika izracunajStatistiku (){
 		Connection dbConnection = null;
 		Statement statement = null;
