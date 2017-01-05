@@ -62,8 +62,8 @@ public class Context <E> {
 		
 		for (Entry<E, Integer> entry: listaContexta.entrySet()){
 			E cont=entry.getKey();
-			Integer brojOdgovarajuÄ‡ihAtributa=entry.getValue();
-			Float postotakSlaganja=(float) (brojOdgovarajuÄ‡ihAtributa)/(float) listaAtributa.size() *100;
+			Integer brojOdgovarajuæihAtributa=entry.getValue();
+			Float postotakSlaganja=(float) (brojOdgovarajuæihAtributa)/(float) listaAtributa.size() *100;
 			rezultat.put(cont, postotakSlaganja);
 		}
 

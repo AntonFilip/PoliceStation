@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import View.PrijavaController;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 public interface ViewDelegate {
 	
-        public void prijava(String korisnickoIme, String lozinka) throws IOException;// klik na prijava 
+//        public void prijava(String korisnickoIme, String lozinka) throws IOException;// klik na prijava 
         public void posaljiUpitKriminalac(Osumnjiceni kriminalac); // upisani podaci -> klik na posalji upit      
         public void posaljiUpitSlucaj(Slucaj slucaj); // upisani podaci -> klik na posalji upit     
         public void posaljiUpitDokaz(Dokaz dokaz); // upisani podaci -> klik na posalji upit     
@@ -36,7 +37,7 @@ public interface ViewDelegate {
         public void postaviScenuUpitKriminalac(); // klik na postavi upit o kriminalcu
         public void postaviScenuUpitSlucaj(); // klik na postavi upit o slucaju
         public void postaviScenuUpitDokaz(); // klik na postavi upit o dokazu
-        public void postaviScenuPopis(String predmet, Map<Dokaz,Float> popis); // predmet: kriminalac, slucaj ili dokaz
+        
         public void postaviScenuIzmjeneKriminalca(); // klik na izmjenu kriminalca
         public void postaviScenuIzmjeneSlucaja(); // klik na izmjenu slucaja
         public void postaviScenuIzmjeneDokaza(); // klik na izmjenu dokaza
@@ -45,6 +46,8 @@ public interface ViewDelegate {
         public void postaviScenuDodajDokaz(); //klik na dodaj dokaz iz scene za dodavanje slucaja
         public void postaviScenuStatistika(); //klik na gumbic za statistiku
         public void postaviScenuDnevnikPretrazivanja(); // klik na gumbic za dnevnik
+		void prijava(String username, String password, PrijavaController prijavaController) throws IOException;
+		public <K, V> void postaviScenuPopis(String predmet, Map<K, V> popis);
 		
         
 }
