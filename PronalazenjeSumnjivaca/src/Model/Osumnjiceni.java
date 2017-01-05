@@ -536,7 +536,12 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 
 	@Override
 	public String toString() {
-		return "Osumnjiceni [ oib="+super.getOib()+" ime="+super.getIme()+" prezime="+super.getPrezime()+" status=" + status +" ]";
+		return "Osumnjiceni [status=" + status + ", brojTelefona=" + brojTelefona + ", opisKriminalnihDjelatnosti="
+				+ opisKriminalnihDjelatnosti + ", fizickeOsobine=" + fizickeOsobine + ", karakterneOsobine="
+				+ karakterneOsobine + ", otisakPrstaURL=" + otisakPrstaURL + ", fotografijeURL=" + fotografijeURL
+				+ ", popisAliasa=" + popisAliasa + ", poznateAdrese=" + poznateAdrese + ", popisPovezanihKriminalaca="
+				+ popisPovezanihKriminalaca + ", povezaniSlucajevi=" + povezaniSlucajevi + "]";
 	}
 
+	
 }

@@ -56,16 +56,10 @@ public class Pozornik extends Osoba {
 		}
 		return null;
 	}
-	/*public Osumnjiceni dohvatiPodatkeOsumnjiceni(String oib) {
-		try {
-			return PristupBaziPodataka.dohvatiPodatkeOsumnjiceni(oib);
-		}
-		catch(SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}*/
+	public Osumnjiceni dohvatiPodatkeOsumnjiceni(String oib) {
+		return PristupBaziPodataka.dohvatiPodatkeOsumnjiceni(oib);
+		
+	}
 	public Map<Dokaz, Float> posaljiUpit(Dokaz dokaz) throws SQLException{		
 		Context<Dokaz> dokazi=new Context<>(new Dokaz());
 		return dokazi.posaljiUpit(dokaz,jedinstveniBroj);	

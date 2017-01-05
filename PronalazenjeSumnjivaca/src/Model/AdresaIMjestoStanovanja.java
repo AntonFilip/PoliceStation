@@ -1,7 +1,6 @@
 package Model;
 
 public class AdresaIMjestoStanovanja {
-	Integer adresaID;
 	Integer pbrMjesto;
 	String adresa;
 	String nazivMjesta;
@@ -11,21 +10,16 @@ public class AdresaIMjestoStanovanja {
 		super();
 	}
 
-	public AdresaIMjestoStanovanja(Integer adresaID, Integer pbrMjesto, String adresa, String nazivMjesta) {
+	public AdresaIMjestoStanovanja( Integer pbrMjesto, String adresa, String nazivMjesta) {
 		super();
-		this.adresaID = adresaID;
+		
 		this.pbrMjesto = pbrMjesto;
 		this.adresa = adresa;
 		this.nazivMjesta = nazivMjesta;
 	}
 	
 
-	public Integer getAdresaID() {
-		return adresaID;
-	}
-	public void setAdresaID(Integer adresaID) {
-		this.adresaID = adresaID;
-	}
+	
 	public Integer getPbrMjesto() {
 		return pbrMjesto;
 	}

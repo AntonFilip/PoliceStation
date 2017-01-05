@@ -1,5 +1,5 @@
 package Model;
 
 public enum Spol {
-	M, Ž;
+	M, Å½;
 }

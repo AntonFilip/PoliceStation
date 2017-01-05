@@ -17,5 +17,9 @@ public class Kapetan extends Narednik {
 		Context<Slucaj> slucaji=new Context<>(new Slucaj());
 		return slucaji.dodajNoviSlucaj(slucaj);	
 	}
+	public boolean dodajNovogKriminalca(Osumnjiceni osumnjicen) {
+		Context<Osumnjiceni> osumnjiceni=new Context<>(new Osumnjiceni());
+		return osumnjiceni.dodajNovogKriminalca(osumnjicen);
+	}
 
 }

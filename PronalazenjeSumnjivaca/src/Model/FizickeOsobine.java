@@ -254,4 +254,13 @@ public class FizickeOsobine {
 		return ostaleFizickeOsobine.addAll(ostalo);
 	}
 
+	@Override
+	public String toString() {
+		return "FizickeOsobine [spol=" + spol + ", rasa=" + rasa + ", visina=" + visina + ", visinaMin=" + visinaMin
+				+ ", visinaMax=" + visinaMax + ", tezina=" + tezina + ", godine=" + godine + ", bojaKose=" + bojaKose
+				+ ", oblikGlave=" + oblikGlave + ", oblikFrizure=" + oblikFrizure + ", bojaOciju=" + bojaOciju
+				+ ", gradaTijela=" + gradaTijela + ", tetovaze=" + tetovaze + ", fizickiNedostatci=" + fizickiNedostatci
+				+ ", bolesti=" + bolesti + ", ostaleFizickeOsobine=" + ostaleFizickeOsobine + "]";
+	}
+
 }

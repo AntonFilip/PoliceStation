@@ -62,8 +62,8 @@ public class Context <E> {
 		
 		for (Entry<E, Integer> entry: listaContexta.entrySet()){
 			E cont=entry.getKey();
-			Integer brojOdgovarajuÊihAtributa=entry.getValue();
-			Float postotakSlaganja=(float) (brojOdgovarajuÊihAtributa)/(float) listaAtributa.size() *100;
+			Integer brojOdgovarajuƒçihAtributa=entry.getValue();
+			Float postotakSlaganja=(float) (brojOdgovarajuƒçihAtributa)/(float) listaAtributa.size() *100;
 			rezultat.put(cont, postotakSlaganja);
 		}
 
@@ -82,5 +82,8 @@ public class Context <E> {
 	public boolean dodajNoviSlucaj(Slucaj slucaj) {
 		PristupBaziPodataka.dodajNoviSlucaj(slucaj);
 		return true;
+	}
+	public boolean dodajNovogKriminalca(Osumnjiceni osumnjicen) {
+		return PristupBaziPodataka.dodajNovogKriminalca(osumnjicen);
 	}
 }

@@ -232,14 +232,14 @@ public class PristupBaziPodataka {
 					dokaz.setFotografija(rs.getString(4));
 					dokaz.setNazivSlucaja(rs.getString(3));
 
-					if(!(vratiListu(Integer.parseInt(id),"KrvnaGrupa.nazivKrvnaGrupa","DokazniMaterijal","ListaKrvnihGrupaNaDokaznomMaterijalu","ListaKrvnihGrupaNaDokaznomMaterijalu.dokazniMaterijalID","DokazniMaterijal.brojDokaznogMaterijala","KrvnaGrupa","KrvnaGrupa.krvnaGrupaID" , "ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID").isEmpty())) {
+					if(!(vratiListu(Long.parseLong(id),"KrvnaGrupa.nazivKrvnaGrupa","DokazniMaterijal","ListaKrvnihGrupaNaDokaznomMaterijalu","ListaKrvnihGrupaNaDokaznomMaterijalu.dokazniMaterijalID","DokazniMaterijal.brojDokaznogMaterijala","KrvnaGrupa","KrvnaGrupa.krvnaGrupaID" , "ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID").isEmpty())) {
 						dokaz.addAllKrvnaGrupa(vrati);
 						vrati.removeAll(vrati);
 					}
 				
 					
 					
-					if(!(vratiListu(Integer.parseInt(id),"DNASekvenca.nazivDNASekvenca","DokazniMaterijal","ListaDNASekvenciNaDokaznomMaterijalu", "ListaDNASekvenciNaDokaznomMaterijalu.dokazniMaterijalID","DokazniMaterijal.brojDokaznogMaterijala","DNASekvenca", "DNASekvenca.dnaSekvencaID", "ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID").isEmpty())) {
+					if(!(vratiListu(Long.parseLong(id),"DNASekvenca.nazivDNASekvenca","DokazniMaterijal","ListaDNASekvenciNaDokaznomMaterijalu", "ListaDNASekvenciNaDokaznomMaterijalu.dokazniMaterijalID","DokazniMaterijal.brojDokaznogMaterijala","DNASekvenca", "DNASekvenca.dnaSekvencaID", "ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID").isEmpty())) {
 						dokaz.addAllDNASekvenca(vrati);
 						vrati.removeAll(vrati);
 					}
@@ -247,7 +247,7 @@ public class PristupBaziPodataka {
 					
 					
 					
-					if(!(vratiListu(Integer.parseInt(id),"TipOružja.nazivOružja", "DokazniMaterijal","ListaOružja", "ListaOružja.brojDokaznogMaterijala", "DokazniMaterijal.brojDokaznogMaterijala","TipOružja", "TipOružja.tipOružjaID", "ListaOružja.tipOružjaID").isEmpty())) {
+					if(!(vratiListu(Long.parseLong(id),"TipOružja.nazivOružja", "DokazniMaterijal","ListaOružja", "ListaOružja.brojDokaznogMaterijala", "DokazniMaterijal.brojDokaznogMaterijala","TipOružja", "TipOružja.tipOružjaID", "ListaOružja.tipOružjaID").isEmpty())) {
 						dokaz.addAllTipOruzja(vrati);
 						vrati.removeAll(vrati);
 					}
@@ -304,7 +304,7 @@ public class PristupBaziPodataka {
 					slucaj.setOpis(rs.getString(3));
 					
 
-					if(!(vratiListu(Integer.parseInt(id),"Policajac.jedinstveniBrojPolicajca","PolicijskiSlučaj","PolicajciDodijeljeniSlučaju","PolicajciDodijeljeniSlučaju.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Policajac","Policajac.jedinstveniBrojPolicajca" , "PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca").isEmpty())) {
+					if(!(vratiListu(Long.parseLong(id),"Policajac.jedinstveniBrojPolicajca","PolicijskiSlučaj","PolicajciDodijeljeniSlučaju","PolicajciDodijeljeniSlučaju.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Policajac","Policajac.jedinstveniBrojPolicajca" , "PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca").isEmpty())) {
 						for(String s:vrati) {
 							Pozornik pozornik=new Pozornik();
 							Integer broj=Integer.parseInt(s);
@@ -316,7 +316,7 @@ public class PristupBaziPodataka {
 				
 					
 					
-					if(!(vratiListu(Integer.parseInt(id),"Osoba.oib","PolicijskiSlučaj","ListaOsumnjicenihOsoba", "ListaOsumnjicenihOsoba.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaOsumnjicenihOsoba.osobaOib").isEmpty())) {
+					if(!(vratiListu(Long.parseLong(id),"Osoba.oib","PolicijskiSlučaj","ListaOsumnjicenihOsoba", "ListaOsumnjicenihOsoba.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaOsumnjicenihOsoba.osobaOib").isEmpty())) {
 						for(String s:vrati) {
 							if(!s.equals(null)) {
 							Osoba osoba=new Osoba();
@@ -331,7 +331,7 @@ public class PristupBaziPodataka {
 					
 					
 					
-					if(!(vratiListu(Integer.parseInt(id),"Osoba.oib","PolicijskiSlučaj","ListaSvjedoka", "ListaSvjedoka.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaSvjedoka.osobaOib").isEmpty())) {
+					if(!(vratiListu(Long.parseLong(id),"Osoba.oib","PolicijskiSlučaj","ListaSvjedoka", "ListaSvjedoka.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaSvjedoka.osobaOib").isEmpty())) {
 						for(String s:vrati) {
 							if(!s.equals(null)) {
 							Osoba osoba=new Osoba();
@@ -379,8 +379,253 @@ public class PristupBaziPodataka {
 		}
 		return null;
 	}
+	
+	public static Osumnjiceni dohvatiPodatkeOsumnjiceni(String oib) {
+		String query="select * from Kriminalac where oib='"+oib+"'";
+		Osumnjiceni osumnjiceni=new Osumnjiceni();
+		FizickeOsobine fOsobina=new FizickeOsobine();
+		KarakterneOsobine kOsobine=new KarakterneOsobine();
+		try {
+			dbConnection = getDBConnection();
+			if (dbConnection==null) {System.out.println("fail");	
+			}
+
+			statement=dbConnection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				osumnjiceni.setOib(rs.getLong(1));
+				
+				String status=rs.getString(3);
+				switch (status) {
+				case "na slobodi": osumnjiceni.setStatus(TrenutniStatusKriminalca.sloboda);break;
+				case "u pritvoru": osumnjiceni.setStatus(TrenutniStatusKriminalca.u_pritvoru);break;
+				case "u zatvoru": osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru); break;
+				}
+				
+				osumnjiceni.setBrojTelefona(rs.getString(6));
+				osumnjiceni.setOpisKriminalnihDjelatnosti(rs.getString(17));
+				fOsobina.setBojaKose(rs.getString(10));
+				fOsobina.setBojaOciju(rs.getString(13));
+				try {
+					String upit="SELECT (YEAR( CURRENT_TIMESTAMP )) - YEAR( datumRođenja ) AS godine FROM Kriminalac WHERE oib ='"+oib+"'";
+					System.out.println(upit);
+					statement=dbConnection.prepareStatement(upit);
+					ResultSet r=statement.executeQuery(upit);
+					while(r.next()) {
+						fOsobina.setGodine(r.getInt(1));
+					}
+				} catch(Exception e) {
+					System.out.println(e);
+					e.printStackTrace();
+				}
+				String gradaTijela=rs.getString(14);
+				switch (gradaTijela) {
+				case "slabija": fOsobina.setGradaTijela(GradaTijela.slabija);;break;
+				case "srednja": fOsobina.setGradaTijela(GradaTijela.srednja);;break;
+				case "ja?a": fOsobina.setGradaTijela(GradaTijela.jaca);; break;
+				}
+				fOsobina.setOblikFrizure(rs.getString(12));
+				fOsobina.setOblikGlave(rs.getString(11));
+				fOsobina.setRasa(rs.getString(7));
+				String spol=rs.getString(5);
+				switch (spol) {
+				case "M": fOsobina.setSpol(Spol.M);;break;
+				case "Ž": fOsobina.setSpol(Spol.Ž);;break;
+				}
+				fOsobina.setTezina(rs.getFloat(9));
+				fOsobina.setVisina(rs.getFloat(8));
+				kOsobine.setNacinGovora(rs.getString(16));
+				String razinaInt=rs.getString(15);
+				switch (razinaInt) {
+				case "visoka": kOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.visoka);break;
+				case "srednja": kOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.srednja);break;
+				case "niska": kOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.niska); break;
+				}
+				if(!(vratiListu(Long.parseLong(oib),"Bolest.nazivBolesti","Kriminalac","ListaBolestiKriminalca","ListaBolestiKriminalca.kriminalacOib","Kriminalac.oib","Bolest","Bolest.bolestID" , "ListaBolestiKriminalca.bolestID").isEmpty())) {
+					Set<String> bolesti=new HashSet<>();
+					for(String s:vrati) {
+						bolesti.add(s);
+						
+					}
+					fOsobina.setBolesti(bolesti);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib),"Tetovaža.opisTetovaže","Kriminalac","TetovažeKriminalca","TetovažeKriminalca.kriminalacOib","Kriminalac.oib","Tetovaža","Tetovaža.tetovažaID" , "TetovažeKriminalca.tetovažaID").isEmpty())) {
+					Set<String> tetovaže=new HashSet<>();
+					for(String s:vrati) {
+						tetovaže.add(s);
+						
+					}
+					fOsobina.setTetovaze(tetovaže);;
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib),"FizičkiNedostatak.fizičkiNedostatakOpis","Kriminalac","FizičkiNedostaciKriminalca","FizičkiNedostaciKriminalca.kriminalacOib","Kriminalac.oib","FizičkiNedostatak","FizičkiNedostatak.fizičkiNedostatakID" , "FizičkiNedostaciKriminalca.fizičkiNedostatakID").isEmpty())) {
+					Set<String> fiznedostaci=new HashSet<>();
+					for(String s:vrati) {
+						fiznedostaci.add(s);
+						
+					}
+					fOsobina.setFizickiNedostatci(fiznedostaci);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib),"KarakternaOsobina.karakternaOsobinaOpis","Kriminalac","OstaleKarakterneOsobineKriminalca","OstaleKarakterneOsobineKriminalca.kriminalacOib","Kriminalac.oib","KarakternaOsobina","KarakternaOsobina.karakternaOsobinaID" , "OstaleKarakterneOsobineKriminalca.karakternaOsobinaID").isEmpty())) {
+					Set<String> karOSobine=new HashSet<>();
+					for(String s:vrati) {
+						karOSobine.add(s);
+						
+					}
+					kOsobine.setOstaleKarakterneOsobine(karOSobine);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib),"PsihološkiProblem.psihološkiProblemOpis","Kriminalac","PsihološkiProblemiKriminalca","PsihološkiProblemiKriminalca.kriminalacOib","Kriminalac.oib","PsihološkiProblem","PsihološkiProblem.psihološkiProblemID" , "PsihološkiProblemiKriminalca.psihološkiProblemID").isEmpty())) {
+					Set<String> psihProb=new HashSet<>();
+					for(String s:vrati) {
+						psihProb.add(s);
+						
+					}
+					kOsobine.setPsiholoskiProblemi(psihProb);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib),"FizičkaOsobina.fizičkaOsobinaOpis","Kriminalac","OstaleFizičkeOsobineKriminalca","OstaleFizičkeOsobineKriminalca.kriminalacOib","Kriminalac.oib","FizičkaOsobina","FizičkaOsobina.fizičkaOsobina" , "OstaleFizičkeOsobineKriminalca.fizičkaOsobinaID").isEmpty())) {
+					Set<String> fizOs=new HashSet<>();
+					for(String s:vrati) {
+						fizOs.add(s);
+						
+					}
+					fOsobina.setOstaleFizickeOsobine(fizOs);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib), "fotografijaURL", "OtisakPrsta", "Kriminalac", "OtisakPrsta.otisakPrstaID", "Kriminalac.otisakPrstaID","Kriminalac.oib").isEmpty())) {
+	
+					osumnjiceni.setOtisakPrstaURL(vrati.get(0));
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib), "FotografijaURL", "FotografijeKriminalca", "Kriminalac", "FotografijeKriminalca.OibKriminalac", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
+					Set<String> foto=new HashSet<>();
+					for(String s:vrati) {
+						foto.add(s);
+						
+					}
+					osumnjiceni.setFotografijeURL(foto);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib), "FotografijaURL", "FotografijeKriminalca", "Kriminalac", "FotografijeKriminalca.OibKriminalac", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
+					Set<String> foto=new HashSet<>();
+					for(String s:vrati) {
+						foto.add(s);
+						
+					}
+					osumnjiceni.setFotografijeURL(foto);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib), "nazivSlučaja", "ListaOsumnjicenihOsoba", "PolicijskiSlučaj", "ListaOsumnjicenihOsoba.brojSlučaja", "PolicijskiSlučaj.brojSlučaja","ListaOsumnjicenihOsoba.osobaOib").isEmpty())) {
+					Set<Slucaj> slucaji=new HashSet<>();
+					Slucaj slucaj=new Slucaj();
+					for(String s:vrati) {
+						slucaj.setNazivSlucaja(s);
+						slucaji.add(slucaj);
+					}
+					osumnjiceni.setPovezaniSlucajevi(slucaji);
+					vrati.removeAll(vrati);
+				}
+				if(!(vratiListu(Long.parseLong(oib), "adresaStanovanja", "PoznateAdreseStanovanjaKriminalca", "Kriminalac", "PoznateAdreseStanovanjaKriminalca.kriminalacOib", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
+					Set<AdresaIMjestoStanovanja> adrese=new HashSet<>();
+					AdresaIMjestoStanovanja adr=new AdresaIMjestoStanovanja();
+					
+					for(String s:vrati) {
+						adr.setAdresa(s);
+						adrese.add(adr);
+					}
+					vrati.removeAll(vrati);
+					vratiListu(Long.parseLong(oib), "pbrMjesto", "PoznateAdreseStanovanjaKriminalca", "Kriminalac", "PoznateAdreseStanovanjaKriminalca.kriminalacOib", "Kriminalac.oib","Kriminalac.oib");
+					for(String s:vrati) {
+						adr.setPbrMjesto(Integer.parseInt(s));
+						String select="select nazivMjesto from Mjesto where pbrMjesto='"+s+"'";
+						try {
+							statement=dbConnection.prepareStatement(select);
+							ResultSet r = statement.executeQuery(select);
+							while(r.next()) {
+								adr.setNazivMjesta(r.getString(1));
+							}
+						}
+						catch (Exception ex) {
+							System.out.println(ex);
+						}
+						adrese.add(adr);
+					}
+					osumnjiceni.setPoznateAdrese(adrese);
+					vrati.removeAll(vrati);
+				}
+				
+				if(!(vratiListu(Long.parseLong(oib), "povezanSaKriminalacOib", "ListaPovezanihKriminalaca", "Kriminalac", "ListaPovezanihKriminalaca.kriminalacOib", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
+					Set<Osumnjiceni> krimi=new HashSet<>();
+					Osumnjiceni osumnjiceni2=new Osumnjiceni();
+					for(String s:vrati) {
+						osumnjiceni2.setOib(Long.parseLong(s));
+						krimi.add(osumnjiceni2);
+					}
+					osumnjiceni.setPopisPovezanihKriminalaca(krimi);
+					vrati.removeAll(vrati);
+				}
+				osumnjiceni.setKarakterneOsobine(kOsobine);
+			
+				osumnjiceni.setFizickeOsobine(fOsobina);
+				System.out.println(fOsobina);
+				
+			}
+
+			
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (dbConnection != null) {
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println(osumnjiceni);
+		return osumnjiceni;
+	}
+	private static List<String> vratiListu(Long id,String selecta,String froma,String join,String atr1,String atr2,String wherea) {
+		PreparedStatement preparedStatement = null;
+		String select = "";
+		String from = "";
+		String where = "";
+		String query;
+		where+=StrategijaUpit.generirajWhere(wherea, id.toString());
+		select+="Select "+selecta+" FROM "+froma+" LEFT JOIN "+join+" on "+atr1+"="+atr2;
+		query=select+from+where;
+		System.out.println(query);
+		try {
+			preparedStatement=dbConnection.prepareStatement(query);	
+			ResultSet rs =preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				vrati.add(rs.getString(1));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return vrati;
+	}
 		
-	private static List<String> vratiListu(Integer id, String selecta,String froma,String join1,String relatr1,String relatr2,String join2,String relatr3,String relatr4) {
+	private static List<String> vratiListu(Long id, String selecta,String froma,String join1,String relatr1,String relatr2,String join2,String relatr3,String relatr4) {
 		PreparedStatement preparedStatement = null;
 		String select = "";
 		String from = "";
@@ -440,16 +685,20 @@ public class PristupBaziPodataka {
 			brDokaza = keys.getInt(1);
 			if(!krvnaGrupa.isEmpty()) {
 				upišiUBazu("krvnaGrupa",krvnaGrupa,brDokaza);
+				System.out.println("tu san");
 				
 				}
 			if(!dnaSekvenca.isEmpty()) {
-				upišiUBazu("DNASekvenca", dnaSekvenca, brDokaza);
+				upišiUBazu("dnaSekvenca", dnaSekvenca, brDokaza);
+				System.out.println("tu san");
 			}
 			if(!otisakPrsta.isEmpty()) {
 				upišiUBazu("otisakPrsta", otisakPrsta, brDokaza);
+				System.out.println("tu san");
 			}
 			if(!tipOružja.isEmpty()) {
 				upišiUBazu("tipOružja", tipOružja, brDokaza);
+				System.out.println("tu san");
 			}
 			
 		}  catch (Exception e) {
@@ -486,6 +735,7 @@ public class PristupBaziPodataka {
 						+ "WHERE nazivDNASekvenca = \""+s+"\"";
 				relacija="ListaDNASekvenciNaDokaznomMaterijalu";
 				atr.add("dokazniMaterijalID");
+				System.out.println("tu san");
 				break;
 			case "tipOružja":
 				pom="SELECT tipOružjaID "
@@ -507,6 +757,7 @@ public class PristupBaziPodataka {
 			}
 			i=ime+"ID";
 			try {
+				System.out.println(pom);
 			statement=dbConnection.prepareStatement(pom);
 			ResultSet res=statement.executeQuery(pom);
 			if(res.next()) {
@@ -526,6 +777,7 @@ public class PristupBaziPodataka {
 		}
 			}
 			else {
+				System.out.println("alooo");
 				List<String> atributi=new ArrayList<>();
 				List<String> vrijednosti=new ArrayList<>();
 				String upit="";
@@ -562,6 +814,42 @@ public class PristupBaziPodataka {
 				}
 					
 					break;
+				case "dnaSekvenca" :
+					atributi.add(ime+"ID");
+					atributi.add("nazivDNASekvenca");
+					vrijednosti.add("NULL");
+					vrijednosti.add(s);
+					System.out.println("alooo");
+					upit=StrategijaUpit.upitUnos("DNASekvenca", atributi, vrijednosti);
+					try {
+						statement = dbConnection.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);  
+						statement.executeUpdate(upit,Statement.RETURN_GENERATED_KEYS);  
+						ResultSet keys = statement.getGeneratedKeys();    
+						keys.next(); 
+						String brtip=keys.getString(1);
+						atr.removeAll(atr);
+						atr.add(ime+"ID");
+						atr.add("dokazniMaterijalID");
+						vrij.add(brDokaza.toString());
+						vrij.add(brtip);
+						upit=StrategijaUpit.upitUnos("ListaDNASekvenciNaDokaznomMaterijalu", atr, vrij);
+						try {
+							System.out.println(upit);
+							statement=dbConnection.prepareStatement(upit);
+							statement.executeUpdate(upit);
+						}
+					 catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
+						
+					}
+				 catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+
+
+				
+				
 				case "otisakPrsta" :
 					atributi.add(ime+"ID");
 					atributi.add("fotografijaURL");
@@ -591,7 +879,8 @@ public class PristupBaziPodataka {
 				 catch (Exception ex) {
 					System.out.println(ex.getMessage());
 				}
-
+				
+				
 
 				default:
 					break;
@@ -607,6 +896,7 @@ public class PristupBaziPodataka {
 			}
 		
 	}
+
 
 	public static void dodajNoviSlucaj(Slucaj slucaj) {
 		String brojSlucaja;
@@ -743,41 +1033,8 @@ public class PristupBaziPodataka {
 				vrij.removeAll(vrij);
 				}
 			}
-			if(!popisDokaza.isEmpty()) {
-				for(Dokaz d: popisDokaza) {
-					d.setBrojSlucaja(Integer.parseInt(brojSlucaja));
-					dodajNoviDokaz(d);
-				}
-			}
-			if(!popisDogadaja.isEmpty()) {
-				List<String> a=new ArrayList<>();
-				List<String> v=new ArrayList<>();
-				for(Dogadaj d: popisDogadaja) {
-				a.add("događajID");
-				a.add("nazivDogađada");
-				a.add("pbrMjesto");
-				a.add("brojSlučaja");
-				a.add("adresa");
-				a.add("vrijeme");
-				v.add("NULL");
-				v.add(d.getNaziv());
-				v.add(d.getPbrMjesto().toString());
-				v.add(brojSlucaja);
-				v.add(d.getAdresa());
-				v.add(d.getVrijeme().toString());
-				String upit=StrategijaUpit.upitUnos("ListaDogađaja", a, v);		
-					try {
-					System.out.println(upit);
-					statement=dbConnection.prepareStatement(upit);
-					statement.executeUpdate(upit);
-					}
-					catch (Exception ex) {
-						System.out.println(ex.getMessage());
-					}
-					a.removeAll(a);
-					v.removeAll(v);
-				}
-			}
+			
+			
 			
 			
 			
@@ -951,5 +1208,37 @@ public class PristupBaziPodataka {
 		}
 		return true;
 		return statistika;
+	}
+	public static boolean dodajNoviDogadaj(Dogadaj dogadaj) {
+		List<String> a=new ArrayList<>();
+		List<String> v=new ArrayList<>();
+		String upit="";
+		a.add("događajID");
+		a.add("nazivDogađaja");
+		a.add("pbrMjesto");
+		a.add("brojSlučaja");
+		a.add("adresa");
+		a.add("vrijeme");
+		v.add("NULL");
+		v.add(dogadaj.getNaziv());
+		v.add(dogadaj.getPbrMjesto().toString());
+		v.add(dogadaj.getBrojSlucaja().toString());
+		v.add(dogadaj.getAdresa());
+		v.add(dogadaj.getVrijeme().toString());
+		upit=StrategijaUpit.upitUnos("ListaDogađaja", a, v);		
+			try {
+			dbConnection = getDBConnection();
+			statement=dbConnection.prepareStatement(upit);
+			statement.executeUpdate(upit);
+			}
+			catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}
+		return true;
+	}
+
+	public static boolean dodajNovogKriminalca(Osumnjiceni osumnjiceni) {
+		
+		return false;
 	}
 }
