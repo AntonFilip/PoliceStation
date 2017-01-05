@@ -1150,50 +1150,49 @@ public class PristupBaziPodataka {
 	}
 	
 	public static Statistika izracunajStatistiku (){
-		Connection dbConnection = null;
-		PreparedStatement preparedStatement = null;
-		Statistika statistika=new Statistika();
-		String query="SELECT COUNT( Kriminalac.oib ) FROM Kriminalac;"
-				+ "	select count(brojSlučaja) from PolicijskiSlučaj"
-				+ "select count(brojSlučaja) from PolicijskiSlučaj where trenutniStatus='riješen'"
-				+ "select distinct nazivOružja, count(brojDokaznogMaterijala) from ListaOružja join TipOružja on ListaOružja.tipOružjaID=TipOružja.tipOružjaID Group by nazivOružja";
+	Connection dbConnection = null;
+		Statement statement = null;
+		Statement statement2=null;
+		Statement statement3=null;
+		Statement statement4=null;
 		
+		Statistika statistika=new Statistika();
+		String query1="SELECT COUNT( Kriminalac.oib ) FROM Kriminalac ";
+		String query2="Select count(ps1.brojSlučaja) riješeni, (select count(ps2.brojSlučaja) from PolicijskiSlučaj ps2) as svi from PolicijskiSlučaj ps1 where ps1.trenutniStatus='riješen' ";
+		String query3="SELECT COUNT( * ) FROM ListaOružja";
+		String query4="Select distinct nazivOružja, count(brojDokaznogMaterijala) from ListaOružja join TipOružja on ListaOružja.tipOružjaID=TipOružja.tipOružjaID Group by nazivOružja; ";
+
 		try {
 			dbConnection = getDBConnection();
-			preparedStatement=dbConnection.prepareStatement(query);
-			boolean isResultSet = preparedStatement.execute();
-			int count = 0;
+			statement=dbConnection.prepareStatement(query1);
+			ResultSet rs1=statement.executeQuery(query1);
+			statement2=dbConnection.prepareStatement(query2);
+			ResultSet rs2=statement2.executeQuery(query2);
+			statement3=dbConnection.prepareStatement(query2);
+			ResultSet rs3=statement3.executeQuery(query3);
+			statement4=dbConnection.prepareStatement(query2);
+			ResultSet rs4=statement4.executeQuery(query4);
 			
-			while(true) {
-				ResultSet rs1=preparedStatement.getResultSet();
-				ResultSet rs2=preparedStatement.getMoreResults();
-				ResultSet rs3=preparedStatement.getMoreResults();
-				ResultSet rs4=preparedStatement.getMoreResults();
-				
-			    if(isResultSet) {
-			        rs = preparedStatement.getResultSet();
-			        while(rs.next()) {
-			            processEachRow(rs);
-			        }
-			        rs.close();
-			    } else {
-			        if(stmt.getUpdateCount() == -1) {
-			            break;
-			        }
-			        log.info("Result {} is just a count: {}", count, stmt.getUpdateCount());
-			    }
-
-			    count ++;
-			    isResultSet =preparedStatement.getMoreResults();
+			while(rs1.next()){
+				statistika.setBrojKriminalaca(rs1.getInt(1));
 			}
-			
+			while(rs2.next()){
+				statistika.setPostotakRiješenihSlučajeva(rs2.getFloat(1)/rs2.getFloat(2));
+			}
+			Float ukBrojOružjaUSlučajevima=0F;
+			while (rs3.next()) ukBrojOružjaUSlučajevima=rs3.getFloat(1);
+			while (rs4.next()){
+				String naziv=rs4.getString(1);
+				Float brojOdređenogOružja=rs4.getFloat(2);
+				statistika.addUdioTipOružja(naziv, brojOdređenogOružja/ukBrojOružjaUSlučajevima);
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		finally {
-			if (preparedStatement != null) {
+			if (statement != null) {
 				try {
-					preparedStatement.close();
+					statement.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -1206,9 +1205,9 @@ public class PristupBaziPodataka {
 				}
 			}
 		}
-		return true;
-		return statistika;
+		return statistika;	
 	}
+	
 	public static boolean dodajNoviDogadaj(Dogadaj dogadaj) {
 		List<String> a=new ArrayList<>();
 		List<String> v=new ArrayList<>();
