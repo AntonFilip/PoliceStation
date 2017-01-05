@@ -38,7 +38,7 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
     }
     
     public void prikaziPodatke(Slucaj slucaj) {
-        fotografija.setImage((Image) slucaj.getFotografijeSlučaja());
+        //fotografija.setImage((Image) slucaj.getFotografijeSlučaja());
         broj.setText(Integer.toString(slucaj.getBrojSlucaja()));
         naziv.setText(slucaj.getNazivSlucaja());
         opis.setText(slucaj.getOpis());

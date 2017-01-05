@@ -44,14 +44,14 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
         slucaj.setOpis(opisSlucaja.getText());
         
         Osumnjiceni osumnjiceni = new Osumnjiceni();
-        osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
+        osumnjiceni.setOib(Long.parseLong(glavniOsumnjiceni.getText()));
         slucaj.setGlavniOsumnjiceni(osumnjiceni);
         
         Set<Osoba> popis1 = new HashSet<>();
         String[] sumnjivci = popisOsumnjicenih.getText().split(";");
         for (String sumnjivac : sumnjivci) {
             Osumnjiceni novi = new Osumnjiceni();
-            novi.setOib(Integer.parseInt(sumnjivac));
+            novi.setOib(Long.parseLong(sumnjivac));
             popis1.add(novi);
         }
         slucaj.setPopisOsumnjicenih(popis1);
@@ -60,7 +60,7 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
         String[] svjedoci = popisSvjedoka.getText().split(";");
         for (String svjedok : svjedoci) {
             Osoba novi = new Osoba();
-            novi.setOib(Integer.parseInt(svjedok));
+            novi.setOib(Long.parseLong(svjedok));
             popis2.add(novi);
         }
         slucaj.setPopisSvjedoka(popis2);
@@ -78,9 +78,12 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
         String[] policajci = popisPolicajaca.getText().split(";");
         for (String policajac : policajci) {
             Pozornik novi = new Pozornik();
-            novi.setOib(Integer.parseInt(policajac));
+            novi.setJedinstveniBroj(Integer.parseInt(policajac));
             popis4.add(novi);
+            
+        
         }
+        System.out.println(popis4);
         slucaj.setPopisPolicajaca(popis4);
         
         if (statusSlucaja.getValue().equals("Riješen")) {
@@ -96,6 +99,8 @@ public class UpitSlucajController implements Initializable, ControlledScreen{
         for (String dogadaj : dogadaji) {
             Dogadaj novi = new Dogadaj();
         }*/
+        
+        delegate.posaljiUpitSlucaj(slucaj);
     }
 
     @Override

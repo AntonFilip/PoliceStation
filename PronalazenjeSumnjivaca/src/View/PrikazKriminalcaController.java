@@ -63,7 +63,7 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     
     public void prikaziPodatke(Osumnjiceni osumnjiceni) {
         
-        fotografija.setImage((Image) osumnjiceni.getFotografijeURL());
+        //fotografija.setImage((Image) osumnjiceni.getFotografijeURL());
         
         ime.setText(osumnjiceni.getIme());
         prezime.setText(osumnjiceni.getPrezime());

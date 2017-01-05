@@ -7,17 +7,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Model.Dokaz;
+import Model.Kapetan;
+import Model.Narednik;
 import Model.Osumnjiceni;
 import Model.Pozornik;
 import Model.PristupBaziPodataka;
 import Model.Slucaj;
 import View.ControlledScreen;
+import View.DodajDokazController;
+import View.DodajKriminalacController;
+import View.DodajSlucajController;
 import View.GlavniIzbornikController;
 import View.ListaStavkiController;
 import View.PostaviUpitController;
 import View.PrijavaController;
 import View.PrikazDokazaController;
 import View.PrikazKriminalcaController;
+import View.PrikazSlucajaController;
 import View.PrikaziDnevnikController;
 import View.PrikaziStatistikuController;
 import View.UpitDokazController;
@@ -197,21 +203,15 @@ public class Controller extends Application implements ViewDelegate {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		postaviScenuPopis("Kriminalac", mapaOsumnjiceni);
+		postaviScenuPopis("Osumnjiceni", mapaOsumnjiceni);
 	}
 
 	@Override
 	public void posaljiUpitSlucaj(Slucaj slucaj) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		mapaSlucaj = policajac.posaljiUpit(slucaj);
+		postaviScenuPopis("Slucaj", mapaSlucaj);
+		
+		
 	}
 
 	@Override
@@ -268,44 +268,22 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void dodajKriminalca(Osumnjiceni kriminalac) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Kapetan.dodajNovogKriminalca(kriminalac);
+		prikaziPodatkeKriminalca(kriminalac);
+		
+		
 	}
 
 	@Override
 	public void dodajSlucaj(Slucaj slucaj) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Kapetan.dodajNoviSlucaj(slucaj);
+		prikaziPodatkeSlucaja(slucaj);
 	}
 
 	@Override
 	public void dodajDokaz(Dokaz dokaz) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Narednik.dodajNoviDokaz(dokaz);
+		prikaziPodatkeDokaza(dokaz);
 	}
 
 	@Override
@@ -323,16 +301,20 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void prikaziPodatkeSlucaja(Slucaj slucaj) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("PrikazSlucaja");
+		Parent loadScreen = loader.getLoadScreen();
+
+		PrikazSlucajaController controller = (PrikazSlucajaController) loader
+				.getMyLoader().getController();
+		controller.init(this);
+		try {
+			slucaj = PristupBaziPodataka.dohvatiPodatkeSlucaj(slucaj.getBrojSlucaja().toString());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		controller.prikaziPodatke(slucaj);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
@@ -489,44 +471,35 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void postaviScenuDodajKriminalca() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("DodajKriminalac");
+		Parent loadScreen = loader.getLoadScreen();
+
+		DodajKriminalacController controller = (DodajKriminalacController) loader
+				.getMyLoader().getController();
+		controller.init(this);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
 	public void postaviScenuDodajSlucaj() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("DodajSlucaj");
+		Parent loadScreen = loader.getLoadScreen();
+
+		DodajSlucajController controller = (DodajSlucajController) loader
+				.getMyLoader().getController();
+		controller.init(this);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
 	public void postaviScenuDodajDokaz() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("DodajDokaz");
+		Parent loadScreen = loader.getLoadScreen();
+
+		DodajDokazController controller = (DodajDokazController) loader
+				.getMyLoader().getController();
+		controller.init(this);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	private class Loader {

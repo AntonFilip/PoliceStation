@@ -75,4 +75,11 @@ public class Pozornik extends Osoba {
 		return os.posaljiUpit(osumnjiceni,jedinstveniBroj);
 	}
 
+	@Override
+	public String toString() {
+		return "Pozornik [razinaPristupa=" + razinaPristupa + ", username=" + username + ", password=" + password
+				+ ", jedinstveniBroj=" + jedinstveniBroj + "]" + super.getOib();
+	}
+
+	
 }

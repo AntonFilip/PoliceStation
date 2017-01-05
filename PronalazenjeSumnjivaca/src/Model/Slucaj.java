@@ -289,8 +289,10 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 		}
 		if (popisPolicajaca!=null){
 			for(Pozornik p:popisPolicajaca){
-				listaAtributa.add(p.getJedinstveniBroj().toString()+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca");
-			}
+				if(p != null){
+					listaAtributa.add(p.getJedinstveniBroj().toString()+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca");
+					}
+				}
 		}
 		if (popisSvjedoka!=null){
 			for(Osoba o:popisSvjedoka){

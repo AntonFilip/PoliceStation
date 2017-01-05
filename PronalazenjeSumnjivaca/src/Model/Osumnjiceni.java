@@ -514,12 +514,14 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 
 		String ime=super.getIme();
 		String prezime=super.getPrezime();
-		String oib=super.getOib().toString();
+		String oib = null;
+		if(super.getOib() != null){
+		oib=super.getOib().toString();}
 		AdresaIMjestoStanovanja admjprebivaliste=super.getAdresaPrebivalista();
 
 		if(ime!=null) listaAtributa.add(ime+"*Osoba.imeOsobe");
 		if(prezime!=null) listaAtributa.add(prezime+"*Osoba.prezimeOsobe");
-		if(oib!=null) listaAtributa.add(oib+"*Kriminalac.oib");
+		if(oib != null) listaAtributa.add(oib +"*Kriminalac.oib");
 		if(admjprebivaliste!=null){
 			String adr=admjprebivaliste.getAdresa();
 			String mj=admjprebivaliste.getNazivMjesta();

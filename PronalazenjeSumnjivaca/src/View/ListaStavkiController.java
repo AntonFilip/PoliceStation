@@ -41,7 +41,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 		LinkedHashMap<Osumnjiceni, Float> sorted = (LinkedHashMap<Osumnjiceni, Float>) sortByValue(lista);
 
 		for (Map.Entry<Osumnjiceni, Float> entry : sorted.entrySet()) {
-			String output = String.format("%-10s%-30s%-30s%-10s", entry.getKey().getOib().toString(),
+			String output = String.format("%-15s%-30s%-30s%-10s", entry.getKey().getOib().toString(),
 					entry.getKey().getIme(), entry.getKey().getPrezime(), entry.getValue().toString());
 			//data.add(entry.getKey().getOib() + " - " + entry.getKey().getIme() + " " + entry.getKey().getPrezime() + " "
 			//		+ entry.getValue());
@@ -61,7 +61,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 
 		for (Map.Entry<Slucaj, Float> entry : sorted.entrySet()) {
 			
-			String output = String.format("%-10s%-60s%-10s", entry.getKey().getBrojSlucaja().toString(),
+			String output = String.format("%-15s%-60s%-10s", entry.getKey().getBrojSlucaja().toString(),
 					entry.getKey().getNazivSlucaja(), entry.getValue().toString());
 			data.add(output);
 			//data.add(entry.getKey().getBrojSlucaja() + " - " + entry.getKey().getNazivSlucaja() + " "
@@ -78,7 +78,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 		LinkedHashMap<Dokaz, Float> sorted = (LinkedHashMap<Dokaz, Float>) sortByValue(lista);
 		
 		for (Map.Entry<Dokaz, Float> entry : sorted.entrySet()) {
-			String output = String.format("%-10s%-30s%-30s%-10s", entry.getKey().getID().toString(), entry.getKey().getNazivSlucaja(), entry.getKey().getNaziv(), entry.getValue().toString()+"%");
+			String output = String.format("%-15s%-30s%-30s%-10s", entry.getKey().getID().toString(), entry.getKey().getNazivSlucaja(), entry.getKey().getNaziv(), entry.getValue().toString()+"%");
 			data.add(output);
 			//data.add(entry.getKey().getID() + " - " + entry.getKey().getNazivSlucaja() + " - " + entry.getKey().getNaziv() + " " + entry.getValue());
 		}
@@ -94,21 +94,21 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 		
 		switch (predmet) {
 		case "Osumnjiceni": 
-			select = list.getSelectionModel().getSelectedItem().substring(0,10).trim();
+			select = list.getSelectionModel().getSelectedItem().substring(0,15).trim();
 			Osumnjiceni kriminalac = new Osumnjiceni();
 			kriminalac.setOib(Long.parseLong(select));
 			System.out.println(select);
 			del.prikaziPodatkeKriminalca(kriminalac);
 			
 		case "Slucaj":
-			select = list.getSelectionModel().getSelectedItem().substring(0,10).trim();
+			select = list.getSelectionModel().getSelectedItem().substring(0,15).trim();
 			Slucaj slucaj = new Slucaj();
 			slucaj.setBrojSlucaja(Integer.parseInt(select));
 			System.out.println(select);
 			del.prikaziPodatkeSlucaja(slucaj);
 			
 		case "Dokaz":
-			select = list.getSelectionModel().getSelectedItem().substring(0,10).trim();
+			select = list.getSelectionModel().getSelectedItem().substring(0,15).trim();
 			Dokaz dokaz = new Dokaz();
 			dokaz.setID(Integer.parseInt(select));
 			System.out.println(select);
