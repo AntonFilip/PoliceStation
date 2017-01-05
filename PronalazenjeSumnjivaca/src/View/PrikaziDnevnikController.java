@@ -7,18 +7,33 @@ import Controller.ViewDelegate;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 public class PrikaziDnevnikController implements Initializable, ControlledScreen{
 	
 	ViewDelegate del;
 	
+	@FXML private Button odaberi;
 	@FXML private ListView<String> dnevnik;
 	
 	public ListView<String> getDnevnik(){
 		return dnevnik;
 	}
 
+	
+	@FXML private void odaberiStavku(){
+
+		String select;
+		select = dnevnik.getSelectionModel().getSelectedItem().substring(0,15).trim();
+		
+	}
+	
+	public void postaviPodatke(){
+		
+		
+	}
+	
 	@Override
 	public void init(ViewDelegate delegate) {
 		del = delegate;	
