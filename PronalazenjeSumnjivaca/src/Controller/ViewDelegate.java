@@ -1,13 +1,13 @@
 package Controller;
 
-import Model.*;
-import View.PrijavaController;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 import java.util.Map;
+
+import Model.Dokaz;
+import Model.Osumnjiceni;
+import Model.Pozornik;
+import Model.Slucaj;
+import View.PrijavaController;
 
 public interface ViewDelegate {
 	
@@ -48,6 +48,7 @@ public interface ViewDelegate {
         public void postaviScenuDnevnikPretrazivanja(); // klik na gumbic za dnevnik
 		public void prijava(String username, String password, PrijavaController prijavaController) throws IOException;
 		public void postaviScenuPopis(String predmet, Map<?, Float> popis);
+		public void brzoPretrazi(String text);
 		
         
 }

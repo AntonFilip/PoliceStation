@@ -134,6 +134,7 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         }
         fizickeOsobine.setRasa(rasa.getText());
         if (!visina.getText().isEmpty()) {
+        	
             fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
         }
         if (!tezina.getText().isEmpty()) {
