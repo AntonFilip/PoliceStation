@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ListaStavkiController">
+   <children>
+      <HBox alignment="CENTER" minHeight="77.0" prefHeight="77.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="47.0" prefWidth="235.0" text="Rezultati upita">
+               <font>
+                  <Font name="Lucida Sans Typewriter Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="450.0" prefWidth="698.0" stylesheets="@lista.css">
+         <children>
+            <ListView fx:id="list" minHeight="470.0" prefHeight="470.0" prefWidth="698.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="odaberi" onAction="#odaberiStavku" mnemonicParsing="false" text="Odaberi">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
