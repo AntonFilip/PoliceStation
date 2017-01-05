@@ -1,16 +1,27 @@
 package View;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 import Controller.ViewDelegate;
-import Model.*;
-import java.util.Arrays;
-import java.util.HashSet;
+import Model.AdresaIMjestoStanovanja;
+import Model.FizickeOsobine;
+import Model.GradaTijela;
+import Model.KarakterneOsobine;
+import Model.Osumnjiceni;
+import Model.RazinaApstraktneInteligencije;
+import Model.Slucaj;
+import Model.Spol;
+import Model.TrenutniStatusKriminalca;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  * Klasa koja upravlja sučeljem za postavljanje upita o kriminalcu
@@ -67,11 +78,16 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         osumnjiceni.setPrezime(prezime.getText());
         
         AdresaIMjestoStanovanja adr = new AdresaIMjestoStanovanja();
-        String[] adresaIMjesto = adresa.getText().split(",");
-        String adress = adresaIMjesto[0];
-        String mjesto = adresaIMjesto[1];
-        adr.setAdresa(adress);
-        adr.setNazivMjesta(mjesto);
+
+		if (!adresa.getText().isEmpty()) {
+
+			String[] adresaIMjesto = adresa.getText().split(",");
+			String adress = adresaIMjesto[0];
+			String mjesto = adresaIMjesto[1];
+			adr.setAdresa(adress);
+			adr.setNazivMjesta(mjesto);
+
+		}
         osumnjiceni.setAdresaPrebivalista(adr);
         
         osumnjiceni.setBrojTelefona(brojTelefona.getText());
@@ -89,16 +105,20 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         osumnjiceni.setOpisKriminalnihDjelatnosti(opisKriminalnihDjelatnosti.getText());
 
         osumnjiceni.setPopisAliasa(popis(popisAliasa.getText().split(";")));
+        
+        HashSet<AdresaIMjestoStanovanja> poznateAdr = null;
+		if (!poznateAdrese.getText().isEmpty()) {
 
-        HashSet<AdresaIMjestoStanovanja> poznateAdr = new HashSet<>();
-        String[] adrese = poznateAdrese.getText().split(";");
-        for (String adresa : adrese) {
-            AdresaIMjestoStanovanja a = new AdresaIMjestoStanovanja();
-            String[] temp = adresa.split(",");
-            a.setAdresa(temp[0].trim());
-            a.setNazivMjesta(temp[1].trim());
-            poznateAdr.add(a);
-        }
+			poznateAdr = new HashSet<>();
+			String[] adrese = poznateAdrese.getText().split(";");
+			for (String adresa : adrese) {
+				AdresaIMjestoStanovanja a = new AdresaIMjestoStanovanja();
+				String[] temp = adresa.split(",");
+				a.setAdresa(temp[0].trim());
+				a.setNazivMjesta(temp[1].trim());
+				poznateAdr.add(a);
+			}
+		}
         osumnjiceni.setPoznateAdrese(poznateAdr);
 
         String[] slucajevi = popisPovezanihSlucajeva.getText().split(";");
