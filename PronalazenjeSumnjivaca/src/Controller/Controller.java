@@ -1,12 +1,28 @@
 package Controller;
 
 import java.io.IOException;
-import java.io.LineNumberInputStream;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Model.Dokaz;
+import Model.Osumnjiceni;
+import Model.Pozornik;
+import Model.PristupBaziPodataka;
+import Model.Slucaj;
+import View.ControlledScreen;
+import View.GlavniIzbornikController;
+import View.ListaStavkiController;
+import View.PostaviUpitController;
+import View.PrijavaController;
+import View.PrikazDokazaController;
+import View.PrikazKriminalcaController;
+import View.PrikaziDnevnikController;
+import View.PrikaziStatistikuController;
+import View.UpitDokazController;
+import View.UpitKriminalacController;
+import View.UpitSlucajController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,20 +31,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import Model.Dokaz;
-import Model.Osumnjiceni;
-import Model.Pozornik;
-import Model.PristupBaziPodataka;
-import Model.Slucaj;
-import View.ControlledScreen;
-import View.GlavniIzbornikController;
-import View.PostaviUpitController;
-import View.PrijavaController;
-import View.PrikaziDnevnikController;
-import View.PrikaziStatistikuController;
-import View.UpitDokazController;
-import View.UpitKriminalacController;
-import View.UpitSlucajController;
 
 public class Controller extends Application implements ViewDelegate {
 
@@ -78,13 +80,14 @@ public class Controller extends Application implements ViewDelegate {
 			// TODO pogledat kaj radi exception i napravit dobar odgovor
 
 			e.printStackTrace();
-			prijavaController.neispravniPodaci();
+			
 			
 			return;
 		}
 
 		if (policajac == null) {
 			System.out.println("Korisni�ko ime i/ili lozinka nisu ipravni!");
+			prijavaController.neispravniPodaci();
 			return;
 		} else {
 			System.out.println("Uspje�na prijava!");
@@ -190,7 +193,7 @@ public class Controller extends Application implements ViewDelegate {
 	public void posaljiUpitKriminalac(Osumnjiceni kriminalac) {
 		try {
 			mapaOsumnjiceni = policajac.posaljiUpit(kriminalac);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -310,10 +313,11 @@ public class Controller extends Application implements ViewDelegate {
 		Loader loader = new Loader("PrikazKriminalca");
 		Parent loadScreen = loader.getLoadScreen();
 
-		ControlledScreen controller = (UpitKriminalacController) loader
+		PrikazKriminalcaController controller = (PrikazKriminalcaController) loader
 				.getMyLoader().getController();
 		controller.init(this);
-		policajac.dohvatiPodatkeOsumnjiceni(kriminalac.getOib());
+		kriminalac = policajac.dohvatiPodatkeOsumnjiceni(kriminalac.getOib().toString());
+		controller.prikaziPodatke(kriminalac);
 		pane.getChildren().setAll(loadScreen);
 	}
 
@@ -332,17 +336,21 @@ public class Controller extends Application implements ViewDelegate {
 	}
 
 	@Override
-	public void prikaziPodatkeDokaza(Dokaz dokaz) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+	public void prikaziPodatkeDokaza(Dokaz dokaz){
+		Loader loader = new Loader("PrikazDokaza");
+		Parent loadScreen = loader.getLoadScreen();
+
+		PrikazDokazaController controller = (PrikazDokazaController) loader
+				.getMyLoader().getController();
+		controller.init(this);
+		try {
+			dokaz = PristupBaziPodataka.dohvatiPodatkeDokaz(dokaz.getID().toString());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		controller.prikaziPodatke(dokaz);
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
@@ -415,21 +423,24 @@ public class Controller extends Application implements ViewDelegate {
 		pane.getChildren().setAll(loadScreen);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public <K, V> void postaviScenuPopis(String predmet, Map<K, V> popis) {
-		Loader loader = new Loader("ListaStavki");
+	public void postaviScenuPopis(String predmet, Map<?, Float> popis) {
+				Loader loader = new Loader("ListaStavki");
                 Parent loadScreen = loader.getLoadScreen();
                 
-                ControlledScreen controller = (ListaStavkiController) loader.getMyLoader().getController();
+                ListaStavkiController controller = (ListaStavkiController) loader.getMyLoader().getController();
                 controller.init(this);
-                if (predmet.equals("Predmet")){
-                	ListaStavkiController.	
+                if (predmet.equals("Osumnjiceni")){
+                	controller.postaviListuOsumnjiceni((Map<Osumnjiceni, Float>) popis);
+                }
+                else if(predmet.equals("Slucaj")){
+                	controller.postaviListuSlucaj((Map<Slucaj, Float>) popis);
                 }
                 else if(predmet.equals("Dokaz")){
-                	ListaStavkiController.
-                }
-                else{
-                	ListaStavkiController.
+                	controller.postaviListuDokaz((Map<Dokaz, Float>) popis);
+                }else{
+                	return;
                 }
                 pane.getChildren().setAll(loadScreen);
 	}

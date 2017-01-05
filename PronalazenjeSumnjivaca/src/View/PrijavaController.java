@@ -35,14 +35,14 @@ public class PrijavaController implements Initializable, ControlledScreen{
     @FXML private void prijavaKlik(ActionEvent event) {
         
                 try {
-                    delegate.prijava(korisnickoIme.getText(), lozinka.getText(), this);
+                    delegate.prijava(korisnickoIme.getText(), lozinka.getText(), this );
                 } catch (IOException ex) {
                     Logger.getLogger(PrijavaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
     }
     
     public void neispravniPodaci(){
-    	neispravno.setVisible(true);
+    	neispravno.setText("Neispravno korisničko ime i/ili lozinka.");
     	
     }
     

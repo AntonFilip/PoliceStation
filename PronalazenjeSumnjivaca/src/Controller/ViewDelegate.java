@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface ViewDelegate {
 	
-//        public void prijava(String korisnickoIme, String lozinka) throws IOException;// klik na prijava 
+        //public void prijava(String korisnickoIme, String lozinka) throws IOException;// klik na prijava 
         public void posaljiUpitKriminalac(Osumnjiceni kriminalac); // upisani podaci -> klik na posalji upit      
         public void posaljiUpitSlucaj(Slucaj slucaj); // upisani podaci -> klik na posalji upit     
         public void posaljiUpitDokaz(Dokaz dokaz); // upisani podaci -> klik na posalji upit     
@@ -46,8 +46,8 @@ public interface ViewDelegate {
         public void postaviScenuDodajDokaz(); //klik na dodaj dokaz iz scene za dodavanje slucaja
         public void postaviScenuStatistika(); //klik na gumbic za statistiku
         public void postaviScenuDnevnikPretrazivanja(); // klik na gumbic za dnevnik
-		void prijava(String username, String password, PrijavaController prijavaController) throws IOException;
-		public <K, V> void postaviScenuPopis(String predmet, Map<K, V> popis);
+		public void prijava(String username, String password, PrijavaController prijavaController) throws IOException;
+		public void postaviScenuPopis(String predmet, Map<?, Float> popis);
 		
         
 }
