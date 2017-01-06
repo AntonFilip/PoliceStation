@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Controller.ViewDelegate;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -48,6 +50,13 @@ public class GlavniIzbornikController implements Initializable{
     
     public Pane init(ViewDelegate delegate) {
         this.delegate = delegate;
+        final BooleanProperty firstTime = new SimpleBooleanProperty(true);
+        brza.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
+            if(newValue && firstTime.get()){
+                pane.requestFocus(); // Delegate the focus to container
+                firstTime.setValue(false); // Variable value changed for future references
+            }
+        });
         return this.pane;
     }
     
