@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mysql.jdbc.StringUtils;
+
 
 public class Slucaj implements StrategijaUpit<Slucaj>{
 
@@ -258,7 +260,7 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 		if (brojSlucaja!=null) {
 			listaAtributa.add(brojSlucaja.toString()+"*PolicijskiSlučaj.brojSlučaja");
 		}
-		if (nazivSlucaja!=null){
+		if (!StringUtils.isEmptyOrWhitespaceOnly(nazivSlucaja)){
 			listaAtributa.add(nazivSlucaja+"*PolicijskiSlučaj.nazivSlučaja" );
 		}
 		if (status!=null){
@@ -269,34 +271,34 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 			}
 		}
 		if (glavniOsumnjiceni!=null){
-			listaAtributa.add(glavniOsumnjiceni.getOib().toString() +"*PolicijskiSlučaj.glavnaOsumljicenaOsobaOib");
+			if (glavniOsumnjiceni.getOib()!=null) listaAtributa.add(glavniOsumnjiceni.getOib().toString() +"*PolicijskiSlučaj.glavnaOsumljicenaOsobaOib");
 		}
 
-		if (popisDogadaja!=null){
+		if (popisDogadaja!=null && !popisDogadaja.isEmpty()){
 			for (Dogadaj d:popisDogadaja){
-				listaAtributa.add(d.getNaziv()+"*ListaDogađaja.nazivDogađaja");
+				if(!StringUtils.isEmptyOrWhitespaceOnly(d.getNaziv())) listaAtributa.add(d.getNaziv()+"*ListaDogađaja.nazivDogađaja");
 			}
 		}
-		if (popisDokaza!=null){
+		if (popisDokaza!=null && !popisDokaza.isEmpty()){
 			for(Dokaz d: popisDokaza){
-				listaAtributa.add(d.getID().toString()+"*DokazniMaterijal.brojDokaznogMaterijala");
+				if (d!=null && d.getID()!=null) listaAtributa.add(d.getID().toString()+"*DokazniMaterijal.brojDokaznogMaterijala");
 			}
 		}
-		if (popisOsumnjicenih!=null){
+		if (popisOsumnjicenih!=null && !popisOsumnjicenih.isEmpty()){
 			for(Osoba o: popisOsumnjicenih){
-				listaAtributa.add(o.getOib().toString()+"*ListaOsumnjicenihOsoba.osobaOib");
+				if(o!=null && o.getOib()!=null) listaAtributa.add(o.getOib().toString()+"*ListaOsumnjicenihOsoba.osobaOib");
 			}
 		}
-		if (popisPolicajaca!=null){
+		if (popisPolicajaca!=null && !popisPolicajaca.isEmpty()){
 			for(Pozornik p:popisPolicajaca){
-				if(p != null){
+				if(p!=null && p.getJedinstveniBroj() != null){
 					listaAtributa.add(p.getJedinstveniBroj().toString()+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca");
 					}
 				}
 		}
-		if (popisSvjedoka!=null){
+		if (popisSvjedoka!=null && !popisSvjedoka.isEmpty()){
 			for(Osoba o:popisSvjedoka){
-				listaAtributa.add(o.getOib().toString()+"*ListaSvjedoka.osobaOib");
+				if(o!=null && o.getOib()!=null) listaAtributa.add(o.getOib().toString()+"*ListaSvjedoka.osobaOib");
 			}
 		}	
 		return listaAtributa;

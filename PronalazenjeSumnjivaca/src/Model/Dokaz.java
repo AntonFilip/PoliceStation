@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mysql.jdbc.StringUtils;
+
 
 
 public class Dokaz implements StrategijaUpit<Dokaz> {
@@ -63,28 +65,28 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 	@Override
 	public Set<String>  generirajListuAtributa() {
 		Set <String> listaAtributa=new HashSet<>();
-		if(DNASekvenca!=null){
+		if(DNASekvenca!=null && !DNASekvenca.isEmpty()){
 			for (String s:DNASekvenca){
-				listaAtributa.add(s+ "*DNASekvenca.nazivDNASekvenca");
+				if (!StringUtils.isEmptyOrWhitespaceOnly(s)) listaAtributa.add(s+ "*DNASekvenca.nazivDNASekvenca"); 
 			}
 		}
 
-		if(nazivSlucaja!=null){
+		if(!StringUtils.isEmptyOrWhitespaceOnly(nazivSlucaja)){
 			listaAtributa.add( nazivSlucaja+"*PolicijskiSlučaj.nazivSlučaja");
 		}
 
-		if(krvnaGrupa!=null) {
+		if(krvnaGrupa!=null && !krvnaGrupa.isEmpty()) {
 			for (String s:krvnaGrupa){
-				listaAtributa.add(s+"*KrvnaGrupa.nazivKrvnaGrupa");
+				if(!StringUtils.isEmptyOrWhitespaceOnly(s)) listaAtributa.add(s+"*KrvnaGrupa.nazivKrvnaGrupa");
 			}
 		}
 
-		if(tipOruzja!=null) {
+		if(tipOruzja!=null && !tipOruzja.isEmpty()) {
 			for(String s:tipOruzja){
-				listaAtributa.add( s+"*TipOružja.nazivOružja");
+				if (!StringUtils.isEmptyOrWhitespaceOnly(s)) listaAtributa.add( s+"*TipOružja.nazivOružja");
 			}
 		}
-		if(naziv!=null) {
+		if(!StringUtils.isEmptyOrWhitespaceOnly(naziv)) {
 			listaAtributa.add(naziv+"*DokazniMaterijal.nazivDokaznogMaterijala");
 		}
 

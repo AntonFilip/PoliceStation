@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mysql.jdbc.StringUtils;
+
 public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 
 	private TrenutniStatusKriminalca status;
@@ -416,7 +418,7 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 			case u_zatvoru: listaAtributa.add("u zatvoru*Kriminalac.trenutniStatus");break;
 			}
 		}
-		if(brojTelefona!=null) listaAtributa.add(brojTelefona+"*Kriminalac.kontaktniBrojTelefona");
+		if(!StringUtils.isEmptyOrWhitespaceOnly(brojTelefona)) listaAtributa.add(brojTelefona+"*Kriminalac.kontaktniBrojTelefona");
 		if(fizickeOsobine!=null){
 			Spol spol=fizickeOsobine.getSpol();
 			String rasa=fizickeOsobine.getRasa();
@@ -440,73 +442,76 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 			Set<String> bolesti=fizickeOsobine.getBolesti();
 			Set<String> ostaleFizickeOsobine=fizickeOsobine.getOstaleFizickeOsobine();
 
-			if(spol!=null) listaAtributa.add(spol.name()+"*Kriminalac.spol");
-			if(rasa!=null) listaAtributa.add(rasa+"*Kriminalac.rasa");
+			if(spol!=null ) listaAtributa.add(spol.name()+"*Kriminalac.spol");
+			if(!StringUtils.isEmptyOrWhitespaceOnly(rasa)) listaAtributa.add(rasa+"*Kriminalac.rasa");
 
 			if(visinaMin!=null && visinaMax!=null) listaAtributa.add(visinaMin.toString()+"#"+visinaMax.toString()+ "*Kriminalac.visina");
 			if(tezinaMin!=null && tezinaMax!=null) listaAtributa.add(tezinaMin.toString()+"#"+tezinaMax.toString()+ "*Kriminalac.tezina");
 			if(godineMin!=null && godineMax!=null) listaAtributa.add(godineMin.toString()+"#"+godineMax.toString()+ "*Kriminalac.datumRođenja");
 
-			if(bojaKose!=null) listaAtributa.add(bojaKose+"*Kriminalac.bojaKose");
-			if(oblikGlave!=null) listaAtributa.add(oblikGlave+"*Kriminalac.oblikGlave");
-			if(oblikFrizure!=null) listaAtributa.add(oblikFrizure+"*Kriminalac.oblikFrizure");
-			if(bojaOciju!=null) listaAtributa.add(bojaOciju+"*Kriminalac.bojaOčiju");
+			if(!StringUtils.isEmptyOrWhitespaceOnly(bojaKose)) listaAtributa.add(bojaKose+"*Kriminalac.bojaKose");
+			if(!StringUtils.isEmptyOrWhitespaceOnly(oblikGlave)) listaAtributa.add(oblikGlave+"*Kriminalac.oblikGlave");
+			if(!StringUtils.isEmptyOrWhitespaceOnly(oblikFrizure)) listaAtributa.add(oblikFrizure+"*Kriminalac.oblikFrizure");
+			if(!StringUtils.isEmptyOrWhitespaceOnly(bojaOciju)) listaAtributa.add(bojaOciju+"*Kriminalac.bojaOčiju");
 			if(gradaTijela!=null) listaAtributa.add(gradaTijela.name()+"*Kriminalac.građaTijela");
-			if(tetovaze!=null) {
+			if(tetovaze!=null && !tetovaze.isEmpty()) {
 				for(String tetovaza:tetovaze){
-					listaAtributa.add(tetovaza+"*Tetovaža.opisTetovaže");
+					if (!StringUtils.isEmptyOrWhitespaceOnly(tetovaza)) listaAtributa.add(tetovaza+"*Tetovaža.opisTetovaže");
 				}
 			}
-			if(fizickiNedostatci!=null){
+			if(fizickiNedostatci!=null && !fizickiNedostatci.isEmpty()){
 				for (String nedostatak: fizickiNedostatci){
-					listaAtributa.add(nedostatak+"*FizičkiNedostatak.fizičkiNedostatakOpis");
+					if (!StringUtils.isEmptyOrWhitespaceOnly(nedostatak)) listaAtributa.add(nedostatak+"*FizičkiNedostatak.fizičkiNedostatakOpis");
 				}
 			}
-			if(bolesti!=null){
+			if(bolesti!=null && !bolesti.isEmpty()){
 				for(String bolest:bolesti){
-					listaAtributa.add(bolest+"*Bolest.nazivBolesti");
+					if (!StringUtils.isEmptyOrWhitespaceOnly(bolest)) listaAtributa.add(bolest+"*Bolest.nazivBolesti");
 				}
 			}
-			if(ostaleFizickeOsobine!=null){
+			if(ostaleFizickeOsobine!=null && !ostaleFizickeOsobine.isEmpty()){
 				for(String ostalo:ostaleFizickeOsobine){
-					listaAtributa.add(ostalo+"*FizičkaOsobina.fizičkaOsobinaOpis");
+					if (!StringUtils.isEmptyOrWhitespaceOnly(ostalo)) listaAtributa.add(ostalo+"*FizičkaOsobina.fizičkaOsobinaOpis");
 				}
 			}
 		}
-		if(karakterneOsobine!=null){
+		if(karakterneOsobine!=null) {
 			String nacinGovora=karakterneOsobine.getNacinGovora();
 			RazinaApstraktneInteligencije razinaApstraktneInteligencije=karakterneOsobine.getRazinaApstraktneInteligencije();
 			Set <String> psiholoskiProblemi=karakterneOsobine.getPsiholoskiProblemi();
 			Set <String> ostaleKarakterneOsobine=karakterneOsobine.getOstaleKarakterneOsobine();
-			if(nacinGovora!=null) listaAtributa.add(nacinGovora+"*Kriminalac.načinGovora");
+			if(!StringUtils.isEmptyOrWhitespaceOnly(nacinGovora)) listaAtributa.add(nacinGovora+"*Kriminalac.načinGovora");
 			if(razinaApstraktneInteligencije!=null) listaAtributa.add(razinaApstraktneInteligencije.name()+"*Kriminalac.razinaApstraktneInteligencije");
-			if(psiholoskiProblemi!=null){
-				for(String problem:psiholoskiProblemi) listaAtributa.add(problem+"*PsihološkiProblem.psihološkiProblemOpis");
-			}
-			if(ostaleKarakterneOsobine!=null){
-				for(String ostalo: ostaleKarakterneOsobine) listaAtributa.add(ostalo+"*KarakternaOsobina.karakternaOsobinaOpis");
+			if(psiholoskiProblemi!=null && !psiholoskiProblemi.isEmpty()){
+				for(String problem:psiholoskiProblemi){ 
+					if (!StringUtils.isEmptyOrWhitespaceOnly(problem)) listaAtributa.add(problem+"*PsihološkiProblem.psihološkiProblemOpis");
+			}}
+			if(ostaleKarakterneOsobine!=null && !ostaleKarakterneOsobine.isEmpty()){
+				for(String ostalo: ostaleKarakterneOsobine) {
+					if (!StringUtils.isEmptyOrWhitespaceOnly(ostalo)) listaAtributa.add(ostalo+"*KarakternaOsobina.karakternaOsobinaOpis");
+				}
 			}
 		}
-		if(popisAliasa!=null){
+		if(popisAliasa!=null && !popisAliasa.isEmpty()){
 			for(String alias:popisAliasa){
-				listaAtributa.add(alias+"*ListaAliasa.alias");
+				if (!StringUtils.isEmptyOrWhitespaceOnly(alias)) listaAtributa.add(alias+"*ListaAliasa.alias");
 			}
 		}
-		if(poznateAdrese!=null){
+		if(poznateAdrese!=null && !poznateAdrese.isEmpty()){
 			{
 				for (AdresaIMjestoStanovanja adrmj:poznateAdrese) {
 					String adr=adrmj.getAdresa();
 					String mj=adrmj.getNazivMjesta();
-					if(adr!=null && mj!=null) listaAtributa.add(adr+"#"+mj+"*PoznateAdreseStanovanjaKriminalca");
+					if(!StringUtils.isEmptyOrWhitespaceOnly(adr) && !StringUtils.isEmptyOrWhitespaceOnly(mj)) listaAtributa.add(adr+"#"+mj+"*PoznateAdreseStanovanjaKriminalca");
 				}
 			}
 		}
-		if(popisPovezanihKriminalaca!=null){
+		if(popisPovezanihKriminalaca!=null && !popisPovezanihKriminalaca.isEmpty()){
 			for(Osumnjiceni o: popisPovezanihKriminalaca){
 				if(o.getOib()!=null) listaAtributa.add(o.getOib().toString()+"*ListaPovezanihKriminalaca.povezanSaKriminalacOib");
 			}
 		}
-		if(povezaniSlucajevi!=null){
+		if(povezaniSlucajevi!=null && !povezaniSlucajevi.isEmpty()){
 			for (Slucaj s: povezaniSlucajevi) {
 				if(s.getBrojSlucaja()!=null) listaAtributa.add(s.getBrojSlucaja().toString()+"*ListaOsumnjicenihOsoba.brojSlučaja");
 			}
@@ -515,17 +520,17 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 		String ime=super.getIme();
 		String prezime=super.getPrezime();
 		String oib = null;
-		if(super.getOib() != null){
-		oib=super.getOib().toString();}
+		if(super.getOib() != null) oib=super.getOib().toString();
+	
 		AdresaIMjestoStanovanja admjprebivaliste=super.getAdresaPrebivalista();
 
-		if(ime!=null) listaAtributa.add(ime+"*Osoba.imeOsobe");
-		if(prezime!=null) listaAtributa.add(prezime+"*Osoba.prezimeOsobe");
-		if(oib != null) listaAtributa.add(oib +"*Kriminalac.oib");
+		if(!StringUtils.isEmptyOrWhitespaceOnly(ime)) listaAtributa.add(ime+"*Osoba.imeOsobe");
+		if(!StringUtils.isEmptyOrWhitespaceOnly(prezime)) listaAtributa.add(prezime+"*Osoba.prezimeOsobe");
+		if(!StringUtils.isEmptyOrWhitespaceOnly(oib)) listaAtributa.add(oib +"*Kriminalac.oib");
 		if(admjprebivaliste!=null){
 			String adr=admjprebivaliste.getAdresa();
 			String mj=admjprebivaliste.getNazivMjesta();
-			if (adr!=null && mj!=null) listaAtributa.add(adr+"#"+mj+"*Osoba.adresaPrebivalista");
+			if (!StringUtils.isEmptyOrWhitespaceOnly(adr) && !StringUtils.isEmptyOrWhitespaceOnly(mj)) listaAtributa.add(adr+"#"+mj+"*Osoba.adresaPrebivalista");
 		}
 	
 		return listaAtributa;
