@@ -13,7 +13,7 @@ public interface StrategijaUpit <E> {
 
 
 	public static String generirajWhere(String relacijaAtributDB,String vrijednostPretrage){
-		return " WHERE "+relacijaAtributDB+"=\""+vrijednostPretrage+"\"";
+		return " WHERE LOWER("+relacijaAtributDB+")=LOWER('"+vrijednostPretrage+"')";
 	}
 
 	public static String generirajWhere(String relacijaAtributDB,String vrijednostPretrageMin,String vrijednostPretrageMax){
@@ -21,8 +21,8 @@ public interface StrategijaUpit <E> {
 	}
 
 	public static String generirajWhere(String relacijaAtribut1,String relacijaAtribut2,String vrijednostPretrage1,String vrijednostPretrage2){
-		return " WHERE "+relacijaAtribut1+"=\""+vrijednostPretrage1+"\""
-				+ "  and "+relacijaAtribut2+"=\""+vrijednostPretrage2+"\"";
+		return " WHERE LOWER("+relacijaAtribut1+")=LOWER('"+vrijednostPretrage1+")'"
+				+ "  and LOWER("+relacijaAtribut2+")=LOWER('"+vrijednostPretrage2+")'";
 	}
 
 	public static  String generirajFrom (String relacija1,String relacijaAtribut1, String relacijaAtribut2){
