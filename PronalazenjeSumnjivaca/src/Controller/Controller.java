@@ -108,7 +108,17 @@ public class Controller extends Application implements ViewDelegate {
 		GlavniIzbornikController controller = (GlavniIzbornikController) loader
 				.getMyLoader().getController();
 		pane = controller.init(this);
-		controller.setIme(policajac.getIme());
+		switch(policajac.getAccess().toString()){
+		case "NISKA":
+			controller.initPozornik();
+			break;
+		case "SREDNJA":
+			controller.initNarednik();
+			break;
+		case "VISOKA":
+			break;
+		}
+		controller.setIme(policajac.getPrezime()+","+" " + policajac.getIme().substring(0, 1) +".");
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
 		stage.show();
@@ -530,5 +540,11 @@ public class Controller extends Application implements ViewDelegate {
 						null, ex);
 			}
 		}
+	}
+
+	@Override
+	public void brzoPretrazi(String text) {
+		// TODO Auto-generated method stub
+		
 	}
 }

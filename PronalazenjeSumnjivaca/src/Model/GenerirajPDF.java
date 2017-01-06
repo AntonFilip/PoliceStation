@@ -5,8 +5,13 @@
  */
 package Model;
 
+import java.awt.Font;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Set;
+
 import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.FontFactory;
@@ -15,12 +20,6 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Font;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
 
 /**
  *
@@ -43,7 +42,7 @@ public class GenerirajPDF {
         paragraph1.add(anchorTarget);
         document.add(paragraph1);
         
-        List <String> fotografije = osumnjiceni.fotografije;
+        Set <String> fotografije = osumnjiceni.getFotografijeURL();
 
         for (String urlFoto : fotografije) {
             Image image = Image.getInstance(new URL(urlFoto));

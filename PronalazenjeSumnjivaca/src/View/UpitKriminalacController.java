@@ -148,7 +148,7 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         if (spol.getValue() != null) {
             if (spol.getValue().equals("M")) {
                 fizickeOsobine.setSpol(Spol.M);
-            } else if (spol.getValue().equals("�")) {
+            } else if (spol.getValue().equals("Ž")) {
                 fizickeOsobine.setSpol(Spol.Ž);
             }
         }

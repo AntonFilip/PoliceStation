@@ -37,8 +37,9 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 	public void postaviListuOsumnjiceni(Map<Osumnjiceni, Float> lista) {
 
 		ObservableList<String> data = FXCollections.observableArrayList();
-		
-		LinkedHashMap<Osumnjiceni, Float> sorted = (LinkedHashMap<Osumnjiceni, Float>) sortByValue(lista);
+		list.getItems().clear();
+		if(lista != null){
+			LinkedHashMap<Osumnjiceni, Float> sorted = (LinkedHashMap<Osumnjiceni, Float>) sortByValue(lista);
 
 		for (Map.Entry<Osumnjiceni, Float> entry : sorted.entrySet()) {
 			String output = String.format("%-15s%-30s%-30s%-10s", entry.getKey().getOib().toString(),
@@ -48,6 +49,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 			data.add(output);
 		}
 		list.setItems(data);
+		}
 		predmet = "Osumnjiceni";
 	}
 	
@@ -56,7 +58,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 
 	public void postaviListuSlucaj(Map<Slucaj, Float> lista) {
 		ObservableList<String> data = FXCollections.observableArrayList();
-
+		list.getItems().clear();
 		LinkedHashMap<Slucaj, Float> sorted = (LinkedHashMap<Slucaj, Float>) sortByValue(lista);
 
 		for (Map.Entry<Slucaj, Float> entry : sorted.entrySet()) {
@@ -74,7 +76,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 
 	public void postaviListuDokaz(Map<Dokaz, Float> lista){
 		ObservableList<String> data = FXCollections.observableArrayList();
-		
+		list.getItems().clear();
 		LinkedHashMap<Dokaz, Float> sorted = (LinkedHashMap<Dokaz, Float>) sortByValue(lista);
 		
 		for (Map.Entry<Dokaz, Float> entry : sorted.entrySet()) {
@@ -126,6 +128,8 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 	@Override
 	public void init(ViewDelegate delegate) {
 		del = delegate;
+		list.getItems().clear();
+		
 
 	}
 
