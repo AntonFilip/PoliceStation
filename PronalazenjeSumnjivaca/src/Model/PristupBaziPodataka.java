@@ -1,4 +1,4 @@
-package Model;
+﻿package Model;
 
 
 import java.net.InetAddress;
@@ -1159,48 +1159,94 @@ public class PristupBaziPodataka {
 		}
 		return true;
 	}
-
+	
 	public static List<DnevnikPretrazivanja> dohvatiZapiseDnevnika(){
 		Connection dbConnection = null;
 		Statement statement = null;
 		List<DnevnikPretrazivanja> listaZapisa=new LinkedList<>();
-		String query="Select dnevnikPretraživanjaID, ipAdresa,vrijemeUpita, jedinstveniBrojPolicajca";
+		String query="Select dnevnikPretraživanjaID, ipAdresa,vrijemeUpita, jedinstveniBrojPolicajca from DnevnikPretraživanja";
 		try {
 			dbConnection = getDBConnection();
 			statement=dbConnection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery(query);
 
 			while (rs.next()) {
-				Dokaz dokaz=new Dokaz();
-				dokaz.setID(rs.getInt(1));
-				dokaz.setNaziv(rs.getString(2));
-				dokaz.setFotografija(rs.getString(3));
-				dokaz.setNazivSlucaja(rs.getString(4));
-				listaDokaza.add(dokaz);
+				DnevnikPretrazivanja zapis=new DnevnikPretrazivanja();
+				zapis.setID(rs.getInt(1));
+				zapis.setIpAdresa(rs.getString(2));
+				zapis.setVrijemeUpita(rs.getTimestamp(3).toString());
+				zapis.setBrojPolicajca(rs.getInt(4));
+				listaZapisa.add(zapis);
 			}
-			return listaDokaza;
+			return listaZapisa;
 		} catch (Exception e) {
 			System.out.println(e);
 			e.printStackTrace();
 		}
 		finally {
 			if (statement != null) {
-				statement.close();
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (dbConnection != null) {
-				dbConnection.close();
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;
 	}
+	
 	public static DnevnikPretrazivanja izaberiZapisUDnevniku(Integer brojZapisa){
 		Connection dbConnection = null;
 		Statement statement = null;
 		DnevnikPretrazivanja zapis=new DnevnikPretrazivanja();
 		String query="Select * from DnevnikPretraživanja where dnevnikPretraživanjaID='"+brojZapisa+"'";
 		
-		
+		try {
+			dbConnection = getDBConnection();
+			statement=dbConnection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				zapis=new DnevnikPretrazivanja();
+				zapis.setID(rs.getInt(1));
+				zapis.setIpAdresa(rs.getString(2));
+				zapis.setVrijemeUpita(rs.getTimestamp(5).toString());
+				zapis.setBrojPolicajca(rs.getInt(6));
+				zapis.setSqlUpit(rs.getString(4));
+				zapis.setTextUpita(rs.getString(3));
+				
+			}
+			return zapis;
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (dbConnection != null) {
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
 	}
+
 	
 	public static Statistika izracunajStatistiku (){
 		Connection dbConnection = null;
