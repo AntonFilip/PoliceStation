@@ -30,7 +30,7 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @FXML Label adresa;
     @FXML Label brojTelefona;
     @FXML Label status;
-    @FXML ListView opisKriminalnihDjelatnosti;
+    @FXML ListView<String> opisKriminalnihDjelatnosti;
     @FXML ListView popisAliasa;
     @FXML ListView poznateAdrese;
     @FXML ListView popisPovezanihSlucajeva;
@@ -64,24 +64,33 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     public void prikaziPodatke(Osumnjiceni osumnjiceni) {
         
         //fotografija.setImage((Image) osumnjiceni.getFotografijeURL());
-        
-        ime.setText(osumnjiceni.getIme());
-        prezime.setText(osumnjiceni.getPrezime());
-        oib.setText(Long.toString(osumnjiceni.getOib()));
-        adresa.setText(osumnjiceni.getAdresaPrebivalista().getAdresa());
-        brojTelefona.setText(osumnjiceni.getBrojTelefona());
+        if(osumnjiceni.getIme() != null)
+        	ime.setText(osumnjiceni.getIme());
+        if(osumnjiceni.getPrezime() != null)
+        	prezime.setText(osumnjiceni.getPrezime());
+        if(osumnjiceni.getOib() != null)
+        	oib.setText(Long.toString(osumnjiceni.getOib()));
+        if(osumnjiceni.getAdresaPrebivalista().getAdresa() != null)
+        	adresa.setText(osumnjiceni.getAdresaPrebivalista().getAdresa());
+        if(osumnjiceni.getBrojTelefona() != null)
+        	brojTelefona.setText(osumnjiceni.getBrojTelefona());
         if (osumnjiceni.getStatus() != null) {
             status.setText(osumnjiceni.getStatus().toString());
         }
         
         List<String> list = new ArrayList<>();
+        ObservableList<String> observableList = FXCollections.emptyObservableList();
+        if(osumnjiceni.getOpisKriminalnihDjelatnosti() != null){
         list.add(osumnjiceni.getOpisKriminalnihDjelatnosti());
-        ObservableList<String> observableList = FXCollections.observableList(list);
-        if (!observableList.get(0).equals("")) {
+        //list.add("blablalbla");
+        observableList = FXCollections.observableList(list);
+        if(!observableList.isEmpty())
+       // if (!observableList.get(0).equals("")) {
             opisKriminalnihDjelatnosti.setItems(observableList);
+       // }
         }
-        
         list.clear();
+        if(osumnjiceni.getPopisAliasa() != null){
         for (String alias : osumnjiceni.getPopisAliasa()) {
             list.add(alias);
         }
@@ -89,28 +98,31 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
         observableList = FXCollections.observableList(list);
         if (!observableList.isEmpty()) {
             popisAliasa.setItems(observableList);
-        }
+        }}
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getPoznateAdrese() != null){
         for (AdresaIMjestoStanovanja adresa : osumnjiceni.getPoznateAdrese()) {
             list.add(adresa.getAdresa() + ", " + adresa.getNazivMjesta());
         }
         observableList = FXCollections.observableList(list);
         if (!observableList.isEmpty()) {
             poznateAdrese.setItems(observableList);
-        }
+        }}
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getPovezaniSlucajevi() != null){
         for (Slucaj slucaj : osumnjiceni.getPovezaniSlucajevi()) {
+        	if(slucaj.getBrojSlucaja() != null)
             list.add(Integer.toString(slucaj.getBrojSlucaja()));
         }
         observableList = FXCollections.observableList(list);
         if (!observableList.isEmpty()) {
         popisPovezanihSlucajeva.setItems(observableList);
         }
-        
+        }
         list.clear();
         observableList.clear();
         for (Osumnjiceni krimi : osumnjiceni.getPopisPovezanihKriminalaca()) {
@@ -120,56 +132,74 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
         if (!observableList.isEmpty()) {
         popisPovezanihKriminalaca.setItems(observableList);
         }
-        
-        spol.setText(osumnjiceni.getFizickeOsobine().getSpol().toString());
-        rasa.setText(osumnjiceni.getFizickeOsobine().getRasa());
-        visina.setText(Float.toString(osumnjiceni.getFizickeOsobine().getVisina()));
-        tezina.setText(Float.toString(osumnjiceni.getFizickeOsobine().getTezina()));
-        godine.setText(Integer.toString(osumnjiceni.getFizickeOsobine().getGodine()));
-        bojaKose.setText(osumnjiceni.getFizickeOsobine().getBojaKose());
-        oblikFrizure.setText(osumnjiceni.getFizickeOsobine().getOblikFrizure());
-        oblikGlave.setText(osumnjiceni.getFizickeOsobine().getOblikGlave());
-        bojaOciju.setText(osumnjiceni.getFizickeOsobine().getBojaOciju());
-        gradaTijela.setText(osumnjiceni.getFizickeOsobine().getGradaTijela().toString());
+        if(osumnjiceni.getFizickeOsobine() != null){
+        if(osumnjiceni.getFizickeOsobine().getSpol() != null)
+        	spol.setText(osumnjiceni.getFizickeOsobine().getSpol().toString());
+        if(osumnjiceni.getFizickeOsobine().getRasa() != null)
+        	rasa.setText(osumnjiceni.getFizickeOsobine().getRasa());
+        if(osumnjiceni.getFizickeOsobine().getVisina() != null)
+        	visina.setText(Float.toString(osumnjiceni.getFizickeOsobine().getVisina()));
+        if(osumnjiceni.getFizickeOsobine().getTezina() != null)
+        	tezina.setText(Float.toString(osumnjiceni.getFizickeOsobine().getTezina()));
+        if(osumnjiceni.getFizickeOsobine().getGodine() != null)
+        	godine.setText(Integer.toString(osumnjiceni.getFizickeOsobine().getGodine()));
+        if(osumnjiceni.getFizickeOsobine().getBojaKose() != null)
+        	bojaKose.setText(osumnjiceni.getFizickeOsobine().getBojaKose());
+        if(osumnjiceni.getFizickeOsobine().getOblikFrizure() != null)
+        	oblikFrizure.setText(osumnjiceni.getFizickeOsobine().getOblikFrizure());
+        if(osumnjiceni.getFizickeOsobine().getOblikGlave() != null)
+        	oblikGlave.setText(osumnjiceni.getFizickeOsobine().getOblikGlave());
+        if(osumnjiceni.getFizickeOsobine().getBojaOciju() != null)
+        	bojaOciju.setText(osumnjiceni.getFizickeOsobine().getBojaOciju());
+        if(osumnjiceni.getFizickeOsobine().getGradaTijela() != null)
+        	gradaTijela.setText(osumnjiceni.getFizickeOsobine().getGradaTijela().toString());
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getFizickeOsobine().getTetovaze() != null){
         list.addAll(osumnjiceni.getFizickeOsobine().getTetovaze());
         observableList = FXCollections.observableList(list);
-        tetovaze.setItems(observableList);
+        tetovaze.setItems(observableList);}
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getFizickeOsobine().getFizickiNedostatci() != null){
         list.addAll(osumnjiceni.getFizickeOsobine().getFizickiNedostatci());
         observableList = FXCollections.observableList(list);
-        fizickiNedostatci.setItems(observableList);
+        fizickiNedostatci.setItems(observableList);}
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getFizickeOsobine().getBolesti() != null){
         list.addAll(osumnjiceni.getFizickeOsobine().getBolesti());
         observableList = FXCollections.observableList(list);
-        bolesti.setItems(observableList);
+        bolesti.setItems(observableList);}
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getFizickeOsobine().getOstaleFizickeOsobine() != null) {
         list.addAll(osumnjiceni.getFizickeOsobine().getOstaleFizickeOsobine());
         observableList = FXCollections.observableList(list);
-        ostaleFizickeOsobine.setItems(observableList);
-        
-        nacinGovora.setText(osumnjiceni.getKarakterneOsobine().getNacinGovora());
-        razinaInteligencije.setText(osumnjiceni.getKarakterneOsobine().getRazinaApstraktneInteligencije().toString());
+        ostaleFizickeOsobine.setItems(observableList);}}
+        if(osumnjiceni.getKarakterneOsobine() != null){
+        if(osumnjiceni.getKarakterneOsobine().getNacinGovora() != null)
+        	nacinGovora.setText(osumnjiceni.getKarakterneOsobine().getNacinGovora());
+        if(osumnjiceni.getKarakterneOsobine().getRazinaApstraktneInteligencije() != null)
+        	razinaInteligencije.setText(osumnjiceni.getKarakterneOsobine().getRazinaApstraktneInteligencije().toString());
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getKarakterneOsobine().getPsiholoskiProblemi() != null){
         list.addAll(osumnjiceni.getKarakterneOsobine().getPsiholoskiProblemi());
         observableList = FXCollections.observableList(list);
-        psihickiProblemi.setItems(observableList);
+        psihickiProblemi.setItems(observableList);}
         
         list.clear();
         observableList.clear();
+        if(osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine() != null){
         list.addAll(osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine());
         observableList = FXCollections.observableList(list);
-        ostaleKarakterneOsobine.setItems(observableList);
+        ostaleKarakterneOsobine.setItems(observableList);}}
     }
     
     /**

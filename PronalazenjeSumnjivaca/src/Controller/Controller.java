@@ -18,6 +18,7 @@ import View.DodajDokazController;
 import View.DodajKriminalacController;
 import View.DodajSlucajController;
 import View.GlavniIzbornikController;
+import View.IzmjenaKriminalacController;
 import View.ListaStavkiController;
 import View.PostaviUpitController;
 import View.PrijavaController;
@@ -439,16 +440,14 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void postaviScenuIzmjeneKriminalca() {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+		Loader loader = new Loader("IzmjenaKriminalac");
+		Parent loadScreen = loader.getLoadScreen();
+
+		IzmjenaKriminalacController controller = (IzmjenaKriminalacController) loader
+				.getMyLoader().getController();
+		controller.init(this);
+		
+		pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
