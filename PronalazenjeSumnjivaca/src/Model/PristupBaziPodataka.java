@@ -381,7 +381,7 @@ public class PristupBaziPodataka {
 	}
 
 	public static Osumnjiceni dohvatiPodatkeOsumnjiceni(String oib) {
-		String query="select Kriminalac.*, Osoba.ime, Osoba.prezime,Osoba.adresaPrebivališta,Mjesto.pbrMjesto,Mjesto.nazivMjesto from Kriminalac join Osoba on Kriminalac.oib=Osoba.oib join Mjesto on Osoba.Mjesto_pbrMjesto=Mjesto.pbrMjesto where Osoba.oib='"+oib+"'";
+		String query="select Kriminalac.*, Osoba.imeOsobe, Osoba.prezimeOsobe,Osoba.adresaPrebivalista,Mjesto.pbrMjesto,Mjesto.nazivMjesto from Kriminalac join Osoba on Kriminalac.oib=Osoba.oib join Mjesto on Osoba.Mjesto_pbrMjesto=Mjesto.pbrMjesto where Osoba.oib='"+oib+"'";
 		Osumnjiceni osumnjiceni=new Osumnjiceni();
 		FizickeOsobine fOsobina=new FizickeOsobine();
 		KarakterneOsobine kOsobine=new KarakterneOsobine();
