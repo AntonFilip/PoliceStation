@@ -148,20 +148,31 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         if (spol.getValue() != null) {
             if (spol.getValue().equals("M")) {
                 fizickeOsobine.setSpol(Spol.M);
-            } else if (spol.getValue().equals("Ž")) {
+            } else  {
                 fizickeOsobine.setSpol(Spol.Ž);
             }
         }
         fizickeOsobine.setRasa(rasa.getText());
         if (!visina.getText().isEmpty()) {
+        	String[] visinamm = visina.getText().split("-");
+        	fizickeOsobine.setVisinaMin(Float.parseFloat(visinamm[0]));
+        	fizickeOsobine.setVisinaMax(Float.parseFloat(visinamm[1]));
         	
-            fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
+            //fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
         }
         if (!tezina.getText().isEmpty()) {
-            fizickeOsobine.setTezina(Float.parseFloat(tezina.getText()));
+        	String[] tezinamm = tezina.getText().split("-");
+        	fizickeOsobine.setTezinaMin(Float.parseFloat(tezinamm[0]));
+        	fizickeOsobine.setTezinaMax(Float.parseFloat(tezinamm[1]));
+        	
+           // fizickeOsobine.setTezina(Float.parseFloat(tezina.getText()));
         }
         if (!godine.getText().isEmpty()) {
-            fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
+        	String[] godinemm = godine.getText().split("-");
+        	fizickeOsobine.setGodineMin(Integer.parseInt(godinemm[0]));
+        	fizickeOsobine.setGodineMax(Integer.parseInt(godinemm[1]));
+        	
+           // fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
         }
         fizickeOsobine.setBojaKose(bojaKose.getText());
         fizickeOsobine.setOblikGlave(oblikGlave.getText());
