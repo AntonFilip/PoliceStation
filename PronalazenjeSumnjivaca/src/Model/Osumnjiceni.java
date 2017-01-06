@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -22,6 +23,7 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	private Set<AdresaIMjestoStanovanja> poznateAdrese=new LinkedHashSet<>();
 	private Set<Osumnjiceni> popisPovezanihKriminalaca=new LinkedHashSet<>();
 	private Set<Slucaj> povezaniSlucajevi=new LinkedHashSet<>();
+	private LocalDate datumRodjenja;
 
 	public Osumnjiceni() {
 	}
@@ -29,7 +31,7 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	public Osumnjiceni(TrenutniStatusKriminalca status, String brojTelefona, String opisKriminalnihDjelatnosti,
 			FizickeOsobine fizickeOsobine, KarakterneOsobine karakterneOsobine, String otisakPrstaURL,
 			Set<String> fotografijeURL, Set<String> popisAliasa, Set<AdresaIMjestoStanovanja> poznateAdrese,
-			Set<Osumnjiceni> popisPovezanihKriminalaca, Set<Slucaj> povezaniSlucajevi) {
+			Set<Osumnjiceni> popisPovezanihKriminalaca, Set<Slucaj> povezaniSlucajevi,LocalDate datumRodjenja) {
 		super();
 		this.status = status;
 		this.brojTelefona = brojTelefona;
@@ -42,10 +44,19 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 		this.poznateAdrese = poznateAdrese;
 		this.popisPovezanihKriminalaca = popisPovezanihKriminalaca;
 		this.povezaniSlucajevi = povezaniSlucajevi;
+		this.datumRodjenja=datumRodjenja;
 	}
 
 	public TrenutniStatusKriminalca getStatus() {
 		return status;
+	}
+
+	public LocalDate getDatumRodjenja() {
+		return datumRodjenja;
+	}
+
+	public void setDatumRodjenja(LocalDate datumRodjenja) {
+		this.datumRodjenja = datumRodjenja;
 	}
 
 	public void setStatus(TrenutniStatusKriminalca status) {

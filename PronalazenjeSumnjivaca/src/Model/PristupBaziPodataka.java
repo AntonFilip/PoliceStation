@@ -1336,7 +1336,312 @@ public class PristupBaziPodataka {
 	}
 
 	public static boolean dodajNovogKriminalca(Osumnjiceni osumnjiceni) {
+		Set<String> listaAtributa= osumnjiceni.generirajListuAtributa();	
+		List<String> atributi=new ArrayList<>();
+		List<String> vrijednosti=new ArrayList<>();
+		String oib="";
+		String upit="";
+		String rez="";
+		for (String s:listaAtributa) {
+			System.out.println(s);
+			String [] parts=s.split("\\*");
+			String obiljezje=parts[1];
+			System.out.println(obiljezje);
+			String vrijednost=parts[0];
+			System.out.println(vrijednost);
+			
+			if(obiljezje.startsWith("Kriminalac.")) {
+				String [] parts2=obiljezje.split("\\.");
+				String atribut=parts2[1];
+				atributi.add(atribut);
+				vrijednosti.add(vrijednost);
+			}
+		}
+			String otisakUrl=osumnjiceni.getOtisakPrstaURL();
+			String query=StrategijaUpit.upitUnos("OtisakPrsta","otisakPrstaID","fotografijaURL" ,"NULL", otisakUrl);
+			System.out.println(query);
+			String ide=izvrsiUpit(query);
+			atributi.add("otisakPrstaID");
+			vrijednosti.add(ide);
+			atributi.add("datumRođenja");
+			vrijednosti.add(osumnjiceni.getDatumRodjenja().toString());
+			upit=StrategijaUpit.upitUnos("Kriminalac", atributi, vrijednosti);
+			System.out.println(upit);
+			izvrsiUnos(upit);
+			
+		
+		for (String s: listaAtributa){
+			String [] parts=s.split("\\*");
+			String relacija="";
+			String atribut="";
+			String obiljezje=parts[1];
+			String vrijednost=parts[0];
+			if(!obiljezje.startsWith("Poznate")) {
+				String [] parts2=obiljezje.split("\\.");
+				relacija=parts2[0];
+				 atribut=parts2[1];
+				System.out.println(obiljezje);
+			}
+			
+			
+			
+			switch (obiljezje){
+			
+			case "Kriminalac.oib" :
+				oib=vrijednost;
+				break;
 
-		return false;
-	}
+			case "Tetovaža.opisTetovaže": 
+				System.out.println(parts);
+				System.out.println(relacija);
+				System.out.println(vrijednost);
+				System.out.println(atribut);
+				rez=provjeriUnos("tetovažaID",vrijednost,relacija,atribut);
+				if(rez=="nema") {
+					upit=StrategijaUpit.upitUnos(relacija,"tetovažaID", atribut,"NULL", vrijednost);
+					System.out.println(upit);
+					String id=izvrsiUpit(upit);
+					rez=id;
+					
+				}
+			
+				upit=StrategijaUpit.upitUnos("TetovažeKriminalca","kriminalacOib","tetovažaID", oib, rez);
+				System.out.println(upit);
+				izvrsiUnos(upit);
+				
+				break;
+
+			case "FizičkiNedostatak.fizičkiNedostatakOpis": 
+				rez=provjeriUnos("fizičkiNedostatakID",vrijednost,relacija,atribut);
+				if(rez=="nema") {
+					upit=StrategijaUpit.upitUnos(relacija,"fizičkiNedostatakID", atribut,"NULL", vrijednost);
+					String id=izvrsiUpit(upit);
+					rez=id;
+					
+				}
+			
+				upit=StrategijaUpit.upitUnos("FizičkiNedostaciKriminalca","kriminalacOib","fizičkiNedostatakID", oib, rez);
+				izvrsiUnos(upit);
+				
+				break;
+
+			case "Bolest.nazivBolesti": 
+				rez=provjeriUnos("bolestID",vrijednost,relacija,atribut);
+				if(rez=="nema") {
+					upit=StrategijaUpit.upitUnos(relacija,"bolestID", atribut,"NULL", vrijednost);
+					System.out.println(upit);
+					String id=izvrsiUpit(upit);
+					rez=id;
+					
+				}
+			
+				upit=StrategijaUpit.upitUnos("ListaBolestiKriminalca","kriminalacOib","bolestID",oib, rez);
+				izvrsiUnos(upit);
+				
+				break;
+
+			case "FizičkaOsobina.fizičkaOsobinaOpis": 
+				rez=provjeriUnos("fizičkaOsobina",vrijednost,relacija,atribut);
+				if(rez=="nema") {
+					upit=StrategijaUpit.upitUnos("FizičkaOsobina","fizičkaOsobina", atribut,"NULL",vrijednost);
+					String id=izvrsiUpit(upit);
+					rez=id;
+					System.out.println(rez);
+					
+				}
+			
+				upit=StrategijaUpit.upitUnos("OstaleFizičkeOsobineKriminalca","kriminalacOib","fizičkaOsobinaID", oib, rez);
+				izvrsiUnos(upit);
+				
+				break;
+
+			case "PsihološkiProblem.psihološkiProblemOpis": 
+				rez=provjeriUnos("psihološkiProblemID",vrijednost,relacija,atribut);
+				if(rez=="nema") {
+					upit=StrategijaUpit.upitUnos(relacija,"psihološkiProblemID", atribut, "NULL",vrijednost);
+					String id=izvrsiUpit(upit);
+					rez=id;	
+				}
+				upit=StrategijaUpit.upitUnos("PsihološkiProblemiKriminalca","kriminalacOib","psihološkiProblemID", oib, rez);
+				izvrsiUnos(upit);
+				
+				break;
+
+			case "KarakternaOsobina.karakternaOsobinaOpis": 
+				rez=provjeriUnos("karakternaOsobinaID",vrijednost,relacija,atribut);
+				if(rez=="nema") {
+					upit=StrategijaUpit.upitUnos(relacija,"karakternaOsobinaID", atribut,"NULL", vrijednost);
+					String id=izvrsiUpit(upit);
+					rez=id;
+					
+				}
+			
+				upit=StrategijaUpit.upitUnos("OstaleKarakterneOsobineKriminalca","kriminalacOib","karakternaOsobinaID", oib, rez);
+				izvrsiUnos(upit);
+				
+				break;
+
+			case "ListaAliasa.alias": 
+				
+				upit="INSERT INTO `ListaAliasa`(`aliasID`, `alias`, `kriminalacOib`) VALUES (NULL,'"+vrijednost+"','"+oib+"')";
+				izvrsiUnos(upit);
+				
+				break;
+
+			case "PoznateAdreseStanovanjaKriminalca":
+				String [] parts3=vrijednost.split("#");
+				String adresaNaziv=parts3[0];
+				String mjestoNaziv=parts3[1];
+				String pbr;
+				List<String> aLista=new ArrayList<>();
+				List<String> vLista=new ArrayList<>();
+				pbr=provjeriUnos("pbrMjesto", mjestoNaziv, "Mjesto", "nazivMjesto");
+				rez=provjeriUnos("adresaStanovanjaID", pbr,adresaNaziv,obiljezje, "pbrMjesto", "adresaStanovanja");
+				if(rez=="nema") {
+					vLista.add("NULL");
+				}
+				else {
+					vLista.add(rez);
+				}
+				aLista.add("adresaStanovanjaID");
+				aLista.add("kriminalacOib");
+				aLista.add("pbrMjesto");
+				aLista.add("adresaStanovanja");
+				vLista.add(oib);
+				vLista.add(pbr);
+				vLista.add(adresaNaziv);
+			
+				upit=StrategijaUpit.upitUnos(obiljezje, aLista, vLista);
+				System.out.println(upit);
+				izvrsiUnos(upit);
+				break;
+
+			case "ListaPovezanihKriminalaca.povezanSaKriminalacOib": 
+				
+				upit=StrategijaUpit.upitUnos(relacija, "kriminalacOib",atribut,oib, vrijednost);
+				izvrsiUnos(upit);
+				upit=StrategijaUpit.upitUnos(relacija, "kriminalacOib",atribut,vrijednost, oib);
+				izvrsiUnos(upit);
+				break;
+
+			}
+			
+			}
+		if(!osumnjiceni.getFotografijeURL().isEmpty()) {
+			Set<String> fotoUrl=osumnjiceni.getFotografijeURL();
+			List<String> aList=new ArrayList<>();
+			List<String> vList=new ArrayList<>();
+			aList.add("IDFotografija");
+			aList.add("FotografijaURL");
+			aList.add("OibKriminalac");
+			vList.add("NULL");
+			for(String url:fotoUrl) {
+				vList.add(url);
+				vList.add(oib);
+				izvrsiUnos(StrategijaUpit.upitUnos("FotografijeKriminalca", aList, vList));
+
+			}
+
+			
+		}
+			return false;
+		}
+		public static String provjeriUnos(String select,String vrijednost,String relacija,String atribut){
+			Connection dbConnection = null;
+			PreparedStatement preparedStatement = null;
+			String query="select "+select+" from "+relacija +" where "+atribut+"='"+vrijednost+"'";
+			System.out.println(query);
+			try {
+				dbConnection = getDBConnection();
+				preparedStatement=dbConnection.prepareStatement(query);
+				ResultSet rSet = preparedStatement.executeQuery();
+				if(rSet.next()) return rSet.getString(1);
+			}
+			
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			finally {
+				if (statement != null) {
+					try {
+						statement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (dbConnection != null) {
+					try {
+						dbConnection.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return "nema";
+		}
+		public static String izvrsiUpit(String upit) {
+			String id="";
+			try {
+				dbConnection = getDBConnection();
+				if (dbConnection==null) {System.out.println("fail");	
+				}
+				statement = dbConnection.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);  
+				statement.executeUpdate(upit,Statement.RETURN_GENERATED_KEYS);  
+				ResultSet keys = statement.getGeneratedKeys();    
+				keys.next();  
+				id=keys.getString(1);
+				System.out.println(id);
+				return id;
+			}
+			catch(Exception ex) {
+				System.out.println(ex);
+			}
+			return id;
+		}
+		public static void izvrsiUnos(String upit) {
+			try {
+				dbConnection = getDBConnection();
+				if (dbConnection==null) {System.out.println("fail");	
+				}
+				statement = dbConnection.prepareStatement(upit);  
+				statement.executeUpdate(upit);  
+
+			}
+			catch(Exception ex) {
+				System.out.println(ex);
+			}
+		}
+		public static String provjeriUnos(String select,String vrijednost,String vrijednost2,String relacija,String atribut,String atribut2){
+			Connection dbConnection = null;
+			PreparedStatement preparedStatement = null;
+			String query="select "+select+" from "+relacija +" where "+atribut+"='"+vrijednost+"' AND "+atribut2+"='"+vrijednost2;
+			System.out.println(query);
+			try {
+				dbConnection = getDBConnection();
+				preparedStatement=dbConnection.prepareStatement(query);
+				ResultSet rSet = preparedStatement.executeQuery();
+				if(rSet.next()) return rSet.getString(1);
+			}
+			
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			finally {
+				if (statement != null) {
+					try {
+						statement.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (dbConnection != null) {
+					try {
+						dbConnection.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return "nema";
+		}
 }

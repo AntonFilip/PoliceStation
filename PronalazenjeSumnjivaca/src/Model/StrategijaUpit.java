@@ -56,10 +56,36 @@ public interface StrategijaUpit <E> {
 			}
 		}
 		insert+=")";
+		System.out.println(insert);
 		return insert;
 	}
+	public static String upitUnos(String relacija,String atribut1,String atribut2,String vrijednost1,String vrijednost2) {
+		String insert="INSERT INTO " + "`" +relacija+ "`" +"(";
+			insert+="`" + atribut1 + "`" +"," ;
+			insert+="`" + atribut2 + "`" ;
+			insert+=") VALUES (";
+			if(vrijednost1.equals("NULL")) {
+					insert+="NULL"+",";
+				}
+			else {
+			insert+="'"+vrijednost1+"'"+",";
+				}
+			if(vrijednost2.equals("NULL")) {
+				insert+="NULL";
+			}
+		else {
+		insert+="'"+vrijednost2+"'";
+			}
+
+
+		insert+=")";
+		System.out.println(insert);
+		return insert;
+	}
+
 
 	public static String generirajUpdate(String atribut,String vrijednost) {
 		return "`"+atribut+"`='"+vrijednost+"'";
 	}
+
 }
