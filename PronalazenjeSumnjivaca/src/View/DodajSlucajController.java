@@ -2,19 +2,29 @@ package View;
 
 import Controller.ViewDelegate;
 import Model.*;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  */
-public class DodajSlucajController implements Initializable, ControlledScreen {
+public class DodajSlucajController implements Initializable, ControlledScreen, DialogManager {
     
     ViewDelegate delegate;
     
@@ -22,16 +32,102 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
     @FXML TextField nazivSlucaja;
     @FXML TextArea opisSlucaja;
     @FXML TextField glavniOsumnjiceni;
-    @FXML TextArea popisOsumnjicenih;
-    @FXML TextArea popisSvjedoka;
-    @FXML TextArea popisPolicajaca;
     @FXML ComboBox statusSlucaja;
-    @FXML TextArea popisDogadaja;
+    
+    @FXML ListView popisOsumnjicenih;
+    @FXML TextField upisaniOsumnjiceni;
+    @FXML Button dodajOsumnjicenog;
+    @FXML Button obrisiOsumnjicenog;
+    
+    @FXML ListView popisSvjedoka;
+    @FXML TextField upisaniSvjedok;
+    @FXML Button dodajSvjedoka;
+    @FXML Button obrisiSvjedoka;
+    
+    @FXML ListView popisPolicajaca;
+    @FXML TextField upisaniPolicajac;
+    @FXML Button dodajPolicajca;
+    @FXML Button obrisiPolicajca;
+    
+    @FXML ListView popisDogadaja;
+    @FXML Button dodajDogadaj;
+    @FXML Button obrisiDogadaj;
+    
+    @FXML ListView fotografije;
+    @FXML TextField upisaniURL;
+    @FXML Button dodajURL;
+    @FXML Button obrisiURL;
+    
     @FXML Button dodaj;
+    
+    List<String> lista = new ArrayList<>();
+    ObservableList<String> observableOsumnjiceni = FXCollections.observableList(lista);
+    ObservableList<String> observableSvjedoci = FXCollections.observableList(lista);
+    ObservableList<String> observablePolicajci = FXCollections.observableList(lista);
+    ObservableList<String> observableDogadaji = FXCollections.observableList(lista);
+    ObservableList<String> observableFotografije = FXCollections.observableList(lista);
     
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
+    }
+    
+    @FXML private void dodajOsumnjicenog(ActionEvent event) {
+        observableOsumnjiceni.add(upisaniOsumnjiceni.getText());
+        upisaniOsumnjiceni.clear();    
+    }
+    
+    @FXML private void obrisiOsumnjicenog(ActionEvent event) {
+        observableOsumnjiceni.remove(popisOsumnjicenih.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajSvjedoka(ActionEvent event) {
+        observableSvjedoci.add(upisaniSvjedok.getText());
+        upisaniSvjedok.clear();
+    }
+    
+    @FXML private void obrisiSvjedoka(ActionEvent event) {
+        observableSvjedoci.remove(popisSvjedoka.getSelectionModel().getSelectedIndex());
+    }
+    
+     @FXML private void dodajPolicajca(ActionEvent event) {
+        observablePolicajci.add(upisaniPolicajac.getText());
+        upisaniPolicajac.clear();
+    }
+    
+    @FXML private void obrisiPolicajca(ActionEvent event) {
+        observablePolicajci.remove(popisPolicajaca.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void postaviDialogDogadaj(ActionEvent event) throws IOException {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(dodajDogadaj.getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajDogadaj.fxml"));
+        Parent loadScreen = loader.load();
+        DodajDogadajController controller = (DodajDogadajController) loader.getController();
+	controller.init(this);
+        Scene scene = new Scene(loadScreen);
+        dialog.setScene(scene);
+        dialog.show();
+    }
+    
+    @Override
+    public void dodajDogadaj(Dogadaj dogadaj) {
+        observableDogadaji.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
+    }
+    
+    @FXML private void obrisiDogadaj(ActionEvent event) {
+        observableDogadaji.remove(popisDogadaja.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajURL(ActionEvent event) {
+        observableFotografije.add(upisaniURL.getText());
+        upisaniURL.clear();
+    }
+    
+    @FXML private void obrisiURL(ActionEvent event) {
+        observableFotografije.remove(fotografije.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodaj(ActionEvent event) {
@@ -45,32 +141,33 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
         osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
         slucaj.setGlavniOsumnjiceni(osumnjiceni);
         
-        Set<Osoba> popis1 = new HashSet<>();
-        String[] sumnjivci = popisOsumnjicenih.getText().split(";");
-        for (String sumnjivac : sumnjivci) {
-            Osumnjiceni novi = new Osumnjiceni();
-            novi.setOib(Integer.parseInt(sumnjivac));
-            popis1.add(novi);
-        }
-        slucaj.setPopisOsumnjicenih(popis1);
+        Set<String> fotke = new HashSet<>();
+        fotke.addAll(observableFotografije);
+        slucaj.setFotografijeSlučaja(fotke);
         
-        Set<Osoba> popis2 = new HashSet<>();
-        String[] svjedoci = popisSvjedoka.getText().split(";");
-        for (String svjedok : svjedoci) {
-            Osoba novi = new Osoba();
-            novi.setOib(Integer.parseInt(svjedok));
-            popis2.add(novi);
+        Set<Osoba> popisOsumnjiceni = new HashSet<>();
+        for (String krimi : observableOsumnjiceni) {
+            String[] krim = krimi.split(" ");
+            Osoba kriminalac = new Osoba();
+            kriminalac.setOib(Long.parseLong(krim[2].trim()));
         }
-        slucaj.setPopisSvjedoka(popis2);
+        slucaj.setPopisOsumnjicenih(popisOsumnjiceni);
         
-        Set<Pozornik> popis4 = new HashSet<>();
-        String[] policajci = popisPolicajaca.getText().split(";");
-        for (String policajac : policajci) {
-            Pozornik novi = new Pozornik();
-            novi.setOib(Integer.parseInt(policajac));
-            popis4.add(novi);
+        Set<Osoba> svjedoci = new HashSet<>();
+        for (String svjedok : observableSvjedoci) {
+            String[] svj = svjedok.split(" ");
+            Osoba jadniSvjedok = new Osoba();
+            jadniSvjedok.setOib(Long.parseLong(svj[2].trim()));
         }
-        slucaj.setPopisPolicajaca(popis4);
+        slucaj.setPopisSvjedoka(svjedoci);
+        
+        Set<Pozornik> policajci = new HashSet<>();
+        for (String polis : observablePolicajci) {
+            String[] pol = polis.split(" ");
+            Pozornik polisman = new Pozornik();
+            polisman.setOib(Long.parseLong(pol[2].trim()));
+        }
+        slucaj.setPopisPolicajaca(policajci);
         
         if (statusSlucaja.getValue().equals("Riješen")) {
             slucaj.setStatus(TrenutniStatusSlucaja.riješen);
@@ -80,11 +177,15 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
             slucaj.setStatus(TrenutniStatusSlucaja.zatvoren);
         }
         
-        /*Set<Dogadaj> popis5 = new HashSet<>();
-        String[] dogadaji = popisDogadaja.getText().split(";");
-        for (String dogadaj : dogadaji) {
-            Dogadaj novi = new Dogadaj();
-        }*/
+        Set<Dogadaj> dogadaji = new HashSet<>();
+        for (String dogadaj : observableDogadaji) {
+            String[] dog = dogadaj.split(" ");
+            Dogadaj noviDogadaj = new Dogadaj();
+            noviDogadaj.setDogadajID(Integer.parseInt(dog[0].trim()));
+        }
+        slucaj.setPopisDogadaja(dogadaji);
+        
+        delegate.dodajSlucaj(slucaj);
     }
     
     /**
@@ -94,4 +195,6 @@ public class DodajSlucajController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }      
+
+    
 }

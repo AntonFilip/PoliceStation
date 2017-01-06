@@ -16,15 +16,16 @@
                   <Font name="Lucida Sans Typewriter Regular" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="dodaj" layoutX="151.0" layoutY="183.0" mnemonicParsing="false" onAction="#dodajDogadaj" text="Dodaj">
+            <Button fx:id="dodaj" layoutX="151.0" layoutY="202.0" mnemonicParsing="false" onAction="#dodajDogadaj" text="Dodaj">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="nazivDogadaja" layoutX="14.0" layoutY="48.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv događaja" />
-            <TextField fx:id="pbrMjestaDogadaja" layoutX="14.0" layoutY="83.0" prefHeight="25.0" prefWidth="190.0" promptText="Poštanski broj mjesta događaja" />
-            <TextField fx:id="adresaMjestaDogadaja" layoutX="14.0" layoutY="116.0" prefHeight="25.0" prefWidth="190.0" promptText="Adresa mjesta događaja" />
-            <TextField fx:id="vrijemeDogadaja" layoutX="14.0" layoutY="149.0" prefHeight="25.0" prefWidth="190.0" promptText="Vrijeme događaja" />
+            <TextField fx:id="nazivDogadaja" layoutX="14.0" layoutY="75.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv događaja" />
+            <TextField fx:id="pbrMjestaDogadaja" layoutX="14.0" layoutY="107.0" prefHeight="25.0" prefWidth="190.0" promptText="Poštanski broj mjesta događaja" />
+            <TextField fx:id="adresaMjestaDogadaja" layoutX="14.0" layoutY="138.0" prefHeight="25.0" prefWidth="190.0" promptText="Adresa mjesta događaja" />
+            <TextField fx:id="vrijemeDogadaja" layoutX="14.0" layoutY="169.0" prefHeight="25.0" prefWidth="190.0" promptText="Vrijeme događaja" />
+            <Label fx:id="info" layoutX="7.0" layoutY="45.0" prefHeight="17.0" prefWidth="210.0" textFill="RED" />
          </children>
       </AnchorPane>
    </content>

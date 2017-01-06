@@ -1,4 +1,4 @@
-﻿package Model;
+package Model;
 
 
 import java.net.InetAddress;
@@ -312,13 +312,14 @@ public class PristupBaziPodataka {
 						slucaj.addPolicajac(pozornik);
 					}
 					vrati.removeAll(vrati);
+                                        
 				}
 
 
 
 				if(!(vratiListu(Long.parseLong(id),"Osoba.oib","PolicijskiSlučaj","ListaOsumnjicenihOsoba", "ListaOsumnjicenihOsoba.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaOsumnjicenihOsoba.osobaOib").isEmpty())) {
 					for(String s:vrati) {
-						if(!s.equals(null)) {
+						if(s != null) {
 							Osoba osoba=new Osoba();
 							long broj=Long.parseLong(s);
 							osoba.setOib(broj);
@@ -333,7 +334,7 @@ public class PristupBaziPodataka {
 
 				if(!(vratiListu(Long.parseLong(id),"Osoba.oib","PolicijskiSlučaj","ListaSvjedoka", "ListaSvjedoka.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaSvjedoka.osobaOib").isEmpty())) {
 					for(String s:vrati) {
-						if(!s.equals(null)) {
+						if(s != null) {
 							Osoba osoba=new Osoba();
 							osoba.setOib(Long.parseLong(s));
 							slucaj.addSvjedok(osoba);

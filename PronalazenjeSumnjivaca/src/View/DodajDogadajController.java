@@ -22,18 +22,31 @@ public class DodajDogadajController implements Initializable {
     @FXML TextField adresaMjestaDogadaja;
     @FXML TextField vrijemeDogadaja;
     @FXML Button dodaj;
+    @FXML Label info;
     
     public void init(DialogManager delegate) {
         this.delegate = delegate;
-    }
-    
+    }    
     
     @FXML private void dodajDogadaj (ActionEvent event) {
         Dogadaj dogadaj = new Dogadaj();
-        dogadaj.setNaziv(nazivDogadaja.getText());
-        dogadaj.setPbrMjesto(Integer.parseInt(pbrMjestaDogadaja.getText()));
+        
+        if (nazivDogadaja.getText().isEmpty()) {
+            info.setText("Upišite naziv događaja.");
+            
+        } else {
+            dogadaj.setNaziv(nazivDogadaja.getText());
+        }
+        
+        if (pbrMjestaDogadaja.getText().isEmpty()) {
+            info.setText("Upišite poštanski broj mjesta događaja.");
+        } else { 
+            dogadaj.setPbrMjesto(Integer.parseInt(pbrMjestaDogadaja.getText()));
+        }
+        
         dogadaj.setAdresa(adresaMjestaDogadaja.getText());
         dogadaj.setVrijeme(LocalTime.parse(vrijemeDogadaja.getText()));
+        
         Model.PristupBaziPodataka.dodajNoviDogadaj(dogadaj);
         delegate.dodajDogadaj(dogadaj);
     }

@@ -101,20 +101,21 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 			kriminalac.setOib(Long.parseLong(select));
 			System.out.println(select);
 			del.prikaziPodatkeKriminalca(kriminalac);
-			
+			break;
 		case "Slucaj":
 			select = list.getSelectionModel().getSelectedItem().substring(0,15).trim();
 			Slucaj slucaj = new Slucaj();
 			slucaj.setBrojSlucaja(Integer.parseInt(select));
 			System.out.println(select);
 			del.prikaziPodatkeSlucaja(slucaj);
-			
+			break;
 		case "Dokaz":
 			select = list.getSelectionModel().getSelectedItem().substring(0,15).trim();
 			Dokaz dokaz = new Dokaz();
 			dokaz.setID(Integer.parseInt(select));
 			System.out.println(select);
 			del.prikaziPodatkeDokaza(dokaz);
+                        break;
 		}
 		
 	}
