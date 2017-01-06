@@ -1,4 +1,4 @@
-﻿package Model;
+package Model;
 
 
 import java.net.InetAddress;
@@ -312,13 +312,14 @@ public class PristupBaziPodataka {
 						slucaj.addPolicajac(pozornik);
 					}
 					vrati.removeAll(vrati);
+                                        
 				}
 
 
 
 				if(!(vratiListu(Long.parseLong(id),"Osoba.oib","PolicijskiSlučaj","ListaOsumnjicenihOsoba", "ListaOsumnjicenihOsoba.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaOsumnjicenihOsoba.osobaOib").isEmpty())) {
 					for(String s:vrati) {
-						if(!s.equals(null)) {
+						if(s != null) {
 							Osoba osoba=new Osoba();
 							long broj=Long.parseLong(s);
 							osoba.setOib(broj);
@@ -333,7 +334,7 @@ public class PristupBaziPodataka {
 
 				if(!(vratiListu(Long.parseLong(id),"Osoba.oib","PolicijskiSlučaj","ListaSvjedoka", "ListaSvjedoka.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaSvjedoka.osobaOib").isEmpty())) {
 					for(String s:vrati) {
-						if(!s.equals(null)) {
+						if(s != null) {
 							Osoba osoba=new Osoba();
 							osoba.setOib(Long.parseLong(s));
 							slucaj.addSvjedok(osoba);
@@ -428,10 +429,12 @@ public class PristupBaziPodataka {
 					e.printStackTrace();
 				}
 				String gradaTijela=rs.getString(14);
+				if(gradaTijela!=null) {
 				switch (gradaTijela) {
 				case "slabija": fOsobina.setGradaTijela(GradaTijela.slabija);;break;
 				case "srednja": fOsobina.setGradaTijela(GradaTijela.srednja);;break;
 				case "ja?a": fOsobina.setGradaTijela(GradaTijela.jaca);; break;
+				}
 				}
 				fOsobina.setOblikFrizure(rs.getString(12));
 				fOsobina.setOblikGlave(rs.getString(11));
@@ -445,92 +448,81 @@ public class PristupBaziPodataka {
 				fOsobina.setVisina(rs.getFloat(8));
 				kOsobine.setNacinGovora(rs.getString(16));
 				String razinaInt=rs.getString(15);
+				System.out.println(razinaInt);
+				if(razinaInt!=null) {
+					
 				switch (razinaInt) {
 				case "visoka": kOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.visoka);break;
 				case "srednja": kOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.srednja);break;
 				case "niska": kOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.niska); break;
 				}
+				}
 				if(!(vratiListu(Long.parseLong(oib),"Bolest.nazivBolesti","Kriminalac","ListaBolestiKriminalca","ListaBolestiKriminalca.kriminalacOib","Kriminalac.oib","Bolest","Bolest.bolestID" , "ListaBolestiKriminalca.bolestID").isEmpty())) {
-					Set<String> bolesti=new HashSet<>();
 					for(String s:vrati) {
-						bolesti.add(s);
+						fOsobina.addBolest(s);
 
 					}
-					fOsobina.setBolesti(bolesti);
+					
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib),"Tetovaža.opisTetovaže","Kriminalac","TetovažeKriminalca","TetovažeKriminalca.kriminalacOib","Kriminalac.oib","Tetovaža","Tetovaža.tetovažaID" , "TetovažeKriminalca.tetovažaID").isEmpty())) {
-					Set<String> tetovaže=new HashSet<>();
+				
 					for(String s:vrati) {
-						tetovaže.add(s);
-
+						fOsobina.addTetovaza(s);
 					}
-					fOsobina.setTetovaze(tetovaže);;
+				
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib),"FizičkiNedostatak.fizičkiNedostatakOpis","Kriminalac","FizičkiNedostaciKriminalca","FizičkiNedostaciKriminalca.kriminalacOib","Kriminalac.oib","FizičkiNedostatak","FizičkiNedostatak.fizičkiNedostatakID" , "FizičkiNedostaciKriminalca.fizičkiNedostatakID").isEmpty())) {
-					Set<String> fiznedostaci=new HashSet<>();
 					for(String s:vrati) {
-						fiznedostaci.add(s);
-
+						fOsobina.addFizickiNedostatak(s);
 					}
-					fOsobina.setFizickiNedostatci(fiznedostaci);
+					
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib),"KarakternaOsobina.karakternaOsobinaOpis","Kriminalac","OstaleKarakterneOsobineKriminalca","OstaleKarakterneOsobineKriminalca.kriminalacOib","Kriminalac.oib","KarakternaOsobina","KarakternaOsobina.karakternaOsobinaID" , "OstaleKarakterneOsobineKriminalca.karakternaOsobinaID").isEmpty())) {
-					Set<String> karOSobine=new HashSet<>();
 					for(String s:vrati) {
-						karOSobine.add(s);
+						kOsobine.addOstalo(s);
 
 					}
-					kOsobine.setOstaleKarakterneOsobine(karOSobine);
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib),"PsihološkiProblem.psihološkiProblemOpis","Kriminalac","PsihološkiProblemiKriminalca","PsihološkiProblemiKriminalca.kriminalacOib","Kriminalac.oib","PsihološkiProblem","PsihološkiProblem.psihološkiProblemID" , "PsihološkiProblemiKriminalca.psihološkiProblemID").isEmpty())) {
-					Set<String> psihProb=new HashSet<>();
+				
 					for(String s:vrati) {
-						psihProb.add(s);
+						kOsobine.addPsiholoskiProblem(s);
 
 					}
-					kOsobine.setPsiholoskiProblemi(psihProb);
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib),"FizičkaOsobina.fizičkaOsobinaOpis","Kriminalac","OstaleFizičkeOsobineKriminalca","OstaleFizičkeOsobineKriminalca.kriminalacOib","Kriminalac.oib","FizičkaOsobina","FizičkaOsobina.fizičkaOsobina" , "OstaleFizičkeOsobineKriminalca.fizičkaOsobinaID").isEmpty())) {
-					Set<String> fizOs=new HashSet<>();
+				
 					for(String s:vrati) {
-						fizOs.add(s);
-
-					}
-					fOsobina.setOstaleFizickeOsobine(fizOs);
+						
+						fOsobina.addOstalo(s);}
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib), "fotografijaURL", "OtisakPrsta", "Kriminalac", "OtisakPrsta.otisakPrstaID", "Kriminalac.otisakPrstaID","Kriminalac.oib").isEmpty())) {
-
+					System.out.println(vrati.get(0));
 					osumnjiceni.setOtisakPrstaURL(vrati.get(0));
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib), "FotografijaURL", "FotografijeKriminalca", "Kriminalac", "FotografijeKriminalca.OibKriminalac", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
-					Set<String> foto=new HashSet<>();
 					for(String s:vrati) {
-						foto.add(s);
-
+						osumnjiceni.addFotografijaURL(s);
 					}
-					osumnjiceni.setFotografijeURL(foto);
+					
 					vrati.removeAll(vrati);
 				}
-				if(!(vratiListu(Long.parseLong(oib), "FotografijaURL", "FotografijeKriminalca", "Kriminalac", "FotografijeKriminalca.OibKriminalac", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
-					Set<String> foto=new HashSet<>();
+				if(!(vratiListu(Long.parseLong(oib), "alias","ListaAliasa", "Kriminalac", "ListaAliasa.kriminalacOib", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
 					for(String s:vrati) {
-						foto.add(s);
-
+						osumnjiceni.addAlias(s);
 					}
-					osumnjiceni.setFotografijeURL(foto);
-					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib), "nazivSlučaja", "ListaOsumnjicenihOsoba", "PolicijskiSlučaj", "ListaOsumnjicenihOsoba.brojSlučaja", "PolicijskiSlučaj.brojSlučaja","ListaOsumnjicenihOsoba.osobaOib").isEmpty())) {
 					Set<Slucaj> slucaji=new HashSet<>();
-					Slucaj slucaj=new Slucaj();
 					for(String s:vrati) {
+						Slucaj slucaj=new Slucaj();
 						slucaj.setNazivSlucaja(s);
 						slucaji.add(slucaj);
 					}
@@ -538,42 +530,39 @@ public class PristupBaziPodataka {
 					vrati.removeAll(vrati);
 				}
 				if(!(vratiListu(Long.parseLong(oib), "adresaStanovanja", "PoznateAdreseStanovanjaKriminalca", "Kriminalac", "PoznateAdreseStanovanjaKriminalca.kriminalacOib", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
-					Set<AdresaIMjestoStanovanja> adrese=new HashSet<>();
 					AdresaIMjestoStanovanja adr=new AdresaIMjestoStanovanja();
-
-					for(String s:vrati) {
-						adr.setAdresa(s);
-						adrese.add(adr);
-					}
+					String select="select * from PoznateAdreseStanovanjaKriminalca where kriminalacOib='"+oib+"'";
 					vrati.removeAll(vrati);
-					vratiListu(Long.parseLong(oib), "pbrMjesto", "PoznateAdreseStanovanjaKriminalca", "Kriminalac", "PoznateAdreseStanovanjaKriminalca.kriminalacOib", "Kriminalac.oib","Kriminalac.oib");
-					for(String s:vrati) {
-						adr.setPbrMjesto(Integer.parseInt(s));
-						String select="select nazivMjesto from Mjesto where pbrMjesto='"+s+"'";
-						try {
-							statement=dbConnection.prepareStatement(select);
-							ResultSet r = statement.executeQuery(select);
-							while(r.next()) {
-								adr.setNazivMjesta(r.getString(1));
-							}
+					try {
+						System.out.println(select);
+						statement=dbConnection.prepareStatement(select);
+						ResultSet r = statement.executeQuery(select);
+						while(r.next()) {
+							adr.setPbrMjesto(r.getInt(3));
+							adr.setAdresa(r.getString(4));
+							vratiListu(r.getLong(3), "nazivMjesto","Mjesto","PoznateAdreseStanovanjaKriminalca" , "Mjesto.pbrMjesto", "PoznateAdreseStanovanjaKriminalca.pbrMjesto", "Mjesto.pbrMjesto");
+							adr.setNazivMjesta(vrati.get(0));
+							osumnjiceni.addPoznataAdresa(adr);
 						}
+					}
+					
 						catch (Exception ex) {
 							System.out.println(ex);
 						}
-						adrese.add(adr);
-					}
-					osumnjiceni.setPoznateAdrese(adrese);
+	
+					
 					vrati.removeAll(vrati);
 				}
 
 				if(!(vratiListu(Long.parseLong(oib), "povezanSaKriminalacOib", "ListaPovezanihKriminalaca", "Kriminalac", "ListaPovezanihKriminalaca.kriminalacOib", "Kriminalac.oib","Kriminalac.oib").isEmpty())) {
-					Set<Osumnjiceni> krimi=new HashSet<>();
-					Osumnjiceni osumnjiceni2=new Osumnjiceni();
+					
 					for(String s:vrati) {
+						Osumnjiceni osumnjiceni2=new Osumnjiceni();
+						System.out.println(s);
 						osumnjiceni2.setOib(Long.parseLong(s));
-						krimi.add(osumnjiceni2);
+						osumnjiceni.addPovezanKriminalac(osumnjiceni2);
+						
 					}
-					osumnjiceni.setPopisPovezanihKriminalaca(krimi);
 					vrati.removeAll(vrati);
 				}
 				osumnjiceni.setKarakterneOsobine(kOsobine);
