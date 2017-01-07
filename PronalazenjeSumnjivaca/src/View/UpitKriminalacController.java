@@ -37,7 +37,6 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
     @FXML TextField adresa;
     @FXML TextField brojTelefona;
     @FXML ComboBox status;
-    @FXML TextArea opisKriminalnihDjelatnosti;
     @FXML TextArea popisAliasa;
     @FXML TextArea poznateAdrese;
     @FXML TextArea popisPovezanihSlucajeva;
@@ -101,8 +100,6 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
                 osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru);
             }
         }
-
-        osumnjiceni.setOpisKriminalnihDjelatnosti(opisKriminalnihDjelatnosti.getText());
 
         osumnjiceni.setPopisAliasa(popis(popisAliasa.getText().split(";")));
         

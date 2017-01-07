@@ -90,54 +90,54 @@
                </font>
             </Label>
             <Label fx:id="spol" layoutX="226.0" layoutY="149.0" prefHeight="17.0" prefWidth="70.0" />
-            <Label layoutX="515.0" layoutY="174.0" text="Rasa:">
+            <Label layoutX="500.0" layoutY="174.0" text="Rasa:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="rasa" layoutX="561.0" layoutY="173.0" prefHeight="17.0" prefWidth="175.0" />
-            <Label layoutX="515.0" layoutY="14.0" text="Visina:">
+            <Label fx:id="rasa" layoutX="542.0" layoutY="173.0" prefHeight="17.0" prefWidth="143.0" />
+            <Label layoutX="500.0" layoutY="14.0" text="Visina:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="visina" layoutX="571.0" layoutY="13.0" prefHeight="17.0" prefWidth="189.0" />
-            <Label layoutX="515.0" layoutY="36.0" text="Težina:">
+            <Label fx:id="visina" layoutX="554.0" layoutY="13.0" prefHeight="17.0" prefWidth="124.0" />
+            <Label layoutX="500.0" layoutY="36.0" text="Težina:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="tezina" layoutX="571.0" layoutY="35.0" prefHeight="17.0" prefWidth="155.0" />
+            <Label fx:id="tezina" layoutX="554.0" layoutY="35.0" prefHeight="17.0" prefWidth="123.0" />
             <Label layoutX="182.0" layoutY="195.0" text="Godine:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
             <Label fx:id="godine" layoutX="233.0" layoutY="194.0" prefHeight="17.0" prefWidth="171.0" />
-            <Label layoutX="515.0" layoutY="59.0" text="Boja kose:">
+            <Label layoutX="500.0" layoutY="59.0" text="Boja kose:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="bojaKose" layoutX="591.0" layoutY="58.0" prefHeight="17.0" prefWidth="163.0" />
-            <Label layoutX="515.0" layoutY="82.0" text="Oblik frizure:">
+            <Label fx:id="bojaKose" layoutX="578.0" layoutY="58.0" prefHeight="17.0" prefWidth="103.0" />
+            <Label layoutX="500.0" layoutY="82.0" text="Oblik frizure:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="oblikFrizure" layoutX="624.0" layoutY="81.0" prefHeight="17.0" prefWidth="133.0" />
-            <Label layoutX="515.0" layoutY="105.0" text="Boja očiju:">
+            <Label fx:id="oblikFrizure" layoutX="606.0" layoutY="81.0" prefHeight="17.0" prefWidth="92.0" />
+            <Label layoutX="500.0" layoutY="105.0" text="Boja očiju:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="bojaOciju" layoutX="600.0" layoutY="104.0" prefHeight="17.0" prefWidth="162.0" />
-            <Label layoutX="515.0" layoutY="127.0" text="Građa tijela:">
+            <Label fx:id="bojaOciju" layoutX="585.0" layoutY="104.0" prefHeight="17.0" prefWidth="109.0" />
+            <Label layoutX="500.0" layoutY="127.0" text="Građa tijela:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="gradaTijela" layoutX="618.0" layoutY="126.0" prefHeight="17.0" prefWidth="145.0" />
+            <Label fx:id="gradaTijela" layoutX="593.0" layoutY="126.0" prefHeight="17.0" prefWidth="104.0" />
             <Label layoutX="286.0" layoutY="219.0" text="Tetovaže:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
@@ -162,41 +162,41 @@
                </font>
             </Label>
             <ListView fx:id="ostaleFizickeOsobine" layoutX="289.0" layoutY="454.0" prefHeight="50.0" prefWidth="250.0" />
-            <Label layoutX="515.0" layoutY="150.0" text="Način govora:">
+            <Label layoutX="500.0" layoutY="150.0" text="Način govora:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="nacinGovora" layoutX="614.0" layoutY="149.0" prefHeight="17.0" prefWidth="154.0" />
+            <Label fx:id="nacinGovora" layoutX="595.0" layoutY="149.0" prefHeight="17.0" prefWidth="108.0" />
             <Label layoutX="182.0" layoutY="174.0" text="Razina apstraktne inteligencije:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
             <Label fx:id="razinaInteligencije" layoutX="414.0" layoutY="173.0" prefHeight="17.0" prefWidth="81.0" />
-            <Label layoutX="566.0" layoutY="219.0" text="Psihički problemi:">
+            <Label layoutX="16.0" layoutY="586.0" text="Psihički problemi:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <ListView fx:id="psihickiProblemi" layoutX="566.0" layoutY="234.0" prefHeight="50.0" prefWidth="250.0" />
-            <Label layoutX="565.0" layoutY="291.0" text="Ostale karakterne osobine:">
+            <ListView fx:id="psihickiProblemi" layoutX="16.0" layoutY="601.0" prefHeight="50.0" prefWidth="250.0" />
+            <Label layoutX="288.0" layoutY="511.0" text="Ostale karakterne osobine:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <ListView fx:id="ostaleKarakterneOsobine" layoutX="566.0" layoutY="307.0" prefHeight="50.0" prefWidth="250.0" />
-            <Button fx:id="ispisPDF" layoutX="565.0" layoutY="546.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Ispis">
+            <ListView fx:id="ostaleKarakterneOsobine" layoutX="289.0" layoutY="526.0" prefHeight="50.0" prefWidth="250.0" />
+            <Button fx:id="ispisPDF" layoutX="581.0" layoutY="621.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Ispis">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Button>
-            <Label layoutX="516.0" layoutY="195.0" text="Oblik glave:">
+            <Label layoutX="500.0" layoutY="195.0" text="Oblik glave:">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="oblikGlave" layoutX="610.0" layoutY="195.0" prefHeight="15.0" prefWidth="111.0" />
+            <Label fx:id="oblikGlave" layoutX="590.0" layoutY="194.0" prefHeight="15.0" prefWidth="111.0" />
          </children>
       </AnchorPane>
    </content>
