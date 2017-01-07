@@ -6,12 +6,16 @@ import java.util.Set;
 
 public interface StrategijaUpit <E> {
 
-	public String generirajTextualniOpis(Set< String> kombinacija);
+	public String generirajTextualniOpis(Set< String> listaAtributa);
 	public String generirajSQLupit(String vrijednostPretrage,String relacijaAtributDB);
-	public Set<String>  generirajListuAtributa();
-	public List<E> vratiCon(String vrijednostPretrage,String relacijaAtributDB,List<String> upitSQL) throws SQLException;
-
-
+	public Set<String> generirajListuAtributaPretrage();
+	public Set<E> vratiContext(String upitSQL) throws SQLException;
+	public Set<String> generirajListuIzmjenjenihAtributa(E izmjenjeniCon);
+	public String vratiID();
+	public String vratiAtributID();
+	public String generirajSelectOsnovniPodaci();
+	public String generirajUpdateSQL();
+	
 	public static String generirajWhere(String relacijaAtributDB,String vrijednostPretrage){
 		return " WHERE LOWER("+relacijaAtributDB+")=LOWER('"+vrijednostPretrage+"')";
 	}
@@ -59,6 +63,7 @@ public interface StrategijaUpit <E> {
 		System.out.println(insert);
 		return insert;
 	}
+	
 	public static String upitUnos(String relacija,String atribut1,String atribut2,String vrijednost1,String vrijednost2) {
 		String insert="INSERT INTO " + "`" +relacija+ "`" +"(";
 			insert+="`" + atribut1 + "`" +"," ;
@@ -83,7 +88,10 @@ public interface StrategijaUpit <E> {
 		return insert;
 	}
 
-
+    public static String generirajDelete (String relacija, String atr1, String atr2,String vr1, String vr2){
+    	return  "Delete from "+relacija+" where LOWER("+atr1+")=LOWER('"+vr1+"') AND LOWER("+atr2+")=LOWER('"+vr2+"')";
+    }
+    
 	public static String generirajUpdate(String atribut,String vrijednost) {
 		return "`"+atribut+"`='"+vrijednost+"'";
 	}

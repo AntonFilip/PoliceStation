@@ -69,6 +69,9 @@ public class DodajDokazController implements Initializable, ControlledScreen {
             oruzja.addAll(Arrays.asList(popis));
             dokaz.addAllTipOruzja(oruzja);
         }
+
+        delegate.dodajDokaz(dokaz);
+
     }
 
     /**

@@ -3,7 +3,7 @@ package Model;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.mysql.jdbc.StringUtils;
@@ -109,7 +109,6 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 		return this.popisSvjedoka.addAll(svjedoci);
 	}
 
-
 	public Set<Dokaz> getPopisDokaza() {
 		return popisDokaza;
 	}
@@ -209,22 +208,13 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 
 	@Override
 	public String toString() {
-		return "Slucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", opis=" + opis
-				+ ", glavniOsumnjiceni=" + glavniOsumnjiceni + ", popisOsumnjicenih=" + popisOsumnjicenih
-				+ ", popisSvjedoka=" + popisSvjedoka + ", popisDokaza=" + popisDokaza + ", popisPolicajaca="
-				+ popisPolicajaca + ", status=" + status + ", fotografijeSlučaja=" + fotografijeSlučaja
-				+ ", popisDogadaja=" + popisDogadaja + "]";
+		return "\nSlucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", status=" + status + "]";
 	}
 
-
-	//@Override
+	@Override
 	public String generirajSQLupit( String vrijednostPretrage,String relacijaAtribut) {
-		String select=" SELECT distinct PolicijskiSlučaj.brojSlučaja, "
-				+ "						PolicijskiSlučaj.nazivSlučaja,	"
-				+ "						PolicijskiSlučaj.trenutniStatus,"
-				+ "						PolicijskiSlučaj.glavnaOsumljicenaOsobaOib,"
-				+ "						PolicijskiSlučaj.opis";
-		String from=" FROM PolicijskiSlučaj  ";
+		String select=generirajSelectOsnovniPodaci();
+		String from=" ";
 	
 		switch (relacijaAtribut) {
 			case "ListaDogađaja.nazivDogađaja":
@@ -254,7 +244,7 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	}
 		
 	@Override
-	public  Set<String>  generirajListuAtributa() {
+	public  Set<String>  generirajListuAtributaPretrage() {
 		 Set< String> listaAtributa=new HashSet<>();
 
 		if (brojSlucaja!=null) {
@@ -305,8 +295,8 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	}
 
 	@Override
-	public List<Slucaj> vratiCon(String vrijednostPretrage,String relacijaAtribut,List<String>upiti) throws SQLException {
-		return PristupBaziPodataka.vratiSlucajeve(vrijednostPretrage,relacijaAtribut,upiti);
+	public Set<Slucaj> vratiContext(String upit) throws SQLException {
+		return PristupBaziPodataka.vratiSlucajeve(upit);
 	}
 
 	@Override
@@ -352,4 +342,45 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 		System.out.println(sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(",")));
 		return sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(","));
 	}
+
+	@Override
+	public Set<String> generirajListuIzmjenjenihAtributa(Slucaj izmjenjeniSlucaj) {
+		Set<String> atributiSlucaja=new LinkedHashSet<>();
+		
+		if(!this.nazivSlucaja.equals(izmjenjeniSlucaj.getNazivSlucaja())&& !StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniSlucaj.getNazivSlucaja())) atributiSlucaja.add(izmjenjeniSlucaj.nazivSlucaja+"*nazivSlučaja");
+		if(!this.opis.equals(izmjenjeniSlucaj.getOpis())&& !StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniSlucaj.getOpis())) atributiSlucaja.add(izmjenjeniSlucaj.getOpis()+"*opis");
+		if(this.status!=izmjenjeniSlucaj.getStatus()&& izmjenjeniSlucaj.getStatus()!=null) atributiSlucaja.add(izmjenjeniSlucaj.getStatus().name()+"*trenutniStatus");
+		if(this.glavniOsumnjiceni!=izmjenjeniSlucaj.getGlavniOsumnjiceni() ) {
+			if (izmjenjeniSlucaj.getGlavniOsumnjiceni()!=null) {
+				atributiSlucaja.add(izmjenjeniSlucaj.getGlavniOsumnjiceni().getOib().toString()+"*glavnaOsumnjicenaOsoba");
+			}else atributiSlucaja.add("NULL*glavnaOsumljicenaOsobaOib");
+		}
+		return atributiSlucaja;
+	}
+
+	@Override
+	public String vratiID() {
+		return this.getBrojSlucaja().toString();
+	}
+	
+	@Override
+	public String vratiAtributID(){
+		return "brojSlučaja";
+	}
+
+	
+	@Override
+	public String generirajSelectOsnovniPodaci() {
+	return	" SELECT distinct PolicijskiSlučaj.brojSlučaja, "
+				+ "						PolicijskiSlučaj.nazivSlučaja, "
+				+ "						PolicijskiSlučaj.trenutniStatus "
+				+" FROM PolicijskiSlučaj  ";
+	
+	}
+
+	@Override
+	public String generirajUpdateSQL() {
+		return "UPDATE PolicijskiSlučaj SET ";
+	}
+
 }

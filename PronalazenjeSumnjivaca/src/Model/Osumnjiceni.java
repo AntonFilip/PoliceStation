@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.mysql.jdbc.StringUtils;
@@ -182,6 +181,11 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	public boolean addAllPovezanSlucaj(Collection<Slucaj> slucaj){
 		return povezaniSlucajevi.addAll(slucaj);
 	}
+	
+	@Override
+	public String toString() {
+		return "\nOsumnjiceni [ ime="+super.getIme()+", prezime="+super.getPrezime()+", oib="+getOib()+", status="+getStatus()+" ]";
+	}
 
 	@Override
 	public String generirajTextualniOpis(Set<String> listaAtributa) {
@@ -327,8 +331,8 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 
 	@Override
 	public String generirajSQLupit(String vrijednostPretrage, String relacijaAtributDB) {
-		String select=" SELECT distinct Kriminalac.oib, Osoba.imeOsobe,Osoba.prezimeOsobe,Kriminalac.trenutniStatus";
-		String from=" FROM Kriminalac left join Osoba on Kriminalac.oib=Osoba.oib ";
+		String select=this.generirajSelectOsnovniPodaci();
+		String from=" ";
 		String where=StrategijaUpit.generirajWhere(relacijaAtributDB,vrijednostPretrage);
 		String relAtr2="Kriminalac.oib";
 
@@ -420,7 +424,7 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	}
 
 	@Override
-	public Set<String> generirajListuAtributa() {
+	public Set<String> generirajListuAtributaPretrage() {
 		Set<String> listaAtributa=new HashSet<>(); 
 		if(status!=null){
 			switch(status){
@@ -548,17 +552,69 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	}
 
 	@Override
-	public List<Osumnjiceni> vratiCon(String vrijednostPretrage, String relacijaAtributDB,List<String >upiti) throws SQLException {
-		return PristupBaziPodataka.vratiOsumnjicene(vrijednostPretrage, relacijaAtributDB,upiti);
+	public Set<Osumnjiceni> vratiContext(String upit) throws SQLException {
+		return PristupBaziPodataka.vratiOsumnjicene(upit);
+	}
+	
+
+	@Override
+	public Set<String> generirajListuIzmjenjenihAtributa(Osumnjiceni izmjenjeniCon) {
+		Set<String> atributi=new LinkedHashSet<>();
+		if(!status.equals(izmjenjeniCon.status) && izmjenjeniCon.status!=null) {
+			switch (izmjenjeniCon.status) {
+			case sloboda: atributi.add("na slobodi*trenutniStatus"); break;
+			case u_pritvoru: atributi.add("u pritvoru*trenutniStatus");  break;
+			case u_zatvoru: atributi.add("u zatvoru*trenutniStatus");  break;
+			}
+		}
+		if(!brojTelefona.equals(izmjenjeniCon.brojTelefona)){
+			if(!StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniCon.brojTelefona)) atributi.add(izmjenjeniCon.brojTelefona+"*kontaktniBrojTelefona");
+			else atributi.add("NULL*kontaktniBrojTelefona");
+		}
+		if(!fizickeOsobine.getVisina().equals(izmjenjeniCon.fizickeOsobine.getVisina())){
+			if(izmjenjeniCon.fizickeOsobine.getVisina()!=null) atributi.add(izmjenjeniCon.fizickeOsobine.getVisina()+"*visina");
+			atributi.add("NULL*visina");
+		}
+		if(!fizickeOsobine.getTezina().equals(izmjenjeniCon.fizickeOsobine.getTezina())){
+			if(izmjenjeniCon.fizickeOsobine.getTezina()!=null) atributi.add(izmjenjeniCon.fizickeOsobine.getTezina()+"*tezina");
+			else atributi.add("NULL*tezina");
+		}
+		if(!fizickeOsobine.getBojaKose().equals(izmjenjeniCon.fizickeOsobine.getBojaKose())){
+			if(!StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniCon.fizickeOsobine.getBojaKose())) atributi.add(izmjenjeniCon.fizickeOsobine.getBojaKose()+"*bojaKose");
+			else atributi.add("NULL*bojaKose");
+		}
+		if(!fizickeOsobine.getOblikFrizure().equals(izmjenjeniCon.fizickeOsobine.getOblikFrizure())){
+			if(!StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniCon.fizickeOsobine.getOblikFrizure())) atributi.add(izmjenjeniCon.fizickeOsobine.getOblikFrizure()+"*oblikFrizure");
+			else atributi.add("NULL*oblikFrizure");
+		}
+		if(izmjenjeniCon.fizickeOsobine.getGradaTijela()!=null) {
+			if(!fizickeOsobine.getGradaTijela().equals(izmjenjeniCon.fizickeOsobine.getGradaTijela())) atributi.add(izmjenjeniCon.fizickeOsobine.getGradaTijela()+"*građaTijela");
+		} else atributi.add("NULL*građaTijela");
+		if(!opisKriminalnihDjelatnosti.equals(izmjenjeniCon.opisKriminalnihDjelatnosti)){
+			if(!StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniCon.opisKriminalnihDjelatnosti)) atributi.add(izmjenjeniCon.getOpisKriminalnihDjelatnosti()+"*opisKriminalnihDjelatnosti");
+			else atributi.add("NULL*opisKriminalnihDjelatnosti");
+		}
+		return atributi;
 	}
 
 	@Override
-	public String toString() {
-		return "Osumnjiceni [status=" + status + ", brojTelefona=" + brojTelefona + ", opisKriminalnihDjelatnosti="
-				+ opisKriminalnihDjelatnosti + ", fizickeOsobine=" + fizickeOsobine + ", karakterneOsobine="
-				+ karakterneOsobine + ", otisakPrstaURL=" + otisakPrstaURL + ", fotografijeURL=" + fotografijeURL
-				+ ", popisAliasa=" + popisAliasa + ", poznateAdrese=" + poznateAdrese + ", popisPovezanihKriminalaca="
-				+ popisPovezanihKriminalaca + ", povezaniSlucajevi=" + povezaniSlucajevi + "]";
+	public String vratiID() {
+		return this.getOib().toString();
+	}
+
+	@Override
+	public String vratiAtributID() {
+		return "oib";
+	}
+
+	@Override
+	public String generirajSelectOsnovniPodaci() {
+		return " SELECT distinct Kriminalac.oib, Osoba.imeOsobe,Osoba.prezimeOsobe,Kriminalac.trenutniStatus  FROM Kriminalac left join Osoba on Kriminalac.oib=Osoba.oib  ";
+	}
+
+	@Override
+	public String generirajUpdateSQL() {
+		return " UPDATE Kriminalac SET ";
 	}
 
 	
