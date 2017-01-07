@@ -68,11 +68,12 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML Button obrisiURL;
     @FXML TextField otisakPrsta;
     
-    ObservableList<String> observableFotografije = FXCollections.emptyObservableList();;
+    ObservableList<String> observableFotografije = FXCollections.observableArrayList();
 
     @Override
     public void init(ViewDelegate delegate) {
-            this.delegate = delegate;		
+            this.delegate = delegate;	
+            fotografije.setItems(observableFotografije);
     }
 
     /**
