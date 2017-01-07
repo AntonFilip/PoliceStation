@@ -19,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-public class ListaStavkiController implements Initializable, ControlledScreen {
+public class ListaIzmjenaController implements Initializable, ControlledScreen {
 
 	ViewDelegate del;
 	@FXML
@@ -30,7 +30,6 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 	@FXML Label druga;
 	@FXML Label treca;
 	@FXML Label cetvrta;
-	
 	private String predmet;
 	
 
@@ -107,25 +106,26 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 			Osumnjiceni kriminalac = new Osumnjiceni();
 			kriminalac.setOib(Long.parseLong(select));
 			System.out.println(select);
-			del.prikaziPodatkeKriminalca(kriminalac);
+			del.postaviScenuIzmjeneKriminalca(kriminalac);
 			break;
 		case "Slucaj":
 			select = list.getSelectionModel().getSelectedItem().substring(0,15).trim();
 			Slucaj slucaj = new Slucaj();
 			slucaj.setBrojSlucaja(Integer.parseInt(select));
 			System.out.println(select);
-			del.prikaziPodatkeSlucaja(slucaj);
+			del.postaviScenuIzmjeneSlucaja(slucaj);
 			break;
 		case "Dokaz":
 			select = list.getSelectionModel().getSelectedItem().substring(0,15).trim();
 			Dokaz dokaz = new Dokaz();
 			dokaz.setID(Integer.parseInt(select));
 			System.out.println(select);
-			del.prikaziPodatkeDokaza(dokaz);
+			del.postaviScenuIzmjeneDokaza();
                         break;
 		}
 		
 	}
+	
 	@FXML private void labeleSumnjivac(){
 		prva.setText("OIB");
 		druga.setText("Ime");
@@ -144,6 +144,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 		treca.setText("");
 		cetvrta.setText("Naziv");
 	}
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

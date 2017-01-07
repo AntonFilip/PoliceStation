@@ -20,7 +20,7 @@
                     <items>
                       <MenuItem fx:id="izmjeniKriminalac" onAction="#postaviScenuIzmjeneKriminalca" mnemonicParsing="false" text="Kriminalac" />
                       <MenuItem fx:id="izmjeniSlucaj" onAction="#postaviScenuIzmjeneSlucaja" mnemonicParsing="false" text="Slučaj" />
-                        <MenuItem fx:id="izmjeniDokaz" onAction="#postaviScenuIzmjeneDokaza" mnemonicParsing="false" text="Dokaz" />
+                      <MenuItem fx:id="izmjeniDokaz" onAction="#postaviScenuIzmjeneDokaza" mnemonicParsing="false" text="Dokaz" />
                     </items>
                      <font>
                         <Font name="Lucida Sans Typewriter Bold" size="13.0" />

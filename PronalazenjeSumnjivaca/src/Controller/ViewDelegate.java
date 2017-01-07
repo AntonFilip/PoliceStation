@@ -27,7 +27,7 @@ public interface ViewDelegate {
         public void dodajSlucaj(Slucaj slucaj); // upisani podaci -> klik na spremi
         public void dodajDokaz(Dokaz dokaz); // upisani podaci -> klik na spremi 
         public void pristupiStatistici(); // klik na statistiku
-        public void pristupiDnevniku(); // klik na dnevnik
+        public void pristupiDnevniku(String odabir); // klik na dnevnik
         public void odjava(); // klik na odjava -> natrag na prijavu
 
         
@@ -37,9 +37,9 @@ public interface ViewDelegate {
         public void postaviScenuUpitKriminalac(); // klik na postavi upit o kriminalcu
         public void postaviScenuUpitSlucaj(); // klik na postavi upit o slucaju
         public void postaviScenuUpitDokaz(); // klik na postavi upit o dokazu
-        
-        public void postaviScenuIzmjeneKriminalca(); // klik na izmjenu kriminalca
-        public void postaviScenuIzmjeneSlucaja(); // klik na izmjenu slucaja
+        public void postaviScenuListaIzmjene(String predmet, Map<?, Float> popis);
+        public void postaviScenuIzmjeneKriminalca(Osumnjiceni osumnjiceni); // klik na izmjenu kriminalca
+        public void postaviScenuIzmjeneSlucaja(Slucaj slucaj); // klik na izmjenu slucaja
         public void postaviScenuIzmjeneDokaza(); // klik na izmjenu dokaza
         public void postaviScenuDodajKriminalca(); // klik na dodaj krimija
         public void postaviScenuDodajSlucaj(); // klik na dodaj slucaj

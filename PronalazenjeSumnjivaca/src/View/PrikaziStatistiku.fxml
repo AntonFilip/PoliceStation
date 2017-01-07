@@ -6,14 +6,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="480.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PrikaziStatistikuController">
+<AnchorPane prefHeight="598.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PrikaziStatistikuController">
    <children>
-      <Label fx:id="naslov" alignment="CENTER" layoutX="216.0" layoutY="24.0" prefHeight="54.0" prefWidth="190.0" text="Statistika" textAlignment="CENTER">
+      <Label fx:id="postotakRS" layoutX="304.0" layoutY="141.0" prefHeight="24.0" prefWidth="190.0" />
+      <Label fx:id="naslov" alignment="CENTER" layoutX="254.0" layoutY="23.0" prefHeight="54.0" prefWidth="190.0" text="Statistika" textAlignment="CENTER">
          <font>
-            <Font name="Lucida Sans Typewriter Bold" size="15.0" />
+            <Font name="Lucida Sans Typewriter Bold" size="18.0" />
          </font></Label>
-      <Label fx:id="label1" layoutX="27.0" layoutY="99.0" prefHeight="64.0" prefWidth="403.0" text="Label1" />
-      <Label fx:id="label2" layoutX="27.0" layoutY="196.0" prefHeight="71.0" prefWidth="403.0" text="Label2" />
-      <Label fx:id="label3" layoutX="27.0" layoutY="328.0" prefHeight="127.0" prefWidth="403.0" text="label3" />
+      <Label fx:id="label1" layoutX="72.0" layoutY="98.0" prefHeight="24.0" prefWidth="137.0" text="Broj kriminalaca:">
+         <font>
+            <Font name="Lucida Sans Typewriter Regular" size="13.0" />
+         </font></Label>
+      <Label fx:id="label2" layoutX="72.0" layoutY="141.0" prefHeight="24.0" prefWidth="232.0" text="Postotak riješenih slučajeva:">
+         <font>
+            <Font name="Lucida Sans Typewriter Regular" size="13.0" />
+         </font></Label>
+      <Label fx:id="brojKrim" layoutX="220.0" layoutY="98.0" prefHeight="24.0" prefWidth="224.0" />
+      <ListView fx:id="list" layoutX="72.0" layoutY="212.0" prefHeight="318.0" prefWidth="554.0" stylesheets="@lista.css" />
+      <Label layoutX="78.0" layoutY="185.0" prefHeight="18.0" prefWidth="104.0" text="Tip oružja">
+         <font>
+            <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="185.0" prefHeight="18.0" prefWidth="104.0" text="Udio">
+         <font>
+            <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
