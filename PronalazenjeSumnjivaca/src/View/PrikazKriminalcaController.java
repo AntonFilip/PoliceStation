@@ -78,59 +78,53 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
             status.setText(osumnjiceni.getStatus().toString());
         }
         
-        List<String> list = new ArrayList<>();
-        ObservableList<String> observableList = FXCollections.emptyObservableList();
+        List<String> list1 = new ArrayList<>();
+        ObservableList<String> observableOpisKriminalnihDjelatnosti = FXCollections.emptyObservableList();
         if(osumnjiceni.getOpisKriminalnihDjelatnosti() != null){
-        list.add(osumnjiceni.getOpisKriminalnihDjelatnosti());
-        //list.add("blablalbla");
-        observableList = FXCollections.observableList(list);
-        if(!observableList.isEmpty())
-       // if (!observableList.get(0).equals("")) {
-            opisKriminalnihDjelatnosti.setItems(observableList);
-       // }
+            list1.add(osumnjiceni.getOpisKriminalnihDjelatnosti());
+            observableOpisKriminalnihDjelatnosti = FXCollections.observableList(list1);
+            opisKriminalnihDjelatnosti.setItems(observableOpisKriminalnihDjelatnosti);
         }
-        list.clear();
-        if(osumnjiceni.getPopisAliasa() != null){
-        for (String alias : osumnjiceni.getPopisAliasa()) {
-            list.add(alias);
-        }
-        observableList.clear();
-        observableList = FXCollections.observableList(list);
-        if (!observableList.isEmpty()) {
-            popisAliasa.setItems(observableList);
-        }}
         
-        list.clear();
-        observableList.clear();
-        if(osumnjiceni.getPoznateAdrese() != null){
-        for (AdresaIMjestoStanovanja adresa : osumnjiceni.getPoznateAdrese()) {
-            list.add(adresa.getAdresa() + ", " + adresa.getNazivMjesta());
+        List<String> list2 = new ArrayList<>();
+        ObservableList<String> observablePopisAliasa = FXCollections.emptyObservableList();
+        if(!osumnjiceni.getPopisAliasa().isEmpty()){
+            for (String alias : osumnjiceni.getPopisAliasa()) {
+                list2.add(alias);
+            } 
+            observablePopisAliasa = FXCollections.observableList(list2);
+            popisAliasa.setItems(observablePopisAliasa);
         }
-        observableList = FXCollections.observableList(list);
-        if (!observableList.isEmpty()) {
-            poznateAdrese.setItems(observableList);
-        }}
         
-        list.clear();
-        observableList.clear();
+        List<String> list3 = new ArrayList<>();
+        ObservableList<String> observableAdrese = FXCollections.emptyObservableList();
+        if(!osumnjiceni.getPoznateAdrese().isEmpty()){
+            for (AdresaIMjestoStanovanja adresa : osumnjiceni.getPoznateAdrese()) {
+                list3.add(adresa.getAdresa() + ", " + adresa.getNazivMjesta());
+            }
+            observableAdrese = FXCollections.observableList(list3);
+            poznateAdrese.setItems(observableAdrese);
+        }
+        
+        List<String> list4 = new ArrayList<>();
+        ObservableList<String> observableSlucajevi = FXCollections.emptyObservableList();
         if(osumnjiceni.getPovezaniSlucajevi() != null){
-        for (Slucaj slucaj : osumnjiceni.getPovezaniSlucajevi()) {
+            for (Slucaj slucaj : osumnjiceni.getPovezaniSlucajevi()) {
         	if(slucaj.getBrojSlucaja() != null)
-            list.add(Integer.toString(slucaj.getBrojSlucaja()));
+                list4.add(Integer.toString(slucaj.getBrojSlucaja()));
+            }
+            observableSlucajevi = FXCollections.observableList(list4);
+            popisPovezanihSlucajeva.setItems(observableSlucajevi);
         }
-        observableList = FXCollections.observableList(list);
-        if (!observableList.isEmpty()) {
-        popisPovezanihSlucajeva.setItems(observableList);
-        }
-        }
-        list.clear();
-        observableList.clear();
-        for (Osumnjiceni krimi : osumnjiceni.getPopisPovezanihKriminalaca()) {
-            list.add(Long.toString(krimi.getOib()));
-        }
-        observableList = FXCollections.observableList(list);
-        if (!observableList.isEmpty()) {
-        popisPovezanihKriminalaca.setItems(observableList);
+        
+        List<String> list5 = new ArrayList<>();
+        ObservableList<String> observableKriminalci = FXCollections.emptyObservableList();
+        if (!osumnjiceni.getPopisPovezanihKriminalaca().isEmpty()) {
+            for (Osumnjiceni krimi : osumnjiceni.getPopisPovezanihKriminalaca()) {
+                list5.add(Long.toString(krimi.getOib()));
+            }
+            observableKriminalci = FXCollections.observableList(list5);
+            popisPovezanihKriminalaca.setItems(observableKriminalci);
         }
         if(osumnjiceni.getFizickeOsobine() != null){
         if(osumnjiceni.getFizickeOsobine().getSpol() != null)
@@ -154,52 +148,54 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
         if(osumnjiceni.getFizickeOsobine().getGradaTijela() != null)
         	gradaTijela.setText(osumnjiceni.getFizickeOsobine().getGradaTijela().toString());
         
-        list.clear();
-        observableList.clear();
+        List<String> list6 = new ArrayList<>();
+        ObservableList<String> observableTetovaze = FXCollections.emptyObservableList();
         if(osumnjiceni.getFizickeOsobine().getTetovaze() != null){
-        list.addAll(osumnjiceni.getFizickeOsobine().getTetovaze());
-        observableList = FXCollections.observableList(list);
-        tetovaze.setItems(observableList);}
+        list6.addAll(osumnjiceni.getFizickeOsobine().getTetovaze());
+        observableTetovaze = FXCollections.observableList(list6);
+        tetovaze.setItems(observableTetovaze);}
         
-        list.clear();
-        observableList.clear();
+        List<String> list7 = new ArrayList<>();
+        ObservableList<String> observableNedostatci = FXCollections.emptyObservableList();
         if(osumnjiceni.getFizickeOsobine().getFizickiNedostatci() != null){
-        list.addAll(osumnjiceni.getFizickeOsobine().getFizickiNedostatci());
-        observableList = FXCollections.observableList(list);
-        fizickiNedostatci.setItems(observableList);}
+        list7.addAll(osumnjiceni.getFizickeOsobine().getFizickiNedostatci());
+        observableNedostatci = FXCollections.observableList(list7);
+        fizickiNedostatci.setItems(observableNedostatci);}
         
-        list.clear();
-        observableList.clear();
+        List<String> list8 = new ArrayList<>();
+        ObservableList<String> observableBolesti = FXCollections.emptyObservableList();
         if(osumnjiceni.getFizickeOsobine().getBolesti() != null){
-        list.addAll(osumnjiceni.getFizickeOsobine().getBolesti());
-        observableList = FXCollections.observableList(list);
-        bolesti.setItems(observableList);}
+        list8.addAll(osumnjiceni.getFizickeOsobine().getBolesti());
+        observableBolesti = FXCollections.observableList(list8);
+        bolesti.setItems(observableBolesti);}
         
-        list.clear();
-        observableList.clear();
+        List<String> list9 = new ArrayList<>();
+        ObservableList<String> observableOstaleFizicke = FXCollections.emptyObservableList();
         if(osumnjiceni.getFizickeOsobine().getOstaleFizickeOsobine() != null) {
-        list.addAll(osumnjiceni.getFizickeOsobine().getOstaleFizickeOsobine());
-        observableList = FXCollections.observableList(list);
-        ostaleFizickeOsobine.setItems(observableList);}}
+        list9.addAll(osumnjiceni.getFizickeOsobine().getOstaleFizickeOsobine());
+        observableOstaleFizicke = FXCollections.observableList(list9);
+        ostaleFizickeOsobine.setItems(observableOstaleFizicke);}
+        }
+        
         if(osumnjiceni.getKarakterneOsobine() != null){
         if(osumnjiceni.getKarakterneOsobine().getNacinGovora() != null)
         	nacinGovora.setText(osumnjiceni.getKarakterneOsobine().getNacinGovora());
         if(osumnjiceni.getKarakterneOsobine().getRazinaApstraktneInteligencije() != null)
         	razinaInteligencije.setText(osumnjiceni.getKarakterneOsobine().getRazinaApstraktneInteligencije().toString());
         
-        list.clear();
-        observableList.clear();
+        List<String> list10 = new ArrayList<>();
+        ObservableList<String> observablePsiholoski = FXCollections.emptyObservableList();
         if(osumnjiceni.getKarakterneOsobine().getPsiholoskiProblemi() != null){
-        list.addAll(osumnjiceni.getKarakterneOsobine().getPsiholoskiProblemi());
-        observableList = FXCollections.observableList(list);
-        psihickiProblemi.setItems(observableList);}
+        list10.addAll(osumnjiceni.getKarakterneOsobine().getPsiholoskiProblemi());
+        observablePsiholoski = FXCollections.observableList(list10);
+        psihickiProblemi.setItems(observablePsiholoski);}
         
-        list.clear();
-        observableList.clear();
+        List<String> list11 = new ArrayList<>();
+        ObservableList<String> observableOstaleKarakterne = FXCollections.emptyObservableList();
         if(osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine() != null){
-        list.addAll(osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine());
-        observableList = FXCollections.observableList(list);
-        ostaleKarakterneOsobine.setItems(observableList);}}
+        list11.addAll(osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine());
+        observableOstaleKarakterne = FXCollections.observableList(list11);
+        ostaleKarakterneOsobine.setItems(observableOstaleKarakterne);}}
     }
     
     /**

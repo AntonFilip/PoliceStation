@@ -2,6 +2,10 @@ package View;
 
 import Controller.ViewDelegate;
 import Model.*;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,69 +67,69 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         if(slucaj.getStatus() != null)
         	status.setText(slucaj.getStatus().toString());
         
-        List<String> lista = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
         List<Osoba> listaOsumnjicenih = new ArrayList<>();
-        ObservableList<String> observableList = FXCollections.observableList(lista);
+        ObservableList<String> observableOsumnjiceni = FXCollections.emptyObservableList();
         if (!slucaj.getPopisOsumnjicenih().isEmpty()) {
             listaOsumnjicenih.addAll(slucaj.getPopisOsumnjicenih());
             for (Osoba krimi : listaOsumnjicenih) {
-                lista.add(krimi.getIme() + " " + krimi.getPrezime() + " " + krimi.getOib());
+                list1.add(krimi.getIme() + " " + krimi.getPrezime() + " " + krimi.getOib());
             }
-            observableList = FXCollections.observableList(lista);
-            popisOsumnjicenih.setItems(observableList);   
+            observableOsumnjiceni = FXCollections.observableList(list1);
+            popisOsumnjicenih.setItems(observableOsumnjiceni);   
         }
         
-        lista.clear();
-        observableList.clear();
+        List<String> list2 = new ArrayList<>();
+        ObservableList<String> observableSvjedoci = FXCollections.emptyObservableList();
         List<Osoba> listaSvjedoka = new ArrayList<>();
         if (!slucaj.getPopisSvjedoka().isEmpty()) {
             listaSvjedoka.addAll(slucaj.getPopisSvjedoka());
             for (Osoba svjedok : listaSvjedoka) {
-                lista.add(svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib());
+                list2.add(svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib());
             }
-            observableList = FXCollections.observableList(lista);
-            popisSvjedoka.setItems(observableList);
+            observableSvjedoci = FXCollections.observableList(list2);
+            popisSvjedoka.setItems(observableSvjedoci);
         }
         
-        lista.clear();
-        observableList.clear();
+        List<String> list3 = new ArrayList<>();
+        ObservableList<String> observableDokazi = FXCollections.emptyObservableList();
         List<Dokaz> listaDokaza = new ArrayList<>();
         if (!slucaj.getPopisDokaza().isEmpty()) {
             listaDokaza.addAll(slucaj.getPopisDokaza());
             for (Dokaz dokaz : listaDokaza) {
-                lista.add(dokaz.getID() + " " + dokaz.getNaziv());
+                list3.add(dokaz.getID() + " " + dokaz.getNaziv());
             }
-            observableList = FXCollections.observableList(lista);
-            popisDokaza.setItems(observableList);
+            observableDokazi = FXCollections.observableList(list3);
+            popisDokaza.setItems(observableDokazi);
         }
         
-        lista.clear();
-        observableList.clear();
+        List<String> list4 = new ArrayList<>();
+        ObservableList<String> observablePolicajci = FXCollections.emptyObservableList();
         List<Osoba> listaPolicajaca = new ArrayList<>();
         if (!slucaj.getPopisPolicajaca().isEmpty()) {
             listaPolicajaca.addAll(slucaj.getPopisPolicajaca());
             for (Osoba policajac : listaPolicajaca) {
-                lista.add(policajac.getIme() + " " + policajac.getPrezime() + " " + policajac.getOib());
+                list4.add(policajac.getIme() + " " + policajac.getPrezime() + " " + policajac.getOib());
             }
-            observableList = FXCollections.observableList(lista);
-            popisPolicajaca.setItems(observableList);
+            observablePolicajci = FXCollections.observableList(list4);
+            popisPolicajaca.setItems(observablePolicajci);
         }
         
-        lista.clear();
-        observableList.clear();
+        List<String> list5 = new ArrayList<>();
+        ObservableList<String> observableDogadaji = FXCollections.emptyObservableList();
         List<Dogadaj> listaDogadaja = new ArrayList<>();
         if (!slucaj.getPopisDogadaja().isEmpty()) {
             listaDogadaja.addAll(slucaj.getPopisDogadaja());
             for (Dogadaj dogadaj : listaDogadaja) {
-                lista.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
+                list5.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
             }
-            observableList = FXCollections.observableList(lista);
-            popisDogadaja.setItems(observableList);
+            observableDogadaji = FXCollections.observableList(list5);
+            popisDogadaja.setItems(observableDogadaji);
         }
         
     }
     
-    @FXML private void generirajPDF(ActionEvent event) {
+    @FXML private void generirajPDF(ActionEvent event) throws DocumentException, MalformedURLException, BadElementException, IOException {
         GenerirajPDF.generiraj(slucaj);
     }
 
