@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Set;
 
 import Controller.RazinaPristupa;
 
@@ -51,7 +52,6 @@ public class Pozornik extends Osoba {
 		try {
 			return PristupBaziPodataka.dohvatiPodatkeSlucaj(id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -81,5 +81,4 @@ public class Pozornik extends Osoba {
 				+ ", jedinstveniBroj=" + jedinstveniBroj + "]" + super.getOib();
 	}
 
-	
 }

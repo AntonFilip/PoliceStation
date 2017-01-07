@@ -1,6 +1,5 @@
 package Model;
-
-import java.sql.SQLException;
+import java.util.Set;
 
 import Controller.RazinaPristupa;
 
@@ -22,12 +21,21 @@ public class Narednik extends Pozornik {
 		return true;	
 	}
 	
-	public boolean izmjeniSlucaj(Slucaj slucaj){
-		try {
-			PristupBaziPodataka.izmjenaSlucaja(slucaj);
-		} catch (SQLException e) {
-			return false;
-		}
-		return true;
+	public boolean izmjeni(Dokaz trenutni,Dokaz izmjenjeni,Set<String> dodaniAtributi,Set<String> izbrisani){
+		Context<Dokaz> context=new Context<>(trenutni);
+		return context.izmjeni(izmjenjeni, dodaniAtributi, izbrisani);
 	}
+	
+	public boolean izmjeni(Slucaj trenutni,Slucaj izmjenjeni,Set<String>dodaniAtributi,Set<String> izbrisani){
+		Context<Slucaj> context=new Context<>(trenutni);
+		return context.izmjeni(izmjenjeni, dodaniAtributi, izbrisani);
+	}
+	
+	public boolean izmjeni(Osumnjiceni trenutni,Osumnjiceni izmjenjeni,Set<String> dodaniAtributi,Set<String> izbrisani){
+		Context<Osumnjiceni> context=new Context<>(trenutni);
+		return context.izmjeni(izmjenjeni, dodaniAtributi, izbrisani);
+	}
+	
+	
+	
 }
