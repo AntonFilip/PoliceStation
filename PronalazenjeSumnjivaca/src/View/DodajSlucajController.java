@@ -59,17 +59,21 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     @FXML Button obrisiURL;
     
     @FXML Button dodaj;
-    
-    List<String> lista = new ArrayList<>();
-    ObservableList<String> observableOsumnjiceni = FXCollections.observableList(lista);
-    ObservableList<String> observableSvjedoci = FXCollections.observableList(lista);
-    ObservableList<String> observablePolicajci = FXCollections.observableList(lista);
-    ObservableList<String> observableDogadaji = FXCollections.observableList(lista);
-    ObservableList<String> observableFotografije = FXCollections.observableList(lista);
+   
+    ObservableList<String> observableOsumnjiceni = FXCollections.observableArrayList();
+    ObservableList<String> observableSvjedoci = FXCollections.observableArrayList();
+    ObservableList<String> observablePolicajci = FXCollections.observableArrayList();
+    ObservableList<String> observableDogadaji = FXCollections.observableArrayList();
+    ObservableList<String> observableFotografije = FXCollections.observableArrayList();
     
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
+        popisOsumnjicenih.setItems(observableOsumnjiceni);
+        popisSvjedoka.setItems(observableSvjedoci);
+        popisPolicajaca.setItems(observablePolicajci);
+        popisDogadaja.setItems(observableDogadaji);
+        fotografije.setItems(observableFotografije);
     }
     
     @FXML private void dodajOsumnjicenog(ActionEvent event) {
@@ -102,7 +106,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     @FXML private void postaviDialogDogadaj(ActionEvent event) throws IOException {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(dodajDogadaj.getScene().getWindow());
+        dialog.initOwner(dodaj.getScene().getWindow());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajDogadaj.fxml"));
         Parent loadScreen = loader.load();
         DodajDogadajController controller = (DodajDogadajController) loader.getController();
@@ -182,6 +186,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
             String[] dog = dogadaj.split(" ");
             Dogadaj noviDogadaj = new Dogadaj();
             noviDogadaj.setDogadajID(Integer.parseInt(dog[0].trim()));
+            
         }
         slucaj.setPopisDogadaja(dogadaji);
         
