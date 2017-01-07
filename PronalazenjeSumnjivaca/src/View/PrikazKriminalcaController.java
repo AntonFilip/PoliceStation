@@ -2,12 +2,15 @@ package View;
 
 import Controller.ViewDelegate;
 import Model.*;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -55,6 +58,8 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @FXML Label razinaInteligencije;
     @FXML ListView psihickiProblemi;
     @FXML ListView ostaleKarakterneOsobine;
+    
+    Osumnjiceni osumnjiceni;
 
     @Override
     public void init(ViewDelegate delegate) {
@@ -62,7 +67,7 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     }
     
     public void prikaziPodatke(Osumnjiceni osumnjiceni) {
-        
+        this.osumnjiceni = osumnjiceni;
         //fotografija.setImage((Image) osumnjiceni.getFotografijeURL());
         if(osumnjiceni.getIme() != null)
         	ime.setText(osumnjiceni.getIme());
@@ -196,6 +201,10 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
         list11.addAll(osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine());
         observableOstaleKarakterne = FXCollections.observableList(list11);
         ostaleKarakterneOsobine.setItems(observableOstaleKarakterne);}}
+    }
+    
+    @FXML private void generirajPDF(ActionEvent event) throws DocumentException, IOException {
+        GenerirajPDF.generiraj(osumnjiceni);
     }
     
     /**
