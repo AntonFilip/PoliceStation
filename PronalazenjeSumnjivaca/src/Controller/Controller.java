@@ -55,8 +55,6 @@ public class Controller extends Application implements ViewDelegate {
 	Map<Dokaz, Float> mapaDokaz;
 	Map<Slucaj, Float> mapaSlucaj;
 
-	boolean neuspjesnaPrijava = false;
-
 	private Pane pane;
 
 	@Override
@@ -80,10 +78,6 @@ public class Controller extends Application implements ViewDelegate {
 		controller.init(this);
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
-		if (neuspjesnaPrijava) {
-			PrijavaController cont = (PrijavaController) controller;
-			cont.neispravniPodaci();
-		}
 		stage.show();
 	}
 
@@ -92,18 +86,12 @@ public class Controller extends Application implements ViewDelegate {
 		try {
 			policajac = PristupBaziPodataka.prijava(username, password);
 		} catch (SQLException e) {
-<<<<<<< HEAD
-=======
-			// TODO pogledat kaj radi exception i napravit dobar odgovor
->>>>>>> c58856b17f79378a8bb78741833553b3e85b8aa2
+
 			e.printStackTrace();
 			return;
 		}
 
 		if (policajac == null) {
-			neuspjesnaPrijava = true;
-			postaviScenuPrijava();
-			neuspjesnaPrijava = false;
 			System.out.println("Korisni�ko ime i/ili lozinka nisu ipravni!");
 			prijavaController.neispravniPodaci();
 			return;
@@ -418,10 +406,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@SuppressWarnings("unchecked")
 	@Override
-<<<<<<< HEAD
-	public void postaviScenuPopis(String predmet, Map<String, Integer> popis) {
 
-=======
 	public void postaviScenuPopis(String predmet, Map<?, Float> popis) {
 		Loader loader = new Loader("ListaStavki");
 		Parent loadScreen = loader.getLoadScreen();
@@ -438,7 +423,6 @@ public class Controller extends Application implements ViewDelegate {
 			return;
 		}
 		pane.getChildren().setAll(loadScreen);
->>>>>>> c58856b17f79378a8bb78741833553b3e85b8aa2
 	}
 
 	@Override
