@@ -70,7 +70,7 @@ public class Osoba {
 
 	@Override
 	public String toString() {
-		return "Osoba [oib=" + oib + "]";
+		return ime+" "+prezime+" ("+oib+")";
 	}
 	
 	
