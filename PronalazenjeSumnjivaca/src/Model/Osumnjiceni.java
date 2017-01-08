@@ -181,11 +181,6 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	public boolean addAllPovezanSlucaj(Collection<Slucaj> slucaj){
 		return povezaniSlucajevi.addAll(slucaj);
 	}
-	
-	@Override
-	public String toString() {
-		return "\nOsumnjiceni [ ime="+super.getIme()+", prezime="+super.getPrezime()+", oib="+getOib()+", status="+getStatus()+" ]";
-	}
 
 	@Override
 	public String generirajTextualniOpis(Set<String> listaAtributa) {
