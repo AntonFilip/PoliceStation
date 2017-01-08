@@ -6,14 +6,18 @@ import java.util.Set;
 
 public interface StrategijaUpit <E> {
 
-	public String generirajTextualniOpis(Set< String> kombinacija);
+	public String generirajTextualniOpis(Set< String> listaAtributa);
 	public String generirajSQLupit(String vrijednostPretrage,String relacijaAtributDB);
-	public Set<String>  generirajListuAtributa();
-	public List<E> vratiCon(String vrijednostPretrage,String relacijaAtributDB) throws SQLException;
-
-
+	public Set<String> generirajListuAtributaPretrage();
+	public Set<E> vratiContext(String upitSQL) throws SQLException;
+	public Set<String> generirajListuIzmjenjenihAtributa(E izmjenjeniCon);
+	public String vratiID();
+	public String vratiAtributID();
+	public String generirajSelectOsnovniPodaci();
+	public String generirajUpdateSQL();
+	
 	public static String generirajWhere(String relacijaAtributDB,String vrijednostPretrage){
-		return " WHERE "+relacijaAtributDB+"=\""+vrijednostPretrage+"\"";
+		return " WHERE LOWER("+relacijaAtributDB+")=LOWER('"+vrijednostPretrage+"')";
 	}
 
 	public static String generirajWhere(String relacijaAtributDB,String vrijednostPretrageMin,String vrijednostPretrageMax){
@@ -21,8 +25,8 @@ public interface StrategijaUpit <E> {
 	}
 
 	public static String generirajWhere(String relacijaAtribut1,String relacijaAtribut2,String vrijednostPretrage1,String vrijednostPretrage2){
-		return " WHERE "+relacijaAtribut1+"=\""+vrijednostPretrage1+"\""
-				+ "  and "+relacijaAtribut2+"=\""+vrijednostPretrage2+"\"";
+		return " WHERE LOWER("+relacijaAtribut1+")=LOWER('"+vrijednostPretrage1+")'"
+				+ "  and LOWER("+relacijaAtribut2+")=LOWER('"+vrijednostPretrage2+")'";
 	}
 
 	public static  String generirajFrom (String relacija1,String relacijaAtribut1, String relacijaAtribut2){
@@ -56,10 +60,40 @@ public interface StrategijaUpit <E> {
 			}
 		}
 		insert+=")";
+		System.out.println(insert);
+		return insert;
+	}
+	
+	public static String upitUnos(String relacija,String atribut1,String atribut2,String vrijednost1,String vrijednost2) {
+		String insert="INSERT INTO " + "`" +relacija+ "`" +"(";
+			insert+="`" + atribut1 + "`" +"," ;
+			insert+="`" + atribut2 + "`" ;
+			insert+=") VALUES (";
+			if(vrijednost1.equals("NULL")) {
+					insert+="NULL"+",";
+				}
+			else {
+			insert+="'"+vrijednost1+"'"+",";
+				}
+			if(vrijednost2.equals("NULL")) {
+				insert+="NULL";
+			}
+		else {
+		insert+="'"+vrijednost2+"'";
+			}
+
+
+		insert+=")";
+		System.out.println(insert);
 		return insert;
 	}
 
+    public static String generirajDelete (String relacija, String atr1, String atr2,String vr1, String vr2){
+    	return  "Delete from "+relacija+" where LOWER("+atr1+")=LOWER('"+vr1+"') AND LOWER("+atr2+")=LOWER('"+vr2+"')";
+    }
+    
 	public static String generirajUpdate(String atribut,String vrijednost) {
 		return "`"+atribut+"`='"+vrijednost+"'";
 	}
+
 }

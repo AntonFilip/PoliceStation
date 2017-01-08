@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mysql.jdbc.StringUtils;
+
 
 
 public class Dokaz implements StrategijaUpit<Dokaz> {
@@ -60,67 +62,7 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 		this.krvnaGrupa.add(krvnaGrupa);
 	}
 
-	@Override
-	public Set<String>  generirajListuAtributa() {
-		Set <String> listaAtributa=new HashSet<>();
-		if(DNASekvenca!=null){
-			for (String s:DNASekvenca){
-				listaAtributa.add(s+ "*DNASekvenca.nazivDNASekvenca");
-			}
-		}
-
-		if(nazivSlucaja!=null){
-			listaAtributa.add( nazivSlucaja+"*PolicijskiSlučaj.nazivSlučaja");
-		}
-
-		if(krvnaGrupa!=null) {
-			for (String s:krvnaGrupa){
-				listaAtributa.add(s+"*KrvnaGrupa.nazivKrvnaGrupa");
-			}
-		}
-
-		if(tipOruzja!=null) {
-			for(String s:tipOruzja){
-				listaAtributa.add( s+"*TipOružja.nazivOružja");
-			}
-		}
-		if(naziv!=null) {
-			listaAtributa.add(naziv+"*DokazniMaterijal.nazivDokaznogMaterijala");
-		}
-
-		return listaAtributa;
-	}
-
-	@Override
-	public String generirajSQLupit(String vrijednostPretrage,String relacijaAtribut){
-		String select=" SELECT distinct  DokazniMaterijal.brojDokaznogMaterijala,"
-				+ "						DokazniMaterijal.nazivDokaznogMaterijala, "
-				+ "						DokazniMaterijal.fotografijaDokaznogMaterijalaURL, "
-				+ "						PolicijskiSlučaj.nazivSlučaja ";
-
-		String from=" FROM  DokazniMaterijal  "
-				+"		left  join PolicijskiSlučaj on PolicijskiSlučaj.brojSlučaja=DokazniMaterijal.brojSlučaja ";
-		String where=StrategijaUpit.generirajWhere(relacijaAtribut, vrijednostPretrage);
-		String relAtr2="DokazniMaterijal.brojDokaznogMaterijala";
-
-		switch (relacijaAtribut) {
-		case "DNASekvenca.nazivDNASekvenca":
-			from+=StrategijaUpit.generirajFrom("ListaDNASekvenciNaDokaznomMaterijalu", "ListaDNASekvenciNaDokaznomMaterijalu.dokazniMaterijalID",relAtr2);
-			from+=StrategijaUpit.generirajFrom("DNASekvenca", "DNASekvenca.dnaSekvencaID", "ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID");
-			break;
-		case "KrvnaGrupa.nazivKrvnaGrupa":
-			from+=StrategijaUpit.generirajFrom("ListaKrvnihGrupaNaDokaznomMaterijalu", "ListaKrvnihGrupaNaDokaznomMaterijalu.dokazniMaterijalID", relAtr2);
-			from+=StrategijaUpit.generirajFrom("KrvnaGrupa","KrvnaGrupa.krvnaGrupaID" , "ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID");
-			break;
-		case "TipOružja.nazivOružja":
-			from+=StrategijaUpit.generirajFrom("ListaOružja", "ListaOružja.brojDokaznogMaterijala", relAtr2);
-			from+=StrategijaUpit.generirajFrom("TipOružja", "TipOružja.tipOružjaID", "ListaOružja.tipOružjaID");
-			break;
-		default: break;
-		}
-		System.out.println(select+from+where);
-		return select+from+where;
-	}
+	
 
 	public Integer getID() {
 		return ID;
@@ -212,9 +154,7 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 
 	@Override
 	public String toString() {
-		return "Dokaz [ID=" + ID + ", nazivSlucaja=" + nazivSlucaja + ", naziv=" + naziv + ", fotografija="
-				+ fotografija + ", krvnaGrupa=" + krvnaGrupa + ", DNASekvenca=" + DNASekvenca + ", tipOruzja="
-				+ tipOruzja + ", otisakPrsta=" + otisakPrsta + "]";
+		return "\nDokaz [ID=" + ID + ", naziv=" +naziv+ ", nazivSlucaja=" + nazivSlucaja + "]";
 	}
 
 	@Override
@@ -241,14 +181,138 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 			return false;
 		return true;
 	}
-
+	
 	@Override
-	public List<Dokaz> vratiCon(String vrijednostPretrage,String relacijaAtribut) throws SQLException {
-		return PristupBaziPodataka.vratiDokaze(vrijednostPretrage,relacijaAtribut);
+	public String vratiID(){
+		return this.ID.toString();
+	}
+	
+	@Override
+	public String vratiAtributID(){
+		return "brojDokaznogMaterijala";
+	}
+
+	public Set<Dokaz> vratiContext(String upit) throws SQLException {
+		return PristupBaziPodataka.vratiDokaze(upit);
 	}
 
 	@Override
 	public String generirajTextualniOpis(Set<String> listaAtributa) {
-		return null;
+		StringBuilder sbBuilder=new StringBuilder();
+		sbBuilder.append("Traži se dokaz sa sljedećim obilježjima: ");
+
+		for (String string: listaAtributa){
+			String [] parts=string.split("\\*");
+			String obiljezje=parts[1];
+			String vrijednost=parts[0];
+			switch (obiljezje){
+
+			case "DNASekvenca.nazivDNASekvenca":
+				sbBuilder.append("dna sekvenca - "+vrijednost+", ");
+				System.out.println(sbBuilder.toString());
+				break;
+			case "DokazniMaterijal.brojDokaznogMaterijala": 
+				sbBuilder.append("broj dokaznog materijala - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.nazivSlučaja":
+				sbBuilder.append("naziv slučaja - "+vrijednost+", ");
+				break;
+			case "KrvnaGrupa.nazivKrvnaGrupa":
+				sbBuilder.append("krvna grupa - "+vrijednost+", ");
+				break;
+			case "TipOružja.nazivOružja":
+				sbBuilder.append("oružje - "+vrijednost+", ");
+				break;
+			case "DokazniMaterijal.nazivDokaznogMaterijala":
+				sbBuilder.append("naziv - "+vrijednost+", ");
+				break;
+			}
+		}
+		String opis=sbBuilder.toString();
+		System.out.println(opis.substring(0, opis.lastIndexOf(",")));
+		return opis.substring(0, opis.lastIndexOf(","));
 	}
+
+	@Override
+	public Set<String> generirajListuIzmjenjenihAtributa(Dokaz izmjenjeniDokaz){
+		Set<String> atributiSlucaja=new LinkedHashSet<>();
+		if(!this.naziv.equals(izmjenjeniDokaz.getNaziv()) && !StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniDokaz.getNaziv())) atributiSlucaja.add(izmjenjeniDokaz.getNaziv()+"*nazivDokaznogMaterijala");
+		if(this.brojSlucaja!=izmjenjeniDokaz.getBrojSlucaja() && izmjenjeniDokaz.getBrojSlucaja()!=null) atributiSlucaja.add(izmjenjeniDokaz.brojSlucaja.toString()+"*brojSlučaja");
+		if(!this.fotografija.equals(izmjenjeniDokaz.getFotografija()) && !StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniDokaz.getFotografija())) atributiSlucaja.add(izmjenjeniDokaz.getFotografija()+"*fotografijaDokaznogMaterijalaURL"); 
+		System.out.println(atributiSlucaja);
+		return atributiSlucaja;
+	}
+	
+	@Override
+	public Set<String>  generirajListuAtributaPretrage() {
+		Set <String> listaAtributa=new HashSet<>();
+		if(DNASekvenca!=null && !DNASekvenca.isEmpty()){
+			for (String s:DNASekvenca){
+				if (!StringUtils.isEmptyOrWhitespaceOnly(s)) listaAtributa.add(s+ "*DNASekvenca.nazivDNASekvenca"); 
+			}
+		}
+
+		if(!StringUtils.isEmptyOrWhitespaceOnly(nazivSlucaja)){
+			listaAtributa.add( nazivSlucaja+"*PolicijskiSlučaj.nazivSlučaja");
+		}
+
+		if(krvnaGrupa!=null && !krvnaGrupa.isEmpty()) {
+			for (String s:krvnaGrupa){
+				if(!StringUtils.isEmptyOrWhitespaceOnly(s)) listaAtributa.add(s+"*KrvnaGrupa.nazivKrvnaGrupa");
+			}
+		}
+
+		if(tipOruzja!=null && !tipOruzja.isEmpty()) {
+			for(String s:tipOruzja){
+				if (!StringUtils.isEmptyOrWhitespaceOnly(s)) listaAtributa.add( s+"*TipOružja.nazivOružja");
+			}
+		}
+		if(!StringUtils.isEmptyOrWhitespaceOnly(naziv)) {
+			listaAtributa.add(naziv+"*DokazniMaterijal.nazivDokaznogMaterijala");
+		}
+
+		return listaAtributa;
+	}
+
+	@Override
+	public String generirajSQLupit(String vrijednostPretrage,String relacijaAtribut){
+		String select=generirajSelectOsnovniPodaci();
+		String from=" ";
+		String where=StrategijaUpit.generirajWhere(relacijaAtribut, vrijednostPretrage);
+		String relAtr2="DokazniMaterijal.brojDokaznogMaterijala";
+
+		switch (relacijaAtribut) {
+		case "DNASekvenca.nazivDNASekvenca":
+			from+=StrategijaUpit.generirajFrom("ListaDNASekvenciNaDokaznomMaterijalu", "ListaDNASekvenciNaDokaznomMaterijalu.dokazniMaterijalID",relAtr2);
+			from+=StrategijaUpit.generirajFrom("DNASekvenca", "DNASekvenca.dnaSekvencaID", "ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID");
+			break;
+		case "KrvnaGrupa.nazivKrvnaGrupa":
+			from+=StrategijaUpit.generirajFrom("ListaKrvnihGrupaNaDokaznomMaterijalu", "ListaKrvnihGrupaNaDokaznomMaterijalu.dokazniMaterijalID", relAtr2);
+			from+=StrategijaUpit.generirajFrom("KrvnaGrupa","KrvnaGrupa.krvnaGrupaID" , "ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID");
+			break;
+		case "TipOružja.nazivOružja":
+			from+=StrategijaUpit.generirajFrom("ListaOružja", "ListaOružja.brojDokaznogMaterijala", relAtr2);
+			from+=StrategijaUpit.generirajFrom("TipOružja", "TipOružja.tipOružjaID", "ListaOružja.tipOružjaID");
+			break;
+		default: break;
+		}
+		System.out.println(select+from+where);
+		return select+from+where;
+	}
+
+	@Override
+	public String generirajSelectOsnovniPodaci() {
+		return " SELECT distinct  DokazniMaterijal.brojDokaznogMaterijala,"
+				+ "						DokazniMaterijal.nazivDokaznogMaterijala, "
+				+ "						PolicijskiSlučaj.nazivSlučaja "
+				+ " FROM  DokazniMaterijal  "
+				+ "		left  join PolicijskiSlučaj on PolicijskiSlučaj.brojSlučaja=DokazniMaterijal.brojSlučaja ";
+	}
+
+	@Override
+	public String generirajUpdateSQL() {
+		return "UPDATE DokazniMaterijal SET ";
+	}
+
+	
 }

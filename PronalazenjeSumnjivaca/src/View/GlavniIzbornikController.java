@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Controller.ViewDelegate;
+import Model.PristupBaziPodataka;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -48,6 +51,15 @@ public class GlavniIzbornikController implements Initializable{
     
     public Pane init(ViewDelegate delegate) {
         this.delegate = delegate;
+        izmjeniDokaz.setDisable(true);
+        izmjeniDokaz.setVisible(false);
+        final BooleanProperty firstTime = new SimpleBooleanProperty(true);
+        brza.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
+            if(newValue && firstTime.get()){
+                pane.requestFocus(); // Delegate the focus to container
+                firstTime.setValue(false); // Variable value changed for future references
+            }
+        });
         return this.pane;
     }
     
@@ -103,15 +115,16 @@ public class GlavniIzbornikController implements Initializable{
     }
     
     @FXML private void postaviScenuIzmjeneKriminalca(){
-    	delegate.postaviScenuIzmjeneKriminalca();
+    	delegate.postaviScenuListaIzmjene("Osumnjiceni", PristupBaziPodataka.izvrsiUpit("upit"));
     }
     
     @FXML private void postaviScenuIzmjeneSlucaja(){
-    	delegate.postaviScenuIzmjeneSlucaja();
+    	delegate.postaviScenuListaIzmjene("Slucaj", PristupBaziPodataka.izvrsiUpit("upit"));
     }
     
     @FXML private void postaviScenuIzmjeneDokaza(){
-    	delegate.postaviScenuIzmjeneDokaza();
+    	//pitanje je jel ovo uopce treba
+    	delegate.postaviScenuListaIzmjene("Dokaz", PristupBaziPodataka.izvrsiUpit("upit"));
     }
     
     @FXML private void postaviScenuDodajKriminalca(){

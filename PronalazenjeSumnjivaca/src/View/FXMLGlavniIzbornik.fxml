@@ -20,7 +20,7 @@
                     <items>
                       <MenuItem fx:id="izmjeniKriminalac" onAction="#postaviScenuIzmjeneKriminalca" mnemonicParsing="false" text="Kriminalac" />
                       <MenuItem fx:id="izmjeniSlucaj" onAction="#postaviScenuIzmjeneSlucaja" mnemonicParsing="false" text="Slučaj" />
-                        <MenuItem fx:id="izmjeniDokaz" onAction="#postaviScenuIzmjeneDokaza" mnemonicParsing="false" text="Dokaz" />
+                      <MenuItem fx:id="izmjeniDokaz" onAction="#postaviScenuIzmjeneDokaza" mnemonicParsing="false" text="Dokaz" />
                     </items>
                      <font>
                         <Font name="Lucida Sans Typewriter Bold" size="13.0" />
@@ -70,8 +70,8 @@
                   <MenuButton fx:id="postaviUpit" alignment="CENTER" layoutX="1.0" layoutY="149.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="200.0" text="Postavi Upit" textFill="WHITE">
                     <items>
                       <MenuItem fx:id="postaviKriminalac" onAction="#postaviScenuUpitKriminalac" mnemonicParsing="false" text="Kriminalac" />
+                      <MenuItem fx:id="postaviSlucaj" onAction="#postaviScenuUpitSlucaj" mnemonicParsing="false" text="Slučaj" />
                       <MenuItem fx:id="postaviDokaz" onAction="#postaviScenuUpitDokaz" mnemonicParsing="false" text="Dokaz" />
-                        <MenuItem fx:id="postaviSlucaj" onAction="#postaviScenuUpitSlucaj" mnemonicParsing="false" text="Slu�aj" />
                     </items>
                      <font>
                         <Font name="Lucida Sans Typewriter Bold" size="13.0" />

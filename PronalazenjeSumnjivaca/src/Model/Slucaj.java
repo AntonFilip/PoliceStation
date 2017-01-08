@@ -3,8 +3,10 @@ package Model;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
+
+import com.mysql.jdbc.StringUtils;
 
 
 public class Slucaj implements StrategijaUpit<Slucaj>{
@@ -107,7 +109,6 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 		return this.popisSvjedoka.addAll(svjedoci);
 	}
 
-
 	public Set<Dokaz> getPopisDokaza() {
 		return popisDokaza;
 	}
@@ -207,22 +208,13 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 
 	@Override
 	public String toString() {
-		return "Slucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", opis=" + opis
-				+ ", glavniOsumnjiceni=" + glavniOsumnjiceni + ", popisOsumnjicenih=" + popisOsumnjicenih
-				+ ", popisSvjedoka=" + popisSvjedoka + ", popisDokaza=" + popisDokaza + ", popisPolicajaca="
-				+ popisPolicajaca + ", status=" + status + ", fotografijeSlučaja=" + fotografijeSlučaja
-				+ ", popisDogadaja=" + popisDogadaja + "]";
+		return "\nSlucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", status=" + status + "]";
 	}
 
-
-	//@Override
+	@Override
 	public String generirajSQLupit( String vrijednostPretrage,String relacijaAtribut) {
-		String select=" SELECT distinct PolicijskiSlučaj.brojSlučaja, "
-				+ "						PolicijskiSlučaj.nazivSlučaja,	"
-				+ "						PolicijskiSlučaj.trenutniStatus,"
-				+ "						PolicijskiSlučaj.glavnaOsumljicenaOsobaOib,"
-				+ "						PolicijskiSlučaj.opis";
-		String from=" FROM PolicijskiSlučaj  ";
+		String select=generirajSelectOsnovniPodaci();
+		String from=" ";
 	
 		switch (relacijaAtribut) {
 			case "ListaDogađaja.nazivDogađaja":
@@ -252,13 +244,13 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	}
 		
 	@Override
-	public  Set<String>  generirajListuAtributa() {
+	public  Set<String>  generirajListuAtributaPretrage() {
 		 Set< String> listaAtributa=new HashSet<>();
 
 		if (brojSlucaja!=null) {
 			listaAtributa.add(brojSlucaja.toString()+"*PolicijskiSlučaj.brojSlučaja");
 		}
-		if (nazivSlucaja!=null){
+		if (!StringUtils.isEmptyOrWhitespaceOnly(nazivSlucaja)){
 			listaAtributa.add(nazivSlucaja+"*PolicijskiSlučaj.nazivSlučaja" );
 		}
 		if (status!=null){
@@ -269,46 +261,126 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 			}
 		}
 		if (glavniOsumnjiceni!=null){
-			listaAtributa.add(glavniOsumnjiceni.getOib().toString() +"*PolicijskiSlučaj.glavnaOsumljicenaOsobaOib");
+			if (glavniOsumnjiceni.getOib()!=null) listaAtributa.add(glavniOsumnjiceni.getOib().toString() +"*PolicijskiSlučaj.glavnaOsumljicenaOsobaOib");
 		}
 
-		if (popisDogadaja!=null){
+		if (popisDogadaja!=null && !popisDogadaja.isEmpty()){
 			for (Dogadaj d:popisDogadaja){
-				listaAtributa.add(d.getNaziv()+"*ListaDogađaja.nazivDogađaja");
+				if(!StringUtils.isEmptyOrWhitespaceOnly(d.getNaziv())) listaAtributa.add(d.getNaziv()+"*ListaDogađaja.nazivDogađaja");
 			}
 		}
-		if (popisDokaza!=null){
+		if (popisDokaza!=null && !popisDokaza.isEmpty()){
 			for(Dokaz d: popisDokaza){
-				listaAtributa.add(d.getID().toString()+"*DokazniMaterijal.brojDokaznogMaterijala");
+				if (d!=null && d.getID()!=null) listaAtributa.add(d.getID().toString()+"*DokazniMaterijal.brojDokaznogMaterijala");
 			}
 		}
-		if (popisOsumnjicenih!=null){
+		if (popisOsumnjicenih!=null && !popisOsumnjicenih.isEmpty()){
 			for(Osoba o: popisOsumnjicenih){
-				listaAtributa.add(o.getOib().toString()+"*ListaOsumnjicenihOsoba.osobaOib");
+				if(o!=null && o.getOib()!=null) listaAtributa.add(o.getOib().toString()+"*ListaOsumnjicenihOsoba.osobaOib");
 			}
 		}
-		if (popisPolicajaca!=null){
+		if (popisPolicajaca!=null && !popisPolicajaca.isEmpty()){
 			for(Pozornik p:popisPolicajaca){
-				listaAtributa.add(p.getJedinstveniBroj().toString()+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca");
-			}
+				if(p!=null && p.getJedinstveniBroj() != null){
+					listaAtributa.add(p.getJedinstveniBroj().toString()+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca");
+					}
+				}
 		}
-		if (popisSvjedoka!=null){
+		if (popisSvjedoka!=null && !popisSvjedoka.isEmpty()){
 			for(Osoba o:popisSvjedoka){
-				listaAtributa.add(o.getOib().toString()+"*ListaSvjedoka.osobaOib");
+				if(o!=null && o.getOib()!=null) listaAtributa.add(o.getOib().toString()+"*ListaSvjedoka.osobaOib");
 			}
 		}	
 		return listaAtributa;
 	}
 
 	@Override
-	public List<Slucaj> vratiCon(String vrijednostPretrage,String relacijaAtribut) throws SQLException {
-		return PristupBaziPodataka.vratiSlucajeve(vrijednostPretrage,relacijaAtribut);
+	public Set<Slucaj> vratiContext(String upit) throws SQLException {
+		return PristupBaziPodataka.vratiSlucajeve(upit);
 	}
 
 	@Override
-	public String generirajTextualniOpis(Set<String> lista) {
-		// TODO Auto-generated method stub
-		return null;
+	public String generirajTextualniOpis(Set<String> listaAtributa) {
+		StringBuilder sbBuilder=new StringBuilder();
+		sbBuilder.append("Traži se policijski slučaj sa sljedećim obilježjima: ");
+		if(listaAtributa.isEmpty()) return null;
+		for (String string: listaAtributa){
+			String [] parts=string.split("\\*");
+			String obiljezje=parts[1];
+			String vrijednost=parts[0];
+			switch (obiljezje){
+
+			case "PolicijskiSlučaj.brojSlučaja":
+				sbBuilder.append("broj slučaja - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.nazivSlučaja": 
+				sbBuilder.append("naziv slučaja - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.trenutniStatus":
+				sbBuilder.append("trenutni status - "+vrijednost+", ");
+				break;
+			case "PolicijskiSlučaj.glavnaOsumljicenaOsobaOib":
+				sbBuilder.append("glavna osumnjicena osoba oib - "+vrijednost+", ");
+				break;
+			case "ListaDogađaja.nazivDogađaja":
+				sbBuilder.append("naziv događaja - "+vrijednost+", ");
+				break;
+			case "DokazniMaterijal.brojDokaznogMaterijala":
+				sbBuilder.append("broj dokaznog materijala - "+vrijednost+", ");
+				break;
+			case "ListaOsumnjicenihOsoba.osobaOib":
+				sbBuilder.append("osumnjicena osoba oib - "+vrijednost+", ");
+				break;
+			case "PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca":
+				sbBuilder.append("jedinstveni broj policajca - "+vrijednost+", ");
+				break;
+			case "ListaSvjedoka.osobaOib":
+				sbBuilder.append("svjedok oib - "+vrijednost+", ");
+				break;
+			}
+		}
+		System.out.println(sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(",")));
+		return sbBuilder.toString().substring(0, sbBuilder.lastIndexOf(","));
+	}
+
+	@Override
+	public Set<String> generirajListuIzmjenjenihAtributa(Slucaj izmjenjeniSlucaj) {
+		Set<String> atributiSlucaja=new LinkedHashSet<>();
+		
+		if(!this.nazivSlucaja.equals(izmjenjeniSlucaj.getNazivSlucaja())&& !StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniSlucaj.getNazivSlucaja())) atributiSlucaja.add(izmjenjeniSlucaj.nazivSlucaja+"*nazivSlučaja");
+		if(!this.opis.equals(izmjenjeniSlucaj.getOpis())&& !StringUtils.isEmptyOrWhitespaceOnly(izmjenjeniSlucaj.getOpis())) atributiSlucaja.add(izmjenjeniSlucaj.getOpis()+"*opis");
+		if(this.status!=izmjenjeniSlucaj.getStatus()&& izmjenjeniSlucaj.getStatus()!=null) atributiSlucaja.add(izmjenjeniSlucaj.getStatus().name()+"*trenutniStatus");
+		if(this.glavniOsumnjiceni!=izmjenjeniSlucaj.getGlavniOsumnjiceni() ) {
+			if (izmjenjeniSlucaj.getGlavniOsumnjiceni()!=null) {
+				atributiSlucaja.add(izmjenjeniSlucaj.getGlavniOsumnjiceni().getOib().toString()+"*glavnaOsumnjicenaOsoba");
+			}else atributiSlucaja.add("NULL*glavnaOsumljicenaOsobaOib");
+		}
+		return atributiSlucaja;
+	}
+
+	@Override
+	public String vratiID() {
+		return this.getBrojSlucaja().toString();
+	}
+	
+	@Override
+	public String vratiAtributID(){
+		return "brojSlučaja";
+	}
+
+	
+	@Override
+	public String generirajSelectOsnovniPodaci() {
+	return	" SELECT distinct PolicijskiSlučaj.brojSlučaja, "
+				+ "						PolicijskiSlučaj.nazivSlučaja, "
+				+ "						PolicijskiSlučaj.trenutniStatus "
+				+" FROM PolicijskiSlučaj  ";
+	
+	}
+
+	@Override
+	public String generirajUpdateSQL() {
+		return "UPDATE PolicijskiSlučaj SET ";
 	}
 
 }

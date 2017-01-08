@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane prefHeight="306.0" prefWidth="307.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.DodajDogadajController">
+   <content>
+      <AnchorPane id="AnchorPane" prefHeight="297.0" prefWidth="300.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Dodaj novi događaj">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="dodaj" layoutX="225.0" layoutY="253.0" mnemonicParsing="false" onAction="#dodajDogadaj" text="Dodaj">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="nazivDogadaja" layoutX="62.0" layoutY="108.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv događaja" />
+            <TextField fx:id="pbrMjestaDogadaja" layoutX="62.0" layoutY="142.0" prefHeight="25.0" prefWidth="190.0" promptText="Poštanski broj mjesta događaja" />
+            <TextField fx:id="adresaMjestaDogadaja" layoutX="62.0" layoutY="175.0" prefHeight="25.0" prefWidth="190.0" promptText="Adresa mjesta događaja" />
+            <TextField fx:id="vrijemeDogadaja" layoutX="62.0" layoutY="209.0" prefHeight="25.0" prefWidth="190.0" promptText="Vrijeme događaja" />
+            <Label fx:id="info" layoutX="7.0" layoutY="45.0" prefHeight="17.0" prefWidth="210.0" textFill="RED" />
+            <TextField fx:id="brojSlucaja" layoutX="62.0" layoutY="74.0" prefHeight="25.0" prefWidth="190.0" promptText="Broj slučaja" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

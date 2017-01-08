@@ -20,7 +20,7 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     ViewDelegate delegate;
     
     @FXML TextField naziv;
-    @FXML TextField nazivSlucaja;
+    @FXML TextField brojSlucaja;
     @FXML CheckBox A;
     @FXML CheckBox B;
     @FXML CheckBox AB;
@@ -37,8 +37,10 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     @FXML private void dodaj(ActionEvent event) {
         Dokaz dokaz = new Dokaz();
         
-        dokaz.setNaziv(naziv.getText());
-        dokaz.setNazivSlucaja(nazivSlucaja.getText());
+        if (naziv.getText() != null && !naziv.getText().equals("")) 
+            dokaz.setNaziv(naziv.getText());
+        if (brojSlucaja.getText() != null && !brojSlucaja.getText().equals(""))
+            dokaz.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
         
         Set<String> krvneGrupe = new HashSet<>();
         if (A.selectedProperty().get()) {
@@ -55,15 +57,21 @@ public class DodajDokazController implements Initializable, ControlledScreen {
         }
         dokaz.addAllKrvnaGrupa(krvneGrupe);
         
-        Set<String> sekvence = new HashSet<>();
-        String[] popis = DNAsekvenca.getText().split(";");
-        sekvence.addAll(Arrays.asList(popis));
-        dokaz.addAllDNASekvenca(sekvence);
-        
-        Set<String> oruzja = new HashSet<>();
-        popis = tipOruzja.getText().split(";");
-        oruzja.addAll(Arrays.asList(popis));
-        dokaz.addAllTipOruzja(oruzja);
+        if (!DNAsekvenca.getText().isEmpty()) {
+            Set<String> sekvence = new HashSet<>();
+            String[] popis = DNAsekvenca.getText().split(";");
+            sekvence.addAll(Arrays.asList(popis));
+            dokaz.addAllDNASekvenca(sekvence);
+        }
+        if (!tipOruzja.getText().isEmpty()) {
+            Set<String> oruzja = new HashSet<>();
+            String[] popis = tipOruzja.getText().split(";");
+            oruzja.addAll(Arrays.asList(popis));
+            dokaz.addAllTipOruzja(oruzja);
+        }
+
+        delegate.dodajDokaz(dokaz);
+
     }
 
     /**

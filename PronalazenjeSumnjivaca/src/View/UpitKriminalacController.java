@@ -1,16 +1,27 @@
 package View;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 import Controller.ViewDelegate;
-import Model.*;
-import java.util.Arrays;
-import java.util.HashSet;
+import Model.AdresaIMjestoStanovanja;
+import Model.FizickeOsobine;
+import Model.GradaTijela;
+import Model.KarakterneOsobine;
+import Model.Osumnjiceni;
+import Model.RazinaApstraktneInteligencije;
+import Model.Slucaj;
+import Model.Spol;
+import Model.TrenutniStatusKriminalca;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  * Klasa koja upravlja sučeljem za postavljanje upita o kriminalcu
@@ -26,7 +37,6 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
     @FXML TextField adresa;
     @FXML TextField brojTelefona;
     @FXML ComboBox status;
-    @FXML TextArea opisKriminalnihDjelatnosti;
     @FXML TextArea popisAliasa;
     @FXML TextArea poznateAdrese;
     @FXML TextArea popisPovezanihSlucajeva;
@@ -48,7 +58,7 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
     @FXML TextArea ostaleFizickeOsobine;
 
     @FXML TextField nacinGovora;
-    @FXML TextField razinaApstraktneInteligencije;
+    @FXML ComboBox razinaApstraktneInteligencije;
     @FXML TextArea psiholoskiProblemi;
     @FXML TextArea ostaleKarakterneOsobine;      
 
@@ -65,29 +75,57 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
 
         osumnjiceni.setIme(ime.getText());
         osumnjiceni.setPrezime(prezime.getText());
-        osumnjiceni.setAdresa(adresa.getText());
-        osumnjiceni.setBrojTelefona(brojTelefona.getText());
+        
+        AdresaIMjestoStanovanja adr = new AdresaIMjestoStanovanja();
 
-        if (status.getValue().equals("Na slobodi")) {
-            osumnjiceni.setStatus(TrenutniStatusKriminalca.sloboda);
-        } else if (status.getValue().equals("U pritvoru")) {
-            osumnjiceni.setStatus(TrenutniStatusKriminalca.u_pritvoru);
-        } else if (status.getValue().equals("U zatvoru")) {
-            osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru);
+		if (!adresa.getText().isEmpty()) {
+
+			String[] adresaIMjesto = adresa.getText().split(",");
+			String adress = adresaIMjesto[0];
+			String mjesto = adresaIMjesto[1];
+			adr.setAdresa(adress);
+			adr.setNazivMjesta(mjesto);
+
+		}
+        osumnjiceni.setAdresaPrebivalista(adr);
+        
+        osumnjiceni.setBrojTelefona(brojTelefona.getText());
+        
+        if (status.getValue() != null) {
+            if (status.getValue().equals("Na slobodi")) {
+                osumnjiceni.setStatus(TrenutniStatusKriminalca.sloboda);
+            } else if (status.getValue().equals("U pritvoru")) {
+                osumnjiceni.setStatus(TrenutniStatusKriminalca.u_pritvoru);
+            } else if (status.getValue().equals("U zatvoru")) {
+                osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru);
+            }
         }
 
-        osumnjiceni.setOpisKriminalnihDjelatnosti(opisKriminalnihDjelatnosti.getText());
-
         osumnjiceni.setPopisAliasa(popis(popisAliasa.getText().split(";")));
+        
+        HashSet<AdresaIMjestoStanovanja> poznateAdr = null;
+		if (!poznateAdrese.getText().isEmpty()) {
 
-        osumnjiceni.setPoznateAdrese(popis(poznateAdrese.getText().split(";")));
+			poznateAdr = new HashSet<>();
+			String[] adrese = poznateAdrese.getText().split(";");
+			for (String adresa : adrese) {
+				AdresaIMjestoStanovanja a = new AdresaIMjestoStanovanja();
+				String[] temp = adresa.split(",");
+				a.setAdresa(temp[0].trim());
+				a.setNazivMjesta(temp[1].trim());
+				poznateAdr.add(a);
+			}
+		}
+        osumnjiceni.setPoznateAdrese(poznateAdr);
 
         String[] slucajevi = popisPovezanihSlucajeva.getText().split(";");
         HashSet<Slucaj> popisSlucajeva = new HashSet<>();
         for (String slucaj : slucajevi) {
             Slucaj novi = new Slucaj();
-            novi.setBrojSlucaja(Integer.parseInt(slucaj));
-            popisSlucajeva.add(novi);
+            if (!slucaj.isEmpty()) {
+                novi.setBrojSlucaja(Integer.parseInt(slucaj));
+                popisSlucajeva.add(novi);
+            }
         }
         osumnjiceni.setPovezaniSlucajevi(popisSlucajeva);
 
@@ -95,42 +133,79 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         HashSet<Osumnjiceni> popisKriminalaca = new HashSet<>();
         for (String kriminalac : kriminalci) {
             Osumnjiceni novi = new Osumnjiceni();
-            novi.setOib(Integer.parseInt(kriminalac)); 
-            popisKriminalaca.add(novi);
+            if (!kriminalac.isEmpty()) {
+                novi.setOib(Integer.parseInt(kriminalac)); 
+                popisKriminalaca.add(novi);
+            }
         }
         osumnjiceni.setPopisPovezanihKriminalaca(popisKriminalaca);
 
         FizickeOsobine fizickeOsobine = new FizickeOsobine();
-        fizickeOsobine.setSpol(spol.getValue().toString());
+        
+        if (spol.getValue() != null) {
+            if (spol.getValue().equals("M")) {
+                fizickeOsobine.setSpol(Spol.M);
+            } else  {
+                fizickeOsobine.setSpol(Spol.Ž);
+            }
+        }
         fizickeOsobine.setRasa(rasa.getText());
-        fizickeOsobine.setVisina(Integer.parseInt(visina.getText()));
-        fizickeOsobine.setTezina(Integer.parseInt(tezina.getText()));
-        fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
+        if (!visina.getText().isEmpty()) {
+        	String[] visinamm = visina.getText().split("-");
+        	fizickeOsobine.setVisinaMin(Float.parseFloat(visinamm[0]));
+        	fizickeOsobine.setVisinaMax(Float.parseFloat(visinamm[1]));
+        	
+            //fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
+        }
+        if (!tezina.getText().isEmpty()) {
+        	String[] tezinamm = tezina.getText().split("-");
+        	fizickeOsobine.setTezinaMin(Float.parseFloat(tezinamm[0]));
+        	fizickeOsobine.setTezinaMax(Float.parseFloat(tezinamm[1]));
+        	
+           // fizickeOsobine.setTezina(Float.parseFloat(tezina.getText()));
+        }
+        if (!godine.getText().isEmpty()) {
+        	String[] godinemm = godine.getText().split("-");
+        	fizickeOsobine.setGodineMin(Integer.parseInt(godinemm[0]));
+        	fizickeOsobine.setGodineMax(Integer.parseInt(godinemm[1]));
+        	
+           // fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
+        }
         fizickeOsobine.setBojaKose(bojaKose.getText());
         fizickeOsobine.setOblikGlave(oblikGlave.getText());
         fizickeOsobine.setOblikFrizure(oblikFrizure.getText());
         fizickeOsobine.setBojaOciju(bojaOciju.getText());
-
-        if (gradaTijela.getValue().equals("Slabija")) {
-            fizickeOsobine.setGradaTijela(GradaTijela.slabija);
-        } else if (gradaTijela.getValue().equals("Srednja")) {
-            fizickeOsobine.setGradaTijela(GradaTijela.srednja);
-        } else if (gradaTijela.getValue().equals("Jača")) {
-            fizickeOsobine.setGradaTijela(GradaTijela.jaca);
+        
+        if (gradaTijela.getValue() != null) {
+            if (gradaTijela.getValue().equals("Slabija")) {
+                fizickeOsobine.setGradaTijela(GradaTijela.slabija);
+            } else if (gradaTijela.getValue().equals("Srednja")) {
+                fizickeOsobine.setGradaTijela(GradaTijela.srednja);
+            } else if (gradaTijela.getValue().equals("Jača")) {
+                fizickeOsobine.setGradaTijela(GradaTijela.jaca);
+            }
         }
 
-        fizickeOsobine.setTetovaze(tetovaze.getText());
-        fizickeOsobine.setFizickiNedostatci(fizickiNedostatci.getText());
-        fizickeOsobine.setBolesti(bolesti.getText());
-        fizickeOsobine.setOstalo(ostaleFizickeOsobine.getText());
+        fizickeOsobine.setTetovaze(popis(tetovaze.getText().split(";")));
+        fizickeOsobine.setFizickiNedostatci(popis(fizickiNedostatci.getText().split(";")));
+        fizickeOsobine.setBolesti(popis(bolesti.getText().split(";")));
+        fizickeOsobine.setOstaleFizickeOsobine(popis(ostaleFizickeOsobine.getText().split(";")));
 
         osumnjiceni.setFizickeOsobine(fizickeOsobine);
 
         KarakterneOsobine karakterneOsobine = new KarakterneOsobine();
         karakterneOsobine.setNacinGovora(nacinGovora.getText());
-        karakterneOsobine.setRazinaApstraktneInteligencije(razinaApstraktneInteligencije.getText());
-        karakterneOsobine.setPsiholoskiProblemi(psiholoskiProblemi.getText());
-        karakterneOsobine.setOstalo(ostaleKarakterneOsobine.getText());
+        if (razinaApstraktneInteligencije.getValue() != null) {
+            if (razinaApstraktneInteligencije.getValue().equals("Niska")) {
+                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.niska);
+            } else if (razinaApstraktneInteligencije.getValue().equals("Srednja")) {
+                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.srednja);
+            } else if (razinaApstraktneInteligencije.getValue().equals("Visoka")) {
+                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.visoka);
+            }  
+        }
+        karakterneOsobine.setPsiholoskiProblemi(popis(psiholoskiProblemi.getText().split(";")));
+        karakterneOsobine.setOstaleKarakterneOsobine(popis(ostaleKarakterneOsobine.getText().split(";")));
 
         osumnjiceni.setKarakterneOsobine(karakterneOsobine);
 

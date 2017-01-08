@@ -67,6 +67,8 @@ public class UpitDokazController implements Initializable, ControlledScreen {
         popis = tipOruzja.getText().split(";");
         oruzja.addAll(Arrays.asList(popis));
         dokaz.addAllTipOruzja(oruzja);
+        
+        delegate.posaljiUpitDokaz(dokaz);
     }
 
     /**

@@ -1,12 +1,18 @@
 package View;
 
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import Controller.ViewDelegate;
+import Model.Statistika;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
 public class PrikaziStatistikuController implements Initializable, ControlledScreen{
 
@@ -14,9 +20,10 @@ public class PrikaziStatistikuController implements Initializable, ControlledScr
 	ViewDelegate del;
 	
 	@FXML private Label naslov;
-	@FXML private Label label1;
-	@FXML private Label label2;
-	@FXML private Label label3;
+	@FXML private Label brojKrim;
+	@FXML private Label postotakRS;
+	@FXML private ListView<String> list;
+	
 	
 	
 	
@@ -26,11 +33,24 @@ public class PrikaziStatistikuController implements Initializable, ControlledScr
 		del = delegate;
 	}
 	
-	public void postaviPodatke(String string1, String string2, String string3){
+	public void postaviPodatke(Statistika statistika){
+		//System.out.println(statistika.getBrojKriminalaca());
+		if(statistika.getBrojKriminalaca() != null)
+			brojKrim.setText(statistika.getBrojKriminalaca().toString());
+		if(statistika.getPostotakRiješenihSlučajeva() != null)
+			postotakRS.setText(statistika.getPostotakRiješenihSlučajeva().toString());
+		ObservableList<String> data = FXCollections.observableArrayList();
 		
-		label1.setText(string1);
-		label2.setText(string2);
-		label3.setText(string3);
+		if(statistika.getUdioTipovaOružja() != null){
+			LinkedHashMap<String, Float> sorted = (LinkedHashMap<String, Float>) ListaStavkiController.sortByValue(statistika.getUdioTipovaOružja());
+
+		for (Map.Entry<String, Float> entry : sorted.entrySet()) {
+			String output = String.format("%-50s%-10s", entry.getKey(), entry.getValue().toString());
+			data.add(output);
+		}
+		list.setItems(data);
+		}
+		
 	}
 
 	@Override

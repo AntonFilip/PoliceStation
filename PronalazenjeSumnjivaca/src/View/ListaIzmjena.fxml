@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ListaStavkiController">
+   <children>
+      <HBox alignment="CENTER" minHeight="66.0" prefHeight="66.0" prefWidth="698.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="47.0" prefWidth="235.0" text="Odabir izmjene">
+               <font>
+                  <Font name="Lucida Sans Typewriter Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="95.0" prefWidth="698.0">
+         <children>
+            <Label layoutX="586.0" layoutY="7.0" text="Podudarnost">
+               <font>
+                  <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="prva" layoutX="8.0" layoutY="6.0" prefHeight="16.0" prefWidth="116.0" text="OIB">
+               <font>
+                  <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="druga" layoutX="134.0" layoutY="6.0" text="Ime">
+               <font>
+                  <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="cetvrta" layoutX="364.0" layoutY="7.0" text="Prezime">
+               <font>
+                  <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="treca" layoutX="134.0" layoutY="7.0" prefHeight="16.0" prefWidth="162.0">
+               <font>
+                  <Font name="Lucida Sans Typewriter Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <HBox prefHeight="450.0" prefWidth="698.0" stylesheets="@lista.css">
+         <children>
+            <ListView fx:id="list" minHeight="470.0" prefHeight="470.0" prefWidth="698.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="odaberi" mnemonicParsing="false" onAction="#odaberiStavku" text="Odaberi">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,16 +1,17 @@
 package Controller;
 
-import Model.*;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 import java.util.Map;
 
+import Model.Dokaz;
+import Model.Osumnjiceni;
+import Model.Pozornik;
+import Model.Slucaj;
+import View.PrijavaController;
+
 public interface ViewDelegate {
 	
-        public void prijava(String korisnickoIme, String lozinka) throws IOException;// klik na prijava 
+        //public void prijava(String korisnickoIme, String lozinka) throws IOException;// klik na prijava 
         public void posaljiUpitKriminalac(Osumnjiceni kriminalac); // upisani podaci -> klik na posalji upit      
         public void posaljiUpitSlucaj(Slucaj slucaj); // upisani podaci -> klik na posalji upit     
         public void posaljiUpitDokaz(Dokaz dokaz); // upisani podaci -> klik na posalji upit     
@@ -26,7 +27,7 @@ public interface ViewDelegate {
         public void dodajSlucaj(Slucaj slucaj); // upisani podaci -> klik na spremi
         public void dodajDokaz(Dokaz dokaz); // upisani podaci -> klik na spremi 
         public void pristupiStatistici(); // klik na statistiku
-        public void pristupiDnevniku(); // klik na dnevnik
+        public void pristupiDnevniku(String odabir); // klik na dnevnik
         public void odjava(); // klik na odjava -> natrag na prijavu
 
         
@@ -36,15 +37,18 @@ public interface ViewDelegate {
         public void postaviScenuUpitKriminalac(); // klik na postavi upit o kriminalcu
         public void postaviScenuUpitSlucaj(); // klik na postavi upit o slucaju
         public void postaviScenuUpitDokaz(); // klik na postavi upit o dokazu
-        public void postaviScenuPopis(String predmet, Map<String,Integer> popis); // predmet: kriminalac, slucaj ili dokaz
-        public void postaviScenuIzmjeneKriminalca(); // klik na izmjenu kriminalca
-        public void postaviScenuIzmjeneSlucaja(); // klik na izmjenu slucaja
+        public void postaviScenuListaIzmjene(String predmet, Map<?, Float> popis);
+        public void postaviScenuIzmjeneKriminalca(Osumnjiceni osumnjiceni); // klik na izmjenu kriminalca
+        public void postaviScenuIzmjeneSlucaja(Slucaj slucaj); // klik na izmjenu slucaja
         public void postaviScenuIzmjeneDokaza(); // klik na izmjenu dokaza
         public void postaviScenuDodajKriminalca(); // klik na dodaj krimija
         public void postaviScenuDodajSlucaj(); // klik na dodaj slucaj
         public void postaviScenuDodajDokaz(); //klik na dodaj dokaz iz scene za dodavanje slucaja
         public void postaviScenuStatistika(); //klik na gumbic za statistiku
         public void postaviScenuDnevnikPretrazivanja(); // klik na gumbic za dnevnik
+		public void prijava(String username, String password, PrijavaController prijavaController) throws IOException;
+		public void postaviScenuPopis(String predmet, Map<?, Float> popis);
+		public void brzoPretrazi(String text);
 		
         
 }
