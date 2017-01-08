@@ -33,7 +33,7 @@ public class GenerirajPDF {
 
     private static Font f = FontFactory.getFont(FontFactory.TIMES_ROMAN, "Cp1250", BaseFont.EMBEDDED);
     private static Font f2 = FontFactory.getFont(FontFactory.TIMES_ROMAN, "Cp1250", BaseFont.EMBEDDED, 12, Font.BOLD, new CMYKColor(55, 0, 0, 200));
-
+    private static Font f3 = FontFactory.getFont(FontFactory.TIMES_ROMAN, "Cp1250", BaseFont.EMBEDDED, 16, Font.ITALIC, new CMYKColor(0, 0, 0, 255));
     public static void generiraj(Osumnjiceni osumnjiceni) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
         String imeDatoteke = "ocumnjiceni" + osumnjiceni.getOib();
@@ -51,7 +51,7 @@ public class GenerirajPDF {
         }
 
         //dodavanje opisa
-        Paragraph opis = new Paragraph("Opis\n", FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL, new CMYKColor(0, 0, 0, 255)));
+        Paragraph opis = new Paragraph("\n", FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL, new CMYKColor(0, 0, 0, 255)));
         opis.setSpacingAfter(10);
 
         Chunk imeT = new Chunk("Ime:  ", f2);
@@ -74,7 +74,7 @@ public class GenerirajPDF {
         opis.add(statusT);
         opis.add(status);
 
-        Chunk aliasiT = new Chunk("Poznate adrese:  ", f2);
+        Chunk aliasiT = new Chunk("Popis aliasa:  ", f2);
         List aliasi = new List(List.UNORDERED);
         for (String al : osumnjiceni.getPopisAliasa()) {
             aliasi.add(new ListItem(al, f));
@@ -88,7 +88,7 @@ public class GenerirajPDF {
         opis.add(tel);
 
         Chunk adresaT = new Chunk("Adresa:  ", f2);
-        Chunk adresa = new Chunk(osumnjiceni.getAdresaPrebivalista() + "\n", f);
+        Chunk adresa = new Chunk(osumnjiceni.getAdresaPrebivalista().getAdresa()+", "+osumnjiceni.getAdresaPrebivalista().getNazivMjesta()+ "\n", f);
         opis.add(adresaT);
         opis.add(adresa);
 
@@ -143,7 +143,7 @@ public class GenerirajPDF {
         opis.add(slucajT);
         opis.add(slucaj);
 
-        Chunk povezaniT = new Chunk("Povezani slučajevi:  ", f2);
+        Chunk povezaniT = new Chunk("Povezani kriminalci:  ", f2);
         List povezani = new List(List.UNORDERED);
         for (Osumnjiceni o : osumnjiceni.getPopisPovezanihKriminalaca()) {
             povezani.add(new ListItem(o.getPrezime() + " " + o.getIme() + " " + "(oib: " + o.getOib() + ")", f));
@@ -171,7 +171,7 @@ public class GenerirajPDF {
         document.add(image);
 
         //dodavanje opisa
-        Paragraph opis = new Paragraph("Opis\n", FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL, new CMYKColor(0, 0, 0, 255)));
+        Paragraph opis = new Paragraph("\n", FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL, new CMYKColor(0, 0, 0, 255)));
         opis.setSpacingAfter(10);
 
         Chunk idT = new Chunk("ID:  ", f2);
@@ -234,10 +234,10 @@ public class GenerirajPDF {
         document.open();
 
         //naslov
-        document.add(new Paragraph("Slučaj", FontFactory.getFont(FontFactory.TIMES_ROMAN, 16, Font.ITALIC, new CMYKColor(0, 0, 0, 255))));
+        document.add(new Paragraph("Slučaj", f3));
 
         //dodavanje opisa
-        Paragraph opis = new Paragraph("Opis\n", FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL, new CMYKColor(0, 0, 0, 255)));
+        Paragraph opis = new Paragraph("\n", FontFactory.getFont(FontFactory.COURIER, 14, Font.NORMAL, new CMYKColor(0, 0, 0, 255)));
         opis.setSpacingAfter(10);
 
         Chunk brT = new Chunk("Broj slučaja:  ", f2);
