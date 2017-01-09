@@ -1,4 +1,4 @@
-package Model;
+﻿package Model;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -1265,14 +1265,14 @@ public class PristupBaziPodataka {
 				statistika.setBrojKriminalaca(rs1.getInt(1));
 			}
 			while(rs2.next()){
-				statistika.setPostotakRiješenihSlučajeva(rs2.getFloat(1)/rs2.getFloat(2));
+				statistika.setPostotakRiješenihSlučajeva((rs2.getFloat(1)/rs2.getFloat(2))*100);
 			}
 			Float ukBrojOružjaUSlučajevima=0F;
 			while (rs3.next()) ukBrojOružjaUSlučajevima=rs3.getFloat(1);
 			while (rs4.next()){
 				String naziv=rs4.getString(1);
 				Float brojOdređenogOružja=rs4.getFloat(2);
-				statistika.addUdioTipOružja(naziv, brojOdređenogOružja/ukBrojOružjaUSlučajevima);
+				statistika.addUdioTipOružja(naziv, (brojOdređenogOružja/ukBrojOružjaUSlučajevima)*100);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
