@@ -115,16 +115,16 @@ public class GlavniIzbornikController implements Initializable{
     }
     
     @FXML private void postaviScenuIzmjeneKriminalca(){
-    	delegate.postaviScenuListaIzmjene("Osumnjiceni", PristupBaziPodataka.izvrsiUpit("upit"));
+    	delegate.postaviScenuListaIzmjene("Osumnjiceni");
     }
     
     @FXML private void postaviScenuIzmjeneSlucaja(){
-    	delegate.postaviScenuListaIzmjene("Slucaj", PristupBaziPodataka.izvrsiUpit("upit"));
+    	delegate.postaviScenuListaIzmjene("Slucaj");
     }
     
     @FXML private void postaviScenuIzmjeneDokaza(){
     	//pitanje je jel ovo uopce treba
-    	delegate.postaviScenuListaIzmjene("Dokaz", PristupBaziPodataka.izvrsiUpit("upit"));
+    	delegate.postaviScenuListaIzmjene("Dokaz");
     }
     
     @FXML private void postaviScenuDodajKriminalca(){
