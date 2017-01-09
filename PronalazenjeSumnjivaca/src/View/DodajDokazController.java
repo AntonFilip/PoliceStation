@@ -51,7 +51,7 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     @FXML private void dodaj(ActionEvent event) {
         Dokaz dokaz = new Dokaz();
         
-        String poruka = "Neispravno: ";
+        String poruka = "Unesite: ";
         
         if (naziv.getText() != null) {
             if (!naziv.getText().equals("")) {
@@ -107,8 +107,9 @@ public class DodajDokazController implements Initializable, ControlledScreen {
             }
         }
         
-        if (poruka.equals("Neispravno: ")) 
+        if (poruka.equals("Unesite: ")) 
             delegate.dodajDokaz(dokaz);      
+        else info.setText(poruka);
        
     }
     

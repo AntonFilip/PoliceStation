@@ -2,7 +2,7 @@ package View;
 
 import Model.Dogadaj;
 import java.net.URL;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,27 +30,44 @@ public class DodajDogadajController implements Initializable {
     }    
     
     @FXML private void dodajDogadaj (ActionEvent event) {
+        
         Dogadaj dogadaj = new Dogadaj();
         
-        if (nazivDogadaja.getText().isEmpty()) {
-            info.setText("Upišite naziv događaja.");
-            
-        } else {
-            dogadaj.setNaziv(nazivDogadaja.getText());
-        }
+        String poruka = "Unesite: ";
         
-        if (pbrMjestaDogadaja.getText().isEmpty()) {
-            info.setText("Upišite poštanski broj mjesta događaja.");
-        } else { 
-            dogadaj.setPbrMjesto(Integer.parseInt(pbrMjestaDogadaja.getText()));
-        }
+        if (nazivDogadaja.getText() != null)
+            if (!nazivDogadaja.getText().isEmpty()) 
+                dogadaj.setNaziv(nazivDogadaja.getText());
+            else
+                poruka = poruka.concat("naziv; ");
         
-        dogadaj.setAdresa(adresaMjestaDogadaja.getText());
-        dogadaj.setVrijeme(LocalTime.parse(vrijemeDogadaja.getText()));
-        dogadaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
+        if (pbrMjestaDogadaja.getText() != null)
+            if (!pbrMjestaDogadaja.getText().isEmpty()) 
+                dogadaj.setPbrMjesto(Integer.parseInt(pbrMjestaDogadaja.getText()));
+            else 
+                poruka = poruka.concat("poštanski broj; ");
         
-        Model.PristupBaziPodataka.dodajNoviDogadaj(dogadaj);
-        delegate.dodajDogadaj(dogadaj);
+        if (adresaMjestaDogadaja.getText() != null)
+            if (!adresaMjestaDogadaja.getText().isEmpty())
+                dogadaj.setAdresa(adresaMjestaDogadaja.getText());
+            else 
+                poruka = poruka.concat("adresa; ");
+        
+        if (vrijemeDogadaja.getText() != null)
+            if (!vrijemeDogadaja.getText().isEmpty())
+                dogadaj.setVrijeme(LocalDateTime.parse(vrijemeDogadaja.getText()));
+            else 
+                poruka = poruka.concat("vrijeme; ");
+        
+        if (brojSlucaja.getText() != null) 
+            if (!brojSlucaja.getText().isEmpty())
+                dogadaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
+            else 
+                poruka = poruka.concat("broj slučaja; ");
+        
+        if (poruka.equals("Unesite: "))
+            delegate.dodajDogadaj(dogadaj);
+        else info.setText(poruka);
     }
 
     @Override

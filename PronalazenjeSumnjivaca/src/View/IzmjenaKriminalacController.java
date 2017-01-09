@@ -368,7 +368,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     
     @FXML private void spremiIzmjene(ActionEvent event) {
         
-        String poruka = "Neispravno: ";
+        String poruka = "Unesite: ";
         
         if (ime.getText() != null)
             if (!ime.getText().isEmpty())
@@ -529,7 +529,9 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
         
         izmijenjeniKriminalac.setKarakterneOsobine(karakterneOsobine);
         
-        delegate.spremiIzmjeneKriminalca(izmijenjeniKriminalac, dodaniAtributi, obrisaniAtributi);
+        if (poruka.equals("Unesite: "))       
+            delegate.spremiIzmjeneKriminalca(izmijenjeniKriminalac, dodaniAtributi, obrisaniAtributi);
+        else info.setText(poruka);
     }
     /**
      * Initializes the controller class.

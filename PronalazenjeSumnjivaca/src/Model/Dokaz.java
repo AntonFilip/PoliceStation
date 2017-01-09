@@ -152,18 +152,19 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 		this.fotografija = fotografija;
 	}
 	
-	public String izmjenaKrvnaGrupa(String value){
+	public static String izmjenaKrvnaGrupa(String value){
 		return value+"*KrvnaGrupa.nazivKrvnaGrupa*ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID";
 	}
-	public String izmjenaOružje(String value){
+	public static String izmjenaOružje(String value){
 		return value+"*TipOružja.nazivOružja*ListaOružja.tipOružjaID";
 	}
-	public String izmjenaDnaSekvenca(String value){
+	public static String izmjenaDnaSekvenca(String value){
 		return value+"*DNASekvenca.nazivDNASekvenca*ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID";
 	}
-	public String izmjenaOtisakPrsta(String value){
+	public static String izmjenaOtisakPrsta(String value){
 		return value+"*OtisakPrsta.fotografijaURL*ListaOtisakaPrstijuNaDokaznomMaterijalu.otisakPrstaID";
 	}
+        
 	
 	@Override
 	public String toString() {

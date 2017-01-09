@@ -77,9 +77,10 @@ public class DodajKriminalacController implements Initializable, ControlledScree
      * Izvlacimo upisane podatke iz View-a i saljemo ih u Controller 
      */
     @FXML private void dodaj(ActionEvent event) {
+        
         Osumnjiceni osumnjiceni = new Osumnjiceni();
         
-        String poruka = "Neispravno: ";
+        String poruka = "Unesite: ";
 
         if (ime.getText() != null) {
             if (!ime.getText().isEmpty()) {
@@ -312,8 +313,9 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             if (!otisakPrsta.getText().equals("")) 
                 osumnjiceni.setOtisakPrstaURL(otisakPrsta.getText());
 
-        if (poruka.equals("Neispravno: ")) 
+        if (poruka.equals("Unesite: ")) 
             delegate.dodajKriminalca(osumnjiceni);
+        else info.setText(poruka);
     }
     
     @FXML private void dodajURL(ActionEvent event) {

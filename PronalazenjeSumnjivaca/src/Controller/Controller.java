@@ -83,14 +83,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void prijava(String username, String password, PrijavaController prijavaController) throws IOException {
-		try {
-			policajac = PristupBaziPodataka.prijava(username, password);
-                    
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			return;
-		}
+            policajac = PristupBaziPodataka.prijava(username, password);
 
 		if (policajac == null) {
 			System.out.println("Korisni�ko ime i/ili lozinka nisu ipravni!");
@@ -286,12 +279,7 @@ public class Controller extends Application implements ViewDelegate {
 
 		PrikazSlucajaController controller = (PrikazSlucajaController) loader.getMyLoader().getController();
 		controller.init(this);
-		try {
-			slucaj = PristupBaziPodataka.dohvatiPodatkeSlucaj(slucaj.getBrojSlucaja().toString());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+                slucaj = PristupBaziPodataka.dohvatiPodatkeSlucaj(slucaj.getBrojSlucaja().toString());
 		controller.prikaziPodatke(slucaj);
 		pane.getChildren().setAll(loadScreen);
 	}
@@ -303,12 +291,7 @@ public class Controller extends Application implements ViewDelegate {
 
 		PrikazDokazaController controller = (PrikazDokazaController) loader.getMyLoader().getController();
 		controller.init(this);
-		try {
-			dokaz = PristupBaziPodataka.dohvatiPodatkeDokaz(dokaz.getID().toString());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+                dokaz = PristupBaziPodataka.dohvatiPodatkeDokaz(dokaz.getID().toString());
 		controller.prikaziPodatke(dokaz);
 		pane.getChildren().setAll(loadScreen);
 	}

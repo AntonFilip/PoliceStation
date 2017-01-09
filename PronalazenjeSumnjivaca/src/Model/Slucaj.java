@@ -196,6 +196,10 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	public static String izmjenaPolicajca(String value){
 		return value+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca";
 	}
+        public static String izmjenaDokaza(String value) {
+            return value+"*DokazniMaterijal.nazivDokaznogMaterijala*DokazniMaterijal.fotografijaDokaznogMaterijalaURL";
+        }
+        
 	@Override
 	public int hashCode() {
 		final int prime = 31;

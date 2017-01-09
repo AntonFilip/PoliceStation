@@ -58,6 +58,8 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     
     @FXML Button dodaj;
     @FXML Label info;
+    
+    Stage dialog;
    
     ObservableList<String> observableOsumnjiceni = FXCollections.observableArrayList();
     ObservableList<String> observableSvjedoci = FXCollections.observableArrayList();
@@ -103,7 +105,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     }
     
     @FXML private void postaviDialogDogadaj(ActionEvent event) throws IOException {
-        final Stage dialog = new Stage();
+        dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(dodaj.getScene().getWindow());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajDogadaj.fxml"));
@@ -117,7 +119,8 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     
     @Override
     public void dodajDogadaj(Dogadaj dogadaj) {
-        observableDogadaji.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
+        dialog.close();
+        observableDogadaji.add(dogadaj.getNaziv()+","+dogadaj.getVrijeme().toString()+","+dogadaj.getAdresa()+","+dogadaj.getPbrMjesto());
     }
     
     @FXML private void obrisiDogadaj(ActionEvent event) {
@@ -136,20 +139,20 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     @FXML private void dodaj(ActionEvent event) {
         Slucaj slucaj = new Slucaj();
         
-        String poruka = "Neispravno: ";
+        String poruka = "Unesite: ";
         
         if (brojSlucaja.getText() != null) {
             if (!brojSlucaja.getText().isEmpty()) {
                 slucaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
             } else {
-                poruka.concat("broj slučaja; ");   
+                poruka = poruka.concat("broj slučaja; ");   
             }
         }
         if (nazivSlucaja.getText() != null) {
             if (!nazivSlucaja.getText().isEmpty()) {
                 slucaj.setNazivSlucaja(nazivSlucaja.getText());
             } else {
-                poruka.concat("naziv slučaja; ");
+                poruka = poruka.concat("naziv slučaja; ");
             }
         }
         if (opisSlucaja.getText() != null) {
@@ -159,7 +162,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
         }
         
         if (glavniOsumnjiceni.getText() != null) {
-            if (glavniOsumnjiceni.getText().isEmpty()) {
+            if (!glavniOsumnjiceni.getText().isEmpty()) {
                 Osumnjiceni osumnjiceni = new Osumnjiceni();
                 osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
                 slucaj.setGlavniOsumnjiceni(osumnjiceni);
@@ -223,8 +226,9 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
             slucaj.setPopisDogadaja(dogadaji);
         }
         
-        if (poruka.equals("Neispravno: "))
+        if (poruka.equals("Unesite: "))
             delegate.dodajSlucaj(slucaj);
+        else info.setText(poruka);
     }
     
     /**
