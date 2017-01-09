@@ -195,7 +195,7 @@ public class Controller extends Application implements ViewDelegate {
 	public void posaljiUpitDokaz(Dokaz dokaz) {
 		try {
 			mapaDokaz = policajac.posaljiUpit(dokaz);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		postaviScenuPopis("Dokaz", mapaDokaz);
@@ -361,7 +361,7 @@ public class Controller extends Application implements ViewDelegate {
 		pane.getChildren().setAll(loadScreen);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public void postaviScenuListaIzmjene(String predmet) {
 		Loader loader = new Loader("ListaIzmjena");
 		Parent loadScreen = loader.getLoadScreen();
@@ -410,7 +410,7 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuIzmjeneKriminalca(Osumnjiceni osumnjiceni) {
 		Loader loader = new Loader("IzmjenaKriminalac");
 		Parent loadScreen = loader.getLoadScreen();
-
+		osumnjiceni = policajac.dohvatiPodatkeOsumnjiceni(osumnjiceni.getOib().toString());
 		IzmjenaKriminalacController controller = (IzmjenaKriminalacController) loader.getMyLoader().getController();
 		controller.init(this);
 		controller.prikaziTrenutnePodatke(osumnjiceni);
@@ -421,7 +421,7 @@ public class Controller extends Application implements ViewDelegate {
 	public void postaviScenuIzmjeneSlucaja(Slucaj slucaj) {
 		Loader loader = new Loader("IzmjenaSlucaj");
 		Parent loadScreen = loader.getLoadScreen();
-
+		slucaj = policajac.dohvatiPodatkeSlucaj(slucaj.getBrojSlucaja().toString());
 		IzmjenaSlucajController controller = (IzmjenaSlucajController) loader.getMyLoader().getController();
 		controller.init(this);
 		controller.postaviTrenutnePodatke(slucaj);

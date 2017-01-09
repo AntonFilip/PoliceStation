@@ -45,7 +45,7 @@ public class PrikaziStatistikuController implements Initializable, ControlledScr
 			LinkedHashMap<String, Float> sorted = (LinkedHashMap<String, Float>) ListaStavkiController.sortByValue(statistika.getUdioTipovaOružja());
 
 		for (Map.Entry<String, Float> entry : sorted.entrySet()) {
-			String output = String.format("%-50s%-10s", entry.getKey(), entry.getValue().toString());
+			String output = String.format("%-50s%-10s", entry.getKey(), entry.getValue().toString()+"%");
 			data.add(output);
 		}
 		list.setItems(data);

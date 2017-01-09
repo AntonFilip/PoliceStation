@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Controller.ViewDelegate;
-import Model.PristupBaziPodataka;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -87,10 +86,6 @@ public class GlavniIzbornikController implements Initializable{
     	
     	dnevnik.setDisable(true);
     	dnevnik.setVisible(false);
-    }
-    
-    @FXML private void klikPostaviUpit(){
-    	delegate.postaviScenuUpit();
     }
     
     @FXML private void postaviScenuStatistike(){

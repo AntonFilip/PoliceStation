@@ -48,7 +48,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 
 		for (Map.Entry<Osumnjiceni, Float> entry : sorted.entrySet()) {
 			String output = String.format("%-15s%-30s%-30s%-10s", entry.getKey().getOib().toString(),
-					entry.getKey().getIme(), entry.getKey().getPrezime(), entry.getValue().toString());
+					entry.getKey().getIme(), entry.getKey().getPrezime(), entry.getValue().toString()+"%");
 			//data.add(entry.getKey().getOib() + " - " + entry.getKey().getIme() + " " + entry.getKey().getPrezime() + " "
 			//		+ entry.getValue());
 			data.add(output);
@@ -70,7 +70,7 @@ public class ListaStavkiController implements Initializable, ControlledScreen {
 		for (Map.Entry<Slucaj, Float> entry : sorted.entrySet()) {
 			
 			String output = String.format("%-15s%-60s%-10s", entry.getKey().getBrojSlucaja().toString(),
-					entry.getKey().getNazivSlucaja(), entry.getValue().toString());
+					entry.getKey().getNazivSlucaja(), entry.getValue().toString()+"%");
 			data.add(output);
 			//data.add(entry.getKey().getBrojSlucaja() + " - " + entry.getKey().getNazivSlucaja() + " "
 				//	+ entry.getValue());

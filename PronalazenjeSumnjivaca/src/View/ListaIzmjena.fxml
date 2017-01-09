@@ -19,7 +19,7 @@
       </HBox>
       <AnchorPane prefHeight="95.0" prefWidth="698.0">
          <children>
-            <Label layoutX="586.0" layoutY="7.0" text="Podudarnost">
+            <Label layoutX="586.0" layoutY="7.0">
                <font>
                   <Font name="Lucida Sans Typewriter Bold" size="13.0" />
                </font>
@@ -29,17 +29,17 @@
                   <Font name="Lucida Sans Typewriter Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="druga" layoutX="134.0" layoutY="6.0" text="Ime">
+            <Label fx:id="druga" layoutX="170.0" layoutY="6.0" prefHeight="16.0" prefWidth="134.0" text="Ime">
                <font>
                   <Font name="Lucida Sans Typewriter Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="cetvrta" layoutX="364.0" layoutY="7.0" text="Prezime">
+            <Label fx:id="cetvrta" layoutX="399.0" layoutY="7.0" text="Prezime">
                <font>
                   <Font name="Lucida Sans Typewriter Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="treca" layoutX="134.0" layoutY="7.0" prefHeight="16.0" prefWidth="162.0">
+            <Label fx:id="treca" layoutX="170.0" layoutY="6.0" prefHeight="16.0" prefWidth="162.0">
                <font>
                   <Font name="Lucida Sans Typewriter Bold" size="13.0" />
                </font>

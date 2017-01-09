@@ -49,7 +49,7 @@ public class ListaIzmjenaController implements Initializable, ControlledScreen {
 			List<Osumnjiceni> list2 = lista.stream().sorted((Osumnjiceni o1, Osumnjiceni o2) -> o1.getPrezime().compareTo(o2.getPrezime())).collect(Collectors.toList());
 			
 		for (Osumnjiceni entry : list2) {
-			String output = String.format("%-18s%-31s%-30s", entry.getOib().toString(),
+			String output = String.format("%-20s%-30s%-30s", entry.getOib().toString(),
 					entry.getIme(), entry.getPrezime());
 			//data.add(entry.getKey().getOib() + " - " + entry.getKey().getIme() + " " + entry.getKey().getPrezime() + " "
 			//		+ entry.getValue());
@@ -71,7 +71,7 @@ public class ListaIzmjenaController implements Initializable, ControlledScreen {
 		List<Slucaj> list2 = lista.stream().sorted((Slucaj o1, Slucaj o2) -> o1.getBrojSlucaja().compareTo(o2.getBrojSlucaja())).collect(Collectors.toList());
 		for (Slucaj entry : list2) {
 			
-			String output = String.format("%-18s%-61s", entry.getBrojSlucaja().toString(),
+			String output = String.format("%-20s%-60s", entry.getBrojSlucaja().toString(),
 					entry.getNazivSlucaja());
 			data.add(output);
 			//data.add(entry.getKey().getBrojSlucaja() + " - " + entry.getKey().getNazivSlucaja() + " "
