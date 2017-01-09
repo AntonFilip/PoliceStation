@@ -23,10 +23,10 @@
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="naziv" layoutX="14.0" layoutY="57.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv slučaja" />
-            <TextArea fx:id="opis" layoutX="14.0" layoutY="90.0" prefHeight="90.0" prefWidth="190.0" promptText="Opis slučaja" />
-            <TextField fx:id="glavniOsumnjiceni" layoutX="14.0" layoutY="189.0" prefHeight="25.0" prefWidth="190.0" promptText="Glavni osumnjičeni" />
-            <ComboBox fx:id="statusSlucaja" layoutX="14.0" layoutY="222.0" prefHeight="25.0" prefWidth="190.0" promptText="Status slučaja">
+            <TextField fx:id="naziv" layoutX="14.0" layoutY="74.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv slučaja" />
+            <TextArea fx:id="opis" layoutX="14.0" layoutY="127.0" prefHeight="90.0" prefWidth="190.0" promptText="Opis slučaja" />
+            <TextField fx:id="glavniOsumnjiceni" layoutX="14.0" layoutY="240.0" prefHeight="25.0" prefWidth="190.0" promptText="Glavni osumnjičeni" />
+            <ComboBox fx:id="statusSlucaja" layoutX="14.0" layoutY="295.0" prefHeight="25.0" prefWidth="190.0" promptText="Status slučaja">
               <items>
                   <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Riješen" />
@@ -50,11 +50,11 @@
             <TextField fx:id="upisaniDokaz" layoutX="220.0" layoutY="433.0" prefHeight="25.0" prefWidth="140.0" promptText="naziv,URL fotografije" />
             <Button fx:id="dodajDokaz" layoutX="360.0" layoutY="433.0" mnemonicParsing="false" onAction="#dodajDokaz" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiDokaz" layoutX="385.0" layoutY="433.0" mnemonicParsing="false" onAction="#obrisiDokaz" prefHeight="25.0" prefWidth="25.0" text="x" />
-            <Label layoutX="14.0" layoutY="259.0" text="Fotografije slučaja:" />
-            <ListView fx:id="fotografijeSlucaja" layoutX="14.0" layoutY="278.0" prefHeight="85.0" prefWidth="190.0" />
-            <TextField fx:id="upisaniURL" layoutX="14.0" layoutY="363.0" prefHeight="25.0" prefWidth="140.0" />
-            <Button fx:id="dodajURL" layoutX="154.0" layoutY="363.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="25.0" prefWidth="25.0" text="+" />
-            <Button fx:id="obrisiURL" layoutX="179.0" layoutY="363.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="14.0" layoutY="331.0" text="Fotografije slučaja:" />
+            <ListView fx:id="fotografijeSlucaja" layoutX="14.0" layoutY="348.0" prefHeight="85.0" prefWidth="190.0" />
+            <TextField fx:id="upisaniURL" layoutX="14.0" layoutY="433.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajURL" layoutX="154.0" layoutY="433.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiURL" layoutX="179.0" layoutY="433.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label layoutX="426.0" layoutY="57.0" text="Popis policajaca na slučaju:" />
             <ListView fx:id="popisPolicajaca" layoutX="426.0" layoutY="74.0" prefHeight="85.0" prefWidth="190.0" />
             <TextField fx:id="upisaniPolicajac" layoutX="426.0" layoutY="159.0" prefHeight="25.0" prefWidth="140.0" />
@@ -65,6 +65,10 @@
             <Button fx:id="dodajDogadaj" layoutX="616.0" layoutY="210.0" mnemonicParsing="false" onAction="#postaviDialogDogadaj" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiDogadaj" layoutX="616.0" layoutY="235.0" mnemonicParsing="false" onAction="#obrisiDogadaj" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label fx:id="info" layoutX="315.0" layoutY="19.0" prefHeight="17.0" prefWidth="280.0" />
+            <Label layoutX="17.0" layoutY="278.0" text="Status:" />
+            <Label layoutX="14.0" layoutY="223.0" text="Glavni osumnjičeni:" />
+            <Label layoutX="17.0" layoutY="108.0" text="Opis:" />
+            <Label layoutX="14.0" layoutY="57.0" text="Naziv:" />
          </children>
       </AnchorPane>
    </content>

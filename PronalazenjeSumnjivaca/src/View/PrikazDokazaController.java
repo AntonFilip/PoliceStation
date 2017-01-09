@@ -2,6 +2,9 @@ package View;
 
 import Controller.ViewDelegate;
 import Model.Dokaz;
+import Model.GenerirajPDF;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -29,6 +32,8 @@ public class PrikazDokazaController implements Initializable, ControlledScreen {
     @FXML Label tipOruzja;
     @FXML Button ispis;
     
+    Dokaz dokaz;
+    
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
@@ -36,13 +41,25 @@ public class PrikazDokazaController implements Initializable, ControlledScreen {
     
     public void prikaziPodatke(Dokaz dokaz) {
         
-        id.setText(Integer.toString(dokaz.getID()));
-        naziv.setText(dokaz.getNaziv());
-        nazivSlucaja.setText(dokaz.getNazivSlucaja());
-        krvnaGrupa.setText(dokaz.getKrvnaGrupa().toString());
-        dnaSekvenca.setText(dokaz.getDNASekvenca().toString());
-        tipOruzja.setText(dokaz.getTipOruzja().toString());
+        this.dokaz = dokaz;
         
+        if (dokaz.getID() != null)
+            id.setText(Integer.toString(dokaz.getID()));
+        if (dokaz.getNaziv() != null)
+            naziv.setText(dokaz.getNaziv());
+        if (dokaz.getNazivSlucaja() != null)
+            nazivSlucaja.setText(dokaz.getNazivSlucaja());
+        if (dokaz.getKrvnaGrupa() != null)
+            krvnaGrupa.setText(dokaz.getKrvnaGrupa().toString());
+        if (dokaz.getDNASekvenca() != null)
+            dnaSekvenca.setText(dokaz.getDNASekvenca().toString());
+        if (dokaz.getTipOruzja() != null)
+            tipOruzja.setText(dokaz.getTipOruzja().toString());
+        
+    }
+    
+    @FXML private void generirajPDF() throws DocumentException, IOException {
+        GenerirajPDF.generiraj(dokaz);
     }
     
     /**

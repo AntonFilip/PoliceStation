@@ -32,9 +32,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML Button dodajURL;
     @FXML TextField upisaniURL;
 
-    @FXML TextField ime;
-    @FXML TextField prezime;
-    @FXML TextField oib;
     @FXML TextField adresa;
     @FXML TextField mjesto;
     @FXML TextField pbrMjesto;
@@ -63,14 +60,11 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML TextField upisaniKriminalac;
 
     @FXML ComboBox spol;
-    @FXML TextField rasa;
     @FXML TextField visina;
     @FXML TextField tezina;
     @FXML TextField godine;
     @FXML TextField bojaKose;
     @FXML TextField oblikFrizure;
-    @FXML TextField oblikGlave;
-    @FXML TextField bojaOciju;
     @FXML ComboBox gradaTijela;
     
     @FXML ListView tetovaze;
@@ -92,9 +86,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML Button obrisiFizickuOsobinu;
     @FXML Button dodajFizickuOsobinu;
     @FXML TextField upisanaFizickaOsobina;
-
-    @FXML TextField nacinGovora;
-    @FXML ComboBox razinaApstraktneInteligencije;
     
     @FXML ListView psiholoskiProblemi;
     @FXML Button obrisiPsiholoski;
@@ -105,8 +96,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML Button obrisiKarakternuOsobinu;
     @FXML Button dodajKarakternuOsobinu;
     @FXML TextField upisanaKarakternaOsobina;
-    
-    @FXML TextField otisakPrsta;
     
     ObservableList<String> observableListaURL = FXCollections.observableArrayList();
     ObservableList<String> observablePopisAliasa = FXCollections.observableArrayList();
@@ -133,12 +122,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     
     public void prikaziTrenutnePodatke(Osumnjiceni osumnjiceni) {
         stariOsumnjiceni = osumnjiceni;
-        if (osumnjiceni.getIme() != null)
-            ime.setText(osumnjiceni.getIme());
-        if (osumnjiceni.getPrezime() != null)
-            prezime.setText(osumnjiceni.getPrezime());
-        if (osumnjiceni.getOib() != null)
-            oib.setText(Long.toString(osumnjiceni.getOib()));
+        
         if (osumnjiceni.getAdresaPrebivalista().getAdresa() != null)
             adresa.setText(osumnjiceni.getAdresaPrebivalista().getAdresa());
         if (osumnjiceni.getAdresaPrebivalista().getNazivMjesta() != null)
@@ -153,8 +137,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             opisKriminalnihDjelatnosti.setText(osumnjiceni.getOpisKriminalnihDjelatnosti());
         if (osumnjiceni.getFizickeOsobine().getSpol() != null)
             spol.setValue(osumnjiceni.getFizickeOsobine().getSpol().toString());
-        if (osumnjiceni.getFizickeOsobine().getRasa() != null)
-            rasa.setText(osumnjiceni.getFizickeOsobine().getRasa());
         if (osumnjiceni.getFizickeOsobine().getVisina() != null)
             visina.setText(osumnjiceni.getFizickeOsobine().getVisina().toString());
         if (osumnjiceni.getFizickeOsobine().getTezina() != null)
@@ -163,20 +145,10 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             godine.setText(osumnjiceni.getFizickeOsobine().getGodine().toString());
         if (osumnjiceni.getFizickeOsobine().getBojaKose() != null)
             bojaKose.setText(osumnjiceni.getFizickeOsobine().getBojaKose());
-        if (osumnjiceni.getFizickeOsobine().getBojaOciju() != null)
-            bojaOciju.setText(osumnjiceni.getFizickeOsobine().getBojaOciju());
-        if (osumnjiceni.getFizickeOsobine().getOblikGlave() != null)
-            oblikGlave.setText(osumnjiceni.getFizickeOsobine().getOblikGlave());
         if (osumnjiceni.getFizickeOsobine().getOblikFrizure() != null)
             oblikFrizure.setText(osumnjiceni.getFizickeOsobine().getOblikFrizure());
         if (osumnjiceni.getFizickeOsobine().getGradaTijela() != null)
             gradaTijela.setValue(osumnjiceni.getFizickeOsobine().getGradaTijela().toString());
-        if (osumnjiceni.getKarakterneOsobine().getNacinGovora() != null)
-            nacinGovora.setText(osumnjiceni.getKarakterneOsobine().getNacinGovora());
-        if (osumnjiceni.getKarakterneOsobine().getRazinaApstraktneInteligencije() != null)
-            razinaApstraktneInteligencije.setValue(osumnjiceni.getKarakterneOsobine().getRazinaApstraktneInteligencije());
-        if (osumnjiceni.getOtisakPrstaURL() != null)
-            otisakPrsta.setText(osumnjiceni.getOtisakPrstaURL());
         
         if (!osumnjiceni.getPoznateAdrese().isEmpty()) {
             List<AdresaIMjestoStanovanja> listaAdresa = new ArrayList<>();
@@ -370,28 +342,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML private void spremiIzmjene(ActionEvent event) {
         
         String poruka = "Unesite: ";
-        
-        if (ime.getText() != null)
-            if (!ime.getText().isEmpty())
-                izmijenjeniKriminalac.setIme(ime.getText());
-            else
-                poruka = poruka.concat("ime; ");
-        
-        if (prezime.getText() != null) 
-            if (!prezime.getText().isEmpty())
-                izmijenjeniKriminalac.setPrezime(prezime.getText());
-            else
-                poruka = poruka.concat("prezime; ");
-        
-        if (oib.getText() != null)
-            if (!oib.getText().isEmpty())
-                izmijenjeniKriminalac.setOib(Long.parseLong(oib.getText()));
-            else
-                poruka = poruka.concat("OIB; ");
-        
-        if (otisakPrsta.getText() != null)
-            if (!otisakPrsta.getText().isEmpty())
-                izmijenjeniKriminalac.setOtisakPrstaURL(otisakPrsta.getText());
             
         if (adresa.getText() != null)
             if (!adresa.getText().isEmpty())
@@ -424,50 +374,17 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
         } else {
             poruka = poruka.concat("status; ");
         }
-               
-//        Set<String> izmjene = new HashSet<>();
-//        izmjene.addAll(observableListaURL);
-//        noviKriminalac.setFotografijeURL(izmjene);
-//        
-//        izmjene.clear();
-//        izmjene.addAll(observablePopisAliasa);
-//        noviKriminalac.setPopisAliasa(izmjene);
-//        
-//        Set<AdresaIMjestoStanovanja> izmjeneAdrese = new HashSet<>();
-//        for (String adresa : observableAdrese) {
-//            String[] adresaIMjesto = adresa.split(",");
-//            AdresaIMjestoStanovanja adr = new AdresaIMjestoStanovanja();
-//            adr.setAdresa(adresaIMjesto[0].trim());
-//            adr.setNazivMjesta(adresaIMjesto[1].trim());
-//            izmjeneAdrese.add(adr);
-//        }
-//        //kriminalac.setPoznateAdrese(izmjeneAdrese);
-//        
-//        Set<Slucaj> izmjeneSlucajeva = new HashSet<>();
-//        for (String slucaj : observableSlucajevi) {
-//            String[] zapis = slucaj.split("-");
-//            Slucaj sl = new Slucaj();
-//            sl.setBrojSlucaja(Integer.parseInt(zapis[0].trim()));
-//            sl.setNazivSlucaja(zapis[1].trim());
-//            izmjeneSlucajeva.add(sl);
-//        }
-//        //kriminalac.setPovezaniSlucajevi(izmjeneSlucajeva);
-//        
-//        Set<Osumnjiceni> izmjeneKrimi = new HashSet<>();
-//        for (String krimi : observableKriminalci) {
-//            String[] zapis = krimi.split(" ");
-//            Osumnjiceni krim = new Osumnjiceni();
-//            krim.setIme(zapis[0]);
-//            krim.setPrezime(zapis[1]);
-//            krim.setOib(Long.parseLong(zapis[2]));
-//            izmjeneKrimi.add(krim);
-//        }
-//        //kriminalac.setPopisPovezanihKriminalaca(izmjeneKrimi);
         
         FizickeOsobine fizickeOsobine = new FizickeOsobine();
-        fizickeOsobine.setBojaKose(bojaKose.getText());
-        fizickeOsobine.setBojaOciju(bojaOciju.getText());
-        fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
+        
+        if (bojaKose.getText() != null)
+            if (!bojaKose.getText().isEmpty())
+                fizickeOsobine.setBojaKose(bojaKose.getText());
+        
+        if (godine.getText() != null)
+            if (!godine.getText().isEmpty())
+                fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
+        
         if (gradaTijela.getValue() != null) {
             if (gradaTijela.getValue().equals("Slabija")) {
                 fizickeOsobine.setGradaTijela(GradaTijela.slabija);
@@ -477,9 +394,11 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
                 fizickeOsobine.setGradaTijela(GradaTijela.jaca);
             }
         }
-        fizickeOsobine.setOblikFrizure(oblikFrizure.getText());
-        fizickeOsobine.setOblikGlave(oblikGlave.getText());
-        fizickeOsobine.setRasa(rasa.getText());
+        
+        if (oblikFrizure.getText() != null)
+            if (!oblikFrizure.getText().isEmpty())
+                fizickeOsobine.setOblikFrizure(oblikFrizure.getText());
+        
         if (spol.getValue() != null) {
             if (spol.getValue().equals("M")) {
                 fizickeOsobine.setSpol(Spol.M);
@@ -487,48 +406,16 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
                 fizickeOsobine.setSpol(Spol.Ž);
             }
         }
-        fizickeOsobine.setTezina(Float.parseFloat(tezina.getText()));
-        fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
         
-//        izmjene.clear();
-//        izmjene.addAll(observableBolesti);
-//        fizickeOsobine.setBolesti(izmjene);
-//        
-//        izmjene.clear();
-//        izmjene.addAll(observableFizickiNedostatci);
-//        fizickeOsobine.setFizickiNedostatci(izmjene);
-//        
-//        izmjene.clear();
-//        izmjene.addAll(observableOstaleFizicke);
-//        fizickeOsobine.setOstaleFizickeOsobine(izmjene);
-//        
-//        izmjene.clear();
-//        izmjene.addAll(observableTetovaze);
-//        fizickeOsobine.setTetovaze(izmjene);
+        if (tezina.getText() != null)
+            if (!tezina.getText().isEmpty())
+                fizickeOsobine.setTezina(Float.parseFloat(tezina.getText()));
+        
+        if (visina.getText() != null)
+            if (!visina.getText().isEmpty())
+                fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
         
         izmijenjeniKriminalac.setFizickeOsobine(fizickeOsobine);
-        
-        KarakterneOsobine karakterneOsobine = new KarakterneOsobine();
-        karakterneOsobine.setNacinGovora(nacinGovora.getText());
-        if (razinaApstraktneInteligencije.getValue() != null) {
-            if (razinaApstraktneInteligencije.getValue().equals("Niska")) {
-                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.niska);
-            } else if (razinaApstraktneInteligencije.getValue().equals("Srednja")) {
-                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.srednja);
-            } else if (razinaApstraktneInteligencije.getValue().equals("Visoka")) {
-                karakterneOsobine.setRazinaApstraktneInteligencije(RazinaApstraktneInteligencije.visoka);
-            }  
-        }
-        
-//        izmjene.clear();
-//        izmjene.addAll(observablePsiholoski);
-//        karakterneOsobine.setPsiholoskiProblemi(izmjene);
-//        
-//        izmjene.clear();
-//        izmjene.addAll(observableOstaleKarakterne);
-//        karakterneOsobine.setOstaleKarakterneOsobine(izmjene);
-        
-        izmijenjeniKriminalac.setKarakterneOsobine(karakterneOsobine);
         
         if (poruka.equals("Unesite: "))       
             delegate.spremiIzmjeneKriminalca(stariOsumnjiceni, izmijenjeniKriminalac, dodaniAtributi, obrisaniAtributi);
