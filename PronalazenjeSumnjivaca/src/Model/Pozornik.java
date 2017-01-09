@@ -1,9 +1,6 @@
 package Model;
 
-import java.sql.SQLException;
 import java.util.Map;
-import java.util.Set;
-
 import Controller.RazinaPristupa;
 
 public class Pozornik extends Osoba {
@@ -36,31 +33,21 @@ public class Pozornik extends Osoba {
 		return this.razinaPristupa;
 	}
 
-	static public Pozornik prijava(String korisnickoIme, String lozinka) throws SQLException {
+	static public Pozornik prijava(String korisnickoIme, String lozinka) {
 		return PristupBaziPodataka.prijava(korisnickoIme, lozinka);
 	}
 
 	public Dokaz dohvatiPodatkeDokaz(String id) {
-		try {
-			return PristupBaziPodataka.dohvatiPodatkeDokaz(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return PristupBaziPodataka.dohvatiPodatkeDokaz(id);
 	}
 	public Slucaj dohvatiPodatkeSlucaj(String id) {
-		try {
-			return PristupBaziPodataka.dohvatiPodatkeSlucaj(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return PristupBaziPodataka.dohvatiPodatkeSlucaj(id);
 	}
 	public Osumnjiceni dohvatiPodatkeOsumnjiceni(String oib) {
 		return PristupBaziPodataka.dohvatiPodatkeOsumnjiceni(oib);
 		
 	}
-	public Map<Dokaz, Float> posaljiUpit(Dokaz dokaz) throws SQLException{		
+	public Map<Dokaz, Float> posaljiUpit(Dokaz dokaz){		
 		Context<Dokaz> dokazi=new Context<>(new Dokaz());
 		return dokazi.posaljiUpit(dokaz,jedinstveniBroj);	
 	}
@@ -75,9 +62,11 @@ public class Pozornik extends Osoba {
 		return os.posaljiUpit(osumnjiceni,jedinstveniBroj);
 	}
 
+	
 	@Override
 	public String toString() {
             return "Pozornik "+ime+" "+prezime+" ("+super.getOib()+")";
 	}
+
 
 }
