@@ -109,6 +109,7 @@ public class Controller extends Application implements ViewDelegate {
 			break;
 		case "SREDNJA":
 			controller.initNarednik();
+			policajac = (Narednik) policajac;
 			break;
 		case "VISOKA":
 			break;
@@ -202,31 +203,15 @@ public class Controller extends Application implements ViewDelegate {
 	}
 
 	@Override
-	public void spremiIzmjeneKriminalca(Osumnjiceni kriminalac, Set<String> dodaniAtributi, Set<String> obrisaniAtributi) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+	public void spremiIzmjeneKriminalca(Osumnjiceni stariOsumnjiceni, Osumnjiceni kriminalac, Set<String> dodaniAtributi, Set<String> obrisaniAtributi) {
+		Narednik.izmjeni(stariOsumnjiceni, kriminalac, dodaniAtributi, obrisaniAtributi);
+		prikaziPodatkeKriminalca(kriminalac);
 	}
 
 	@Override
-	public void spremiIzmjeneSlucaja(Slucaj slucaj, Set<String> dodaniAtributi, Set<String> obrisaniAtributi) {
-		throw new UnsupportedOperationException("Not supported yet."); // To
-																		// change
-																		// body
-																		// of
-																		// generated
-																		// methods,
-																		// choose
-																		// Tools
-																		// |
-																		// Templates.
+	public void spremiIzmjeneSlucaja(Slucaj stariSlucaj, Slucaj slucaj, Set<String> dodaniAtributi, Set<String> obrisaniAtributi) {
+		Narednik.izmjeni(stariSlucaj, slucaj, dodaniAtributi, obrisaniAtributi);
+		prikaziPodatkeSlucaja(slucaj);
 	}
 
 	@Override

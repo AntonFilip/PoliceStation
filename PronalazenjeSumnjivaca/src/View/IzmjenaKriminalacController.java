@@ -121,6 +121,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     ObservableList<String> observableKriminalci = FXCollections.observableArrayList();
     
     Osumnjiceni izmijenjeniKriminalac;
+    Osumnjiceni stariOsumnjiceni;
     
     Set<String> dodaniAtributi = new HashSet<>();
     Set<String> obrisaniAtributi = new HashSet<>();
@@ -131,7 +132,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     }
     
     public void prikaziTrenutnePodatke(Osumnjiceni osumnjiceni) {
-        
+        stariOsumnjiceni = osumnjiceni;
         if (osumnjiceni.getIme() != null)
             ime.setText(osumnjiceni.getIme());
         if (osumnjiceni.getPrezime() != null)
@@ -530,7 +531,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
         izmijenjeniKriminalac.setKarakterneOsobine(karakterneOsobine);
         
         if (poruka.equals("Unesite: "))       
-            delegate.spremiIzmjeneKriminalca(izmijenjeniKriminalac, dodaniAtributi, obrisaniAtributi);
+            delegate.spremiIzmjeneKriminalca(stariOsumnjiceni, izmijenjeniKriminalac, dodaniAtributi, obrisaniAtributi);
         else info.setText(poruka);
     }
     /**

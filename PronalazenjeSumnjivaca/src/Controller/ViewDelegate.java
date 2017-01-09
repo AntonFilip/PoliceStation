@@ -21,8 +21,8 @@ public interface ViewDelegate {
         public void prikaziPodatkeSlucaja(Slucaj slucaj);  
         public void prikaziPodatkeDokaza(Dokaz dokaz);
         public void ispisPDF(); // prikaz podataka -> klik na ispis -> generiranje PDF-a      
-        public void spremiIzmjeneKriminalca(Osumnjiceni kriminalac, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene   
-        public void spremiIzmjeneSlucaja(Slucaj slucaj, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene
+        public void spremiIzmjeneKriminalca(Osumnjiceni stariOsumnjiceni, Osumnjiceni kriminalac, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene   
+        public void spremiIzmjeneSlucaja(Slucaj stariSlucaj, Slucaj slucaj, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene
         public void spremiIzmjeneDokaza(Dokaz dokaz, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene
         public void dodajKriminalca(Osumnjiceni kriminalac); // upisani podaci -> klik na spremi
         public void dodajSlucaj(Slucaj slucaj); // upisani podaci -> klik na spremi

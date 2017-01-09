@@ -21,17 +21,17 @@ public class Narednik extends Pozornik {
 		return true;	
 	}
 	
-	public boolean izmjeni(Dokaz trenutni,Dokaz izmjenjeni,Set<String> dodaniAtributi,Set<String> izbrisani){
+	public static boolean izmjeni(Dokaz trenutni,Dokaz izmjenjeni,Set<String> dodaniAtributi,Set<String> izbrisani){
 		Context<Dokaz> context=new Context<>(trenutni);
 		return context.izmjeni(izmjenjeni, dodaniAtributi, izbrisani);
 	}
 	
-	public boolean izmjeni(Slucaj trenutni,Slucaj izmjenjeni,Set<String>dodaniAtributi,Set<String> izbrisani){
+	public static boolean izmjeni(Slucaj trenutni,Slucaj izmjenjeni,Set<String>dodaniAtributi,Set<String> izbrisani){
 		Context<Slucaj> context=new Context<>(trenutni);
 		return context.izmjeni(izmjenjeni, dodaniAtributi, izbrisani);
 	}
 	
-	public boolean izmjeni(Osumnjiceni trenutni,Osumnjiceni izmjenjeni,Set<String> dodaniAtributi,Set<String> izbrisani){
+	public static boolean izmjeni(Osumnjiceni trenutni,Osumnjiceni izmjenjeni,Set<String> dodaniAtributi,Set<String> izbrisani){
 		Context<Osumnjiceni> context=new Context<>(trenutni);
 		return context.izmjeni(izmjenjeni, dodaniAtributi, izbrisani);
 	}

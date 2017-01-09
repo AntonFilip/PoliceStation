@@ -78,6 +78,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     ObservableList<String> observableFotografije = FXCollections.observableArrayList();
     
     Slucaj izmijenjeniSlucaj;
+    Slucaj stariSlucaj;
     
     Set<String> dodaniAtributi = new HashSet<>();
     Set<String> obrisaniAtributi = new HashSet<>();
@@ -88,7 +89,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     }
     
     public void postaviTrenutnePodatke(Slucaj slucaj) {
-        
+        stariSlucaj = slucaj;
         if (slucaj.getNazivSlucaja() != null) 
             naziv.setText(slucaj.getNazivSlucaja());
         if (slucaj.getOpis() != null)
@@ -303,7 +304,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 //        }
 //        slucaj.setPopisSvjedoka(svjedoci);
         if (poruka.equals("Unesite: ")) 
-            delegate.spremiIzmjeneSlucaja(izmijenjeniSlucaj, dodaniAtributi, obrisaniAtributi);
+            delegate.spremiIzmjeneSlucaja(stariSlucaj, izmijenjeniSlucaj, dodaniAtributi, obrisaniAtributi);
         else info.setText(poruka);
     }
     
