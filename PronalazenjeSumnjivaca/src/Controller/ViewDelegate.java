@@ -33,7 +33,6 @@ public interface ViewDelegate {
         
         public void postaviScenuPrijava(); // pocetak
         public void prikaziGlavniIzbornik(Pozornik pozornik); // uspjesna prijava -> ime, prezime, razina trenutnog korisnika (atribut u controlleru)
-        public void postaviScenuUpit(); //klik na postavi upit (glavni izbornik)
         public void postaviScenuUpitKriminalac(); // klik na postavi upit o kriminalcu
         public void postaviScenuUpitSlucaj(); // klik na postavi upit o slucaju
         public void postaviScenuUpitDokaz(); // klik na postavi upit o dokazu

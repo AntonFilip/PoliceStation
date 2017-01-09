@@ -4,9 +4,7 @@ import Controller.ViewDelegate;
 import Model.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.collections.FXCollections;
@@ -59,6 +57,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     @FXML Button obrisiURL;
     
     @FXML Button dodaj;
+    @FXML Label info;
    
     ObservableList<String> observableOsumnjiceni = FXCollections.observableArrayList();
     ObservableList<String> observableSvjedoci = FXCollections.observableArrayList();
@@ -137,60 +136,95 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     @FXML private void dodaj(ActionEvent event) {
         Slucaj slucaj = new Slucaj();
         
-        slucaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
-        slucaj.setNazivSlucaja(nazivSlucaja.getText());
-        slucaj.setOpis(opisSlucaja.getText());
+        String poruka = "Neispravno: ";
         
-        Osumnjiceni osumnjiceni = new Osumnjiceni();
-        osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
-        slucaj.setGlavniOsumnjiceni(osumnjiceni);
-        
-        Set<String> fotke = new HashSet<>();
-        fotke.addAll(observableFotografije);
-        slucaj.setFotografijeSlučaja(fotke);
-        
-        Set<Osoba> popisOsumnjiceni = new HashSet<>();
-        for (String krimi : observableOsumnjiceni) {
-            String[] krim = krimi.split(" ");
-            Osoba kriminalac = new Osoba();
-            kriminalac.setOib(Long.parseLong(krim[2].trim()));
+        if (brojSlucaja.getText() != null) {
+            if (!brojSlucaja.getText().isEmpty()) {
+                slucaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
+            } else {
+                poruka.concat("broj slučaja; ");   
+            }
         }
-        slucaj.setPopisOsumnjicenih(popisOsumnjiceni);
-        
-        Set<Osoba> svjedoci = new HashSet<>();
-        for (String svjedok : observableSvjedoci) {
-            String[] svj = svjedok.split(" ");
-            Osoba jadniSvjedok = new Osoba();
-            jadniSvjedok.setOib(Long.parseLong(svj[2].trim()));
+        if (nazivSlucaja.getText() != null) {
+            if (!nazivSlucaja.getText().isEmpty()) {
+                slucaj.setNazivSlucaja(nazivSlucaja.getText());
+            } else {
+                poruka.concat("naziv slučaja; ");
+            }
         }
-        slucaj.setPopisSvjedoka(svjedoci);
-        
-        Set<Pozornik> policajci = new HashSet<>();
-        for (String polis : observablePolicajci) {
-            String[] pol = polis.split(" ");
-            Pozornik polisman = new Pozornik();
-            polisman.setOib(Long.parseLong(pol[2].trim()));
-        }
-        slucaj.setPopisPolicajaca(policajci);
-        
-        if (statusSlucaja.getValue().equals("Riješen")) {
-            slucaj.setStatus(TrenutniStatusSlucaja.riješen);
-        } else if (statusSlucaja.getValue().equals("Otvoren")) {
-            slucaj.setStatus(TrenutniStatusSlucaja.otvoren);
-        } else if (statusSlucaja.getValue().equals("Zatvoren")) {
-            slucaj.setStatus(TrenutniStatusSlucaja.zatvoren);
+        if (opisSlucaja.getText() != null) {
+            if (!opisSlucaja.getText().isEmpty()) {
+                slucaj.setOpis(opisSlucaja.getText());
+            } 
         }
         
-        Set<Dogadaj> dogadaji = new HashSet<>();
-        for (String dogadaj : observableDogadaji) {
-            String[] dog = dogadaj.split(" ");
-            Dogadaj noviDogadaj = new Dogadaj();
-            noviDogadaj.setDogadajID(Integer.parseInt(dog[0].trim()));
-            
+        if (glavniOsumnjiceni.getText() != null) {
+            if (glavniOsumnjiceni.getText().isEmpty()) {
+                Osumnjiceni osumnjiceni = new Osumnjiceni();
+                osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
+                slucaj.setGlavniOsumnjiceni(osumnjiceni);
+            }
         }
-        slucaj.setPopisDogadaja(dogadaji);
         
-        delegate.dodajSlucaj(slucaj);
+        if (!observableFotografije.isEmpty()) {
+            Set<String> fotke = new HashSet<>();
+            fotke.addAll(observableFotografije);
+            slucaj.setFotografijeSlučaja(fotke);
+        }
+        
+        if (!observableOsumnjiceni.isEmpty()) {
+            Set<Osoba> popisOsumnjiceni = new HashSet<>();
+            for (String krimi : observableOsumnjiceni) {
+                String[] krim = krimi.split(" ");
+                Osoba kriminalac = new Osoba();
+                kriminalac.setOib(Long.parseLong(krim[2].trim()));
+            }
+            slucaj.setPopisOsumnjicenih(popisOsumnjiceni);
+        }
+        
+        if (!observableSvjedoci.isEmpty()) {
+            Set<Osoba> svjedoci = new HashSet<>();
+            for (String svjedok : observableSvjedoci) {
+                String[] svj = svjedok.split(" ");
+                Osoba jadniSvjedok = new Osoba();
+                jadniSvjedok.setOib(Long.parseLong(svj[2].trim()));
+            }
+            slucaj.setPopisSvjedoka(svjedoci);
+        }
+        
+        if (!observablePolicajci.isEmpty()) {
+            Set<Pozornik> policajci = new HashSet<>();
+            for (String polis : observablePolicajci) {
+                String[] pol = polis.split(" ");
+                Pozornik polisman = new Pozornik();
+                polisman.setOib(Long.parseLong(pol[2].trim()));
+            }
+            slucaj.setPopisPolicajaca(policajci);
+        }
+        
+        if (statusSlucaja.getValue() != null) {
+            if (statusSlucaja.getValue().equals("Riješen")) {
+                slucaj.setStatus(TrenutniStatusSlucaja.riješen);
+            } else if (statusSlucaja.getValue().equals("Otvoren")) {
+                slucaj.setStatus(TrenutniStatusSlucaja.otvoren);
+            } else if (statusSlucaja.getValue().equals("Zatvoren")) {
+                slucaj.setStatus(TrenutniStatusSlucaja.zatvoren);
+            }
+        }
+        
+        if (!observableDogadaji.isEmpty()) {
+            Set<Dogadaj> dogadaji = new HashSet<>();
+            for (String dogadaj : observableDogadaji) {
+                String[] dog = dogadaj.split(" ");
+                Dogadaj noviDogadaj = new Dogadaj();
+                noviDogadaj.setDogadajID(Integer.parseInt(dog[0].trim()));
+
+            }
+            slucaj.setPopisDogadaja(dogadaji);
+        }
+        
+        if (poruka.equals("Neispravno: "))
+            delegate.dodajSlucaj(slucaj);
     }
     
     /**

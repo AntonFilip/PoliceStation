@@ -25,7 +25,6 @@ import View.IzmjenaSlucajController;
 import View.ListaIzmjenaController;
 import View.ListaStavkiController;
 import View.LogIzDnevnikaController;
-import View.PostaviUpitController;
 import View.PrijavaController;
 import View.PrikazDokazaController;
 import View.PrikazKriminalcaController;
@@ -85,6 +84,7 @@ public class Controller extends Application implements ViewDelegate {
 	public void prijava(String username, String password, PrijavaController prijavaController) throws IOException {
 		try {
 			policajac = PristupBaziPodataka.prijava(username, password);
+                    
 		} catch (SQLException e) {
 			// TODO pogledat kaj radi exception i napravit dobar odgovor
 			e.printStackTrace();
@@ -121,21 +121,7 @@ public class Controller extends Application implements ViewDelegate {
 		Scene scene = new Scene(loadScreen);
 		stage.setScene(scene);
 		stage.show();
-	}
-
-	@Override
-	public void postaviScenuUpit() {
-		Loader loader = new Loader("PostaviUpit");
-		Parent loadScreen = loader.getLoadScreen();
-
-		ControlledScreen controller = (PostaviUpitController) loader.getMyLoader().getController();
-		controller.init(this);
-		Scene scene = new Scene(loadScreen);
-		stage.setScene(scene);
-		stage.show();
-		pane.getChildren().setAll(loadScreen);
-
-	}
+        }
 
 	@Override
 	public void postaviScenuStatistika() {

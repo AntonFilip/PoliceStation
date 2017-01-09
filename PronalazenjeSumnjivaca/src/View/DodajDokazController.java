@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +21,8 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     
     ViewDelegate delegate;
     
+    @FXML Label info;
+    
     @FXML TextField naziv;
     @FXML TextField brojSlucaja;
     @FXML CheckBox A;
@@ -29,18 +33,40 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     @FXML TextArea tipOruzja;
     @FXML Button dodaj;
     
+    @FXML ListView listaOtisaka;
+    @FXML TextField upisaniOtisak;
+    @FXML Button dodajOtisak;
+    @FXML Button obrisiOtisak;
+
+    @FXML TextField fotografijaURL;
+    
+    ObservableList<String> observableOtisci = FXCollections.observableArrayList();
+    
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
+        listaOtisaka.setItems(observableOtisci);
     }
     
     @FXML private void dodaj(ActionEvent event) {
         Dokaz dokaz = new Dokaz();
         
-        if (naziv.getText() != null && !naziv.getText().equals("")) 
-            dokaz.setNaziv(naziv.getText());
-        if (brojSlucaja.getText() != null && !brojSlucaja.getText().equals(""))
-            dokaz.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
+        String poruka = "Neispravno: ";
+        
+        if (naziv.getText() != null) {
+            if (!naziv.getText().equals("")) {
+                dokaz.setNaziv(naziv.getText());
+            } else {
+                poruka.concat("naziv; ");
+            }
+        }
+        if (brojSlucaja.getText() != null) {
+            if(!brojSlucaja.getText().equals("")) {
+                dokaz.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
+            } else {
+                poruka.concat("broj slučaja; ");
+            }
+        }
         
         Set<String> krvneGrupe = new HashSet<>();
         if (A.selectedProperty().get()) {
@@ -69,9 +95,30 @@ public class DodajDokazController implements Initializable, ControlledScreen {
             oruzja.addAll(Arrays.asList(popis));
             dokaz.addAllTipOruzja(oruzja);
         }
-
-        delegate.dodajDokaz(dokaz);
-
+        
+        if (!observableOtisci.isEmpty()) {
+            Set<String> otisci = new HashSet<>();
+            otisci.addAll(observableOtisci);
+            dokaz.setOtisakPrsta(otisci);
+        }
+        if (fotografijaURL.getText() != null) {
+            if (!fotografijaURL.getText().isEmpty()) {
+                dokaz.setFotografija(fotografijaURL.getText());
+            }
+        }
+        
+        if (poruka.equals("Neispravno: ")) 
+            delegate.dodajDokaz(dokaz);      
+       
+    }
+    
+    @FXML private void dodajOtisakPrsta(ActionEvent event) {
+        observableOtisci.add(upisaniOtisak.getText());
+        upisaniOtisak.clear();
+    }
+    
+    @FXML private void obrisiOtisakPrsta(ActionEvent event) {
+        observableOtisci.remove(listaOtisaka.getSelectionModel().getSelectedIndex());
     }
 
     /**

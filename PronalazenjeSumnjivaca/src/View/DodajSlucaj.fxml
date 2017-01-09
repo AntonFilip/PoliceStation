@@ -32,7 +32,7 @@
                   <Font name="Lucida Sans Typewriter Regular" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="poruka" layoutX="198.0" layoutY="19.0" prefHeight="17.0" prefWidth="358.0" textFill="RED" />
+            <Label fx:id="info" layoutX="198.0" layoutY="19.0" prefHeight="17.0" prefWidth="358.0" textFill="RED" />
             <Button fx:id="dodaj" layoutX="583.0" layoutY="15.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="25.0" prefWidth="72.0" text="Dodaj">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
