@@ -181,19 +181,19 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 		return this.popisDogadaja.addAll(dogadaji);
 	}
 	
-	public String izmjenaDogađaja(String value){
+	public static String izmjenaDogađaja(String value){
 		return value+"*ListaDogađaja.nazivDogađaja*ListaDogađaja.nazivDogađaja";
 	}
-	public String izmjenaSvjedoka(String value){
+	public static String izmjenaSvjedoka(String value){
 		return value+"*ListaSvjedoka.osobaOib*ListaSvjedoka.osobaOib";
 	}
-	public String izmjenaOsumnjicenih(String value){
+	public static String izmjenaOsumnjicenih(String value){
 		return value+"*ListaOsumnjicenihOsoba.osobaOib*ListaOsumnjicenihOsoba.osobaOib";
 	}
-	public String izmjenaFotografija(String value){
+	public static String izmjenaFotografija(String value){
 		return value+"*FotografijaPolicijskogSlučaja.fotografijaURL*FotografijaPolicijskogSlučaja.fotografijaURL";
 	}
-	public String izmjenaPolicajca(String value){
+	public static String izmjenaPolicajca(String value){
 		return value+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca";
 	}
 	@Override

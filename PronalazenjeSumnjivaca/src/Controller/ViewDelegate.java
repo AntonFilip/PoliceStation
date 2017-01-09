@@ -8,6 +8,7 @@ import Model.Osumnjiceni;
 import Model.Pozornik;
 import Model.Slucaj;
 import View.PrijavaController;
+import java.util.Set;
 
 public interface ViewDelegate {
 	
@@ -20,9 +21,9 @@ public interface ViewDelegate {
         public void prikaziPodatkeSlucaja(Slucaj slucaj);  
         public void prikaziPodatkeDokaza(Dokaz dokaz);
         public void ispisPDF(); // prikaz podataka -> klik na ispis -> generiranje PDF-a      
-        public void spremiIzmjeneKriminalca(Osumnjiceni kriminalac); // upisani podaci -> klik na spremi izmjene   
-        public void spremiIzmjeneSlucaja(Slucaj slucaj); // upisani podaci -> klik na spremi izmjene
-        public void spremiIzmjeneDokaza(Dokaz dokaz); // upisani podaci -> klik na spremi izmjene
+        public void spremiIzmjeneKriminalca(Osumnjiceni kriminalac, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene   
+        public void spremiIzmjeneSlucaja(Slucaj slucaj, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene
+        public void spremiIzmjeneDokaza(Dokaz dokaz, Set<String> dodaniAtributi, Set<String> obrisaniAtributi); // upisani podaci -> klik na spremi izmjene
         public void dodajKriminalca(Osumnjiceni kriminalac); // upisani podaci -> klik na spremi
         public void dodajSlucaj(Slucaj slucaj); // upisani podaci -> klik na spremi
         public void dodajDokaz(Dokaz dokaz); // upisani podaci -> klik na spremi 

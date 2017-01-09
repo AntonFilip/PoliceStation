@@ -120,8 +120,10 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     ObservableList<String> observableSlucajevi = FXCollections.observableArrayList();
     ObservableList<String> observableKriminalci = FXCollections.observableArrayList();
     
-    Osumnjiceni stariKriminalac;
-    Osumnjiceni noviKriminalac;
+    Osumnjiceni izmijenjeniKriminalac;
+    
+    Set<String> dodaniAtributi = new HashSet<>();
+    Set<String> obrisaniAtributi = new HashSet<>();
     
     @Override
     public void init(ViewDelegate delegate) {
@@ -129,8 +131,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     }
     
     public void prikaziTrenutnePodatke(Osumnjiceni osumnjiceni) {
-        
-        stariKriminalac = osumnjiceni;
         
         if (osumnjiceni.getIme() != null)
             ime.setText(osumnjiceni.getIme());
@@ -247,176 +247,221 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     
     @FXML private void dodajURL(ActionEvent event) {
         observableListaURL.add(upisaniURL.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaFotografijeKriminalca(upisaniURL.getText()));
         upisaniURL.clear();  
     }
     
     @FXML private void obrisiURL(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaFotografijeKriminalca(listaURL.getSelectionModel().getSelectedItem().toString()));
         observableListaURL.remove(listaURL.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajAlias(ActionEvent event) {
         observablePopisAliasa.add(upisaniAlias.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaListaAliasa(upisaniAlias.getText()));
         upisaniAlias.clear();
     }
     
     @FXML private void obrisiAlias(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaListaAliasa(popisAliasa.getSelectionModel().getSelectedItem().toString()));
         observablePopisAliasa.remove(popisAliasa.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajAdresu(ActionEvent event) {
         observableAdrese.add(upisanaAdresa.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaPoznateAdrese(upisanaAdresa.getText()));
         upisanaAdresa.clear();
     }
     
     @FXML private void obrisiAdresu(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaPoznateAdrese(poznateAdrese.getSelectionModel().getSelectedItem().toString()));
         observableAdrese.remove(poznateAdrese.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajSlucaj(ActionEvent event) {
         observableSlucajevi.add(upisaniSlucaj.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaPovezaniSlucajevi(upisaniSlucaj.getText()));
         upisaniSlucaj.clear();
     }
     
     @FXML private void obrisiSlucaj(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaPovezaniSlucajevi(popisPovezanihSlucajeva.getSelectionModel().getSelectedItem().toString()));
         observableSlucajevi.remove(popisPovezanihSlucajeva.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajKriminalca(ActionEvent event) {
         observableKriminalci.add(upisaniKriminalac.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaPovezaniKriminalci(upisaniKriminalac.getText()));
         upisaniKriminalac.clear();
     }
     
     @FXML private void obrisiKriminalca(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaPovezaniKriminalci(popisPovezanihKriminalaca.getSelectionModel().getSelectedItem().toString()));
         observableKriminalci.remove(popisPovezanihKriminalaca.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajTetovazu(ActionEvent event) {
         observableTetovaze.add(upisanaTetovaza.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaTetovaža(upisanaTetovaza.getText()));
         upisanaTetovaza.clear();
     }
     
     @FXML private void obrisiTetovazu(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaTetovaža(tetovaze.getSelectionModel().getSelectedItem().toString()));
         observableTetovaze.remove(tetovaze.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajBolest(ActionEvent event) {
         observableBolesti.add(upisanaBolest.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaBolest(upisanaBolest.getText()));
         upisanaBolest.clear();
     }
     
     @FXML private void obrisiBolest(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaBolest(bolesti.getSelectionModel().getSelectedItem().toString()));
         observableBolesti.remove(bolesti.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajFizickiNedostatak(ActionEvent event) {
         observableFizickiNedostatci.add(upisaniNedostatak.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaFizičkiNedostatak(upisaniNedostatak.getText()));
         upisaniNedostatak.clear();
     }
     
     @FXML private void obrisiFizickiNedostatak(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaFizičkiNedostatak(fizickiNedostatci.getSelectionModel().getSelectedItem().toString()));
         observableFizickiNedostatci.remove(fizickiNedostatci.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajFizickuOsobinu(ActionEvent event) {
         observableOstaleFizicke.add(upisanaFizickaOsobina.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaFizickaOsobina(upisanaFizickaOsobina.getText()));
         upisanaFizickaOsobina.clear();
     }
     
     @FXML private void obrisiFizickuOsobinu(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaFizickaOsobina(ostaleFizickeOsobine.getSelectionModel().getSelectedItem().toString()));
         observableOstaleFizicke.remove(ostaleFizickeOsobine.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajPsiholoskiProblem(ActionEvent event) {
         observablePsiholoski.add(upisaniPsiholoski.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaPsihološkiProblem(upisaniPsiholoski.getText()));
         upisaniPsiholoski.clear();
     }
     
     @FXML private void obrisiPsiholoskiProblem(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaPsihološkiProblem(psiholoskiProblemi.getSelectionModel().getSelectedItem().toString()));
         observablePsiholoski.remove(psiholoskiProblemi.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void dodajKarakternuOsobinu(ActionEvent event) {
         observableOstaleKarakterne.add(upisanaKarakternaOsobina.getText());
+        dodaniAtributi.add(Osumnjiceni.izmjenaKarakternaOsobina(upisanaKarakternaOsobina.getText()));
         upisanaKarakternaOsobina.clear();
     }
     
     @FXML private void obrisiKarakternuOsobinu(ActionEvent event) {
+        obrisaniAtributi.add(Osumnjiceni.izmjenaKarakternaOsobina(ostaleKarakterneOsobine.getSelectionModel().getSelectedItem().toString()));
         observableOstaleKarakterne.remove(ostaleKarakterneOsobine.getSelectionModel().getSelectedIndex());
     }
     
     @FXML private void spremiIzmjene(ActionEvent event) {
         
+        String poruka = "Neispravno: ";
+        
         if (ime.getText() != null)
             if (!ime.getText().isEmpty())
-                noviKriminalac.setIme(ime.getText());
+                izmijenjeniKriminalac.setIme(ime.getText());
+            else
+                poruka = poruka.concat("ime; ");
         
         if (prezime.getText() != null) 
             if (!prezime.getText().isEmpty())
-                noviKriminalac.setPrezime(prezime.getText());
+                izmijenjeniKriminalac.setPrezime(prezime.getText());
+            else
+                poruka = poruka.concat("prezime; ");
         
         if (oib.getText() != null)
             if (!oib.getText().isEmpty())
-                noviKriminalac.setOib(Long.parseLong(oib.getText()));
+                izmijenjeniKriminalac.setOib(Long.parseLong(oib.getText()));
+            else
+                poruka = poruka.concat("OIB; ");
         
         if (otisakPrsta.getText() != null)
             if (!otisakPrsta.getText().isEmpty())
-                noviKriminalac.setOtisakPrstaURL(otisakPrsta.getText());
-        // tu sam stala
-        String[] adresaStanovanja = adresa.getText().split(",");
-        noviKriminalac.getAdresaPrebivalista().setAdresa(adresaStanovanja[0].trim());
-        noviKriminalac.getAdresaPrebivalista().setNazivMjesta(adresaStanovanja[1].trim());
+                izmijenjeniKriminalac.setOtisakPrstaURL(otisakPrsta.getText());
+            
+        if (adresa.getText() != null)
+            if (!adresa.getText().isEmpty())
+                izmijenjeniKriminalac.getAdresaPrebivalista().setAdresa(adresa.getText());
+       
+        if (mjesto.getText() != null)
+            if (!mjesto.getText().isEmpty())
+                izmijenjeniKriminalac.getAdresaPrebivalista().setNazivMjesta(mjesto.getText());
         
-        noviKriminalac.setBrojTelefona(brojTelefona.getText());
-        noviKriminalac.setOpisKriminalnihDjelatnosti(opisKriminalnihDjelatnosti.getText());
+        if (pbrMjesto.getText() != null)
+            if (!pbrMjesto.getText().isEmpty())
+                izmijenjeniKriminalac.getAdresaPrebivalista().setPbrMjesto(Integer.parseInt(pbrMjesto.getText()));
+        
+        if (brojTelefona.getText() != null)
+            if (!brojTelefona.getText().isEmpty())
+                izmijenjeniKriminalac.setBrojTelefona(brojTelefona.getText());
+        
+        if (opisKriminalnihDjelatnosti.getText() != null)
+            if (!opisKriminalnihDjelatnosti.getText().isEmpty())
+                izmijenjeniKriminalac.setOpisKriminalnihDjelatnosti(opisKriminalnihDjelatnosti.getText());
         
         if (status.getValue() != null) {
             if (status.getValue().equals("Na slobodi")) {
-                noviKriminalac.setStatus(TrenutniStatusKriminalca.sloboda);
+                izmijenjeniKriminalac.setStatus(TrenutniStatusKriminalca.sloboda);
             } else if (status.getValue().equals("U pritvoru")) {
-                noviKriminalac.setStatus(TrenutniStatusKriminalca.u_pritvoru);
+                izmijenjeniKriminalac.setStatus(TrenutniStatusKriminalca.u_pritvoru);
             } else if (status.getValue().equals("U zatvoru")) {
-                noviKriminalac.setStatus(TrenutniStatusKriminalca.u_zatvoru);
+                izmijenjeniKriminalac.setStatus(TrenutniStatusKriminalca.u_zatvoru);
             }
+        } else {
+            poruka = poruka.concat("status; ");
         }
                
-        Set<String> izmjene = new HashSet<>();
-        izmjene.addAll(observableListaURL);
-        noviKriminalac.setFotografijeURL(izmjene);
-        
-        izmjene.clear();
-        izmjene.addAll(observablePopisAliasa);
-        noviKriminalac.setPopisAliasa(izmjene);
-        
-        Set<AdresaIMjestoStanovanja> izmjeneAdrese = new HashSet<>();
-        for (String adresa : observableAdrese) {
-            String[] adresaIMjesto = adresa.split(",");
-            AdresaIMjestoStanovanja adr = new AdresaIMjestoStanovanja();
-            adr.setAdresa(adresaIMjesto[0].trim());
-            adr.setNazivMjesta(adresaIMjesto[1].trim());
-            izmjeneAdrese.add(adr);
-        }
-        //kriminalac.setPoznateAdrese(izmjeneAdrese);
-        
-        Set<Slucaj> izmjeneSlucajeva = new HashSet<>();
-        for (String slucaj : observableSlucajevi) {
-            String[] zapis = slucaj.split("-");
-            Slucaj sl = new Slucaj();
-            sl.setBrojSlucaja(Integer.parseInt(zapis[0].trim()));
-            sl.setNazivSlucaja(zapis[1].trim());
-            izmjeneSlucajeva.add(sl);
-        }
-        //kriminalac.setPovezaniSlucajevi(izmjeneSlucajeva);
-        
-        Set<Osumnjiceni> izmjeneKrimi = new HashSet<>();
-        for (String krimi : observableKriminalci) {
-            String[] zapis = krimi.split(" ");
-            Osumnjiceni krim = new Osumnjiceni();
-            krim.setIme(zapis[0]);
-            krim.setPrezime(zapis[1]);
-            krim.setOib(Long.parseLong(zapis[2]));
-            izmjeneKrimi.add(krim);
-        }
-        //kriminalac.setPopisPovezanihKriminalaca(izmjeneKrimi);
+//        Set<String> izmjene = new HashSet<>();
+//        izmjene.addAll(observableListaURL);
+//        noviKriminalac.setFotografijeURL(izmjene);
+//        
+//        izmjene.clear();
+//        izmjene.addAll(observablePopisAliasa);
+//        noviKriminalac.setPopisAliasa(izmjene);
+//        
+//        Set<AdresaIMjestoStanovanja> izmjeneAdrese = new HashSet<>();
+//        for (String adresa : observableAdrese) {
+//            String[] adresaIMjesto = adresa.split(",");
+//            AdresaIMjestoStanovanja adr = new AdresaIMjestoStanovanja();
+//            adr.setAdresa(adresaIMjesto[0].trim());
+//            adr.setNazivMjesta(adresaIMjesto[1].trim());
+//            izmjeneAdrese.add(adr);
+//        }
+//        //kriminalac.setPoznateAdrese(izmjeneAdrese);
+//        
+//        Set<Slucaj> izmjeneSlucajeva = new HashSet<>();
+//        for (String slucaj : observableSlucajevi) {
+//            String[] zapis = slucaj.split("-");
+//            Slucaj sl = new Slucaj();
+//            sl.setBrojSlucaja(Integer.parseInt(zapis[0].trim()));
+//            sl.setNazivSlucaja(zapis[1].trim());
+//            izmjeneSlucajeva.add(sl);
+//        }
+//        //kriminalac.setPovezaniSlucajevi(izmjeneSlucajeva);
+//        
+//        Set<Osumnjiceni> izmjeneKrimi = new HashSet<>();
+//        for (String krimi : observableKriminalci) {
+//            String[] zapis = krimi.split(" ");
+//            Osumnjiceni krim = new Osumnjiceni();
+//            krim.setIme(zapis[0]);
+//            krim.setPrezime(zapis[1]);
+//            krim.setOib(Long.parseLong(zapis[2]));
+//            izmjeneKrimi.add(krim);
+//        }
+//        //kriminalac.setPopisPovezanihKriminalaca(izmjeneKrimi);
         
         FizickeOsobine fizickeOsobine = new FizickeOsobine();
         fizickeOsobine.setBojaKose(bojaKose.getText());
@@ -444,23 +489,23 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
         fizickeOsobine.setTezina(Float.parseFloat(tezina.getText()));
         fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
         
-        izmjene.clear();
-        izmjene.addAll(observableBolesti);
-        fizickeOsobine.setBolesti(izmjene);
+//        izmjene.clear();
+//        izmjene.addAll(observableBolesti);
+//        fizickeOsobine.setBolesti(izmjene);
+//        
+//        izmjene.clear();
+//        izmjene.addAll(observableFizickiNedostatci);
+//        fizickeOsobine.setFizickiNedostatci(izmjene);
+//        
+//        izmjene.clear();
+//        izmjene.addAll(observableOstaleFizicke);
+//        fizickeOsobine.setOstaleFizickeOsobine(izmjene);
+//        
+//        izmjene.clear();
+//        izmjene.addAll(observableTetovaze);
+//        fizickeOsobine.setTetovaze(izmjene);
         
-        izmjene.clear();
-        izmjene.addAll(observableFizickiNedostatci);
-        fizickeOsobine.setFizickiNedostatci(izmjene);
-        
-        izmjene.clear();
-        izmjene.addAll(observableOstaleFizicke);
-        fizickeOsobine.setOstaleFizickeOsobine(izmjene);
-        
-        izmjene.clear();
-        izmjene.addAll(observableTetovaze);
-        fizickeOsobine.setTetovaze(izmjene);
-        
-        noviKriminalac.setFizickeOsobine(fizickeOsobine);
+        izmijenjeniKriminalac.setFizickeOsobine(fizickeOsobine);
         
         KarakterneOsobine karakterneOsobine = new KarakterneOsobine();
         karakterneOsobine.setNacinGovora(nacinGovora.getText());
@@ -474,17 +519,17 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             }  
         }
         
-        izmjene.clear();
-        izmjene.addAll(observablePsiholoski);
-        karakterneOsobine.setPsiholoskiProblemi(izmjene);
+//        izmjene.clear();
+//        izmjene.addAll(observablePsiholoski);
+//        karakterneOsobine.setPsiholoskiProblemi(izmjene);
+//        
+//        izmjene.clear();
+//        izmjene.addAll(observableOstaleKarakterne);
+//        karakterneOsobine.setOstaleKarakterneOsobine(izmjene);
         
-        izmjene.clear();
-        izmjene.addAll(observableOstaleKarakterne);
-        karakterneOsobine.setOstaleKarakterneOsobine(izmjene);
+        izmijenjeniKriminalac.setKarakterneOsobine(karakterneOsobine);
         
-        noviKriminalac.setKarakterneOsobine(karakterneOsobine);
-        
-        //delegate.spremiIzmjeneKriminalca(stariKriminalac, noviKriminalac);
+        delegate.spremiIzmjeneKriminalca(izmijenjeniKriminalac, dodaniAtributi, obrisaniAtributi);
     }
     /**
      * Initializes the controller class.

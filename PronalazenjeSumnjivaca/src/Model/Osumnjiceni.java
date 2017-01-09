@@ -181,32 +181,40 @@ public class Osumnjiceni extends Osoba implements StrategijaUpit<Osumnjiceni> {
 	public boolean addAllPovezanSlucaj(Collection<Slucaj> slucaj){
 		return povezaniSlucajevi.addAll(slucaj);
 	}
+        
+        public static String izmjenaPovezaniSlucajevi(String value) {
+            return value+"*ListaOsumnjicenihOsoba.brojSlučaja*ListaOsumnjicenihOsoba.brojSlučaja";
+        }
+        
+        public static String izmjenaPoznateAdrese(String value) {
+            return value+"*PoznateAdreseStanovanjaKriminalca.adresaStanovanja*PoznateAdreseStanovanjaKriminalca.pbrMjesto";
+        }
 
-	public String izmjenaFizickaOsobina(String value){
+	public static String izmjenaFizickaOsobina(String value){
 		return value+"*FizičkaOsobina.fizičkaOsobinaOpis*OstaleFizičkeOsobineKriminalca.fizičkaOsobinaID";
 	}
-	public String izmjenaTetovaža(String value){
+	public static String izmjenaTetovaža(String value){
 		return value+"*Tetovaža.opisTetovaže*TetovažeKriminalca.tetovažaID";
 	}
-	public String izmjenaBolest(String value){
+	public static String izmjenaBolest(String value){
 		return value+"*Bolest.nazivBolesti*ListaBolestiKriminalca.bolestID";
 	}
-	public String izmjenaFizičkiNedostatak(String value){
+	public static String izmjenaFizičkiNedostatak(String value){
 		return value+"*FizičkiNedostatak.fizičkiNedostatakOpis*FizičkiNedostaciKriminalca.fizičkiNedostatakID";
 	}
-	public String izmjenaPsihološkiProblem(String value){
+	public static String izmjenaPsihološkiProblem(String value){
 		return value+"*PsihološkiProblem.psihološkiProblemOpis*PsihološkiProblemiKriminalca.psihološkiProblemID";
 	}
-	public String izmjenaKarakternaOsobina(String value){
+	public static String izmjenaKarakternaOsobina(String value){
 		return value+"*KarakternaOsobina.karakternaOsobinaOpis*OstaleKarakterneOsobineKriminalca.karakternaOsobinaID";
 	}
-	public String izmjenaListaAliasa(String value){
+	public static String izmjenaListaAliasa(String value){
 		return value+"*ListaAliasa.alias*ListaAliasa.alias";
 	}
-	public String izmjenaFotografijeKriminalca(String value){
+	public static String izmjenaFotografijeKriminalca(String value){
 		return value+"*FotografijeKriminalca.FotografijaURL*FotografijeKriminalca.FotografijaURL";
 	}
-	public String izmjenaPovezaniKriminalci(String value){
+	public static String izmjenaPovezaniKriminalci(String value){
 		return value+"*ListaPovezanihKriminalaca.povezanSaKriminalacOib*ListaPovezanihKriminalaca.povezanSaKriminalacOib";
 	}
 	

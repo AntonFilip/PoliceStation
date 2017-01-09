@@ -34,6 +34,7 @@ import View.PrikaziStatistikuController;
 import View.UpitDokazController;
 import View.UpitKriminalacController;
 import View.UpitSlucajController;
+import java.util.Set;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -206,7 +207,7 @@ public class Controller extends Application implements ViewDelegate {
 	}
 
 	@Override
-	public void spremiIzmjeneKriminalca(Osumnjiceni kriminalac) {
+	public void spremiIzmjeneKriminalca(Osumnjiceni kriminalac, Set<String> dodaniAtributi, Set<String> obrisaniAtributi) {
 		throw new UnsupportedOperationException("Not supported yet."); // To
 																		// change
 																		// body
@@ -220,7 +221,7 @@ public class Controller extends Application implements ViewDelegate {
 	}
 
 	@Override
-	public void spremiIzmjeneSlucaja(Slucaj slucaj) {
+	public void spremiIzmjeneSlucaja(Slucaj slucaj, Set<String> dodaniAtributi, Set<String> obrisaniAtributi) {
 		throw new UnsupportedOperationException("Not supported yet."); // To
 																		// change
 																		// body
@@ -234,7 +235,7 @@ public class Controller extends Application implements ViewDelegate {
 	}
 
 	@Override
-	public void spremiIzmjeneDokaza(Dokaz dokaz) {
+	public void spremiIzmjeneDokaza(Dokaz dokaz, Set<String> dodaniAtributi, Set<String> obrisaniAtributi) {
 		throw new UnsupportedOperationException("Not supported yet."); // To
 																		// change
 																		// body
