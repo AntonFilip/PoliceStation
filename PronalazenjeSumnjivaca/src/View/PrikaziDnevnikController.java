@@ -55,7 +55,7 @@ public class PrikaziDnevnikController implements Initializable, ControlledScreen
 		    });
 		for (DnevnikPretrazivanja entry : list) {
 			System.out.println(entry.getBrojPolicajca());
-			String output = String.format("%-13s%-25s%-35s%-20s", entry.getID().toString(),
+			String output = String.format("%-13s%-25s%-35s%-10s", entry.getID().toString(),
 					entry.getIpAdresa(), entry.getVrijemeUpita(), entry.getBrojPolicajca().toString());
 			data.add(output);
 		}

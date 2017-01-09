@@ -35,7 +35,10 @@ public class Narednik extends Pozornik {
 		Context<Osumnjiceni> context=new Context<>(trenutni);
 		return context.izmjeni(izmjenjeni, dodaniAtributi, izbrisani);
 	}
-	
-	
-	
+
+    @Override
+    public String toString() {
+        return "Narednik " + ime + " " + prezime + " (" + super.getOib() + ")";
+    }
+
 }

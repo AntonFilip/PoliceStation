@@ -86,7 +86,7 @@ public class Controller extends Application implements ViewDelegate {
 			policajac = PristupBaziPodataka.prijava(username, password);
                     
 		} catch (SQLException e) {
-			// TODO pogledat kaj radi exception i napravit dobar odgovor
+
 			e.printStackTrace();
 			return;
 		}
@@ -392,6 +392,7 @@ public class Controller extends Application implements ViewDelegate {
 
 	@SuppressWarnings("unchecked")
 	@Override
+
 	public void postaviScenuPopis(String predmet, Map<?, Float> popis) {
 		Loader loader = new Loader("ListaStavki");
 		Parent loadScreen = loader.getLoadScreen();

@@ -77,8 +77,7 @@ public class Pozornik extends Osoba {
 
 	@Override
 	public String toString() {
-		return "Pozornik [razinaPristupa=" + razinaPristupa + ", username=" + username + ", password=" + password
-				+ ", jedinstveniBroj=" + jedinstveniBroj + "]" + super.getOib();
+            return "Pozornik "+ime+" "+prezime+" ("+super.getOib()+")";
 	}
 
 }
