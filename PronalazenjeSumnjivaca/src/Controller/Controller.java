@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Model.Context;
 import Model.DnevnikPretrazivanja;
 import Model.Dokaz;
 import Model.Kapetan;
@@ -83,7 +84,8 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void prijava(String username, String password, PrijavaController prijavaController) throws IOException {
-            policajac = PristupBaziPodataka.prijava(username, password);
+
+		policajac = PristupBaziPodataka.prijava(username, password);
 
 		if (policajac == null) {
 			System.out.println("Korisni�ko ime i/ili lozinka nisu ipravni!");
@@ -279,7 +281,9 @@ public class Controller extends Application implements ViewDelegate {
 
 		PrikazSlucajaController controller = (PrikazSlucajaController) loader.getMyLoader().getController();
 		controller.init(this);
+
                 slucaj = PristupBaziPodataka.dohvatiPodatkeSlucaj(slucaj.getBrojSlucaja().toString());
+
 		controller.prikaziPodatke(slucaj);
 		pane.getChildren().setAll(loadScreen);
 	}
@@ -291,7 +295,9 @@ public class Controller extends Application implements ViewDelegate {
 
 		PrikazDokazaController controller = (PrikazDokazaController) loader.getMyLoader().getController();
 		controller.init(this);
+
                 dokaz = PristupBaziPodataka.dohvatiPodatkeDokaz(dokaz.getID().toString());
+
 		controller.prikaziPodatke(dokaz);
 		pane.getChildren().setAll(loadScreen);
 	}
@@ -356,23 +362,28 @@ public class Controller extends Application implements ViewDelegate {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void postaviScenuListaIzmjene(String predmet, Map<?, Float> popis) {
+	public void postaviScenuListaIzmjene(String predmet) {
 		Loader loader = new Loader("ListaIzmjena");
 		Parent loadScreen = loader.getLoadScreen();
 
 		ListaIzmjenaController controller = (ListaIzmjenaController) loader.getMyLoader().getController();
 		controller.init(this);
-		if (predmet.equals("Osumnjiceni")) {
-			controller.postaviListuOsumnjiceni((Map<Osumnjiceni, Float>) popis);
-		} else if (predmet.equals("Slucaj")) {
-			controller.postaviListuSlucaj((Map<Slucaj, Float>) popis);
-		} else if (predmet.equals("Dokaz")) {
-			controller.postaviListuDokaz((Map<Dokaz, Float>) popis);
-		} else {
-			return;
+		try {
+			if (predmet.equals("Osumnjiceni")) {
+				Context<Osumnjiceni> context=new Context<>(new Osumnjiceni());
+				controller.postaviListuOsumnjiceni(context.dohvatiSveContexte());
+			} else if (predmet.equals("Slucaj")) {
+				Context<Slucaj> context=new Context<>(new Slucaj());
+				controller.postaviListuSlucaj(context.dohvatiSveContexte());
+			} else {
+				return;
+			}
+		} catch (SQLException e) {
+			System.out.println("GRESKA!");
 		}
 		pane.getChildren().setAll(loadScreen);
 	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override

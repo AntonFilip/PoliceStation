@@ -3,8 +3,10 @@ package View;
 import java.net.URL;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import Controller.ViewDelegate;
@@ -38,16 +40,17 @@ public class ListaIzmjenaController implements Initializable, ControlledScreen {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 	}
 
-	public void postaviListuOsumnjiceni(Map<Osumnjiceni, Float> lista) {
+	public void postaviListuOsumnjiceni(Set<Osumnjiceni> lista) {
 		labeleSumnjivac();
 		ObservableList<String> data = FXCollections.observableArrayList();
 		list.getItems().clear();
 		if(lista != null){
-			LinkedHashMap<Osumnjiceni, Float> sorted = (LinkedHashMap<Osumnjiceni, Float>) sortByValue(lista);
-
-		for (Map.Entry<Osumnjiceni, Float> entry : sorted.entrySet()) {
-			String output = String.format("%-15s%-30s%-30s%-10s", entry.getKey().getOib().toString(),
-					entry.getKey().getIme(), entry.getKey().getPrezime(), entry.getValue().toString());
+//			LinkedHashMap<Osumnjiceni, Float> sorted = (LinkedHashMap<Osumnjiceni, Float>) sortByValue(lista);
+			List<Osumnjiceni> list2 = lista.stream().sorted((Osumnjiceni o1, Osumnjiceni o2) -> o1.getPrezime().compareTo(o2.getPrezime())).collect(Collectors.toList());
+			
+		for (Osumnjiceni entry : list2) {
+			String output = String.format("%-18s%-31s%-30s", entry.getOib().toString(),
+					entry.getIme(), entry.getPrezime());
 			//data.add(entry.getKey().getOib() + " - " + entry.getKey().getIme() + " " + entry.getKey().getPrezime() + " "
 			//		+ entry.getValue());
 			data.add(output);
@@ -60,16 +63,16 @@ public class ListaIzmjenaController implements Initializable, ControlledScreen {
 	
 	
 
-	public void postaviListuSlucaj(Map<Slucaj, Float> lista) {
+	public void postaviListuSlucaj(Set<Slucaj> lista) {
 		labeleSlucaj();
 		ObservableList<String> data = FXCollections.observableArrayList();
 		list.getItems().clear();
-		LinkedHashMap<Slucaj, Float> sorted = (LinkedHashMap<Slucaj, Float>) sortByValue(lista);
-
-		for (Map.Entry<Slucaj, Float> entry : sorted.entrySet()) {
+//		LinkedHashMap<Slucaj, Float> sorted = (LinkedHashMap<Slucaj, Float>) sortByValue(lista);
+		List<Slucaj> list2 = lista.stream().sorted((Slucaj o1, Slucaj o2) -> o1.getBrojSlucaja().compareTo(o2.getBrojSlucaja())).collect(Collectors.toList());
+		for (Slucaj entry : list2) {
 			
-			String output = String.format("%-15s%-60s%-10s", entry.getKey().getBrojSlucaja().toString(),
-					entry.getKey().getNazivSlucaja(), entry.getValue().toString());
+			String output = String.format("%-18s%-61s", entry.getBrojSlucaja().toString(),
+					entry.getNazivSlucaja());
 			data.add(output);
 			//data.add(entry.getKey().getBrojSlucaja() + " - " + entry.getKey().getNazivSlucaja() + " "
 				//	+ entry.getValue());
