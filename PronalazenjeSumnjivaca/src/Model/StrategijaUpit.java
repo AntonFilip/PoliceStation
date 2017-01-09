@@ -13,6 +13,7 @@ public interface StrategijaUpit <E> {
 	public Set<String> generirajListuIzmjenjenihAtributa(E izmjenjeniCon);
 	public String vratiID();
 	public String vratiAtributID();
+	public String vratiAtributID2();
 	public String generirajSelectOsnovniPodaci();
 	public String generirajUpdateSQL();
 	
@@ -91,9 +92,11 @@ public interface StrategijaUpit <E> {
     public static String generirajDelete (String relacija, String atr1, String atr2,String vr1, String vr2){
     	return  "Delete from "+relacija+" where LOWER("+atr1+")=LOWER('"+vr1+"') AND LOWER("+atr2+")=LOWER('"+vr2+"')";
     }
-    
 	public static String generirajUpdate(String atribut,String vrijednost) {
-		return "`"+atribut+"`='"+vrijednost+"'";
+		if(vrijednost.equals("NULL")) return atribut+"="+vrijednost;
+		else return "`"+atribut+"`='"+vrijednost+"'";
 	}
+	
+	
 
 }

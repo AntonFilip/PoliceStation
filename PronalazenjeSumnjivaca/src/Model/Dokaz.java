@@ -151,7 +151,20 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 	public void setFotografija(String fotografija) {
 		this.fotografija = fotografija;
 	}
-
+	
+	public String izmjenaKrvnaGrupa(String value){
+		return value+"*KrvnaGrupa.nazivKrvnaGrupa*ListaKrvnihGrupaNaDokaznomMaterijalu.krvnaGrupaID";
+	}
+	public String izmjenaOružje(String value){
+		return value+"*TipOružja.nazivOružja*ListaOružja.tipOružjaID";
+	}
+	public String izmjenaDnaSekvenca(String value){
+		return value+"*DNASekvenca.nazivDNASekvenca*ListaDNASekvenciNaDokaznomMaterijalu.dnaSekvencaID";
+	}
+	public String izmjenaOtisakPrsta(String value){
+		return value+"*OtisakPrsta.fotografijaURL*ListaOtisakaPrstijuNaDokaznomMaterijalu.otisakPrstaID";
+	}
+	
 	@Override
 	public String toString() {
 		return "\nDokaz [ID=" + ID + ", naziv=" +naziv+ ", nazivSlucaja=" + nazivSlucaja + "]";
@@ -312,6 +325,11 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 	@Override
 	public String generirajUpdateSQL() {
 		return "UPDATE DokazniMaterijal SET ";
+	}
+
+	@Override
+	public String vratiAtributID2() {
+		return "dokazniMaterijalID";
 	}
 
 	

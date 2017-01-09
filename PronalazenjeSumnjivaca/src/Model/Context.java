@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -30,20 +31,43 @@ public class Context <E> {
 	private Set<String> generirajListuIzmjenjenihAtributa(E izmjenjeniCon){
 		return strategy.generirajListuIzmjenjenihAtributa(izmjenjeniCon);
 	}
-	private boolean izbrisiIzListe(String ID,String atributID,String relacija,String atribut2,String vrijednost2){
-		String query=StrategijaUpit.generirajDelete(relacija, atributID, atribut2, ID, vrijednost2);
+	
+	private boolean izbrisiIzListe(String ID,String atributID,String vrijednost, String relacija1,String atribut1,String relacija2,String atribu2){
+		if(relacija2.equals("ListaOružja")) atributID=strategy.vratiAtributID();
+		if(relacija1.equals("FotografijeKriminalca")) atributID="OibKriminalac";
+		String atributID2=PristupBaziPodataka.provjeriUnos(atribu2, vrijednost, relacija1, atribut1);
+		String query=StrategijaUpit.generirajDelete(relacija2, atributID, atribu2, ID, atributID2);
 		return PristupBaziPodataka.izvrsiUnos(query);
 	}
+	
 	private boolean dodajUlistu(String ID,String atributID,String vrijednost, String relacija1,String atribut1,String relacija2,String atribu2){
 		String id;
-		if(relacija1.equals("Osoba") || relacija1.equals("Policajac")) id=vrijednost;
+		if(relacija1.equals(relacija2)) id=vrijednost;
+		else if(relacija1.equals("ListaDogađaja")){
+			Dogadaj dogadaj=new Dogadaj();
+			String [] parts=vrijednost.split(",");
+			String pbrMjesto=parts[0];
+			String adresa=parts[1];
+			String vrijeme=parts[2];
+			String naziv=parts[3];
+			dogadaj.setAdresa(adresa);
+			dogadaj.setNaziv(naziv);
+			dogadaj.setVrijeme(LocalDateTime.parse(vrijeme));
+			dogadaj.setPbrMjesto(Integer.parseInt(pbrMjesto));
+			dogadaj.setBrojSlucaja(Integer.parseInt(ID));
+			return PristupBaziPodataka.dodajNoviDogadaj(dogadaj);
+		}
 		else{
+			System.out.println("tu sam");
 			id=PristupBaziPodataka.provjeriUnos(atribu2, vrijednost, relacija1, atribut1);
 			if(id.equals("nema")){
 				String query=StrategijaUpit.upitUnos(relacija1, atribut1, atribu2, vrijednost, "NULL");
 				id=PristupBaziPodataka.izvrsiUpit(query);
 			}}
-
+		
+		if(relacija2.equals("ListaOružja")) atributID=strategy.vratiAtributID();
+		if(relacija1.equals("FotografijeKriminalca")) atributID="OibKriminalac";
+		
 		List<String> listaAtributa=new LinkedList<>();
 		List<String> listaVrijednosti=new LinkedList<>();
 		listaAtributa.add(atributID);
@@ -123,12 +147,13 @@ public class Context <E> {
 	}
 	public boolean izmjeni(E izmjenjeniContext,Set<String> dodaniAtributi, Set<String> izbrisaniAtributi){
 		Boolean uspjeh=true;
-		System.out.println("This:"+this+"\nIzmjena:"+izmjenjeniContext);
+		System.out.println("This:"+this.strategy+"\nIzmjena:"+izmjenjeniContext);
 		Set<String> atributiSlucaja=this.generirajListuIzmjenjenihAtributa(izmjenjeniContext); 
 		System.out.println(atributiSlucaja);
 		String ID=strategy.vratiID();
 		String atributID=strategy.vratiAtributID();
-
+		String atributID2=strategy.vratiAtributID2();
+		
 		if(atributiSlucaja.isEmpty()&& dodaniAtributi.isEmpty()&&izbrisaniAtributi.isEmpty()) return false;
 		
 		if(!atributiSlucaja.isEmpty()) {
@@ -138,6 +163,7 @@ public class Context <E> {
 		}
 		if(!dodaniAtributi.isEmpty()){
 			for(String s:dodaniAtributi){
+				System.out.println("s_"+s);
 				String [] parts=s.split("\\*");
 				String vrijednost=parts[0];
 				String [] relacijaAtribut1=parts[1].split("\\.");
@@ -146,18 +172,22 @@ public class Context <E> {
 				String atribut1=relacijaAtribut1[1];
 				String relacija2=relacijaAtribut2[0];
 				String atribut2=relacijaAtribut2[1];
-				uspjeh=uspjeh && dodajUlistu(ID,atributID,vrijednost,relacija1,atribut1,relacija2,atribut2);
+				Boolean uspjesno=dodajUlistu(ID,atributID2,vrijednost,relacija1,atribut1,relacija2,atribut2);
+				uspjeh=uspjeh && uspjesno;
 			}
 		}
 		if(!izbrisaniAtributi.isEmpty()){
 			for(String s:izbrisaniAtributi){
-				//sjekira*TipOružja.nazivOružja*ListaOružja.IDoružja
 				String [] parts=s.split("\\*");
 				String vrijednost=parts[0];
-				String [] relacijaAtribut=parts[1].split("\\.");
-				String relacija=relacijaAtribut[0];
-				String atribut=relacijaAtribut[1];
-				uspjeh=uspjeh && izbrisiIzListe(ID,atributID,relacija, atribut, vrijednost);
+				String [] relacijaAtribut1=parts[1].split("\\.");
+				String [] relacijaAtribut2=parts[2].split("\\.");
+				String relacija1=relacijaAtribut1[0];
+				String atribut1=relacijaAtribut1[1];
+				String relacija2=relacijaAtribut2[0];
+				String atribut2=relacijaAtribut2[1];
+				boolean uspjesno=izbrisiIzListe(ID,atributID2,vrijednost,relacija1,atribut1,relacija2,atribut2);
+				uspjeh=uspjeh && uspjesno;
 			}
 		}
 		return uspjeh;

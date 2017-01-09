@@ -1,6 +1,6 @@
 package Model;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Dogadaj {
 	private Integer dogadajID;
@@ -8,7 +8,7 @@ public class Dogadaj {
 	private Integer pbrMjesto;
 	private Integer brojSlucaja;
 	private String adresa;
-	private LocalTime vrijeme;
+	private LocalDateTime vrijeme;
 
 
 
@@ -17,7 +17,7 @@ public class Dogadaj {
 	}
 
 	public Dogadaj(Integer dogadajID, String naziv, Integer pbrMjesto, Integer brojSlucaja, String adresa,
-			LocalTime vrijeme) {
+			LocalDateTime vrijeme) {
 		super();
 		this.dogadajID = dogadajID;
 		this.naziv = naziv;
@@ -56,10 +56,10 @@ public class Dogadaj {
 	public void setAdresa(String adresa) {
 		this.adresa = adresa;
 	}
-	public LocalTime getVrijeme() {
+	public LocalDateTime getVrijeme() {
 		return vrijeme;
 	}
-	public void setVrijeme(LocalTime vrijeme) {
+	public void setVrijeme(LocalDateTime vrijeme) {
 		this.vrijeme = vrijeme;
 	}
 

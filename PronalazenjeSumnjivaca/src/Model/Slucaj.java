@@ -180,7 +180,22 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	public boolean addAllDogadaji (Collection<Dogadaj> dogadaji){
 		return this.popisDogadaja.addAll(dogadaji);
 	}
-
+	
+	public String izmjenaDogađaja(String value){
+		return value+"*ListaDogađaja.nazivDogađaja*ListaDogađaja.nazivDogađaja";
+	}
+	public String izmjenaSvjedoka(String value){
+		return value+"*ListaSvjedoka.osobaOib*ListaSvjedoka.osobaOib";
+	}
+	public String izmjenaOsumnjicenih(String value){
+		return value+"*ListaOsumnjicenihOsoba.osobaOib*ListaOsumnjicenihOsoba.osobaOib";
+	}
+	public String izmjenaFotografija(String value){
+		return value+"*FotografijaPolicijskogSlučaja.fotografijaURL*FotografijaPolicijskogSlučaja.fotografijaURL";
+	}
+	public String izmjenaPolicajca(String value){
+		return value+"*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca*PolicajciDodijeljeniSlučaju.jedinstveniBrojPolicajca";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -381,6 +396,11 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 	@Override
 	public String generirajUpdateSQL() {
 		return "UPDATE PolicijskiSlučaj SET ";
+	}
+
+	@Override
+	public String vratiAtributID2() {
+		return "brojSlučaja";
 	}
 
 }

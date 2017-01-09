@@ -1,6 +1,5 @@
 package Model;
 
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
@@ -38,7 +37,7 @@ public class PristupBaziPodataka {
 		return dbConnection;
 	}
 
-	public static Pozornik prijava (String username, String password) throws SQLException {
+	public static Pozornik prijava (String username, String password){
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -74,16 +73,62 @@ public class PristupBaziPodataka {
 		}
 		finally {
 			if (preparedStatement != null) {
-				preparedStatement.close();
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (dbConnection != null) {
-				dbConnection.close();
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;
 	}
 
-	public static Set<Slucaj> vratiSlucajeve(String query) throws SQLException {
+	private static Set<String> vratiID(String query) {
+		Set<String> listaIDa=new LinkedHashSet<>();
+		try {
+			dbConnection = getDBConnection();
+			if (dbConnection==null) {System.out.println("fail");	
+			}
+
+			statement=dbConnection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				listaIDa.add(rs.getString(1));
+			}
+
+			return listaIDa;
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (dbConnection != null) {
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static Set<Slucaj> vratiSlucajeve(String query) {
 		Set<Slucaj> listaSlucajeva=new LinkedHashSet<>();
 		try {
 			dbConnection = getDBConnection();
@@ -113,16 +158,24 @@ public class PristupBaziPodataka {
 		}
 		finally {
 			if (statement != null) {
-				statement.close();
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (dbConnection != null) {
-				dbConnection.close();
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;
 	}
 
-	public static Set<Dokaz> vratiDokaze (String query) throws SQLException {
+	public static Set<Dokaz> vratiDokaze (String query)  {
 		Set<Dokaz> listaDokaza=new LinkedHashSet<>();
 
 		try {
@@ -147,16 +200,24 @@ public class PristupBaziPodataka {
 		}
 		finally {
 			if (statement != null) {
-				statement.close();
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (dbConnection != null) {
-				dbConnection.close();
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;
 	}
 
-	public static Set<Osumnjiceni> vratiOsumnjicene (String query) throws SQLException {
+	public static Set<Osumnjiceni> vratiOsumnjicene (String query)  {
 		Set<Osumnjiceni> listaOsumnjicenih=new LinkedHashSet<>();
 
 		try {
@@ -188,16 +249,24 @@ public class PristupBaziPodataka {
 		}
 		finally {
 			if (statement != null) {
-				statement.close();
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (dbConnection != null) {
-				dbConnection.close();
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;
 	}
 
-	public static Dokaz dohvatiPodatkeDokaz(String id) throws SQLException{
+	public static Dokaz dohvatiPodatkeDokaz(String id) {
 		String query=" select brojDokaznogMaterijala, nazivDokaznogMaterijala,nazivSlučaja, fotografijaDokaznogMaterijalaURL from DokazniMaterijal join PolicijskiSlučaj on PolicijskiSlučaj.brojSlučaja=DokazniMaterijal.brojSlučaja where brojDokaznogMaterijala=\""+id+"\"";
 		Dokaz dokaz=new Dokaz();
 
@@ -248,16 +317,24 @@ public class PristupBaziPodataka {
 		}
 		finally {
 			if (statement != null) {
-				statement.close();
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (dbConnection != null) {
-				dbConnection.close();
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;
 	}
 
-	public static Slucaj dohvatiPodatkeSlucaj(String id) throws SQLException {
+	public static Slucaj dohvatiPodatkeSlucaj(String id)  {
 		String query=" select * from PolicijskiSlučaj where brojSlučaja ='"+id+"'";
 		Slucaj slucaj=new Slucaj();
 
@@ -356,10 +433,18 @@ public class PristupBaziPodataka {
 		}
 		finally {
 			if (statement != null) {
-				statement.close();
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (dbConnection != null) {
-				dbConnection.close();
+				try {
+					dbConnection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return null;
@@ -582,6 +667,7 @@ public class PristupBaziPodataka {
 		System.out.println(osumnjiceni);
 		return osumnjiceni;
 	}
+	
 	private static List<String> vratiListu(Long id,String selecta,String froma,String join,String atr1,String atr2,String wherea) {
 		PreparedStatement preparedStatement = null;
 		String select = "";
@@ -1013,11 +1099,6 @@ public class PristupBaziPodataka {
 					vrij.removeAll(vrij);
 				}
 			}
-
-
-
-
-
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -1572,4 +1653,16 @@ public class PristupBaziPodataka {
 		return izvrsiUnos(updateSQL);
 	}
 	
+	public static Set<String> dohvatiOsobe(){
+		String query="SELECT Osoba.oib FROM Osoba";
+		return vratiID(query);
+	}
+	public static Set<String> dohvatiPolicajce(){
+		String query="SELECT Policajac.jedinstveniBrojPolicajca FROM Policajac";
+		return vratiID(query);
+	}
+	public static Set<String> dohvatiKriminalce(){
+		String query="SELECT Kriminalac.oib FROM Kriminalac";
+		return vratiID(query);
+	}
 }
