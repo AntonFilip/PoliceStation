@@ -21,11 +21,12 @@
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="nazivDogadaja" layoutX="52.0" layoutY="100.0" prefHeight="25.0" prefWidth="200.0" promptText="Naziv događaja" />
-            <TextField fx:id="pbrMjestaDogadaja" layoutX="52.0" layoutY="136.0" prefHeight="25.0" prefWidth="200.0" promptText="Poštanski broj mjesta događaja" />
-            <TextField fx:id="adresaMjestaDogadaja" layoutX="52.0" layoutY="171.0" prefHeight="25.0" prefWidth="200.0" promptText="Adresa mjesta događaja" />
-            <TextField fx:id="vrijemeDogadaja" layoutX="52.0" layoutY="206.0" prefHeight="25.0" prefWidth="200.0" promptText="Vrijeme (gggg-mm-ddThh:mm:ss)" />
-            <Label fx:id="info" layoutX="7.0" layoutY="41.0" prefHeight="43.0" prefWidth="280.0" textFill="RED" wrapText="true" />
+            <TextField fx:id="nazivDogadaja" layoutX="52.0" layoutY="86.0" prefHeight="25.0" prefWidth="200.0" promptText="Naziv događaja" />
+            <TextField fx:id="pbrMjestaDogadaja" layoutX="52.0" layoutY="181.0" prefHeight="25.0" prefWidth="200.0" promptText="Poštanski broj mjesta događaja" />
+            <TextField fx:id="adresaMjestaDogadaja" layoutX="52.0" layoutY="117.0" prefHeight="25.0" prefWidth="200.0" promptText="Adresa mjesta događaja" />
+            <TextField fx:id="vrijemeDogadaja" layoutX="52.0" layoutY="215.0" prefHeight="25.0" prefWidth="200.0" promptText="Vrijeme (gggg-mm-ddThh:mm:ss)" />
+            <Label fx:id="info" layoutX="7.0" layoutY="41.0" prefHeight="35.0" prefWidth="280.0" textFill="RED" wrapText="true" />
+            <TextField fx:id="nazivMjestaDogadaja" layoutX="52.0" layoutY="149.0" prefHeight="25.0" prefWidth="200.0" promptText="Naziv mjesta događaja" />
          </children>
       </AnchorPane>
    </content>

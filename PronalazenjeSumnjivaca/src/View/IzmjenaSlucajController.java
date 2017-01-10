@@ -256,6 +256,8 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     
     @FXML private void spremiIzmjene(ActionEvent event) {
         
+        izmijenjeniSlucaj = new Slucaj();
+        
         String poruka = "Unesite: ";
         
         if (naziv.getText() != null) 
