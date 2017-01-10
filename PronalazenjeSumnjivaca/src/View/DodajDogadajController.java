@@ -21,7 +21,6 @@ public class DodajDogadajController implements Initializable {
     @FXML TextField pbrMjestaDogadaja;
     @FXML TextField adresaMjestaDogadaja;
     @FXML TextField vrijemeDogadaja;
-    @FXML TextField brojSlucaja;
     @FXML Button dodaj;
     @FXML Label info;
     
@@ -58,12 +57,6 @@ public class DodajDogadajController implements Initializable {
                 dogadaj.setVrijeme(LocalDateTime.parse(vrijemeDogadaja.getText()));
             else 
                 poruka = poruka.concat("vrijeme; ");
-        
-        if (brojSlucaja.getText() != null) 
-            if (!brojSlucaja.getText().isEmpty())
-                dogadaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
-            else 
-                poruka = poruka.concat("broj slučaja; ");
         
         if (poruka.equals("Unesite: "))
             delegate.dodajDogadaj(dogadaj);

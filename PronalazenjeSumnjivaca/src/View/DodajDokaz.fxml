@@ -34,7 +34,8 @@
             <Label layoutX="220.0" layoutY="144.0" text="Otisak prsta URL:" />
             <Button fx:id="dodajOtisakPrsta" layoutX="360.0" layoutY="251.0" mnemonicParsing="false" onAction="#dodajOtisakPrsta" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiOtisakPrsta" layoutX="385.0" layoutY="251.0" mnemonicParsing="false" onAction="#obrisiOtisakPrsta" prefHeight="25.0" prefWidth="25.0" text="x" />
-            <TextField fx:id="fotografijaURL" layoutX="14.0" layoutY="80.0" prefHeight="25.0" prefWidth="190.0" promptText="URL fotografije" />
+            <TextField fx:id="fotografijaURL" layoutX="14.0" layoutY="194.0" prefHeight="25.0" prefWidth="190.0" promptText="URL fotografije" />
+            <TextField fx:id="brojSlucaja" layoutX="14.0" layoutY="80.0" prefHeight="25.0" prefWidth="190.0" promptText="Broj slučaja" />
          </children>
       </AnchorPane>
    </content>
