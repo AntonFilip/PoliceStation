@@ -19,6 +19,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,8 +38,8 @@ public class GenerirajPDF {
     private static Font f3 = FontFactory.getFont(FontFactory.TIMES_ROMAN, "Cp1250", BaseFont.EMBEDDED, 16, Font.ITALIC, new CMYKColor(0, 0, 0, 255));
     public static void generiraj(Osumnjiceni osumnjiceni) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-        String imeDatoteke = "ocumnjiceni" + osumnjiceni.getOib();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(imeDatoteke + ".pdf"));
+        String imeDatoteke = "ocumnjiceni" + osumnjiceni.getOib()+".pdf";
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(imeDatoteke));
         document.open();
 
         //naslov
@@ -154,12 +156,14 @@ public class GenerirajPDF {
         document.add(opis);
         document.close();
         writer.close();
+        
+        Desktop.getDesktop().open(new File(imeDatoteke));
     }
 
     public static void generiraj(Dokaz dokaz) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-        String imeDatoteke = "dokaz" + dokaz.getID();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(imeDatoteke + ".pdf"));
+        String imeDatoteke = "dokaz" + dokaz.getID()+".pdf";
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(imeDatoteke));
         document.open();
 
         //naslov
@@ -224,13 +228,15 @@ public class GenerirajPDF {
         document.add(opis);
         document.close();
         writer.close();
+        
+        Desktop.getDesktop().open(new File(imeDatoteke));
     }
 
     public static void generiraj(Slucaj slucaj) throws DocumentException, FileNotFoundException, MalformedURLException, BadElementException, IOException {
 
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-        String imeDatoteke = "slucaj" + slucaj.getBrojSlucaja();
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(imeDatoteke + ".pdf"));
+        String imeDatoteke = "slucaj" + slucaj.getBrojSlucaja()+".pdf";
+        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(imeDatoteke));
         document.open();
 
         //naslov
@@ -261,7 +267,12 @@ public class GenerirajPDF {
         opis.add(stat);
 
         Chunk goT = new Chunk("Glavni osumnjičeni:  ", f2);
-        Chunk go = new Chunk(slucaj.getGlavniOsumnjiceni().toString() + "\n", f);
+        Chunk go;
+        try {
+            go = new Chunk(slucaj.getGlavniOsumnjiceni().toString() + "\n", f);
+        } catch (NullPointerException ex) {
+            go = new Chunk("\n", f);
+        }
         opis.add(goT);
         opis.add(go);
 
@@ -315,5 +326,7 @@ public class GenerirajPDF {
         document.add(opis);
         document.close();
         writer.close();
+        
+        Desktop.getDesktop().open(new File(imeDatoteke));
     }
 }
