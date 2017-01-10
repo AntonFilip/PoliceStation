@@ -20,6 +20,7 @@ public class DodajDogadajController implements Initializable {
     @FXML TextField nazivDogadaja;
     @FXML TextField pbrMjestaDogadaja;
     @FXML TextField adresaMjestaDogadaja;
+    @FXML TextField nazivMjestaDogadaja;
     @FXML TextField vrijemeDogadaja;
     @FXML Button dodaj;
     @FXML Label info;
@@ -51,6 +52,11 @@ public class DodajDogadajController implements Initializable {
                 dogadaj.setAdresa(adresaMjestaDogadaja.getText());
             else 
                 poruka = poruka.concat("adresa; ");
+        
+        if (nazivMjestaDogadaja.getText() != null)
+            if (!nazivMjestaDogadaja.getText().isEmpty())
+                dogadaj.setNazivMjesto(nazivMjestaDogadaja.getText());
+            else poruka = poruka.concat("naziv mjesta; ");
         
         if (vrijemeDogadaja.getText() != null)
             if (!vrijemeDogadaja.getText().isEmpty())

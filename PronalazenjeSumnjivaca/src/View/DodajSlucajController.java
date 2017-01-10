@@ -191,7 +191,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
         if (glavniOsumnjiceni.getText() != null) {
             if (!glavniOsumnjiceni.getText().isEmpty()) {
                 Osumnjiceni osumnjiceni = new Osumnjiceni();
-                osumnjiceni.setOib(Integer.parseInt(glavniOsumnjiceni.getText()));
+                osumnjiceni.setOib(Long.parseLong(glavniOsumnjiceni.getText()));
                 slucaj.setGlavniOsumnjiceni(osumnjiceni);
             }
         }
