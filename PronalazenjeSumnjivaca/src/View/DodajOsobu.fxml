@@ -27,7 +27,7 @@
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Button>
-            <Label layoutX="14.0" layoutY="44.0" prefHeight="17.0" prefWidth="358.0" textFill="RED" />
+            <Label fx:id="info" layoutX="14.0" layoutY="44.0" prefHeight="17.0" prefWidth="358.0" textFill="RED" />
          </children>
       </AnchorPane>
    </content>

@@ -39,12 +39,10 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @FXML ComboBox statusSlucaja;
     
     @FXML ListView popisOsumnjicenih;
-    @FXML TextField upisaniOsumnjiceni;
     @FXML Button dodajOsumnjicenog;
     @FXML Button obrisiOsumnjicenog;
     
     @FXML ListView popisSvjedoka;
-    @FXML TextField upisaniSvjedok;
     @FXML Button dodajSvjedoka;
     @FXML Button obrisiSvjedoka;
     
@@ -59,7 +57,6 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @FXML Button obrisiPolicajca;
     
     @FXML ListView popisDogadaja;
-    @FXML TextField upisaniDogadaj;
     @FXML Button dodajDogadaj;
     @FXML Button obrisiDogadaj;
     
@@ -167,7 +164,6 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
         dialogOsoba.close();
         observableOsumnjiceni.add(osumnjiceni.getOib().toString());
         dodaniAtributi.add(Slucaj.izmjenaOsumnjicenih(osumnjiceni.getOib().toString()));
-        upisaniOsumnjiceni.clear();    
     }
     
     @FXML private void obrisiOsumnjicenog(ActionEvent event) {
@@ -192,10 +188,9 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     public void dodajSvjedoka(Osoba svjedok) {
         observableSvjedoci.add(svjedok.getOib().toString());
         dodaniAtributi.add(Slucaj.izmjenaSvjedoka(svjedok.getOib().toString()));
-        upisaniSvjedok.clear();
     }
     
-    public void obrisiSvjedoka(Osoba osumnjiceni) {
+    @FXML private void obrisiSvjedoka() {
         obrisaniAtributi.add(Slucaj.izmjenaSvjedoka(popisSvjedoka.getSelectionModel().getSelectedItem().toString()));
         observableSvjedoci.remove(popisSvjedoka.getSelectionModel().getSelectedIndex());
     }

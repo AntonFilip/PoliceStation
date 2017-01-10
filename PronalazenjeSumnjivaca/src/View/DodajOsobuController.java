@@ -38,52 +38,69 @@ public class DodajOsobuController implements Initializable {
         
         Osoba osoba = new Osoba();
         
-        String poruka = "Upišite: ";
+        String poruka = "Unesite: ";
         
-        if (ime.getText() != null)
-            if (!ime.getText().isEmpty())
+        if (ime.getText() != null) {
+            if (!ime.getText().isEmpty()) {
                 osoba.setIme(ime.getText());
-            else 
+            } else {
                 poruka = poruka.concat("ime; ");
+            }
+        }
         
-        if (prezime.getText() != null)
-            if (!prezime.getText().isEmpty())
+        if (prezime.getText() != null) {
+            if (!prezime.getText().isEmpty()) {
                 osoba.setPrezime(prezime.getText());
-            else
+            } else {
                 poruka = poruka.concat("prezime; ");
+            }
+        }
         
-        if (oib.getText() != null)
-            if (!oib.getText().isEmpty())
+        if (oib.getText() != null) {
+            if (!oib.getText().isEmpty()) {
                 osoba.setOib(Long.parseLong(oib.getText()));
-            else
+            } else {
                 poruka = poruka.concat("oib; ");
+            }
+        }
         
         AdresaIMjestoStanovanja adresa = new AdresaIMjestoStanovanja();
-        if (ulica.getText() != null)
-            if (!ulica.getText().isEmpty())
+        
+        if (ulica.getText() != null) {
+            if (!ulica.getText().isEmpty()) {
                 adresa.setAdresa(ulica.getText());
-            else
+            } else {
                 poruka = poruka.concat("ulica; ");
+            }
+        } else {
+                poruka = poruka.concat("ulica; ");
+            }
         
-        if (mjesto.getText() != null)
-            if (!mjesto.getText().isEmpty())
+        if (mjesto.getText() != null) {
+            if (!mjesto.getText().isEmpty()) {
                 adresa.setNazivMjesta(mjesto.getText());
-            else
+            } else {
                 poruka = poruka.concat("mjesto; ");
+            }
+        }
         
-        if (pbr.getText() != null)
-            if (!pbr.getText().isEmpty())
+        if (pbr.getText() != null) {
+            if (!pbr.getText().isEmpty()) {
                 adresa.setPbrMjesto(Integer.parseInt(pbr.getText()));
-            else
+            } else {
                 poruka = poruka.concat("poštanski broj; ");
-        
-        if (!poruka.equals("Unesite: "))
-            if (tipOsobe.equals("Osumnjiceni"))
+            }
+        }
+            
+        if (poruka.equals("Unesite: ")) {
+            if (tipOsobe.equals("Osumnjiceni")) {
                 delegate.dodajOsumnjicenog(osoba);
-            else if (tipOsobe.equals("Svjedok"))
+            } else if (tipOsobe.equals("Svjedok")) {
                 delegate.dodajSvjedoka(osoba);
-        else
+            }
+        } else {
             info.setText(poruka);
+        }
     }
     
     public void init(DialogManager delegate, String tipOsobe) {

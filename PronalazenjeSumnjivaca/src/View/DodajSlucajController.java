@@ -33,12 +33,10 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     @FXML ComboBox statusSlucaja;
     
     @FXML ListView popisOsumnjicenih;
-    @FXML TextField upisaniOsumnjiceni;
     @FXML Button dodajOsumnjicenog;
     @FXML Button obrisiOsumnjicenog;
     
     @FXML ListView popisSvjedoka;
-    @FXML TextField upisaniSvjedok;
     @FXML Button dodajSvjedoka;
     @FXML Button obrisiSvjedoka;
     
@@ -95,6 +93,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
         dialogOsoba.show();
     }
     
+    @Override
     public void dodajOsumnjicenog(Osoba osumnjiceni) {
         dialogOsoba.close();
         setOsumnjiceni.add(osumnjiceni);
@@ -118,6 +117,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
         dialogOsoba.show();
     }
     
+    @Override
     public void dodajSvjedoka(Osoba svjedok) {
         dialogOsoba.close();
         setSvjedoci.add(svjedok);
