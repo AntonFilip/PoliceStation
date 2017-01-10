@@ -342,19 +342,22 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML private void spremiIzmjene(ActionEvent event) {
         
         String poruka = "Unesite: ";
-            
+        AdresaIMjestoStanovanja aims = new AdresaIMjestoStanovanja();
+        izmijenjeniKriminalac = new Osumnjiceni();
+        izmijenjeniKriminalac.setOib(stariOsumnjiceni.getOib());
         if (adresa.getText() != null)
             if (!adresa.getText().isEmpty())
-                izmijenjeniKriminalac.getAdresaPrebivalista().setAdresa(adresa.getText());
+                aims.setAdresa(adresa.getText());
        
         if (mjesto.getText() != null)
             if (!mjesto.getText().isEmpty())
-                izmijenjeniKriminalac.getAdresaPrebivalista().setNazivMjesta(mjesto.getText());
+                aims.setNazivMjesta(mjesto.getText());
         
         if (pbrMjesto.getText() != null)
             if (!pbrMjesto.getText().isEmpty())
-                izmijenjeniKriminalac.getAdresaPrebivalista().setPbrMjesto(Integer.parseInt(pbrMjesto.getText()));
-        
+                aims.setPbrMjesto(Integer.parseInt(pbrMjesto.getText()));
+        if(aims != null)
+        	izmijenjeniKriminalac.setAdresaPrebivalista(aims);
         if (brojTelefona.getText() != null)
             if (!brojTelefona.getText().isEmpty())
                 izmijenjeniKriminalac.setBrojTelefona(brojTelefona.getText());

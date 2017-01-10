@@ -23,10 +23,10 @@
             <Label layoutX="277.0" layoutY="17.0" prefHeight="17.0" prefWidth="205.0" textFill="RED" />
             <TextField fx:id="naziv" layoutX="15.0" layoutY="55.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv dokaznog materijala" />
             <TextField fx:id="nazivSlucaja" layoutX="15.0" layoutY="87.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv slučaja" />
-            <CheckBox fx:id="A" layoutX="95.0" layoutY="123.0" mnemonicParsing="false" text="A" />
-            <CheckBox fx:id="B" layoutX="95.0" layoutY="140.0" mnemonicParsing="false" text="B" />
-            <CheckBox fx:id="AB" layoutX="95.0" layoutY="157.0" mnemonicParsing="false" text="AB" />
-            <CheckBox fx:id="nula" layoutX="95.0" layoutY="174.0" mnemonicParsing="false" text="0" />
+            <CheckBox fx:id="A" layoutX="105.0" layoutY="123.0" mnemonicParsing="false" text="A" />
+            <CheckBox fx:id="B" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" text="B" />
+            <CheckBox fx:id="AB" layoutX="105.0" layoutY="157.0" mnemonicParsing="false" text="AB" />
+            <CheckBox fx:id="nula" layoutX="105.0" layoutY="174.0" mnemonicParsing="false" text="0" />
             <Label layoutX="14.0" layoutY="123.0" text="Krvna grupa:" />
             <TextArea fx:id="DNAsekvenca" layoutX="221.0" layoutY="55.0" prefHeight="80.0" prefWidth="190.0" promptText="DNA sekvenca" />
             <TextArea fx:id="tipOruzja" layoutX="427.0" layoutY="55.0" prefHeight="80.0" prefWidth="190.0" promptText="Tip oružja" />
