@@ -1,6 +1,7 @@
 package View;
 
 import Model.Dogadaj;
+import Model.Osoba;
 
 /**
  *
@@ -8,4 +9,6 @@ import Model.Dogadaj;
  */
 public interface DialogManager {
     public void dodajDogadaj(Dogadaj dogadaj);
+    public void dodajOsumnjicenog(Osoba osumnjiceni);
+    public void dodajSvjedoka(Osoba svjedok);
 }

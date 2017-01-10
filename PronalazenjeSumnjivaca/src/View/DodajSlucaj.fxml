@@ -41,12 +41,12 @@
             <Label layoutX="227.0" layoutY="65.0" text="Popis osumnjičenih:" />
             <ListView fx:id="popisOsumnjicenih" layoutX="227.0" layoutY="83.0" prefHeight="85.0" prefWidth="190.0" />
             <TextField fx:id="upisaniOsumnjiceni" layoutX="227.0" layoutY="168.0" prefHeight="25.0" prefWidth="140.0" />
-            <Button fx:id="dodajOsumnjicenog" layoutX="367.0" layoutY="168.0" mnemonicParsing="false" onAction="#dodajOsumnjicenog" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="dodajOsumnjicenog" layoutX="367.0" layoutY="168.0" mnemonicParsing="false" onAction="#dodajOsobuOsumnjiceni" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiOsumnjicenog" layoutX="392.0" layoutY="168.0" mnemonicParsing="false" onAction="#obrisiOsumnjicenog" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label layoutX="227.0" layoutY="201.0" text="Popis svjedoka:" />
             <ListView fx:id="popisSvjedoka" layoutX="227.0" layoutY="218.0" prefHeight="85.0" prefWidth="190.0" />
             <TextField fx:id="upisaniSvjedok" layoutX="227.0" layoutY="302.0" prefHeight="25.0" prefWidth="140.0" />
-            <Button fx:id="dodajSvjedoka" layoutX="367.0" layoutY="302.0" mnemonicParsing="false" onAction="#dodajSvjedoka" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="dodajSvjedoka" layoutX="367.0" layoutY="302.0" mnemonicParsing="false" onAction="#dodajOsobuSvjedok" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiSvjedoka" layoutX="392.0" layoutY="302.0" mnemonicParsing="false" onAction="#obrisiSvjedoka" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label layoutX="440.0" layoutY="65.0" text="Popis policajaca na slučaju:" />
             <ListView fx:id="popisPolicajaca" layoutX="440.0" layoutY="83.0" prefHeight="85.0" prefWidth="190.0" />

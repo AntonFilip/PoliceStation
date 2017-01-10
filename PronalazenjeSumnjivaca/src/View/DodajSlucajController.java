@@ -59,7 +59,12 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     @FXML Button dodaj;
     @FXML Label info;
     
-    Stage dialog;
+    Stage dialogDogadaj;
+    Stage dialogOsoba;
+    
+    Set<Osoba> setOsumnjiceni = new HashSet<>();
+    Set<Osoba> setSvjedoci = new HashSet<>();
+    Set<Dogadaj> setDogadaji = new HashSet<>();
    
     ObservableList<String> observableOsumnjiceni = FXCollections.observableArrayList();
     ObservableList<String> observableSvjedoci = FXCollections.observableArrayList();
@@ -77,18 +82,46 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
         fotografije.setItems(observableFotografije);
     }
     
-    @FXML private void dodajOsumnjicenog(ActionEvent event) {
-        observableOsumnjiceni.add(upisaniOsumnjiceni.getText());
-        upisaniOsumnjiceni.clear();    
+    @FXML private void dodajOsobuOsumnjiceni() throws IOException {
+        dialogOsoba = new Stage();
+        dialogOsoba.initModality(Modality.APPLICATION_MODAL);
+        dialogOsoba.initOwner(dodaj.getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajOsobu.fxml"));
+        Parent loadScreen = loader.load();
+        DodajOsobuController controller = (DodajOsobuController) loader.getController();
+	controller.init(this, "Osumnjiceni");
+        Scene scene = new Scene(loadScreen);
+        dialogOsoba.setScene(scene);
+        dialogOsoba.show();
+    }
+    
+    public void dodajOsumnjicenog(Osoba osumnjiceni) {
+        dialogOsoba.close();
+        setOsumnjiceni.add(osumnjiceni);
+        observableOsumnjiceni.add(osumnjiceni.getIme() + " " + osumnjiceni.getPrezime() + " " + osumnjiceni.getOib().toString());
     }
     
     @FXML private void obrisiOsumnjicenog(ActionEvent event) {
         observableOsumnjiceni.remove(popisOsumnjicenih.getSelectionModel().getSelectedIndex());
     }
     
-    @FXML private void dodajSvjedoka(ActionEvent event) {
-        observableSvjedoci.add(upisaniSvjedok.getText());
-        upisaniSvjedok.clear();
+    @FXML private void dodajOsobuSvjedok() throws IOException {
+        dialogOsoba = new Stage();
+        dialogOsoba.initModality(Modality.APPLICATION_MODAL);
+        dialogOsoba.initOwner(dodaj.getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajOsobu.fxml"));
+        Parent loadScreen = loader.load();
+        DodajOsobuController controller = (DodajOsobuController) loader.getController();
+	controller.init(this, "Svjedok");
+        Scene scene = new Scene(loadScreen);
+        dialogOsoba.setScene(scene);
+        dialogOsoba.show();
+    }
+    
+    public void dodajSvjedoka(Osoba svjedok) {
+        dialogOsoba.close();
+        setSvjedoci.add(svjedok);
+        observableSvjedoci.add(svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib().toString());
     }
     
     @FXML private void obrisiSvjedoka(ActionEvent event) {
@@ -105,21 +138,22 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     }
     
     @FXML private void postaviDialogDogadaj(ActionEvent event) throws IOException {
-        dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(dodaj.getScene().getWindow());
+        dialogDogadaj = new Stage();
+        dialogDogadaj.initModality(Modality.APPLICATION_MODAL);
+        dialogDogadaj.initOwner(dodaj.getScene().getWindow());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajDogadaj.fxml"));
         Parent loadScreen = loader.load();
         DodajDogadajController controller = (DodajDogadajController) loader.getController();
 	controller.init(this);
         Scene scene = new Scene(loadScreen);
-        dialog.setScene(scene);
-        dialog.show();
+        dialogDogadaj.setScene(scene);
+        dialogDogadaj.show();
     }
     
     @Override
     public void dodajDogadaj(Dogadaj dogadaj) {
-        dialog.close();
+        dialogDogadaj.close();
+        setDogadaji.add(dogadaj);
         observableDogadaji.add(dogadaj.getNaziv()+","+dogadaj.getVrijeme().toString()+","+dogadaj.getAdresa()+","+dogadaj.getPbrMjesto());
     }
     
@@ -175,25 +209,12 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
             slucaj.setFotografijeSlučaja(fotke);
         }
         
-        if (!observableOsumnjiceni.isEmpty()) {
-            Set<Osoba> popisOsumnjiceni = new HashSet<>();
-            for (String krimi : observableOsumnjiceni) {
-                String[] krim = krimi.split(" ");
-                Osoba kriminalac = new Osoba();
-                kriminalac.setOib(Long.parseLong(krim[2].trim()));
-            }
-            slucaj.setPopisOsumnjicenih(popisOsumnjiceni);
+        if (!setOsumnjiceni.isEmpty()) {
+            slucaj.setPopisOsumnjicenih(setOsumnjiceni);
         }
         
-        if (!observableSvjedoci.isEmpty()) {
-            Set<Osoba> svjedoci = new HashSet<>();
-            for (String svjedok : observableSvjedoci) {
-                String[] svj = svjedok.split(" ");
-                Osoba jadniSvjedok = new Osoba();
-                jadniSvjedok.setOib(Long.parseLong(svj[2].trim()));
-            }
-            slucaj.setPopisSvjedoka(svjedoci);
-        }
+        if (!setSvjedoci.isEmpty()) 
+            slucaj.setPopisSvjedoka(setSvjedoci);
         
         if (!observablePolicajci.isEmpty()) {
             Set<Pozornik> policajci = new HashSet<>();
@@ -215,16 +236,8 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
             }
         }
         
-        if (!observableDogadaji.isEmpty()) {
-            Set<Dogadaj> dogadaji = new HashSet<>();
-            for (String dogadaj : observableDogadaji) {
-                String[] dog = dogadaj.split(" ");
-                Dogadaj noviDogadaj = new Dogadaj();
-                noviDogadaj.setDogadajID(Integer.parseInt(dog[0].trim()));
-
-            }
-            slucaj.setPopisDogadaja(dogadaji);
-        }
+        if (!setDogadaji.isEmpty()) 
+            slucaj.setPopisDogadaja(setDogadaji);        
         
         if (poruka.equals("Unesite: "))
             delegate.dodajSlucaj(slucaj);

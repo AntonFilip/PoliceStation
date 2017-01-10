@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.DodajOsobuController">
+   <content>
+      <AnchorPane id="AnchorPane" prefHeight="355.0" prefWidth="400.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Dodaj novu osobu">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ime" layoutX="101.0" layoutY="69.0" prefHeight="25.0" prefWidth="200.0" promptText="Ime" />
+            <TextField fx:id="prezime" layoutX="101.0" layoutY="100.0" prefHeight="25.0" prefWidth="200.0" promptText="Prezime" />
+            <TextField fx:id="oib" layoutX="101.0" layoutY="131.0" prefHeight="25.0" prefWidth="200.0" promptText="OIB" />
+            <TextField fx:id="ulica" layoutX="101.0" layoutY="163.0" prefHeight="25.0" prefWidth="200.0" promptText="Adresa (ulica)" />
+            <TextField fx:id="mjesto" layoutX="101.0" layoutY="194.0" prefHeight="25.0" prefWidth="200.0" promptText="Mjesto" />
+            <TextField fx:id="pbr" layoutX="101.0" layoutY="225.0" prefHeight="25.0" prefWidth="200.0" promptText="Poštanski broj" />
+            <Button fx:id="dodajOsobu" layoutX="284.0" layoutY="285.0" mnemonicParsing="false" onAction="#dodajOsobu" prefHeight="25.0" prefWidth="69.0" text="Dodaj">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+               </font>
+            </Button>
+            <Label layoutX="14.0" layoutY="44.0" prefHeight="17.0" prefWidth="358.0" textFill="RED" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

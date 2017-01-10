@@ -3,7 +3,7 @@ package View;
 import Controller.ViewDelegate;
 import Model.*;
 import java.net.URL;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -31,11 +31,58 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML TextField pbrMjesto;
     @FXML TextField brojTelefona;
     @FXML ComboBox status;
+    @FXML TextField datumRodenja;
     @FXML TextArea opisKriminalnihDjelatnosti;
-    @FXML TextArea popisAliasa;
-    @FXML TextArea poznateAdrese;
-    @FXML TextArea popisPovezanihSlucajeva;
-    @FXML TextArea popisPovezanihKriminalaca;
+    
+    @FXML ListView popisAliasa;
+    @FXML Button obrisiAlias;
+    @FXML Button dodajAlias;
+    @FXML TextField upisaniAlias;
+    
+    @FXML ListView poznateAdrese;
+    @FXML Button obrisiAdresu;
+    @FXML Button dodajAdresu;
+    @FXML TextField upisanaAdresa;
+    
+    @FXML ListView popisPovezanihSlucajeva;
+    @FXML Button obrisiSlucaj;
+    @FXML Button dodajSlucaj;
+    @FXML TextField upisaniSlucaj;
+    
+    @FXML ListView popisPovezanihKriminalaca;
+    @FXML Button obrisiKriminalca;
+    @FXML Button dodajKriminalca;
+    @FXML TextField upisaniKriminalac;
+    
+    @FXML ListView tetovaze;
+    @FXML Button obrisiTetovazu;
+    @FXML Button dodajTetovazu;
+    @FXML TextField upisanaTetovaza;
+    
+    @FXML ListView fizickiNedostatci;
+    @FXML Button obrisiNedostatak;
+    @FXML Button dodajNedostatak;
+    @FXML TextField upisaniNedostatak;
+    
+    @FXML ListView bolesti;
+    @FXML Button obrisiBolest;
+    @FXML Button dodajBolest;
+    @FXML TextField upisanaBolest;
+    
+    @FXML ListView ostaleFizickeOsobine;
+    @FXML Button obrisiFizickuOsobinu;
+    @FXML Button dodajFizickuOsobinu;
+    @FXML TextField upisanaFizickaOsobina;
+    
+    @FXML ListView psiholoskiProblemi;
+    @FXML Button obrisiPsiholoski;
+    @FXML Button dodajPsiholoski;
+    @FXML TextField upisaniPsiholoski;
+    
+    @FXML ListView ostaleKarakterneOsobine; 
+    @FXML Button obrisiKarakternuOsobinu;
+    @FXML Button dodajKarakternuOsobinu;
+    @FXML TextField upisanaKarakternaOsobina;
 
     @FXML ComboBox spol;
     @FXML TextField rasa;
@@ -47,15 +94,9 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML TextField oblikGlave;
     @FXML TextField bojaOciju;
     @FXML ComboBox gradaTijela;
-    @FXML TextArea tetovaze;
-    @FXML TextArea fizickiNedostatci;
-    @FXML TextArea bolesti;
-    @FXML TextArea ostaleFizickeOsobine;
 
     @FXML TextField nacinGovora;
-    @FXML ComboBox razinaApstraktneInteligencije;
-    @FXML TextArea psiholoskiProblemi;
-    @FXML TextArea ostaleKarakterneOsobine;  
+    @FXML ComboBox razinaApstraktneInteligencije; 
     
     @FXML ListView fotografije;
     @FXML TextField upisaniURL;
@@ -63,8 +104,19 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML Button obrisiURL;
     @FXML TextField otisakPrsta;
     
-    @FXML Label info;
+    @FXML Label info;  
     
+    ObservableList<String> observableListaURL = FXCollections.observableArrayList();
+    ObservableList<String> observablePopisAliasa = FXCollections.observableArrayList();
+    ObservableList<String> observableTetovaze = FXCollections.observableArrayList();
+    ObservableList<String> observableBolesti = FXCollections.observableArrayList();
+    ObservableList<String> observableFizickiNedostatci = FXCollections.observableArrayList();
+    ObservableList<String> observableOstaleFizicke = FXCollections.observableArrayList();
+    ObservableList<String> observablePsiholoski = FXCollections.observableArrayList();
+    ObservableList<String> observableOstaleKarakterne = FXCollections.observableArrayList();
+    ObservableList<String> observableAdrese = FXCollections.observableArrayList();
+    ObservableList<String> observableSlucajevi = FXCollections.observableArrayList();
+    ObservableList<String> observableKriminalci = FXCollections.observableArrayList();
     ObservableList<String> observableFotografije = FXCollections.observableArrayList();
 
     @Override
@@ -146,58 +198,55 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             }
         }
         
+        if (datumRodenja.getText() != null) 
+            if (!datumRodenja.getText().isEmpty())
+                osumnjiceni.setDatumRodjenja(LocalDate.parse(datumRodenja.getText()));
+        
         if (opisKriminalnihDjelatnosti.getText() != null) {
             if (!opisKriminalnihDjelatnosti.getText().isEmpty()) {
                 osumnjiceni.setOpisKriminalnihDjelatnosti(opisKriminalnihDjelatnosti.getText());
             }
         }
-        
-        if (popisAliasa.getText() != null) {
-            if (!popisAliasa.getText().isEmpty()) {
-                osumnjiceni.setPopisAliasa(popis(popisAliasa.getText().split(";")));
+              
+        if (!observablePopisAliasa.isEmpty()) {
+            Set<String> aliasi = new HashSet<>();
+            aliasi.addAll(observablePopisAliasa);
+            osumnjiceni.setPopisAliasa(aliasi);
+        }    
+                   
+        if (!observableAdrese.isEmpty()) {
+            HashSet<AdresaIMjestoStanovanja> poznateAdr = new HashSet<>();
+            for (String adresa : observableAdrese) {
+                AdresaIMjestoStanovanja a = new AdresaIMjestoStanovanja();
+                String[] temp = adresa.split(",");
+                a.setAdresa(temp[0].trim());
+                a.setNazivMjesta(temp[1].trim());
+                a.setPbrMjesto(Integer.parseInt(temp[2].trim()));
+                poznateAdr.add(a);
             }
-        }       
-        
-        if (poznateAdrese.getText() != null) {
-            if (!poznateAdrese.getText().isEmpty()) {
-                HashSet<AdresaIMjestoStanovanja> poznateAdr = new HashSet<>();
-                String[] adrese = poznateAdrese.getText().split(";");
-                for (String adresa : adrese) {
-                    AdresaIMjestoStanovanja a = new AdresaIMjestoStanovanja();
-                    String[] temp = adresa.split(",");
-                    a.setAdresa(temp[0].trim());
-                    a.setNazivMjesta(temp[1].trim());
-                    poznateAdr.add(a);
-                }
-                osumnjiceni.setPoznateAdrese(poznateAdr);
-            }
+            osumnjiceni.setPoznateAdrese(poznateAdr);
         }
         
-        if (popisPovezanihSlucajeva.getText() != null) {
-            if (!popisPovezanihSlucajeva.getText().isEmpty()) {
-                String[] slucajevi = popisPovezanihSlucajeva.getText().split(";");
-                HashSet<Slucaj> popisSlucajeva = new HashSet<>();
-                for (String slucaj : slucajevi) {
-                    Slucaj novi = new Slucaj();
-                    novi.setBrojSlucaja(Integer.parseInt(slucaj));
-                    popisSlucajeva.add(novi);
-                }
-                osumnjiceni.setPovezaniSlucajevi(popisSlucajeva);
+        
+        if (!observableSlucajevi.isEmpty()) {
+            HashSet<Slucaj> popisSlucajeva = new HashSet<>();
+            for (String slucaj : observableSlucajevi) {
+                Slucaj novi = new Slucaj();
+                novi.setBrojSlucaja(Integer.parseInt(slucaj));
+                popisSlucajeva.add(novi);
             }
+            osumnjiceni.setPovezaniSlucajevi(popisSlucajeva);
         }
         
-        if (popisPovezanihKriminalaca.getText() != null) {
-            if (!popisPovezanihKriminalaca.getText().isEmpty()) {
-                String[] kriminalci = popisPovezanihKriminalaca.getText().split(";");
+        if (!observableKriminalci.isEmpty()) {
                 HashSet<Osumnjiceni> popisKriminalaca = new HashSet<>();
-                for (String kriminalac : kriminalci) {
+                for (String kriminalac : observableKriminalci) {
                     Osumnjiceni novi = new Osumnjiceni();
                     novi.setOib(Integer.parseInt(kriminalac));
                     popisKriminalaca.add(novi);
                 }
                 osumnjiceni.setPopisPovezanihKriminalaca(popisKriminalaca);
             }
-        }
         
         FizickeOsobine fizickeOsobine = new FizickeOsobine();
         
@@ -260,22 +309,30 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             }
         }
         
-        if(tetovaze.getText() != null) 
-            if (!tetovaze.getText().isEmpty()) {
-                fizickeOsobine.setTetovaze(popis(tetovaze.getText().split(";")));
-            }
-        if (fizickiNedostatci.getText() != null)
-            if (!fizickiNedostatci.getText().isEmpty()) {
-                fizickeOsobine.setFizickiNedostatci(popis(fizickiNedostatci.getText().split(";")));
-            }
-        if (bolesti.getText() != null) 
-            if (!bolesti.getText().isEmpty()) {
-                fizickeOsobine.setBolesti(popis(bolesti.getText().split(";")));
-            }
-        if (ostaleFizickeOsobine.getText() != null)
-            if (!ostaleFizickeOsobine.getText().isEmpty()) {
-                fizickeOsobine.setOstaleFizickeOsobine(popis(ostaleFizickeOsobine.getText().split(";")));
-            }
+        if(!observableTetovaze.isEmpty()) {
+            HashSet<String> popisTetovaza = new HashSet<>();
+            popisTetovaza.addAll(observableTetovaze);
+            fizickeOsobine.setTetovaze(popisTetovaza);
+        }
+        
+        if (!observableFizickiNedostatci.isEmpty()) {
+            Set<String> nedostatci = new HashSet<>();
+            nedostatci.addAll(observableFizickiNedostatci);
+            fizickeOsobine.setFizickiNedostatci(nedostatci);
+        }
+        
+        if (!observableBolesti.isEmpty()) {
+            Set<String> popisBolesti = new HashSet<>();
+            popisBolesti.addAll(observableBolesti);
+            fizickeOsobine.setBolesti(popisBolesti);
+        }
+        
+        if (!observableOstaleFizicke.isEmpty()) {
+            Set<String> ostaleFizicke = new HashSet<>();
+            ostaleFizicke.addAll(observableOstaleFizicke);
+            fizickeOsobine.setOstaleFizickeOsobine(ostaleFizicke);
+        }
+        
         osumnjiceni.setFizickeOsobine(fizickeOsobine);
 
         KarakterneOsobine karakterneOsobine = new KarakterneOsobine();
@@ -294,12 +351,17 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             }  
         }
         
-        if (psiholoskiProblemi.getText() != null) 
-            if (!psiholoskiProblemi.getText().isEmpty())
-                karakterneOsobine.setPsiholoskiProblemi(popis(psiholoskiProblemi.getText().split(";")));
-        if (ostaleKarakterneOsobine.getText() != null)
-            if (!ostaleKarakterneOsobine.getText().isEmpty())
-                karakterneOsobine.setOstaleKarakterneOsobine(popis(ostaleKarakterneOsobine.getText().split(";")));
+        if (!observablePsiholoski.isEmpty()) {
+            Set<String> psiholoski = new HashSet<>();
+            psiholoski.addAll(observablePsiholoski);
+            karakterneOsobine.setPsiholoskiProblemi(psiholoski);
+        }
+        
+        if (!observableOstaleKarakterne.isEmpty()) {
+            Set<String> karakterne = new HashSet<>();
+            karakterne.addAll(observableOstaleKarakterne);
+            karakterneOsobine.setOstaleKarakterneOsobine(karakterne);
+        }             
 
         osumnjiceni.setKarakterneOsobine(karakterneOsobine);
         
@@ -326,11 +388,95 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML private void obrisiURL(ActionEvent event) {
         observableFotografije.remove(fotografije.getSelectionModel().getSelectedIndex());
     }
-
-    public static HashSet<String> popis(String[] ulaz) {
-        HashSet<String> popis = new HashSet<>();
-        popis.addAll(Arrays.asList(ulaz));
-        return popis;
+    
+    @FXML private void dodajAlias(ActionEvent event) {
+        observablePopisAliasa.add(upisaniAlias.getText());
+        upisaniAlias.clear();
+    }
+    
+    @FXML private void obrisiAlias(ActionEvent event) {
+        observablePopisAliasa.remove(popisAliasa.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajAdresu(ActionEvent event) {
+        observableAdrese.add(upisanaAdresa.getText());
+        upisanaAdresa.clear();
+    }
+    
+    @FXML private void obrisiAdresu(ActionEvent event) {
+        observableAdrese.remove(poznateAdrese.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajSlucaj(ActionEvent event) {
+        observableSlucajevi.add(upisaniSlucaj.getText());
+        upisaniSlucaj.clear();
+    }
+    
+    @FXML private void obrisiSlucaj(ActionEvent event) {
+        observableSlucajevi.remove(popisPovezanihSlucajeva.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajKriminalca(ActionEvent event) {
+        observableKriminalci.add(upisaniKriminalac.getText());
+        upisaniKriminalac.clear();
+    }
+    
+    @FXML private void obrisiKriminalca(ActionEvent event) {
+        observableKriminalci.remove(popisPovezanihKriminalaca.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajTetovazu(ActionEvent event) {
+        observableTetovaze.add(upisanaTetovaza.getText());
+        upisanaTetovaza.clear();
+    }
+    
+    @FXML private void obrisiTetovazu(ActionEvent event) {
+        observableTetovaze.remove(tetovaze.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajBolest(ActionEvent event) {
+        observableBolesti.add(upisanaBolest.getText());
+        upisanaBolest.clear();
+    }
+    
+    @FXML private void obrisiBolest(ActionEvent event) {
+        observableBolesti.remove(bolesti.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajFizickiNedostatak(ActionEvent event) {
+        observableFizickiNedostatci.add(upisaniNedostatak.getText());
+        upisaniNedostatak.clear();
+    }
+    
+    @FXML private void obrisiFizickiNedostatak(ActionEvent event) {
+        observableFizickiNedostatci.remove(fizickiNedostatci.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajFizickuOsobinu(ActionEvent event) {
+        observableOstaleFizicke.add(upisanaFizickaOsobina.getText());
+        upisanaFizickaOsobina.clear();
+    }
+    
+    @FXML private void obrisiFizickuOsobinu(ActionEvent event) {
+        observableOstaleFizicke.remove(ostaleFizickeOsobine.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajPsiholoskiProblem(ActionEvent event) {
+        observablePsiholoski.add(upisaniPsiholoski.getText());
+        upisaniPsiholoski.clear();
+    }
+    
+    @FXML private void obrisiPsiholoskiProblem(ActionEvent event) {
+        observablePsiholoski.remove(psiholoskiProblemi.getSelectionModel().getSelectedIndex());
+    }
+    
+    @FXML private void dodajKarakternuOsobinu(ActionEvent event) {
+        observableOstaleKarakterne.add(upisanaKarakternaOsobina.getText());
+        upisanaKarakternaOsobina.clear();
+    }
+    
+    @FXML private void obrisiKarakternuOsobinu(ActionEvent event) {
+        observableOstaleKarakterne.remove(ostaleKarakterneOsobine.getSelectionModel().getSelectedIndex());
     }
 
     /**

@@ -68,7 +68,8 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @FXML Button dodajURL;
     @FXML Button obrisiURL;
     
-    Stage dialog;
+    Stage dialogDogadaj;
+    Stage dialogOsoba;
     
     ObservableList<String> observableOsumnjiceni = FXCollections.observableArrayList();
     ObservableList<String> observableSvjedoci = FXCollections.observableArrayList();
@@ -148,9 +149,24 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
         fotografijeSlucaja.setItems(observableFotografije);
     }
     
-    @FXML private void dodajOsumnjicenog(ActionEvent event) {
-        observableOsumnjiceni.add(upisaniOsumnjiceni.getText());
-        dodaniAtributi.add(Slucaj.izmjenaOsumnjicenih(upisaniOsumnjiceni.getText()));
+    @FXML private void dodajOsobuOsumnjiceni() throws IOException {
+        dialogOsoba = new Stage();
+        dialogOsoba.initModality(Modality.APPLICATION_MODAL);
+        dialogOsoba.initOwner(spremi.getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajOsobu.fxml"));
+        Parent loadScreen = loader.load();
+        DodajOsobuController controller = (DodajOsobuController) loader.getController();
+	controller.init(this, "Osumnjiceni");
+        Scene scene = new Scene(loadScreen);
+        dialogOsoba.setScene(scene);
+        dialogOsoba.show();
+    }
+    
+    @Override
+    public void dodajOsumnjicenog(Osoba osumnjiceni) {
+        dialogOsoba.close();
+        observableOsumnjiceni.add(osumnjiceni.getOib().toString());
+        dodaniAtributi.add(Slucaj.izmjenaOsumnjicenih(osumnjiceni.getOib().toString()));
         upisaniOsumnjiceni.clear();    
     }
     
@@ -159,13 +175,27 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
         observableOsumnjiceni.remove(popisOsumnjicenih.getSelectionModel().getSelectedIndex());
     }
     
-    @FXML private void dodajSvjedoka(ActionEvent event) {
-        observableSvjedoci.add(upisaniSvjedok.getText());
-        dodaniAtributi.add(Slucaj.izmjenaSvjedoka(upisaniSvjedok.getText()));
+    @FXML private void dodajOsobuSvjedok() throws IOException {
+        dialogOsoba = new Stage();
+        dialogOsoba.initModality(Modality.APPLICATION_MODAL);
+        dialogOsoba.initOwner(spremi.getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajOsobu.fxml"));
+        Parent loadScreen = loader.load();
+        DodajOsobuController controller = (DodajOsobuController) loader.getController();
+	controller.init(this, "Svjedok");
+        Scene scene = new Scene(loadScreen);
+        dialogOsoba.setScene(scene);
+        dialogOsoba.show();
+    }
+    
+    @Override
+    public void dodajSvjedoka(Osoba svjedok) {
+        observableSvjedoci.add(svjedok.getOib().toString());
+        dodaniAtributi.add(Slucaj.izmjenaSvjedoka(svjedok.getOib().toString()));
         upisaniSvjedok.clear();
     }
     
-    @FXML private void obrisiSvjedoka(ActionEvent event) {
+    public void obrisiSvjedoka(Osoba osumnjiceni) {
         obrisaniAtributi.add(Slucaj.izmjenaSvjedoka(popisSvjedoka.getSelectionModel().getSelectedItem().toString()));
         observableSvjedoci.remove(popisSvjedoka.getSelectionModel().getSelectedIndex());
     }
@@ -193,21 +223,21 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     }
     
     @FXML private void postaviDialogDogadaj(ActionEvent event) throws IOException {
-        dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(dodajDogadaj.getScene().getWindow());
+        dialogDogadaj = new Stage();
+        dialogDogadaj.initModality(Modality.APPLICATION_MODAL);
+        dialogDogadaj.initOwner(dodajDogadaj.getScene().getWindow());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DodajDogadaj.fxml"));
         Parent loadScreen = loader.load();
         DodajDogadajController controller = (DodajDogadajController) loader.getController();
 	controller.init(this);
         Scene scene = new Scene(loadScreen);
-        dialog.setScene(scene);
-        dialog.show();
+        dialogDogadaj.setScene(scene);
+        dialogDogadaj.show();
     }
     
     @Override
     public void dodajDogadaj(Dogadaj dogadaj) {
-        dialog.close();
+        dialogDogadaj.close();
         Model.PristupBaziPodataka.dodajNoviDogadaj(dogadaj);
         observableDogadaji.add(dogadaj.getNaziv()+","+dogadaj.getVrijeme().toString()+","+dogadaj.getAdresa()+","+dogadaj.getPbrMjesto());
         dodaniAtributi.add(Slucaj.izmjenaDogađaja(dogadaj.getNaziv()+","+dogadaj.getVrijeme().toString()+","+dogadaj.getAdresa()+","+dogadaj.getPbrMjesto()));
@@ -316,6 +346,4 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
         // TODO
     }    
 
-    
-    
 }

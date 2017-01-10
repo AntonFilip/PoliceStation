@@ -11,7 +11,7 @@
 
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.DodajKriminalacController">
    <content>
-      <AnchorPane prefHeight="761.0" prefWidth="700.0">
+      <AnchorPane prefHeight="997.0" prefWidth="700.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Novi profil kriminalca">
                <font>
@@ -23,14 +23,14 @@
             <TextField fx:id="oib" layoutX="14.0" layoutY="135.0" prefHeight="25.0" prefWidth="190.0" promptText="OIB" />
             <TextField fx:id="adresa" layoutX="14.0" layoutY="167.0" prefHeight="25.0" prefWidth="190.0" promptText="Adresa (ulica) stanovanja" />
             <TextField fx:id="mjesto" layoutX="14.0" layoutY="200.0" prefHeight="25.0" prefWidth="190.0" promptText="Mjesto stanovanja" />
-            <TextField fx:id="brojTelefona" layoutX="14.0" layoutY="263.0" prefHeight="25.0" prefWidth="190.0" promptText="Broj telefona" />
+            <TextField fx:id="brojTelefona" layoutX="14.0" layoutY="266.0" prefHeight="25.0" prefWidth="190.0" promptText="Broj telefona" />
             <TextField fx:id="visina" layoutX="235.0" layoutY="135.0" prefHeight="25.0" prefWidth="190.0" promptText="Visina" />
             <TextField fx:id="rasa" layoutX="235.0" layoutY="103.0" prefHeight="25.0" prefWidth="190.0" promptText="Rasa" />
             <Label layoutX="14.0" layoutY="48.0" text="Opće informacije">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font></Label>
-            <TextArea fx:id="opisKriminalnihDjelatnosti" layoutX="14.0" layoutY="328.0" prefHeight="85.0" prefWidth="190.0" promptText="Opis kriminalnih djelatnosti" />
+            <TextArea fx:id="opisKriminalnihDjelatnosti" layoutX="14.0" layoutY="358.0" prefHeight="79.0" prefWidth="190.0" promptText="Opis kriminalnih djelatnosti" />
             <ComboBox fx:id="status" layoutX="14.0" layoutY="296.0" prefHeight="25.0" prefWidth="190.0" promptText="Status">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -40,10 +40,26 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <TextArea fx:id="popisAliasa" layoutX="14.0" layoutY="420.0" prefHeight="85.0" prefWidth="190.0" promptText="Popis aliasa" />
-            <TextArea fx:id="poznateAdrese" layoutX="14.0" layoutY="510.0" prefHeight="85.0" prefWidth="190.0" promptText="Poznate adrese" />
-            <TextArea fx:id="popisPovezanihSlucajeva" layoutX="14.0" layoutY="600.0" prefHeight="85.0" prefWidth="190.0" promptText="Popis povezanih slučajeva" />
-            <TextArea fx:id="popisPovezanihKriminalaca" layoutX="14.0" layoutY="690.0" prefHeight="85.0" prefWidth="190.0" promptText="Popis povezanih kriminalaca " />
+            <ListView fx:id="popisAliasa" editable="true" layoutX="16.0" layoutY="462.0" prefHeight="85.0" prefWidth="190.0" />
+            <Label layoutX="16.0" layoutY="445.0" text="Popis aliasa:" />
+            <Button fx:id="obrisiAlias" layoutX="181.0" layoutY="546.0" mnemonicParsing="false" onAction="#obrisiAlias" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Button fx:id="dodajAlias" layoutX="156.0" layoutY="546.0" mnemonicParsing="false" onAction="#dodajAlias" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <TextField fx:id="upisaniAlias" layoutX="16.0" layoutY="546.0" prefHeight="25.0" prefWidth="140.0" />
+            <Label layoutX="16.0" layoutY="575.0" text="Poznate adrese:" />
+            <ListView fx:id="poznateAdrese" editable="true" layoutX="16.0" layoutY="594.0" prefHeight="90.0" prefWidth="190.0" />
+            <TextField fx:id="upisanaAdresa" layoutX="16.0" layoutY="684.0" prefHeight="25.0" prefWidth="140.0" promptText="ulica, mjesto, pbr" />
+            <Button fx:id="dodajAdresu" layoutX="156.0" layoutY="684.0" mnemonicParsing="false" onAction="#dodajAdresu" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiAdresu" layoutX="181.0" layoutY="684.0" mnemonicParsing="false" onAction="#obrisiAdresu" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="16.0" layoutY="718.0" text="Popis povezanih slučajeva:" />
+            <ListView fx:id="popisPovezanihSlucajeva" editable="true" layoutX="16.0" layoutY="735.0" prefHeight="90.0" prefWidth="190.0" />
+            <TextField fx:id="upisaniSlucaj" layoutX="16.0" layoutY="825.0" prefHeight="25.0" prefWidth="140.0" promptText="broj slučaja" />
+            <Button fx:id="dodajSLucaj" layoutX="156.0" layoutY="825.0" mnemonicParsing="false" onAction="#dodajSlucaj" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiSlucaj" layoutX="181.0" layoutY="825.0" mnemonicParsing="false" onAction="#obrisiSlucaj" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="16.0" layoutY="861.0" text="Popis povezanih kriminalaca:" />
+            <ListView fx:id="popisPovezanihKriminalaca" editable="true" layoutX="16.0" layoutY="878.0" prefHeight="80.0" prefWidth="190.0" />
+            <TextField fx:id="upisaniKriminalac" layoutX="16.0" layoutY="958.0" prefHeight="25.0" prefWidth="140.0" promptText="ime, prezime, oib" />
+            <Button fx:id="dodajKriminalca" layoutX="156.0" layoutY="958.0" mnemonicParsing="false" onAction="#dodajKriminalca" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiKriminalca" layoutX="181.0" layoutY="958.0" mnemonicParsing="false" onAction="#obrisiKriminalca" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label layoutX="235.0" layoutY="48.0" text="Fizičke osobine">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
@@ -62,7 +78,6 @@
             <TextField fx:id="oblikFrizure" layoutX="234.0" layoutY="266.0" prefHeight="25.0" prefWidth="190.0" promptText="Oblik frizure" />
             <TextField fx:id="oblikGlave" layoutX="234.0" layoutY="296.0" prefHeight="25.0" prefWidth="190.0" promptText="Oblik glave" />
             <TextField fx:id="bojaOciju" layoutX="234.0" layoutY="326.0" prefHeight="25.0" prefWidth="190.0" promptText="Boja očiju" />
-            <TextArea fx:id="tetovaze" layoutX="234.0" layoutY="390.0" prefHeight="85.0" prefWidth="190.0" promptText="Tetovaže" />
             <ComboBox fx:id="gradaTijela" layoutX="234.0" layoutY="358.0" prefHeight="25.0" prefWidth="190.0" promptText="Građa tijela">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -72,16 +87,41 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <TextArea fx:id="fizickiNedostatci" layoutX="234.0" layoutY="482.0" prefHeight="85.0" prefWidth="190.0" promptText="Fizički nedostatci" />
-            <TextArea fx:id="bolesti" layoutX="235.0" layoutY="575.0" prefHeight="85.0" prefWidth="190.0" promptText="Bolesti " />
-            <TextArea fx:id="ostaleFizickeOsobine" layoutX="235.0" layoutY="666.0" prefHeight="85.0" prefWidth="190.0" promptText="Ostalo" />
+            <Label layoutX="235.0" layoutY="539.0" text="Tetovaže:" />
+            <ListView fx:id="tetovaze" editable="true" layoutX="234.0" layoutY="556.0" prefHeight="90.0" prefWidth="190.0" />
+            <TextField fx:id="upisanaTetovaza" layoutX="233.0" layoutY="646.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajTetovazu" layoutX="373.0" layoutY="646.0" mnemonicParsing="false" onAction="#dodajTetovazu" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiTetovazu" layoutX="398.0" layoutY="646.0" mnemonicParsing="false" onAction="#obrisiTetovazu" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="235.0" layoutY="688.0" text="Fizički nedostatci:" />
+            <ListView fx:id="fizickiNedostatci" editable="true" layoutX="235.0" layoutY="705.0" prefHeight="88.0" prefWidth="190.0" />
+            <TextField fx:id="upisaniNedostatak" layoutX="235.0" layoutY="793.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajNedostatak" layoutX="375.0" layoutY="793.0" mnemonicParsing="false" onAction="#dodajFizickiNedostatak" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiNedostatak" layoutX="400.0" layoutY="793.0" mnemonicParsing="false" onAction="#obrisiFizickiNedostatak" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="235.0" layoutY="389.0" text="Bolesti:" />
+            <ListView fx:id="bolesti" editable="true" layoutX="235.0" layoutY="405.0" prefHeight="94.0" prefWidth="190.0" />
+            <TextField fx:id="upisanaBolest" layoutX="235.0" layoutY="499.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajBolest" layoutX="375.0" layoutY="499.0" mnemonicParsing="false" onAction="#dodajBolest" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiBolest" layoutX="400.0" layoutY="499.0" mnemonicParsing="false" onAction="#obrisiBolest" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label layoutX="456.0" layoutY="48.0" text="Karakterne osobine">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font></Label>
             <TextField fx:id="nacinGovora" layoutX="456.0" layoutY="71.0" prefHeight="25.0" prefWidth="190.0" promptText="Način govora" />
-            <TextArea fx:id="psiholoskiProblemi" layoutX="456.0" layoutY="137.0" prefHeight="85.0" prefWidth="190.0" promptText="Psihološki problemi" />
-            <TextArea fx:id="ostaleKarakterneOsobine" layoutX="456.0" layoutY="233.0" prefHeight="85.0" prefWidth="190.0" promptText="Ostalo" />
+            <Label layoutX="456.0" layoutY="139.0" text="Psihološki problemi:" />
+            <ListView fx:id="psiholoskiProblemi" editable="true" layoutX="456.0" layoutY="156.0" prefHeight="88.0" prefWidth="190.0" />
+            <TextField fx:id="upisaniPsiholoski" layoutX="456.0" layoutY="244.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajPsiholoski" layoutX="596.0" layoutY="244.0" mnemonicParsing="false" onAction="#dodajPsiholoskiProblem" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiPsiholoski" layoutX="621.0" layoutY="244.0" mnemonicParsing="false" onAction="#obrisiPsiholoskiProblem" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="235.0" layoutY="829.0" text="Ostale fizičke osobine:" />
+            <ListView fx:id="ostaleFizickeOsobine" editable="true" layoutX="235.0" layoutY="844.0" prefHeight="80.0" prefWidth="190.0" />
+            <TextField fx:id="upisanaFizickaOsobina" layoutX="235.0" layoutY="924.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajFizickuOsobinu" layoutX="375.0" layoutY="924.0" mnemonicParsing="false" onAction="#dodajFizickuOsobinu" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiFizickuOsobinu" layoutX="400.0" layoutY="924.0" mnemonicParsing="false" onAction="#obrisiFizickuOsobinu" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="456.0" layoutY="279.0" text="Ostale karakterne osobine:" />
+            <ListView fx:id="ostaleKarakterneOsobine" editable="true" layoutX="456.0" layoutY="299.0" prefHeight="80.0" prefWidth="190.0" />
+            <TextField fx:id="upisanaKarakternaOsobina" layoutX="456.0" layoutY="379.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajKarakternuOsobinu" layoutX="596.0" layoutY="379.0" mnemonicParsing="false" onAction="#dodajKarakternuOsobinu" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiKarakternuOsobinu" layoutX="621.0" layoutY="379.0" mnemonicParsing="false" onAction="#obrisiKarakternuOsobinu" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Button fx:id="dodaj" layoutX="592.0" layoutY="13.0" mnemonicParsing="false" onAction="#dodaj" prefHeight="23.0" prefWidth="71.0" text="Dodaj">
                <font>
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
@@ -96,14 +136,15 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Label layoutX="456.0" layoutY="330.0" text="URL fotografija:" />
-            <ListView fx:id="fotografije" layoutX="456.0" layoutY="347.0" prefHeight="90.0" prefWidth="190.0" />
-            <TextField fx:id="upisaniURL" layoutX="456.0" layoutY="437.0" prefHeight="25.0" prefWidth="140.0" />
-            <Button fx:id="dodajURL" layoutX="596.0" layoutY="437.0" mnemonicParsing="false" onAction="#dodajURL" prefHeight="25.0" prefWidth="25.0" text="+" />
-            <Button fx:id="obrisiURL" layoutX="621.0" layoutY="437.0" mnemonicParsing="false" onAction="#obrisiURL" prefHeight="25.0" prefWidth="25.0" text="x" />
-            <TextField fx:id="otisakPrsta" layoutX="456.0" layoutY="479.0" prefHeight="25.0" prefWidth="190.0" promptText="Otisak prsta URL" />
+            <Label layoutX="456.0" layoutY="429.0" text="URL fotografija:" />
+            <ListView fx:id="fotografije" layoutX="456.0" layoutY="445.0" prefHeight="90.0" prefWidth="190.0" />
+            <TextField fx:id="upisaniURL" layoutX="456.0" layoutY="535.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajURL" layoutX="596.0" layoutY="535.0" mnemonicParsing="false" onAction="#dodajURL" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiURL" layoutX="621.0" layoutY="535.0" mnemonicParsing="false" onAction="#obrisiURL" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <TextField fx:id="otisakPrsta" layoutX="456.0" layoutY="571.0" prefHeight="25.0" prefWidth="190.0" promptText="Otisak prsta URL" />
             <TextField fx:id="pbrMjesto" layoutX="14.0" layoutY="233.0" prefHeight="25.0" prefWidth="190.0" promptText="Poštanski broj mjesta stanovanja" />
             <Label fx:id="info" layoutX="276.0" layoutY="16.0" prefHeight="17.0" prefWidth="298.0" textFill="RED" />
+            <TextField fx:id="datumRodenja" layoutX="14.0" layoutY="326.0" prefHeight="25.0" prefWidth="190.0" promptText="Datum rođenja" />
          </children>
          <padding>
             <Insets left="10.0" top="10.0" />
