@@ -147,7 +147,7 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             if (!ime.getText().isEmpty()) {
                 osumnjiceni.setIme(ime.getText());
             } else {
-                poruka.concat("ime; ");
+                poruka = poruka.concat("ime; ");
             }
         }
         
@@ -155,7 +155,7 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             if (!prezime.getText().isEmpty()) {
                 osumnjiceni.setPrezime(prezime.getText());
             } else {
-                poruka.concat("prezime; ");
+                poruka = poruka.concat("prezime; ");
             }
         }
         
@@ -163,7 +163,7 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             if (!oib.getText().isEmpty()) {
                 osumnjiceni.setOib(Long.parseLong(oib.getText()));
             } else {
-                poruka.concat("OIB; ");
+                poruka = poruka.concat("OIB; ");
             }
         }  
         
@@ -172,21 +172,21 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             if (!adresa.getText().isEmpty()) {
                 adr.setAdresa(adresa.getText());
             } else {
-                poruka.concat("adresa; ");
+                poruka = poruka.concat("adresa; ");
             }
         }
         if (mjesto.getText() != null) {
             if (!adresa.getText().isEmpty()) {
                 adr.setNazivMjesta(mjesto.getText());
             } else {
-                poruka.concat("mjesto; ");
+                poruka = poruka.concat("mjesto; ");
             }
         }
         if (pbrMjesto.getText() != null) {
             if (!pbrMjesto.getText().isEmpty()) {
                 adr.setPbrMjesto(Integer.parseInt(pbrMjesto.getText()));
             } else {
-                poruka.concat("poštanski broj; ");
+                poruka = poruka.concat("poštanski broj; ");
             }
         }
         osumnjiceni.setAdresaPrebivalista(adr);
@@ -205,11 +205,12 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             } else if (status.getValue().equals("U zatvoru")) {
                 osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru);
             }
-        }
+        } else poruka = poruka.concat("status; ");
         
         if (datumRodenja.getText() != null) 
             if (!datumRodenja.getText().isEmpty())
                 osumnjiceni.setDatumRodjenja(LocalDate.parse(datumRodenja.getText()));
+            else poruka = poruka.concat("datum rođenja; ");
         
         if (opisKriminalnihDjelatnosti.getText() != null) {
             if (!opisKriminalnihDjelatnosti.getText().isEmpty()) {
@@ -265,7 +266,7 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             } else if (spol.getValue().equals("Ž")) {
                 fizickeOsobine.setSpol(Spol.Ž);
             }
-        }
+        } else poruka = poruka.concat("spol; ");
         
         if (rasa.getText() != null) {
             if (!rasa.getText().isEmpty()) {
@@ -380,10 +381,11 @@ public class DodajKriminalacController implements Initializable, ControlledScree
             osumnjiceni.setFotografijeURL(fotkeURL);
         }
         
-        if (otisakPrsta.getText() != null)
+        if (otisakPrsta.getText() != null) {
             if (!otisakPrsta.getText().equals("")) 
                 osumnjiceni.setOtisakPrstaURL(otisakPrsta.getText());
-
+        } else poruka = poruka.concat("otisak prsta; ");
+        
         if (poruka.equals("Unesite: ")) 
             delegate.dodajKriminalca(osumnjiceni);
         else info.setText(poruka);

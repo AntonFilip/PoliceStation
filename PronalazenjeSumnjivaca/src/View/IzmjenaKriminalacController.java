@@ -130,7 +130,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
         if (osumnjiceni.getAdresaPrebivalista().getPbrMjesto() != null)
             pbrMjesto.setText(osumnjiceni.getAdresaPrebivalista().getPbrMjesto().toString());
         if (osumnjiceni.getBrojTelefona() != null)
-            brojTelefona.setText(osumnjiceni.getBrojTelefona());
+            brojTelefona.setText(osumnjiceni.getBrojTelefona());       
         if (osumnjiceni.getStatus() != null)
             status.setValue(osumnjiceni.getStatus().toString());
         if (osumnjiceni.getOpisKriminalnihDjelatnosti() != null)
@@ -342,9 +342,11 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML private void spremiIzmjene(ActionEvent event) {
         
         String poruka = "Unesite: ";
-        AdresaIMjestoStanovanja aims = new AdresaIMjestoStanovanja();
+        
         izmijenjeniKriminalac = new Osumnjiceni();
         izmijenjeniKriminalac.setOib(stariOsumnjiceni.getOib());
+        
+        AdresaIMjestoStanovanja aims = new AdresaIMjestoStanovanja();
         if (adresa.getText() != null)
             if (!adresa.getText().isEmpty())
                 aims.setAdresa(adresa.getText());
@@ -358,6 +360,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
                 aims.setPbrMjesto(Integer.parseInt(pbrMjesto.getText()));
         if(aims != null)
         	izmijenjeniKriminalac.setAdresaPrebivalista(aims);
+        
         if (brojTelefona.getText() != null)
             if (!brojTelefona.getText().isEmpty())
                 izmijenjeniKriminalac.setBrojTelefona(brojTelefona.getText());
@@ -408,7 +411,7 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             } else if (spol.getValue().equals("�")) {
                 fizickeOsobine.setSpol(Spol.Ž);
             }
-        }
+        } else poruka = poruka.concat("spol; ");
         
         if (tezina.getText() != null)
             if (!tezina.getText().isEmpty())

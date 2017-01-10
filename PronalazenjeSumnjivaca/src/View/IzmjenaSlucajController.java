@@ -266,6 +266,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
         
         if (opis.getText() != null) 
             izmijenjeniSlucaj.setOpis(opis.getText());
+        else poruka = poruka.concat("opis; ");
         
         if (glavniOsumnjiceni.getText() != null) {
             if (!glavniOsumnjiceni.getText().isEmpty()) {
@@ -284,7 +285,8 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
             } else if (statusSlucaja.getValue().equals("Zatvoren")) {
                 izmijenjeniSlucaj.setStatus(TrenutniStatusSlucaja.zatvoren);
             }
-        }
+        } else poruka = poruka.concat("status; ");
+        
 //        Set<String> fotografije = new HashSet<>();
 //        fotografije.addAll(observableFotografije);
 //        slucaj.setFotografijeSlučaja(fotografije);
@@ -328,6 +330,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 //            jadniSvjedok.setOib(Long.parseLong(svj[2].trim()));
 //        }
 //        slucaj.setPopisSvjedoka(svjedoci);
+        
         if (poruka.equals("Unesite: ")) 
             delegate.spremiIzmjeneSlucaja(stariSlucaj, izmijenjeniSlucaj, dodaniAtributi, obrisaniAtributi);
         else info.setText(poruka);

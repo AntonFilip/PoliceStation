@@ -11,7 +11,7 @@
 
 <ScrollPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.IzmjenaSlucajController">
    <content>
-      <AnchorPane id="AnchorPane" prefHeight="607.0" prefWidth="705.0">
+      <AnchorPane id="AnchorPane" prefHeight="607.0" prefWidth="679.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Izmjena podataka o slučaju">
                <font>

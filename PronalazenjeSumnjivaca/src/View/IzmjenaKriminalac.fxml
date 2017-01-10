@@ -12,7 +12,7 @@
 
 <ScrollPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.IzmjenaKriminalacController">
    <content>
-      <AnchorPane id="AnchorPane" prefHeight="985.0" prefWidth="815.0">
+      <AnchorPane id="AnchorPane" prefHeight="985.0" prefWidth="690.0">
          <children>
             <Button fx:id="obrisiURL" layoutX="181.0" layoutY="173.0" mnemonicParsing="false" onAction="#obrisiURL" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Button fx:id="dodajURL" layoutX="156.0" layoutY="173.0" maxHeight="33.0" mnemonicParsing="false" onAction="#dodajURL" prefHeight="25.0" prefWidth="25.0" text="+" />

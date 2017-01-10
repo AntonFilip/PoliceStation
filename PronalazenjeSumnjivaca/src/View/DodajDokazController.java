@@ -59,14 +59,7 @@ public class DodajDokazController implements Initializable, ControlledScreen {
             } else {
                 poruka.concat("naziv; ");
             }
-        }
-        if (brojSlucaja.getText() != null) {
-            if(!brojSlucaja.getText().equals("")) {
-                dokaz.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
-            } else {
-                poruka.concat("broj slučaja; ");
-            }
-        }
+        }       
         
         Set<String> krvneGrupe = new HashSet<>();
         if (A.selectedProperty().get()) {
@@ -104,7 +97,7 @@ public class DodajDokazController implements Initializable, ControlledScreen {
         if (fotografijaURL.getText() != null) {
             if (!fotografijaURL.getText().isEmpty()) {
                 dokaz.setFotografija(fotografijaURL.getText());
-            }
+            } else poruka = poruka.concat("fotografija; ");
         }
         
         if (poruka.equals("Unesite: ")) 

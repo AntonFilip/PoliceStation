@@ -26,7 +26,6 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
     
     ViewDelegate delegate;
     
-    @FXML TextField brojSlucaja;
     @FXML TextField nazivSlucaja;
     @FXML TextArea opisSlucaja;
     @FXML TextField glavniOsumnjiceni;
@@ -175,13 +174,6 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
         
         String poruka = "Unesite: ";
         
-        if (brojSlucaja.getText() != null) {
-            if (!brojSlucaja.getText().isEmpty()) {
-                slucaj.setBrojSlucaja(Integer.parseInt(brojSlucaja.getText()));
-            } else {
-                poruka = poruka.concat("broj slučaja; ");   
-            }
-        }
         if (nazivSlucaja.getText() != null) {
             if (!nazivSlucaja.getText().isEmpty()) {
                 slucaj.setNazivSlucaja(nazivSlucaja.getText());
@@ -189,10 +181,11 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
                 poruka = poruka.concat("naziv slučaja; ");
             }
         }
+        
         if (opisSlucaja.getText() != null) {
             if (!opisSlucaja.getText().isEmpty()) {
                 slucaj.setOpis(opisSlucaja.getText());
-            } 
+            } else poruka = poruka.concat("opis slučaja; ");
         }
         
         if (glavniOsumnjiceni.getText() != null) {
@@ -234,7 +227,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
             } else if (statusSlucaja.getValue().equals("Zatvoren")) {
                 slucaj.setStatus(TrenutniStatusSlucaja.zatvoren);
             }
-        }
+        } else poruka = poruka.concat("status; ");
         
         if (!setDogadaji.isEmpty()) 
             slucaj.setPopisDogadaja(setDogadaji);        

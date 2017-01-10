@@ -9,7 +9,7 @@
 
 <ScrollPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.DodajDokazController">
    <content>
-      <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0">
+      <AnchorPane id="AnchorPane" prefHeight="604.0" prefWidth="685.0">
          <children>
             <Label layoutX="14.0" layoutY="15.0" text="Novi dokazni materijal">
                <font>
@@ -22,7 +22,6 @@
                </font></Button>
             <Label fx:id="info" layoutX="241.0" layoutY="17.0" prefHeight="17.0" prefWidth="337.0" textFill="RED" />
             <TextField fx:id="naziv" layoutX="14.0" layoutY="47.0" prefHeight="25.0" prefWidth="190.0" promptText="Naziv dokaznog materijala" />
-            <TextField fx:id="brojSlucaja" layoutX="14.0" layoutY="78.0" prefHeight="25.0" prefWidth="190.0" promptText="Broj slučaja" />
             <CheckBox fx:id="A" layoutX="105.0" layoutY="110.0" mnemonicParsing="false" text="A" />
             <CheckBox fx:id="B" layoutX="105.0" layoutY="127.0" mnemonicParsing="false" text="B" />
             <CheckBox fx:id="AB" layoutX="105.0" layoutY="144.0" mnemonicParsing="false" text="AB" />
@@ -35,7 +34,7 @@
             <Label layoutX="220.0" layoutY="144.0" text="Otisak prsta URL:" />
             <Button fx:id="dodajOtisakPrsta" layoutX="360.0" layoutY="251.0" mnemonicParsing="false" onAction="#dodajOtisakPrsta" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiOtisakPrsta" layoutX="385.0" layoutY="251.0" mnemonicParsing="false" onAction="#obrisiOtisakPrsta" prefHeight="25.0" prefWidth="25.0" text="x" />
-            <TextField fx:id="fotografijaURL" layoutX="14.0" layoutY="194.0" prefHeight="25.0" prefWidth="190.0" promptText="URL fotografije" />
+            <TextField fx:id="fotografijaURL" layoutX="14.0" layoutY="80.0" prefHeight="25.0" prefWidth="190.0" promptText="URL fotografije" />
          </children>
       </AnchorPane>
    </content>
