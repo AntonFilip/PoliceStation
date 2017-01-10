@@ -34,9 +34,9 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     @FXML Button dodaj;
     
     @FXML ListView listaOtisaka;
-    @FXML TextField upisaniOtisak;
-    @FXML Button dodajOtisak;
-    @FXML Button obrisiOtisak;
+    @FXML TextField upisaniOtisakPrsta;
+    @FXML Button dodajOtisakPrsta;
+    @FXML Button obrisiOtisakPrsta;
 
     @FXML TextField fotografijaURL;
     
@@ -114,8 +114,8 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     }
     
     @FXML private void dodajOtisakPrsta(ActionEvent event) {
-        observableOtisci.add(upisaniOtisak.getText());
-        upisaniOtisak.clear();
+        observableOtisci.add(upisaniOtisakPrsta.getText());
+        upisaniOtisakPrsta.clear();
     }
     
     @FXML private void obrisiOtisakPrsta(ActionEvent event) {

@@ -156,8 +156,8 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             for (AdresaIMjestoStanovanja adresa : listaAdresa) {
                 observableAdrese.add(adresa.getAdresa() + ", " + adresa.getNazivMjesta());
             }
-            poznateAdrese.setItems(observableAdrese);
         }
+        poznateAdrese.setItems(observableAdrese);
         
         if (!osumnjiceni.getPovezaniSlucajevi().isEmpty()) {
             List<Slucaj> listaSlucajeva = new ArrayList<>();
@@ -165,8 +165,8 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             for (Slucaj slucaj : listaSlucajeva) {
                 observableSlucajevi.add(slucaj.getBrojSlucaja() + " - " + slucaj.getNazivSlucaja());
             }
-            popisPovezanihSlucajeva.setItems(observableSlucajevi);
         }
+        popisPovezanihSlucajeva.setItems(observableSlucajevi);
         
         if (!osumnjiceni.getPopisPovezanihKriminalaca().isEmpty()) {
             List<Osumnjiceni> listaKriminalaca = new ArrayList<>();
@@ -174,48 +174,48 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             for (Osumnjiceni krimi : listaKriminalaca) {
                 observableKriminalci.add(krimi.getIme() + " " + krimi.getPrezime() + " " + krimi.getOib().toString());
             }
-            popisPovezanihKriminalaca.setItems(observableKriminalci);
         }
+        popisPovezanihKriminalaca.setItems(observableKriminalci);
         
         if (!osumnjiceni.getFotografijeURL().isEmpty()) {
             observableListaURL.addAll(osumnjiceni.getFotografijeURL());
-            listaURL.setItems(observableListaURL);
         }
+        listaURL.setItems(observableListaURL);
 
         if (!osumnjiceni.getPopisAliasa().isEmpty()) {
             observablePopisAliasa.addAll(osumnjiceni.getPopisAliasa());
-            popisAliasa.setItems(observablePopisAliasa);
         }
-
+        popisAliasa.setItems(observablePopisAliasa);
+        
         if (!osumnjiceni.getFizickeOsobine().getTetovaze().isEmpty()) {
             observableTetovaze.addAll(osumnjiceni.getFizickeOsobine().getTetovaze());
-            tetovaze.setItems(observableTetovaze);
         }
-
+        tetovaze.setItems(observableTetovaze);
+        
         if (!osumnjiceni.getFizickeOsobine().getBolesti().isEmpty()) {
-            observableBolesti.addAll(osumnjiceni.getFizickeOsobine().getBolesti());
-            bolesti.setItems(observableBolesti);
+            observableBolesti.addAll(osumnjiceni.getFizickeOsobine().getBolesti());    
         }
-
+        bolesti.setItems(observableBolesti);
+        
         if (!osumnjiceni.getFizickeOsobine().getFizickiNedostatci().isEmpty()) {
-            observableFizickiNedostatci.addAll(osumnjiceni.getFizickeOsobine().getFizickiNedostatci());
-            fizickiNedostatci.setItems(observableFizickiNedostatci);
+            observableFizickiNedostatci.addAll(osumnjiceni.getFizickeOsobine().getFizickiNedostatci());    
         }
-
+        fizickiNedostatci.setItems(observableFizickiNedostatci);
+        
         if (!osumnjiceni.getFizickeOsobine().getOstaleFizickeOsobine().isEmpty()) {
             observableOstaleFizicke.addAll(osumnjiceni.getFizickeOsobine().getOstaleFizickeOsobine());
-            ostaleFizickeOsobine.setItems(observableOstaleFizicke);
         }
-
+        ostaleFizickeOsobine.setItems(observableOstaleFizicke);
+        
         if (!osumnjiceni.getKarakterneOsobine().getPsiholoskiProblemi().isEmpty()) {
             observablePsiholoski.addAll(osumnjiceni.getKarakterneOsobine().getPsiholoskiProblemi());
-            psiholoskiProblemi.setItems(observablePsiholoski);
         }
-
+        psiholoskiProblemi.setItems(observablePsiholoski);
+        
         if (!osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine().isEmpty()) {
             observableOstaleKarakterne.addAll(osumnjiceni.getKarakterneOsobine().getOstaleKarakterneOsobine());
-            ostaleKarakterneOsobine.setItems(observableOstaleKarakterne);
         }
+        ostaleKarakterneOsobine.setItems(observableOstaleKarakterne);
     }
     
     @FXML private void dodajURL(ActionEvent event) {

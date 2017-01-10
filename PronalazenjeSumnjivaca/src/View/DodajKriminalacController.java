@@ -106,7 +106,6 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     
     @FXML Label info;  
     
-    ObservableList<String> observableListaURL = FXCollections.observableArrayList();
     ObservableList<String> observablePopisAliasa = FXCollections.observableArrayList();
     ObservableList<String> observableTetovaze = FXCollections.observableArrayList();
     ObservableList<String> observableBolesti = FXCollections.observableArrayList();
@@ -123,6 +122,16 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     public void init(ViewDelegate delegate) {
             this.delegate = delegate;	
             fotografije.setItems(observableFotografije);
+            popisAliasa.setItems(observablePopisAliasa);
+            tetovaze.setItems(observableTetovaze);
+            bolesti.setItems(observableBolesti);
+            fizickiNedostatci.setItems(observableFizickiNedostatci);
+            ostaleFizickeOsobine.setItems(observableOstaleFizicke);
+            psiholoskiProblemi.setItems(observablePsiholoski);
+            popisPovezanihKriminalaca.setItems(observableKriminalci);
+            poznateAdrese.setItems(observableAdrese);
+            popisPovezanihSlucajeva.setItems(observableSlucajevi);
+            ostaleKarakterneOsobine.setItems(observableOstaleKarakterne);         
     }
 
     /**
