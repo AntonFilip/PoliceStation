@@ -524,7 +524,7 @@ public class PristupBaziPodataka {
 					switch (gradaTijela) {
 					case "slabija": fOsobina.setGradaTijela(GradaTijela.slabija);;break;
 					case "srednja": fOsobina.setGradaTijela(GradaTijela.srednja);;break;
-					case "ja?a": fOsobina.setGradaTijela(GradaTijela.jaca);; break;
+					case "jača": fOsobina.setGradaTijela(GradaTijela.jaca);; break;
 					}
 				}
 				fOsobina.setOblikFrizure(rs.getString(12));
@@ -651,6 +651,9 @@ public class PristupBaziPodataka {
 						Osumnjiceni osumnjiceni2=new Osumnjiceni();
 						System.out.println(s);
 						osumnjiceni2.setOib(Long.parseLong(s));
+						Osoba osoba=vratiPodatkeO("select * from Osoba WHERE oib="+s);
+						osumnjiceni2.setIme(osoba.getIme());
+						osumnjiceni2.setPrezime(osoba.getPrezime());
 						osumnjiceni.addPovezanKriminalac(osumnjiceni2);
 
 					}
@@ -966,7 +969,13 @@ public class PristupBaziPodataka {
 		List<String> vrij=new ArrayList<>();
 		String query="";
 		atr.addAll(Arrays.asList("brojSlučaja","nazivSlučaja","opis","trenutniStatus","glavnaOsumljicenaOsobaOib"));
+		if(slucaj.getGlavniOsumnjiceni()==null) {
+			vrij.addAll(Arrays.asList("NULL",slucaj.getNazivSlucaja(),slucaj.getOpis(),slucaj.getStatus().toString(),"NULL"));
+		}
+		else {
+			
 		vrij.addAll(Arrays.asList("NULL",slucaj.getNazivSlucaja(),slucaj.getOpis(),slucaj.getStatus().toString(),slucaj.getGlavniOsumnjiceni().getOib().toString()));
+		}
 		String idSlucaja=izvrsiUpit(StrategijaUpit.upitUnos("PolicijskiSlučaj", atr, vrij));
 		System.out.println(query);	
 		Set<String> popisOsumnjicenih = new HashSet<String>();
