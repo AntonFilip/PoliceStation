@@ -36,7 +36,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @FXML TextField naziv;
     @FXML TextArea opis;
     @FXML TextField glavniOsumnjiceni;
-    @FXML ComboBox statusSlucaja;
+    @FXML ComboBox<String> statusSlucaja;
     
     @FXML ListView popisOsumnjicenih;
     @FXML Button dodajOsumnjicenog;
@@ -96,16 +96,9 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
             glavniOsumnjiceni.setText(slucaj.getGlavniOsumnjiceni().getIme() + " " 
                 + slucaj.getGlavniOsumnjiceni().getPrezime() + " " + slucaj.getGlavniOsumnjiceni().getOib().toString());
         
-        if (statusSlucaja.getValue() != null) {
-            if (statusSlucaja.getValue().equals("Riješen")) {
-                slucaj.setStatus(TrenutniStatusSlucaja.riješen);
-            } else if (statusSlucaja.getValue().equals("Otvoren")) {
-                slucaj.setStatus(TrenutniStatusSlucaja.otvoren);
-            } else if (statusSlucaja.getValue().equals("Zatvoren")) {
-                slucaj.setStatus(TrenutniStatusSlucaja.zatvoren);
-            }
-        }
-        
+        if (slucaj.getStatus() != null)
+        	statusSlucaja.setValue(slucaj.getStatus().toString().substring(0, 1).toUpperCase() + slucaj.getStatus().toString().substring(1));
+                
         List<Osoba> listaOsumnjicenih = new ArrayList<>();
         listaOsumnjicenih.addAll(slucaj.getPopisOsumnjicenih());
         for (Osoba krimi : listaOsumnjicenih) {
@@ -257,6 +250,8 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @FXML private void spremiIzmjene(ActionEvent event) {
         
         String poruka = "Unesite: ";
+        izmijenjeniSlucaj = new Slucaj();
+        izmijenjeniSlucaj.setBrojSlucaja(stariSlucaj.getBrojSlucaja());
         
         if (naziv.getText() != null) 
             if (!naziv.getText().isEmpty())

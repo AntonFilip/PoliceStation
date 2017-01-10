@@ -1,19 +1,28 @@
 package View;
 
-import Controller.ViewDelegate;
-import Model.*;
-import com.itextpdf.text.DocumentException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+
+import com.itextpdf.text.DocumentException;
+
+import Controller.ViewDelegate;
+import Model.AdresaIMjestoStanovanja;
+import Model.GenerirajPDF;
+import Model.Osumnjiceni;
+import Model.Slucaj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -65,10 +74,48 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
     }
-    
-    public void prikaziPodatke(Osumnjiceni osumnjiceni) {
+
+	
+
+	
+
+
+	public static void saveImage(String imageUrl, String destinationFile) throws IOException {
+		String image = "http://www.avajava.com/images/avajavalogo.jpg";
+		String destination = "image.jpg";
+		saveImage(imageUrl, destinationFile);
+		URL url = new URL(imageUrl);
+		InputStream is = url.openStream();
+		OutputStream os = new FileOutputStream(destinationFile);
+
+		byte[] b = new byte[2048];
+		int length;
+
+		while ((length = is.read(b)) != -1) {
+			os.write(b, 0, length);
+		}
+
+		is.close();
+		os.close();
+	}
+
+	public void prikaziPodatke(Osumnjiceni osumnjiceni){
         this.osumnjiceni = osumnjiceni;
-        //fotografija.setImage((Image) osumnjiceni.getFotografijeURL());
+		if (!osumnjiceni.getFotografijeURL().isEmpty()) {
+			String[] urlovi = new String[osumnjiceni.getFotografijeURL().size()];
+			ArrayList<String> lista = new ArrayList<>();
+			lista.addAll(osumnjiceni.getFotografijeURL());
+			
+			
+//			URL url = new URL(urlovi[0]);
+//			Image image = ImageIO.read(url);
+//			fotografija.setImage(image);
+			//Image img = new Image("http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg");
+			Image img = new Image(lista.get(0));
+			//Image img = new Image("http://www.pogled.ba/storage/uploads/novosti/f/a/3/0/ajyuhJeG_kriminalac.jpg");
+			fotografija.setImage(img);
+		}
+
         if(osumnjiceni.getIme() != null)
         	ime.setText(osumnjiceni.getIme());
         if(osumnjiceni.getPrezime() != null)
