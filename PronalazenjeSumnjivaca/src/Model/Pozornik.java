@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import Controller.RazinaPristupa;
 
@@ -67,6 +68,5 @@ public class Pozornik extends Osoba {
 	public String toString() {
             return "Pozornik "+ime+" "+prezime+" ("+super.getOib()+")";
 	}
-
-
+	
 }

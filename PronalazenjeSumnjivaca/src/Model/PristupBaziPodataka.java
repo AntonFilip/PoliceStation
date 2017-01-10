@@ -1032,6 +1032,13 @@ public class PristupBaziPodataka {
 				
 				}
 			}
+			Set<Dogadaj> popisDogadaja=slucaj.getPopisDogadaja();
+			if(!popisDogadaja.isEmpty()) {
+				for(Dogadaj dogadaj: popisDogadaja) {
+					dogadaj.setBrojSlucaja(Integer.parseInt(idSlucaja));
+					dodajNoviDogadaj(dogadaj);
+				}
+			}
 			
 		
 	}
@@ -1231,6 +1238,9 @@ public class PristupBaziPodataka {
 	public static boolean dodajNoviDogadaj(Dogadaj dogadaj) {
 		List<String> a=new ArrayList<>();
 		List<String> v=new ArrayList<>();
+		if(provjeriUnos("pbrMjesto", dogadaj.getPbrMjesto().toString(), "Mjesto", "Mjesto.pbrMjesto")=="nema") {
+			izvrsiUnos(StrategijaUpit.upitUnos("Mjesto", "pbrMjesto", "nazivMjesto", dogadaj.getPbrMjesto().toString(), dogadaj.getNazivMjesto()));
+		}
 		a.addAll(Arrays.asList("događajID","nazivDogađaja","pbrMjesto","brojSlučaja","adresa","vrijeme"));
 		v.addAll(Arrays.asList("NULL",dogadaj.getNaziv(),dogadaj.getPbrMjesto().toString(),dogadaj.getBrojSlucaja().toString(),dogadaj.getAdresa(),dogadaj.getVrijeme().toString()));
 		izvrsiUnos(StrategijaUpit.upitUnos("ListaDogađaja", a, v));		
