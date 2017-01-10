@@ -9,6 +9,7 @@ public class Dogadaj {
 	private Integer brojSlucaja;
 	private String adresa;
 	private LocalDateTime vrijeme;
+	private String nazivMjesto;
 
 
 
@@ -17,7 +18,7 @@ public class Dogadaj {
 	}
 
 	public Dogadaj(Integer dogadajID, String naziv, Integer pbrMjesto, Integer brojSlucaja, String adresa,
-			LocalDateTime vrijeme) {
+			LocalDateTime vrijeme,String nazivMjesto) {
 		super();
 		this.dogadajID = dogadajID;
 		this.naziv = naziv;
@@ -25,6 +26,7 @@ public class Dogadaj {
 		this.brojSlucaja = brojSlucaja;
 		this.adresa = adresa;
 		this.vrijeme = vrijeme;
+		this.nazivMjesto=nazivMjesto;
 	}
 	public Integer getDogadajID() {
 		return dogadajID;
@@ -53,6 +55,15 @@ public class Dogadaj {
 	public String getAdresa() {
 		return adresa;
 	}
+	
+	public String getNazivMjesto() {
+		return nazivMjesto;
+	}
+
+	public void setNazivMjesto(String nazivMjesto) {
+		this.nazivMjesto = nazivMjesto;
+	}
+
 	public void setAdresa(String adresa) {
 		this.adresa = adresa;
 	}
