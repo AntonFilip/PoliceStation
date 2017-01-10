@@ -38,29 +38,29 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @FXML TextField glavniOsumnjiceni;
     @FXML ComboBox<String> statusSlucaja;
     
-    @FXML ListView popisOsumnjicenih;
+    @FXML ListView<String> popisOsumnjicenih;
     @FXML Button dodajOsumnjicenog;
     @FXML Button obrisiOsumnjicenog;
     
-    @FXML ListView popisSvjedoka;
+    @FXML ListView<String> popisSvjedoka;
     @FXML Button dodajSvjedoka;
     @FXML Button obrisiSvjedoka;
     
-    @FXML ListView popisDokaza;
+    @FXML ListView<String> popisDokaza;
     @FXML TextField upisaniDokaz;
     @FXML Button dodajDokaz;
     @FXML Button obrisiDokaz;
     
-    @FXML ListView popisPolicajaca; 
+    @FXML ListView<String> popisPolicajaca; 
     @FXML TextField upisaniPolicajac;
     @FXML Button dodajPolicajca;
     @FXML Button obrisiPolicajca;
     
-    @FXML ListView popisDogadaja;
+    @FXML ListView<String> popisDogadaja;
     @FXML Button dodajDogadaj;
     @FXML Button obrisiDogadaj;
     
-    @FXML ListView fotografijeSlucaja;
+    @FXML ListView<String> fotografijeSlucaja;
     @FXML TextField upisaniURL;
     @FXML Button dodajURL;
     @FXML Button obrisiURL;

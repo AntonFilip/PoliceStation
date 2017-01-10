@@ -33,7 +33,7 @@ public class DodajDokazController implements Initializable, ControlledScreen {
     @FXML TextArea tipOruzja;
     @FXML Button dodaj;
     
-    @FXML ListView listaOtisaka;
+    @FXML ListView<String> listaOtisaka;
     @FXML TextField upisaniOtisakPrsta;
     @FXML Button dodajOtisakPrsta;
     @FXML Button obrisiOtisakPrsta;

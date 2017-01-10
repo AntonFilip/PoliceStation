@@ -12,7 +12,7 @@
    <content>
       <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0">
          <children>
-            <ImageView fitHeight="191.0" fitWidth="233.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fotografija" fitHeight="191.0" fitWidth="233.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@secret-file.jpg" />
                </image>

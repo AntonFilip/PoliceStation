@@ -43,10 +43,10 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @FXML Label brojTelefona;
     @FXML Label status;
     @FXML ListView<String> opisKriminalnihDjelatnosti;
-    @FXML ListView popisAliasa;
-    @FXML ListView poznateAdrese;
-    @FXML ListView popisPovezanihSlucajeva;
-    @FXML ListView popisPovezanihKriminalaca;
+    @FXML ListView<String> popisAliasa;
+    @FXML ListView<String> poznateAdrese;
+    @FXML ListView<String> popisPovezanihSlucajeva;
+    @FXML ListView<String> popisPovezanihKriminalaca;
 
     @FXML Label spol;
     @FXML Label rasa;
@@ -58,15 +58,15 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @FXML Label oblikGlave;
     @FXML Label bojaOciju;
     @FXML Label gradaTijela;
-    @FXML ListView tetovaze;
-    @FXML ListView fizickiNedostatci;
-    @FXML ListView bolesti;
-    @FXML ListView ostaleFizickeOsobine;
+    @FXML ListView<String> tetovaze;
+    @FXML ListView<String> fizickiNedostatci;
+    @FXML ListView<String> bolesti;
+    @FXML ListView<String> ostaleFizickeOsobine;
 
     @FXML Label nacinGovora;
     @FXML Label razinaInteligencije;
-    @FXML ListView psihickiProblemi;
-    @FXML ListView ostaleKarakterneOsobine;
+    @FXML ListView<String> psihickiProblemi;
+    @FXML ListView<String> ostaleKarakterneOsobine;
     
     Osumnjiceni osumnjiceni;
 
@@ -81,8 +81,8 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
 
 
 	public static void saveImage(String imageUrl, String destinationFile) throws IOException {
-		String image = "http://www.avajava.com/images/avajavalogo.jpg";
-		String destination = "image.jpg";
+		//String image = "http://www.avajava.com/images/avajavalogo.jpg";
+		//String destination = "image.jpg";
 		saveImage(imageUrl, destinationFile);
 		URL url = new URL(imageUrl);
 		InputStream is = url.openStream();
@@ -102,17 +102,10 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
 	public void prikaziPodatke(Osumnjiceni osumnjiceni){
         this.osumnjiceni = osumnjiceni;
 		if (!osumnjiceni.getFotografijeURL().isEmpty()) {
-			String[] urlovi = new String[osumnjiceni.getFotografijeURL().size()];
+			
 			ArrayList<String> lista = new ArrayList<>();
 			lista.addAll(osumnjiceni.getFotografijeURL());
-			
-			
-//			URL url = new URL(urlovi[0]);
-//			Image image = ImageIO.read(url);
-//			fotografija.setImage(image);
-			//Image img = new Image("http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg");
 			Image img = new Image(lista.get(0));
-			//Image img = new Image("http://www.pogled.ba/storage/uploads/novosti/f/a/3/0/ajyuhJeG_kriminalac.jpg");
 			fotografija.setImage(img);
 		}
 

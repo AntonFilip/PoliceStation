@@ -36,13 +36,13 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
     @FXML TextField prezime;
     @FXML TextField adresa;
     @FXML TextField brojTelefona;
-    @FXML ComboBox status;
+    @FXML ComboBox<?> status;
     @FXML TextArea popisAliasa;
     @FXML TextArea poznateAdrese;
     @FXML TextArea popisPovezanihSlucajeva;
     @FXML TextArea popisPovezanihKriminalaca;
 
-    @FXML ComboBox spol;
+    @FXML ComboBox<?> spol;
     @FXML TextField rasa;
     @FXML TextField visina;
     @FXML TextField tezina;
@@ -51,14 +51,14 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
     @FXML TextField oblikFrizure;
     @FXML TextField oblikGlave;
     @FXML TextField bojaOciju;
-    @FXML ComboBox gradaTijela;
+    @FXML ComboBox<?> gradaTijela;
     @FXML TextArea tetovaze;
     @FXML TextArea fizickiNedostatci;
     @FXML TextArea bolesti;
     @FXML TextArea ostaleFizickeOsobine;
 
     @FXML TextField nacinGovora;
-    @FXML ComboBox razinaApstraktneInteligencije;
+    @FXML ComboBox<?> razinaApstraktneInteligencije;
     @FXML TextArea psiholoskiProblemi;
     @FXML TextArea ostaleKarakterneOsobine;      
 

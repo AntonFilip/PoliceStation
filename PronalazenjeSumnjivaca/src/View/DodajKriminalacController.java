@@ -30,61 +30,61 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML TextField mjesto;
     @FXML TextField pbrMjesto;
     @FXML TextField brojTelefona;
-    @FXML ComboBox status;
+    @FXML ComboBox<?> status;
     @FXML TextField datumRodenja;
     @FXML TextArea opisKriminalnihDjelatnosti;
     
-    @FXML ListView popisAliasa;
+    @FXML ListView<String> popisAliasa;
     @FXML Button obrisiAlias;
     @FXML Button dodajAlias;
     @FXML TextField upisaniAlias;
     
-    @FXML ListView poznateAdrese;
+    @FXML ListView<String> poznateAdrese;
     @FXML Button obrisiAdresu;
     @FXML Button dodajAdresu;
     @FXML TextField upisanaAdresa;
     
-    @FXML ListView popisPovezanihSlucajeva;
+    @FXML ListView<String> popisPovezanihSlucajeva;
     @FXML Button obrisiSlucaj;
     @FXML Button dodajSlucaj;
     @FXML TextField upisaniSlucaj;
     
-    @FXML ListView popisPovezanihKriminalaca;
+    @FXML ListView<String> popisPovezanihKriminalaca;
     @FXML Button obrisiKriminalca;
     @FXML Button dodajKriminalca;
     @FXML TextField upisaniKriminalac;
     
-    @FXML ListView tetovaze;
+    @FXML ListView<String> tetovaze;
     @FXML Button obrisiTetovazu;
     @FXML Button dodajTetovazu;
     @FXML TextField upisanaTetovaza;
     
-    @FXML ListView fizickiNedostatci;
+    @FXML ListView<String> fizickiNedostatci;
     @FXML Button obrisiNedostatak;
     @FXML Button dodajNedostatak;
     @FXML TextField upisaniNedostatak;
     
-    @FXML ListView bolesti;
+    @FXML ListView<String> bolesti;
     @FXML Button obrisiBolest;
     @FXML Button dodajBolest;
     @FXML TextField upisanaBolest;
     
-    @FXML ListView ostaleFizickeOsobine;
+    @FXML ListView<String> ostaleFizickeOsobine;
     @FXML Button obrisiFizickuOsobinu;
     @FXML Button dodajFizickuOsobinu;
     @FXML TextField upisanaFizickaOsobina;
     
-    @FXML ListView psiholoskiProblemi;
+    @FXML ListView<String> psiholoskiProblemi;
     @FXML Button obrisiPsiholoski;
     @FXML Button dodajPsiholoski;
     @FXML TextField upisaniPsiholoski;
     
-    @FXML ListView ostaleKarakterneOsobine; 
+    @FXML ListView<String> ostaleKarakterneOsobine; 
     @FXML Button obrisiKarakternuOsobinu;
     @FXML Button dodajKarakternuOsobinu;
     @FXML TextField upisanaKarakternaOsobina;
 
-    @FXML ComboBox spol;
+    @FXML ComboBox<?> spol;
     @FXML TextField rasa;
     @FXML TextField visina;
     @FXML TextField tezina;
@@ -93,12 +93,12 @@ public class DodajKriminalacController implements Initializable, ControlledScree
     @FXML TextField oblikFrizure;
     @FXML TextField oblikGlave;
     @FXML TextField bojaOciju;
-    @FXML ComboBox gradaTijela;
+    @FXML ComboBox<?> gradaTijela;
 
     @FXML TextField nacinGovora;
-    @FXML ComboBox razinaApstraktneInteligencije; 
+    @FXML ComboBox<?> razinaApstraktneInteligencije; 
     
-    @FXML ListView fotografije;
+    @FXML ListView<String> fotografije;
     @FXML TextField upisaniURL;
     @FXML Button dodajURL;
     @FXML Button obrisiURL;

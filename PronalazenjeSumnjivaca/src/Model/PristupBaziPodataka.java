@@ -1264,6 +1264,7 @@ public class PristupBaziPodataka {
 		List<String> vList=new ArrayList<>();
 		String upit="";
 		String rez="";
+		@SuppressWarnings("unused")
 		String prezime="",ime="",nazivMjesto="",adresa,pbr = null,oib="";
 		
 		for (String s:listaAtributa) {

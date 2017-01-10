@@ -1,14 +1,14 @@
 package Model;
 
-import java.time.LocalDateTime;
 import java.util.Map;
+
 import Controller.RazinaPristupa;
 
 public class Pozornik extends Osoba {
 
 	protected RazinaPristupa razinaPristupa;
-	private String username;
-	private String password;
+	//private String username;
+	//private String password;
 	private Integer jedinstveniBroj;
 
 	public Pozornik() {

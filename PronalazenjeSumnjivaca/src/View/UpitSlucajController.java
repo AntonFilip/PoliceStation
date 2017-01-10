@@ -36,7 +36,7 @@ public class UpitSlucajController implements Initializable, ControlledScreen {
 	@FXML
 	TextArea popisPolicajaca;
 	@FXML
-	ComboBox statusSlucaja;
+	ComboBox<?> statusSlucaja;
 	@FXML
 	TextArea popisDogadaja;
 	@FXML
