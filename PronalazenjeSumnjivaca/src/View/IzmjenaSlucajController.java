@@ -249,8 +249,6 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     
     @FXML private void spremiIzmjene(ActionEvent event) {
         
-        izmijenjeniSlucaj = new Slucaj();
-        
         String poruka = "Unesite: ";
         izmijenjeniSlucaj = new Slucaj();
         izmijenjeniSlucaj.setBrojSlucaja(stariSlucaj.getBrojSlucaja());
