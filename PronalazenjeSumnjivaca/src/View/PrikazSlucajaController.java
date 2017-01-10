@@ -67,63 +67,53 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         if(slucaj.getStatus() != null)
         	status.setText(slucaj.getStatus().toString());
         
-        List<String> list1 = new ArrayList<>();
         List<Osoba> listaOsumnjicenih = new ArrayList<>();
-        ObservableList<String> observableOsumnjiceni = FXCollections.emptyObservableList();
+        ObservableList<String> observableOsumnjiceni = FXCollections.observableArrayList();
         if (!slucaj.getPopisOsumnjicenih().isEmpty()) {
             listaOsumnjicenih.addAll(slucaj.getPopisOsumnjicenih());
             for (Osoba krimi : listaOsumnjicenih) {
-                list1.add(krimi.getIme() + " " + krimi.getPrezime() + " " + krimi.getOib());
+                observableOsumnjiceni.add(krimi.getIme() + " " + krimi.getPrezime() + " " + krimi.getOib());
             }
-            observableOsumnjiceni = FXCollections.observableList(list1);
             popisOsumnjicenih.setItems(observableOsumnjiceni);   
         }
         
-        List<String> list2 = new ArrayList<>();
-        ObservableList<String> observableSvjedoci = FXCollections.emptyObservableList();
+        ObservableList<String> observableSvjedoci = FXCollections.observableArrayList();
         List<Osoba> listaSvjedoka = new ArrayList<>();
         if (!slucaj.getPopisSvjedoka().isEmpty()) {
             listaSvjedoka.addAll(slucaj.getPopisSvjedoka());
             for (Osoba svjedok : listaSvjedoka) {
-                list2.add(svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib());
+                observableSvjedoci.add(svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib());
             }
-            observableSvjedoci = FXCollections.observableList(list2);
             popisSvjedoka.setItems(observableSvjedoci);
         }
         
-        List<String> list3 = new ArrayList<>();
-        ObservableList<String> observableDokazi = FXCollections.emptyObservableList();
+        ObservableList<String> observableDokazi = FXCollections.observableArrayList();
         List<Dokaz> listaDokaza = new ArrayList<>();
         if (!slucaj.getPopisDokaza().isEmpty()) {
             listaDokaza.addAll(slucaj.getPopisDokaza());
             for (Dokaz dokaz : listaDokaza) {
-                list3.add(dokaz.getID() + " " + dokaz.getNaziv());
+                observableDokazi.add(dokaz.getID() + " " + dokaz.getNaziv());
             }
-            observableDokazi = FXCollections.observableList(list3);
             popisDokaza.setItems(observableDokazi);
         }
         
-        List<String> list4 = new ArrayList<>();
-        ObservableList<String> observablePolicajci = FXCollections.emptyObservableList();
+        ObservableList<String> observablePolicajci = FXCollections.observableArrayList();
         List<Osoba> listaPolicajaca = new ArrayList<>();
         if (!slucaj.getPopisPolicajaca().isEmpty()) {
             listaPolicajaca.addAll(slucaj.getPopisPolicajaca());
             for (Osoba policajac : listaPolicajaca) {
-                list4.add(policajac.getIme() + " " + policajac.getPrezime() + " " + policajac.getOib());
+                observablePolicajci.add(policajac.getIme() + " " + policajac.getPrezime() + " " + policajac.getOib());
             }
-            observablePolicajci = FXCollections.observableList(list4);
             popisPolicajaca.setItems(observablePolicajci);
         }
         
-        List<String> list5 = new ArrayList<>();
-        ObservableList<String> observableDogadaji = FXCollections.emptyObservableList();
+        ObservableList<String> observableDogadaji = FXCollections.observableArrayList();
         List<Dogadaj> listaDogadaja = new ArrayList<>();
         if (!slucaj.getPopisDogadaja().isEmpty()) {
             listaDogadaja.addAll(slucaj.getPopisDogadaja());
             for (Dogadaj dogadaj : listaDogadaja) {
-                list5.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
+                observableDogadaji.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
             }
-            observableDogadaji = FXCollections.observableList(list5);
             popisDogadaja.setItems(observableDogadaji);
         }
         
