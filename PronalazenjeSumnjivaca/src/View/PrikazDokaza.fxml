@@ -58,7 +58,7 @@
                   <Font name="Lucida Sans Typewriter Regular" size="12.0" />
                </font>
             </Label>
-            <ImageView fx:id="otisakPrsta" fitHeight="99.0" fitWidth="64.0" layoutX="367.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="otisakPrsta" fitHeight="155.0" fitWidth="184.0" layoutX="367.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
             <Button fx:id="ispis" layoutX="580.0" layoutY="300.0" mnemonicParsing="false" onAction="#generirajPDF" prefHeight="31.0" prefWidth="70.0" text="Ispis">
                <font>

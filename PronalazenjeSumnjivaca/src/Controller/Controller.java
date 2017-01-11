@@ -2,7 +2,6 @@ package Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -238,22 +237,15 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void dodajSlucaj(Slucaj slucaj) {
-		Kapetan.dodajNoviSlucaj(slucaj);
-		mapaSlucaj = policajac.posaljiUpit(slucaj);
-		LinkedHashMap<Slucaj, Float> sorted = (LinkedHashMap<Slucaj, Float>) ListaStavkiController.sortByValue(mapaSlucaj);
-		Slucaj[] lista = sorted.keySet().toArray(new Slucaj[sorted.size()]);	
-		prikaziPodatkeSlucaja(lista[0]);
+		String string = Kapetan.dodajNoviSlucaj(slucaj);
+		slucaj.setBrojSlucaja(Integer.parseInt(string.trim()));
+		prikaziPodatkeSlucaja(slucaj);
 	}
 
 	@Override
 	public void dodajDokaz(Dokaz dokaz) {
-		Narednik.dodajNoviDokaz(dokaz);
-		mapaDokaz = policajac.posaljiUpit(dokaz);
-		LinkedHashMap<Dokaz, Float> sorted = (LinkedHashMap<Dokaz, Float>) ListaStavkiController.sortByValue(mapaDokaz);
-		for(Map.Entry<Dokaz, Float> entry : sorted.entrySet()){
-			if(entry.getValue().equals((float)100));
-				dokaz = entry.getKey();
-		}
+		String string = Narednik.dodajNoviDokaz(dokaz);
+		dokaz.setID(Integer.parseInt(string.trim()));
 		prikaziPodatkeDokaza(dokaz);
 	}
 
