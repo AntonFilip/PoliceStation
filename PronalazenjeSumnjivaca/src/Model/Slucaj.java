@@ -227,7 +227,11 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 
 	@Override
 	public String toString() {
-		return "\nSlucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", status=" + status + "]";
+		return "Slucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", opis=" + opis
+				+ ", glavniOsumnjiceni=" + glavniOsumnjiceni + ", popisOsumnjicenih=" + popisOsumnjicenih
+				+ ", popisSvjedoka=" + popisSvjedoka + ", popisDokaza=" + popisDokaza + ", popisPolicajaca="
+				+ popisPolicajaca + ", status=" + status + ", fotografijeSlučaja=" + fotografijeSlučaja
+				+ ", popisDogadaja=" + popisDogadaja + "]";
 	}
 
 	@Override

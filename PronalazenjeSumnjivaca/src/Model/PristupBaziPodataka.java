@@ -351,6 +351,7 @@ public class PristupBaziPodataka {
 
 			while (rs.next()) {
 				slucaj.setBrojSlucaja(rs.getInt(1));
+				String brSlucaja=rs.getString(1);
 				slucaj.setNazivSlucaja(rs.getString(2));
 				String status=rs.getString(4);
 				switch (status) {
@@ -361,7 +362,9 @@ public class PristupBaziPodataka {
 				Osumnjiceni osumnjiceni=new Osumnjiceni();
 				if(rs.getLong(5)!=0) {
 					osumnjiceni.setOib(rs.getLong(5));
-
+					Osoba osoba=vratiPodatkeO("select * from Osoba where oib="+rs.getString(5));
+					osumnjiceni.setIme(osoba.getIme());
+					osumnjiceni.setPrezime(osoba.getPrezime());
 					slucaj.setGlavniOsumnjiceni(osumnjiceni);
 				}
 				slucaj.setOpis(rs.getString(3));
@@ -386,7 +389,15 @@ public class PristupBaziPodataka {
 					vrati.removeAll(vrati);
 
 				}
-
+				if(!(vratiListu(Long.parseLong(brSlucaja), "DokazniMaterijal.brojDokaznogMaterijala", "DokazniMaterijal", "PolicijskiSlučaj", "DokazniMaterijal.brojSlučaja", "PolicijskiSlučaj.brojSlučaja", "PolicijskiSlučaj.brojSlučaja").isEmpty())) {
+					for(String s:vrati) {
+						Dokaz dokaz=new Dokaz();
+						dokaz.setID(Integer.parseInt(s));
+						postaviPodatkeDokaz(dokaz);
+						slucaj.addDokaz(dokaz);
+					}
+				}
+				vrati.removeAll(vrati);
 
 
 				if(!(vratiListu(Long.parseLong(id),"Osoba.oib","PolicijskiSlučaj","ListaSvjedoka", "ListaSvjedoka.brojSlučaja","PolicijskiSlučaj.brojSlučaja","Osoba", "Osoba.oib", "ListaSvjedoka.osobaOib").isEmpty())) {
@@ -405,6 +416,7 @@ public class PristupBaziPodataka {
 							ResultSet rSet=statement.executeQuery(select);
 							while(rSet.next()) {
 								Dogadaj dogadaj=new Dogadaj();
+								dogadaj.setDogadajID(rSet.getInt(1));
 								dogadaj.setAdresa(rSet.getString(5));
 								dogadaj.setNaziv(rSet.getString(2));
 								dogadaj.setPbrMjesto(rSet.getInt(3));
@@ -470,6 +482,29 @@ public class PristupBaziPodataka {
 			}
 		}
 		return null;
+	}
+
+	private static void postaviPodatkeDokaz(Dokaz dokaz) {
+		String upit="select * from DokazniMaterijal where brojDokaznogMaterijala="+dokaz.getID().toString();
+	
+		try {
+			dbConnection = getDBConnection();
+			if (dbConnection==null) {System.out.println("fail");	
+			}
+
+			statement=dbConnection.prepareStatement(upit);
+			ResultSet rs = statement.executeQuery(upit);
+
+			while (rs.next()) {
+				dokaz.setNaziv(rs.getString(2));
+				dokaz.setBrojSlucaja(rs.getInt(3));
+				dokaz.setFotografija(rs.getString(4));
+			}
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+			
+		}
 	}
 
 	public static Osumnjiceni dohvatiPodatkeOsumnjiceni(String oib) {

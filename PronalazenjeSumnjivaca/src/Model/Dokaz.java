@@ -168,7 +168,9 @@ public class Dokaz implements StrategijaUpit<Dokaz> {
 	
 	@Override
 	public String toString() {
-		return "\nDokaz [ID=" + ID + ", naziv=" +naziv+ ", nazivSlucaja=" + nazivSlucaja + "]";
+		return "Dokaz [ID=" + ID + ", nazivSlucaja=" + nazivSlucaja + ", brojSlucaja=" + brojSlucaja + ", naziv="
+				+ naziv + ", fotografija=" + fotografija + ", krvnaGrupa=" + krvnaGrupa + ", DNASekvenca=" + DNASekvenca
+				+ ", tipOruzja=" + tipOruzja + ", otisakPrsta=" + otisakPrsta + "]";
 	}
 
 	@Override
