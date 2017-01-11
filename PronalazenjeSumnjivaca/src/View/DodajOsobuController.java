@@ -67,7 +67,7 @@ public class DodajOsobuController implements Initializable {
         }
         
         AdresaIMjestoStanovanja adresa = new AdresaIMjestoStanovanja();
-        
+        osoba.setAdresaPrebivalista(adresa);
         if (ulica.getText() != null) {
             if (!ulica.getText().isEmpty()) {
                 adresa.setAdresa(ulica.getText());
