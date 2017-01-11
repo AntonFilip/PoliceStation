@@ -14,9 +14,7 @@
       <AnchorPane prefHeight="735.0" prefWidth="720.0">
          <children>
             <ImageView fx:id="fotografija" fitHeight="198.0" fitWidth="151.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@default-profile.png" />
-               </image>
+               
             </ImageView>
             <Label layoutX="182.0" layoutY="14.0" text="Ime:">
                <font>

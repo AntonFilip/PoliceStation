@@ -52,6 +52,10 @@ public class GlavniIzbornikController implements Initializable{
         this.delegate = delegate;
         izmjeniDokaz.setDisable(true);
         izmjeniDokaz.setVisible(false);
+        brza.setDisable(true);
+        brza.setVisible(false);
+        trazi.setDisable(true);
+        trazi.setVisible(false);
         final BooleanProperty firstTime = new SimpleBooleanProperty(true);
         brza.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
             if(newValue && firstTime.get()){
@@ -134,7 +138,7 @@ public class GlavniIzbornikController implements Initializable{
     	delegate.postaviScenuDodajDokaz();
     }
     
-    @FXML public void setIme(String ime) {
+    public void setIme(String ime) {
         toplabela.setText(ime);
     }
     

@@ -26,8 +26,8 @@ local.properties
 .cproject
 
 # JDT-specific (Eclipse Java Development Tools)
-.classpath
-PronalazenjeSumnjivaca/.classpath
+#.classpath
+#PronalazenjeSumnjivaca/.classpath
 
 # Java annotation processor (APT)
 .factorypath

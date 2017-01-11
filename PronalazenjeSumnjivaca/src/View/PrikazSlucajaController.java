@@ -1,23 +1,34 @@
 package View;
 
-import Controller.ViewDelegate;
-import Model.*;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.DocumentException;
+
+import Controller.ViewDelegate;
+import Model.Dogadaj;
+import Model.Dokaz;
+import Model.GenerirajPDF;
+import Model.Osoba;
+import Model.Slucaj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -35,15 +46,16 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
     @FXML Label glavniOsumnjiceni;
     @FXML Label status;
     
-    @FXML ListView popisOsumnjicenih;
-    @FXML ListView popisSvjedoka;
-    @FXML ListView popisDokaza;
-    @FXML ListView popisPolicajaca;
-    @FXML ListView popisDogadaja;
+    @FXML ListView<String> popisOsumnjicenih;
+    @FXML ListView<String> popisSvjedoka;
+    @FXML ListView<String> popisDokaza;
+    @FXML ListView<String> popisPolicajaca;
+    @FXML ListView<String> popisDogadaja;
     
     @FXML Button ispis;
     
     Slucaj slucaj;
+    int index;
     
     @Override
     public void init(ViewDelegate delegate) {
@@ -51,11 +63,32 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
     }
     
     public void prikaziPodatke(Slucaj slucaj) {
-        
-        this.slucaj = slucaj;
-        
-        //fotografija.setImage((Image) slucaj.getFotografijeSlučaja());
-        
+    	index=0;
+		this.slucaj = slucaj;
+
+		if (!slucaj.getFotografijeSlučaja().isEmpty() && slucaj.getFotografijeSlučaja() != null) {
+
+			ArrayList<String> lista = new ArrayList<>();
+			lista.addAll(slucaj.getFotografijeSlučaja());
+			Image img = new Image(lista.get(0));
+			fotografija.setImage(img);
+			fotografija.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+						if (lista.size() > 1) {
+							index++;
+							Image img2 = new Image(lista.get(index % lista.size()));
+							fotografija.setImage(img2);
+						}
+					}
+				}
+
+			});
+		}
+
+		// fotografija.setImage((Image) slucaj.getFotografijeSlučaja());
+
     	if(slucaj.getBrojSlucaja() != null)
     		broj.setText(Integer.toString(slucaj.getBrojSlucaja()));
         if(slucaj.getNazivSlucaja() != null)

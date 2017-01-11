@@ -53,7 +53,7 @@
             <Label layoutX="16.0" layoutY="718.0" text="Popis povezanih slučajeva:" />
             <ListView fx:id="popisPovezanihSlucajeva" editable="true" layoutX="16.0" layoutY="735.0" prefHeight="90.0" prefWidth="190.0" />
             <TextField fx:id="upisaniSlucaj" layoutX="16.0" layoutY="825.0" prefHeight="25.0" prefWidth="140.0" promptText="broj slučaja" />
-            <Button fx:id="dodajSLucaj" layoutX="156.0" layoutY="825.0" mnemonicParsing="false" onAction="#dodajSlucaj" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="dodajSlucaj" layoutX="156.0" layoutY="825.0" mnemonicParsing="false" onAction="#dodajSlucaj" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiSlucaj" layoutX="181.0" layoutY="825.0" mnemonicParsing="false" onAction="#obrisiSlucaj" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label layoutX="16.0" layoutY="861.0" text="Popis povezanih kriminalaca:" />
             <ListView fx:id="popisPovezanihKriminalaca" editable="true" layoutX="16.0" layoutY="878.0" prefHeight="80.0" prefWidth="190.0" />

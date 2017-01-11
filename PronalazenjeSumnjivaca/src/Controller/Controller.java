@@ -2,8 +2,10 @@ package Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +37,6 @@ import View.PrikaziStatistikuController;
 import View.UpitDokazController;
 import View.UpitKriminalacController;
 import View.UpitSlucajController;
-import java.util.Set;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -238,12 +239,21 @@ public class Controller extends Application implements ViewDelegate {
 	@Override
 	public void dodajSlucaj(Slucaj slucaj) {
 		Kapetan.dodajNoviSlucaj(slucaj);
-		prikaziPodatkeSlucaja(slucaj);
+		mapaSlucaj = policajac.posaljiUpit(slucaj);
+		LinkedHashMap<Slucaj, Float> sorted = (LinkedHashMap<Slucaj, Float>) ListaStavkiController.sortByValue(mapaSlucaj);
+		Slucaj[] lista = sorted.keySet().toArray(new Slucaj[sorted.size()]);	
+		prikaziPodatkeSlucaja(lista[0]);
 	}
 
 	@Override
 	public void dodajDokaz(Dokaz dokaz) {
 		Narednik.dodajNoviDokaz(dokaz);
+		mapaDokaz = policajac.posaljiUpit(dokaz);
+		LinkedHashMap<Dokaz, Float> sorted = (LinkedHashMap<Dokaz, Float>) ListaStavkiController.sortByValue(mapaDokaz);
+		for(Map.Entry<Dokaz, Float> entry : sorted.entrySet()){
+			if(entry.getValue().equals((float)100));
+				dokaz = entry.getKey();
+		}
 		prikaziPodatkeDokaza(dokaz);
 	}
 

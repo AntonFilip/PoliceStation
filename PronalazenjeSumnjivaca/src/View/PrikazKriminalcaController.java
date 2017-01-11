@@ -1,21 +1,33 @@
 package View;
 
-import Controller.ViewDelegate;
-import Model.*;
-import com.itextpdf.text.DocumentException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+
+import com.itextpdf.text.DocumentException;
+
+import Controller.ViewDelegate;
+import Model.AdresaIMjestoStanovanja;
+import Model.GenerirajPDF;
+import Model.Osumnjiceni;
+import Model.Slucaj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 
 /**
@@ -34,10 +46,10 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @FXML Label brojTelefona;
     @FXML Label status;
     @FXML ListView<String> opisKriminalnihDjelatnosti;
-    @FXML ListView popisAliasa;
-    @FXML ListView poznateAdrese;
-    @FXML ListView popisPovezanihSlucajeva;
-    @FXML ListView popisPovezanihKriminalaca;
+    @FXML ListView<String> popisAliasa;
+    @FXML ListView<String> poznateAdrese;
+    @FXML ListView<String> popisPovezanihSlucajeva;
+    @FXML ListView<String> popisPovezanihKriminalaca;
 
     @FXML Label spol;
     @FXML Label rasa;
@@ -49,26 +61,51 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @FXML Label oblikGlave;
     @FXML Label bojaOciju;
     @FXML Label gradaTijela;
-    @FXML ListView tetovaze;
-    @FXML ListView fizickiNedostatci;
-    @FXML ListView bolesti;
-    @FXML ListView ostaleFizickeOsobine;
+    @FXML ListView<String> tetovaze;
+    @FXML ListView<String> fizickiNedostatci;
+    @FXML ListView<String> bolesti;
+    @FXML ListView<String> ostaleFizickeOsobine;
 
     @FXML Label nacinGovora;
     @FXML Label razinaInteligencije;
-    @FXML ListView psihickiProblemi;
-    @FXML ListView ostaleKarakterneOsobine;
+    @FXML ListView<String> psihickiProblemi;
+    @FXML ListView<String> ostaleKarakterneOsobine;
     
     Osumnjiceni osumnjiceni;
+    int index;
 
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
+        index = 0;
+        
     }
+
     
-    public void prikaziPodatke(Osumnjiceni osumnjiceni) {
+	public void prikaziPodatke(Osumnjiceni osumnjiceni){
         this.osumnjiceni = osumnjiceni;
-        //fotografija.setImage((Image) osumnjiceni.getFotografijeURL());
+		if (!osumnjiceni.getFotografijeURL().isEmpty()) {
+			
+			ArrayList<String> lista = new ArrayList<>();
+			lista.addAll(osumnjiceni.getFotografijeURL());
+			System.out.println(lista);
+			Image img = new Image(lista.get(index));
+			fotografija.setImage(img);
+			fotografija.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+						if (lista.size() > 1) {
+							index++;
+							Image img2 = new Image(lista.get(index % lista.size()));
+							fotografija.setImage(img2);
+						}
+					}
+				}
+
+			});
+		}
+
         if(osumnjiceni.getIme() != null)
         	ime.setText(osumnjiceni.getIme());
         if(osumnjiceni.getPrezime() != null)
@@ -210,4 +247,28 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }      
+
+	
+
+
+	public static void saveImage(String imageUrl, String destinationFile) throws IOException {
+		//String image = "http://www.avajava.com/images/avajavalogo.jpg";
+		//String destination = "image.jpg";
+		saveImage(imageUrl, destinationFile);
+		URL url = new URL(imageUrl);
+		InputStream is = url.openStream();
+		OutputStream os = new FileOutputStream(destinationFile);
+
+		byte[] b = new byte[2048];
+		int length;
+
+		while ((length = is.read(b)) != -1) {
+			os.write(b, 0, length);
+		}
+
+		is.close();
+		os.close();
+	}
+	
+	
 }

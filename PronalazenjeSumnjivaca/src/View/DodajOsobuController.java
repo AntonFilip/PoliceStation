@@ -1,13 +1,15 @@
 package View;
 
-import Controller.ViewDelegate;
-import Model.AdresaIMjestoStanovanja;
-import Model.Osoba;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Model.AdresaIMjestoStanovanja;
+import Model.Osoba;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -65,7 +67,7 @@ public class DodajOsobuController implements Initializable {
         }
         
         AdresaIMjestoStanovanja adresa = new AdresaIMjestoStanovanja();
-        
+        osoba.setAdresaPrebivalista(adresa);
         if (ulica.getText() != null) {
             if (!ulica.getText().isEmpty()) {
                 adresa.setAdresa(ulica.getText());
