@@ -742,7 +742,7 @@ public class PristupBaziPodataka {
 		return vrati;
 	}
 
-	public static void dodajNoviDokaz(Dokaz dokaz) {
+	public static String dodajNoviDokaz(Dokaz dokaz) {
 		ArrayList<String> atr=new ArrayList<>();
 		ArrayList<String> vrij=new ArrayList<>();
 		String query="";
@@ -776,6 +776,7 @@ public class PristupBaziPodataka {
 				upišiUBazu("tipOružja", tipOružja, brDokaza);
 				System.out.println("tu san");
 			}
+			return brDokaza;
 	}
 	private static void upišiUBazu(String ime,Set<String> atribut,String brDokaza) {
 		String pom="";
@@ -882,7 +883,7 @@ public class PristupBaziPodataka {
 
 						break;
 					case "dnaSekvenca" :
-						atributi.add(ime+"ID");
+						atributi.add("dnaSekvencaID");
 						atributi.add("nazivDNASekvenca");
 						vrijednosti.add("NULL");
 						vrijednosti.add(s);
@@ -895,10 +896,10 @@ public class PristupBaziPodataka {
 							keys.next(); 
 							String brtip=keys.getString(1);
 							atr.removeAll(atr);
-							atr.add(ime+"ID");
+							atr.add("dnaSekvencaID");
 							atr.add("dokazniMaterijalID");
-							vrij.add(brDokaza.toString());
 							vrij.add(brtip);
+							vrij.add(brDokaza);
 							upit=StrategijaUpit.upitUnos("ListaDNASekvenciNaDokaznomMaterijalu", atr, vrij);
 							try {
 								System.out.println(upit);
@@ -913,7 +914,7 @@ public class PristupBaziPodataka {
 						catch (Exception ex) {
 							System.out.println(ex.getMessage());
 						}
-
+						break;
 
 
 
@@ -964,7 +965,7 @@ public class PristupBaziPodataka {
 
 	}
 
-	public static void dodajNoviSlucaj(Slucaj slucaj) {
+	public static String dodajNoviSlucaj(Slucaj slucaj) {
 		List<String> atr=new ArrayList<>();
 		List<String> vrij=new ArrayList<>();
 		String query="";
@@ -1049,7 +1050,7 @@ public class PristupBaziPodataka {
 				}
 			}
 			
-		
+		return idSlucaja;
 	}
 
 

@@ -16,9 +16,9 @@ public class Narednik extends Pozornik {
 
 	}
 	
-	public static boolean dodajNoviDokaz(Dokaz dokaz) {
-		PristupBaziPodataka.dodajNoviDokaz(dokaz);
-		return true;	
+	public static String dodajNoviDokaz(Dokaz dokaz) {
+		return PristupBaziPodataka.dodajNoviDokaz(dokaz);
+			
 	}
 	
 	public static boolean izmjeni(Dokaz trenutni,Dokaz izmjenjeni,Set<String> dodaniAtributi,Set<String> izbrisani){

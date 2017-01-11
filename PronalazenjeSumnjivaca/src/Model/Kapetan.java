@@ -13,9 +13,8 @@ public class Kapetan extends Narednik {
 		razinaPristupa = RazinaPristupa.VISOKA;
 
 	}
-	public static boolean dodajNoviSlucaj(Slucaj slucaj) {
-		Context<Slucaj> slucaji=new Context<>(new Slucaj());
-		return slucaji.dodajNoviSlucaj(slucaj);	
+	public static String dodajNoviSlucaj(Slucaj slucaj) {
+		return PristupBaziPodataka.dodajNoviSlucaj(slucaj);	
 	}
 	public static boolean dodajNovogKriminalca(Osumnjiceni osumnjicen) {
 		Context<Osumnjiceni> osumnjiceni=new Context<>(new Osumnjiceni());
