@@ -134,7 +134,7 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         for (String kriminalac : kriminalci) {
             Osumnjiceni novi = new Osumnjiceni();
             if (!kriminalac.isEmpty()) {
-                novi.setOib(Integer.parseInt(kriminalac)); 
+                novi.setOib(Long.parseLong(kriminalac)); 
                 popisKriminalaca.add(novi);
             }
         }

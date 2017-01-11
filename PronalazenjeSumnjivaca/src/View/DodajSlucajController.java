@@ -215,6 +215,7 @@ public class DodajSlucajController implements Initializable, ControlledScreen, D
                 String[] pol = polis.split(" ");
                 Pozornik polisman = new Pozornik();
                 polisman.setOib(Long.parseLong(pol[2].trim()));
+                policajci.add(polisman);
             }
             slucaj.setPopisPolicajaca(policajci);
         }
