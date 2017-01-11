@@ -18,6 +18,7 @@ import Model.Slucaj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,6 +26,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 
 /**
@@ -69,44 +72,38 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @FXML ListView<String> ostaleKarakterneOsobine;
     
     Osumnjiceni osumnjiceni;
+    int index;
 
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
+        index = 0;
+        
     }
 
-	
-
-	
-
-
-	public static void saveImage(String imageUrl, String destinationFile) throws IOException {
-		//String image = "http://www.avajava.com/images/avajavalogo.jpg";
-		//String destination = "image.jpg";
-		saveImage(imageUrl, destinationFile);
-		URL url = new URL(imageUrl);
-		InputStream is = url.openStream();
-		OutputStream os = new FileOutputStream(destinationFile);
-
-		byte[] b = new byte[2048];
-		int length;
-
-		while ((length = is.read(b)) != -1) {
-			os.write(b, 0, length);
-		}
-
-		is.close();
-		os.close();
-	}
-
+    
 	public void prikaziPodatke(Osumnjiceni osumnjiceni){
         this.osumnjiceni = osumnjiceni;
 		if (!osumnjiceni.getFotografijeURL().isEmpty()) {
 			
 			ArrayList<String> lista = new ArrayList<>();
 			lista.addAll(osumnjiceni.getFotografijeURL());
-			Image img = new Image(lista.get(0));
+			System.out.println(lista);
+			Image img = new Image(lista.get(index));
 			fotografija.setImage(img);
+			fotografija.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+						if (lista.size() > 1) {
+							index++;
+							Image img2 = new Image(lista.get(index % lista.size()));
+							fotografija.setImage(img2);
+						}
+					}
+				}
+
+			});
 		}
 
         if(osumnjiceni.getIme() != null)
@@ -250,4 +247,28 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }      
+
+	
+
+
+	public static void saveImage(String imageUrl, String destinationFile) throws IOException {
+		//String image = "http://www.avajava.com/images/avajavalogo.jpg";
+		//String destination = "image.jpg";
+		saveImage(imageUrl, destinationFile);
+		URL url = new URL(imageUrl);
+		InputStream is = url.openStream();
+		OutputStream os = new FileOutputStream(destinationFile);
+
+		byte[] b = new byte[2048];
+		int length;
+
+		while ((length = is.read(b)) != -1) {
+			os.write(b, 0, length);
+		}
+
+		is.close();
+		os.close();
+	}
+	
+	
 }
