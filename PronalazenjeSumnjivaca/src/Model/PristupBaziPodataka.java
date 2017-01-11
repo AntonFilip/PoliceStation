@@ -362,11 +362,20 @@ public class PristupBaziPodataka {
 				Osumnjiceni osumnjiceni=new Osumnjiceni();
 				if(rs.getLong(5)!=0) {
 					osumnjiceni.setOib(rs.getLong(5));
-					Osoba osoba=vratiPodatkeO("select * from Osoba where oib="+rs.getString(5));
-					osumnjiceni.setIme(osoba.getIme());
-					osumnjiceni.setPrezime(osoba.getPrezime());
+					Osoba o= new Osoba();
+					o=vratiPodatkeO("select * from Osoba where oib="+rs.getString(5));
+					osumnjiceni.setIme(o.getIme());
+					osumnjiceni.setPrezime(o.getPrezime());
+					String statusKrim=provjeriUnos("trenutniStatus", rs.getString(5), "Kriminalac", "oib");
+					switch (statusKrim) {
+					case "na slobodi": osumnjiceni.setStatus(TrenutniStatusKriminalca.sloboda);break;
+					case "u pritvoru": osumnjiceni.setStatus(TrenutniStatusKriminalca.u_pritvoru);break;
+					case "u zatvoru":osumnjiceni.setStatus(TrenutniStatusKriminalca.u_zatvoru); break;
+					}
 					slucaj.setGlavniOsumnjiceni(osumnjiceni);
-				}
+					
+					}
+				
 				slucaj.setOpis(rs.getString(3));
 
 
