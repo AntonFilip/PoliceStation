@@ -41,7 +41,6 @@ public class DodajOsobuController implements Initializable {
 
 		Osoba osoba = new Osoba();
 		
-		String poruka2="";
 		String ispisGreske="";
 		String poruka = "Unesite: ";
 		Boolean pogresanPbr=false;
@@ -137,9 +136,8 @@ public class DodajOsobuController implements Initializable {
 				if(!ispisGreske.equals("")) ispisGreske+="\n";
 				ispisGreske+="Unijeli ste pogrešan format oib-a.";
 			}
-			
-			if(!poruka2.equals("")) info.setText(poruka2);
-			else info.setText(ispisGreske);
+	
+			info.setText(ispisGreske);
 		}
 	}
 
