@@ -1,4 +1,4 @@
-package Model;
+﻿package Model;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -11,6 +11,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import com.mysql.jdbc.StringUtils;
 
 
 public class PristupBaziPodataka {
@@ -1717,4 +1719,76 @@ public class PristupBaziPodataka {
 		
 		return osoba;
 	}
+	
+	public static Boolean provjeriOibOsobe(String oib){
+		String provjera= provjeriUnos("Osoba.oib", oib, "Osoba", "oib");
+		if(provjera.equals("nema")) return false;
+		return true;
+	}
+
+	public static String provjeriPolicajca(String jedinstveniBroj){
+		String policija="";
+		String upit="Select imeOsobe,prezimeOsobe,jedinstveniBrojPolicajca From Policajac join Osoba on oib=osobaOib where jedinstveniBrojPolicajca='"+jedinstveniBroj+"'";
+
+		try{ 
+			dbConnection = getDBConnection();
+			statement=dbConnection.prepareStatement(upit);
+			ResultSet rSet;
+			rSet = statement.executeQuery(upit);
+			if(rSet.next()) {
+				policija+=rSet.getString(1)+" ";
+				policija+=rSet.getString(2)+" ";
+				policija+=rSet.getString(3);
+				return policija;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "nema";
+	}
+	
+	public static Boolean provjeriPodatkeOOsobi(Osoba o){
+		String ime=o.getIme();
+		String prezime=o.getPrezime();
+		AdresaIMjestoStanovanja adresaIMjestoStanovanja=o.getAdresaPrebivalista();
+		String adresaPrebivališta=adresaIMjestoStanovanja.getAdresa();
+		String pbr=adresaIMjestoStanovanja.getPbrMjesto().toString();
+		String oib=o.getOib().toString();
+		String upit="Select Osoba.oib from Osoba where oib='"+oib+"' AND imeOsobe='"+ime+"' AND prezimeOsobe='"+prezime+"' AND adresaPrebivalista='"+adresaPrebivališta+"' AND Mjesto_pbrMjesto='"+pbr+"'";
+		System.out.println(upit);
+		String id=izvrsiUpitSelect(upit);
+		if(StringUtils.isEmptyOrWhitespaceOnly(id)) return false;
+		else return true;
+	}
+	
+	public static Boolean provjeriNazivMjesta(String pbr, String naziv){
+		String upit="Select * from Mjesto where nazivMjesto='"+naziv+"' AND pbrMjesto='"+pbr+"'";
+		try{ 
+			dbConnection = getDBConnection();
+			statement=dbConnection.prepareStatement(upit);
+			ResultSet rSet;
+			rSet = statement.executeQuery(upit);
+			if(rSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static String izvrsiUpitSelect(String upit) {
+		String id="";
+		try {
+			dbConnection = getDBConnection();
+			statement=dbConnection.prepareStatement(upit);
+			ResultSet rSet = statement.executeQuery(upit);
+			if(rSet.next()) return rSet.getString(1);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		return id;
+	}
+
 }
