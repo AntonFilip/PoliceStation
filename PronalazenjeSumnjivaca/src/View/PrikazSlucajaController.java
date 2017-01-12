@@ -87,8 +87,6 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
 			});
 		}
 
-		// fotografija.setImage((Image) slucaj.getFotografijeSlučaja());
-
     	if(slucaj.getBrojSlucaja() != null)
     		broj.setText(Integer.toString(slucaj.getBrojSlucaja()));
         if(slucaj.getNazivSlucaja() != null)
@@ -105,7 +103,8 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         if (!slucaj.getPopisOsumnjicenih().isEmpty()) {
             listaOsumnjicenih.addAll(slucaj.getPopisOsumnjicenih());
             for (Osoba krimi : listaOsumnjicenih) {
-                observableOsumnjiceni.add(krimi.getIme() + " " + krimi.getPrezime() + " " + krimi.getOib());
+                if (krimi.getIme() != null)
+                    observableOsumnjiceni.add(krimi.getIme() + " " + krimi.getPrezime() + " " + krimi.getOib());
             }
             popisOsumnjicenih.setItems(observableOsumnjiceni);   
         }
@@ -115,7 +114,8 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         if (!slucaj.getPopisSvjedoka().isEmpty()) {
             listaSvjedoka.addAll(slucaj.getPopisSvjedoka());
             for (Osoba svjedok : listaSvjedoka) {
-                observableSvjedoci.add(svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib());
+                if (svjedok.getIme() != null)
+                    observableSvjedoci.add(svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib());
             }
             popisSvjedoka.setItems(observableSvjedoci);
         }
@@ -125,7 +125,8 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         if (!slucaj.getPopisDokaza().isEmpty()) {
             listaDokaza.addAll(slucaj.getPopisDokaza());
             for (Dokaz dokaz : listaDokaza) {
-                observableDokazi.add(dokaz.getID() + " " + dokaz.getNaziv());
+                if (dokaz.getID() != null)
+                    observableDokazi.add(dokaz.getID() + " " + dokaz.getNaziv());
             }
             popisDokaza.setItems(observableDokazi);
         }
@@ -135,7 +136,8 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         if (!slucaj.getPopisPolicajaca().isEmpty()) {
             listaPolicajaca.addAll(slucaj.getPopisPolicajaca());
             for (Osoba policajac : listaPolicajaca) {
-                observablePolicajci.add(policajac.getIme() + " " + policajac.getPrezime() + " " + policajac.getOib());
+                if (policajac.getIme() != null)
+                    observablePolicajci.add(policajac.getIme() + " " + policajac.getPrezime() + " " + policajac.getOib());
             }
             popisPolicajaca.setItems(observablePolicajci);
         }
@@ -145,7 +147,8 @@ public class PrikazSlucajaController implements Initializable, ControlledScreen 
         if (!slucaj.getPopisDogadaja().isEmpty()) {
             listaDogadaja.addAll(slucaj.getPopisDogadaja());
             for (Dogadaj dogadaj : listaDogadaja) {
-                observableDogadaji.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
+                if (dogadaj.getDogadajID() != null)
+                    observableDogadaji.add(dogadaj.getDogadajID() + " " + dogadaj.getNaziv());
             }
             popisDogadaja.setItems(observableDogadaji);
         }
