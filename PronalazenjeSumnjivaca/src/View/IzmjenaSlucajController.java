@@ -220,7 +220,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @Override
     public void dodajSvjedoka(Osoba svjedok) {
         dialogOsoba.close();
-        String noviSvjedok = svjedok.getIme() + ", " + svjedok.getPrezime() + ", " + svjedok.getOib().toString();
+        String noviSvjedok = svjedok.getIme() + " " + svjedok.getPrezime() + " " + svjedok.getOib().toString();
         if (popisSvjedoka.getItems().contains(noviSvjedok)) {
             info.setText("Unijeli ste svjedoka koji je već pridružen ovom slučaju.");
         } else {
