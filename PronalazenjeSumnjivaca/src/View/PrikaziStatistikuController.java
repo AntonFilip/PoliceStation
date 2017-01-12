@@ -38,7 +38,7 @@ public class PrikaziStatistikuController implements Initializable, ControlledScr
 		if(statistika.getBrojKriminalaca() != null)
 			brojKrim.setText(statistika.getBrojKriminalaca().toString());
 		if(statistika.getPostotakRiješenihSlučajeva() != null)
-			postotakRS.setText(statistika.getPostotakRiješenihSlučajeva().toString());
+			postotakRS.setText(statistika.getPostotakRiješenihSlučajeva().toString()+"%");
 		ObservableList<String> data = FXCollections.observableArrayList();
 		
 		if(statistika.getUdioTipovaOružja() != null){
