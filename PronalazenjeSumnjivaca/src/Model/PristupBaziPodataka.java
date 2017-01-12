@@ -1,4 +1,4 @@
-﻿package Model;
+package Model;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

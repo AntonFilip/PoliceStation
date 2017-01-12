@@ -62,7 +62,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
     @FXML ComboBox<String> spol;
     @FXML TextField visina;
     @FXML TextField tezina;
-    @FXML TextField godine;
     @FXML TextField bojaKose;
     @FXML TextField oblikFrizure;
     @FXML ComboBox<String> gradaTijela;
@@ -141,8 +140,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
             visina.setText(osumnjiceni.getFizickeOsobine().getVisina().toString());
         if (osumnjiceni.getFizickeOsobine().getTezina() != null)
             tezina.setText(osumnjiceni.getFizickeOsobine().getTezina().toString());
-        if (osumnjiceni.getFizickeOsobine().getGodine() != null)
-            godine.setText(osumnjiceni.getFizickeOsobine().getGodine().toString());
         if (osumnjiceni.getFizickeOsobine().getBojaKose() != null)
             bojaKose.setText(osumnjiceni.getFizickeOsobine().getBojaKose());
         if (osumnjiceni.getFizickeOsobine().getOblikFrizure() != null)
@@ -386,10 +383,6 @@ public class IzmjenaKriminalacController implements Initializable, ControlledScr
         if (bojaKose.getText() != null)
             if (!bojaKose.getText().isEmpty())
                 fizickeOsobine.setBojaKose(bojaKose.getText());
-        
-        if (godine.getText() != null)
-            if (!godine.getText().isEmpty())
-                fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
         
         if (gradaTijela.getValue() != null) {
             if (gradaTijela.getValue().equals("Slabija")) {

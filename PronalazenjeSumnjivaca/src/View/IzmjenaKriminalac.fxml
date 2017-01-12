@@ -38,9 +38,8 @@
                 </items>
             </ComboBox>
             <TextField fx:id="tezina" layoutX="419.0" layoutY="235.0" prefHeight="25.0" prefWidth="190.0" promptText="Težina" />
-            <TextField fx:id="godine" layoutX="419.0" layoutY="283.0" prefHeight="25.0" prefWidth="190.0" promptText="Godine" />
-            <TextField fx:id="bojaKose" layoutX="419.0" layoutY="330.0" prefHeight="25.0" prefWidth="190.0" promptText="Boja kose" />
-            <TextField fx:id="oblikFrizure" layoutX="419.0" layoutY="375.0" prefHeight="25.0" prefWidth="190.0" promptText="Oblik frizure" />
+            <TextField fx:id="bojaKose" layoutX="419.0" layoutY="283.0" prefHeight="25.0" prefWidth="190.0" promptText="Boja kose" />
+            <TextField fx:id="oblikFrizure" layoutX="419.0" layoutY="335.0" prefHeight="25.0" prefWidth="190.0" promptText="Oblik frizure" />
             <ComboBox fx:id="gradaTijela" layoutX="419.0" layoutY="139.0" prefHeight="25.0" prefWidth="190.0" promptText="Građa tijela">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
@@ -99,27 +98,26 @@
             <TextField fx:id="upisanaBolest" layoutX="215.0" layoutY="425.0" prefHeight="25.0" prefWidth="140.0" />
             <Button fx:id="dodajBolest" layoutX="355.0" layoutY="425.0" mnemonicParsing="false" onAction="#dodajBolest" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiBolest" layoutX="380.0" layoutY="425.0" mnemonicParsing="false" onAction="#obrisiBolest" prefHeight="25.0" prefWidth="25.0" text="x" />
-            <Label layoutX="419.0" layoutY="410.0" text="Psihološki problemi:" />
-            <ListView fx:id="psiholoskiProblemi" editable="true" layoutX="419.0" layoutY="427.0" prefHeight="88.0" prefWidth="190.0" />
-            <TextField fx:id="upisaniPsiholoski" layoutX="419.0" layoutY="515.0" prefHeight="25.0" prefWidth="140.0" />
-            <Button fx:id="dodajPsiholoski" layoutX="559.0" layoutY="515.0" mnemonicParsing="false" onAction="#dodajPsiholoskiProblem" prefHeight="25.0" prefWidth="25.0" text="+" />
-            <Button fx:id="obrisiPsiholoski" layoutX="584.0" layoutY="515.0" mnemonicParsing="false" onAction="#obrisiPsiholoskiProblem" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="419.0" layoutY="372.0" text="Psihološki problemi:" />
+            <ListView fx:id="psiholoskiProblemi" editable="true" layoutX="419.0" layoutY="393.0" prefHeight="88.0" prefWidth="190.0" />
+            <TextField fx:id="upisaniPsiholoski" layoutX="419.0" layoutY="480.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajPsiholoski" layoutX="559.0" layoutY="480.0" mnemonicParsing="false" onAction="#dodajPsiholoskiProblem" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiPsiholoski" layoutX="584.0" layoutY="480.0" mnemonicParsing="false" onAction="#obrisiPsiholoskiProblem" prefHeight="25.0" prefWidth="25.0" text="x" />
             <Label layoutX="215.0" layoutY="742.0" text="Ostale fizičke osobine:" />
             <ListView fx:id="ostaleFizickeOsobine" editable="true" layoutX="215.0" layoutY="759.0" prefHeight="80.0" prefWidth="190.0" />
             <TextField fx:id="upisanaFizickaOsobina" layoutX="215.0" layoutY="839.0" prefHeight="25.0" prefWidth="140.0" />
             <Button fx:id="dodajFizickuOsobinu" layoutX="355.0" layoutY="839.0" mnemonicParsing="false" onAction="#dodajFizickuOsobinu" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiFizickuOsobinu" layoutX="380.0" layoutY="839.0" mnemonicParsing="false" onAction="#obrisiFizickuOsobinu" prefHeight="25.0" prefWidth="25.0" text="x" />
-            <Label layoutX="419.0" layoutY="548.0" text="Ostale karakterne osobine:" />
-            <ListView fx:id="ostaleKarakterneOsobine" editable="true" layoutX="419.0" layoutY="565.0" prefHeight="80.0" prefWidth="190.0" />
-            <TextField fx:id="upisanaKarakternaOsobina" layoutX="419.0" layoutY="645.0" prefHeight="25.0" prefWidth="140.0" />
-            <Button fx:id="dodajKarakternuOsobinu" layoutX="559.0" layoutY="645.0" mnemonicParsing="false" onAction="#dodajKarakternuOsobinu" prefHeight="25.0" prefWidth="25.0" text="+" />
-            <Button fx:id="obrisiKarakternuOsobinu" layoutX="584.0" layoutY="645.0" mnemonicParsing="false" onAction="#obrisiKarakternuOsobinu" prefHeight="25.0" prefWidth="25.0" text="x" />
+            <Label layoutX="419.0" layoutY="520.0" text="Ostale karakterne osobine:" />
+            <ListView fx:id="ostaleKarakterneOsobine" editable="true" layoutX="419.0" layoutY="540.0" prefHeight="80.0" prefWidth="190.0" />
+            <TextField fx:id="upisanaKarakternaOsobina" layoutX="419.0" layoutY="620.0" prefHeight="25.0" prefWidth="140.0" />
+            <Button fx:id="dodajKarakternuOsobinu" layoutX="559.0" layoutY="620.0" mnemonicParsing="false" onAction="#dodajKarakternuOsobinu" prefHeight="25.0" prefWidth="25.0" text="+" />
+            <Button fx:id="obrisiKarakternuOsobinu" layoutX="584.0" layoutY="620.0" mnemonicParsing="false" onAction="#obrisiKarakternuOsobinu" prefHeight="25.0" prefWidth="25.0" text="x" />
             <TextField fx:id="mjesto" layoutX="215.0" layoutY="139.0" prefHeight="25.0" prefWidth="190.0" promptText="Mjesto stanovanja" />
             <TextField fx:id="pbrMjesto" layoutX="215.0" layoutY="188.0" prefHeight="25.0" prefWidth="190.0" promptText="Poštanski broj mjesta stanovanja" />
             <Label layoutX="419.0" layoutY="122.0" text="Građa tijela:" />
-            <Label layoutX="419.0" layoutY="358.0" text="Oblik frizure:" />
-            <Label layoutX="419.0" layoutY="312.0" text="Boja kose:" />
-            <Label layoutX="419.0" layoutY="265.0" text="Godine:" />
+            <Label layoutX="419.0" layoutY="317.0" text="Oblik frizure:" />
+            <Label layoutX="418.0" layoutY="265.0" text="Boja kose:" />
             <Label layoutX="419.0" layoutY="217.0" text="Težina:" />
             <Label layoutX="419.0" layoutY="170.0" text="Visina:" />
             <Label layoutX="419.0" layoutY="71.0" text="Spol:" />

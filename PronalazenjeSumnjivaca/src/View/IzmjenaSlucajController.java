@@ -9,10 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import com.itextpdf.text.log.SysoCounter;
-import com.itextpdf.text.xml.simpleparser.NewLineHandler;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -167,18 +163,16 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 		dialogOsoba.close();
 		String noviOsumnjiceni=osumnjiceni.getIme()+" "+osumnjiceni.getPrezime()+" "+osumnjiceni.getOib().toString();
 		if(popisOsumnjicenih.getItems().contains(noviOsumnjiceni)){
-			info.setTextFill(Paint.valueOf("red"));
 			info.setText("Unijeli ste osobu koja je već osumnjičena u ovom slučaju.");
 		}
 		else{
-			info.setText("");
 			observableOsumnjiceni.add(noviOsumnjiceni);
 			dodaniAtributi.add(Slucaj.izmjenaOsumnjicenih(osumnjiceni.getOib().toString()));
 		}
 	}
 
 	@FXML private void obrisiOsumnjicenog(ActionEvent event) {
-		obrisaniAtributi.add(Slucaj.izmjenaOsumnjicenih(popisOsumnjicenih.getSelectionModel().getSelectedItem().toString()));
+		obrisaniAtributi.add(Slucaj.izmjenaOsumnjicenih(popisOsumnjicenih.getSelectionModel().getSelectedItem()));
 		observableOsumnjiceni.remove(popisOsumnjicenih.getSelectionModel().getSelectedIndex());
 	}
 
@@ -197,19 +191,18 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 
 	@Override
 	public void dodajSvjedoka(Osoba svjedok) {
+                dialogOsoba.close();
 		String noviSvjedok=svjedok.getIme()+", "+svjedok.getPrezime()+", "+svjedok.getOib().toString();
 		if(popisSvjedoka.getItems().contains(noviSvjedok)){
-			info.setTextFill(Paint.valueOf("red"));
 			info.setText("Unijeli ste svjedoka koji je već pridružen ovom slučaju.");
-		}
-		else{	info.setText("");
-		observableSvjedoci.add(noviSvjedok);
-		dodaniAtributi.add(Slucaj.izmjenaSvjedoka(svjedok.getOib().toString()));
+		} else{
+                    observableSvjedoci.add(noviSvjedok);
+                    dodaniAtributi.add(Slucaj.izmjenaSvjedoka(svjedok.getOib().toString()));
 		}
 	}
 
 	@FXML private void obrisiSvjedoka() {
-		obrisaniAtributi.add(Slucaj.izmjenaSvjedoka(popisSvjedoka.getSelectionModel().getSelectedItem().toString()));
+		obrisaniAtributi.add(Slucaj.izmjenaSvjedoka(popisSvjedoka.getSelectionModel().getSelectedItem()));
 		observableSvjedoci.remove(popisSvjedoka.getSelectionModel().getSelectedIndex());
 	}
 
@@ -217,11 +210,10 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 		observableDokazi.add(upisaniDokaz.getText());
 		dodaniAtributi.add(Slucaj.izmjenaDokaza(upisaniDokaz.getText()));
 		upisaniDokaz.clear();
-		info.setText("");
 	}
 
 	@FXML private void obrisiDokaz(ActionEvent event) {
-		obrisaniAtributi.add(Slucaj.izmjenaDokaza(popisDokaza.getSelectionModel().getSelectedItem().toString()));
+		obrisaniAtributi.add(Slucaj.izmjenaDokaza(popisDokaza.getSelectionModel().getSelectedItem()));
 		observableDokazi.remove(popisDokaza.getSelectionModel().getSelectedIndex());
 	}
 
@@ -230,23 +222,20 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 		String provjera=PristupBaziPodataka.provjeriPolicajca(brPol);
 		if(!provjera.equals("nema")){
 			if (observablePolicajci.contains(provjera)){
-				info.setTextFill(Paint.valueOf("red"));
 				info.setText("Unijeli ste policajca koji već radi na ovom slučaju.");
 			}else {
 				observablePolicajci.add(provjera);
 				dodaniAtributi.add(Slucaj.izmjenaPolicajca(brPol));
 			}
 			upisaniPolicajac.clear();
-			info.setText("");
 		}
 		else {
-			info.setTextFill(Paint.valueOf("red"));
 			info.setText("Ne postoji policajac s jedinstvenim brojem: "+brPol+".");
 		}
 	}
 
 	@FXML private void obrisiPolicajca(ActionEvent event) {
-		String [] parts=popisPolicajaca.getSelectionModel().getSelectedItem().toString().split(" ");
+		String [] parts=popisPolicajaca.getSelectionModel().getSelectedItem().split(" ");
 		obrisaniAtributi.add(Slucaj.izmjenaPolicajca(parts[2]));
 		observablePolicajci.remove(popisPolicajaca.getSelectionModel().getSelectedIndex());
 	}
@@ -272,7 +261,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 	}
 
 	@FXML private void obrisiDogadaj(ActionEvent event) {
-		obrisaniAtributi.add(Slucaj.izmjenaDogađaja(popisDogadaja.getSelectionModel().getSelectedItem().toString()));
+		obrisaniAtributi.add(Slucaj.izmjenaDogađaja(popisDogadaja.getSelectionModel().getSelectedItem()));
 		observableDogadaji.remove(popisDogadaja.getSelectionModel().getSelectedIndex());
 	}
 
@@ -283,7 +272,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
 	}
 
 	@FXML private void obrisiFotografiju(ActionEvent event) {
-		obrisaniAtributi.add(Slucaj.izmjenaFotografija(fotografijeSlucaja.getSelectionModel().getSelectedItem().toString()));
+		obrisaniAtributi.add(Slucaj.izmjenaFotografija(fotografijeSlucaja.getSelectionModel().getSelectedItem()));
 		observableFotografije.remove(fotografijeSlucaja.getSelectionModel().getSelectedIndex());
 	}
 
