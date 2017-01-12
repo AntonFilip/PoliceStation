@@ -53,7 +53,7 @@
             <TextField fx:id="upisaniURL" layoutX="14.0" layoutY="433.0" prefHeight="25.0" prefWidth="140.0" promptText="URL" />
             <Button fx:id="dodajURL" layoutX="154.0" layoutY="433.0" mnemonicParsing="false" onAction="#dodajFotografiju" prefHeight="25.0" prefWidth="25.0" text="+" />
             <Button fx:id="obrisiURL" layoutX="179.0" layoutY="433.0" mnemonicParsing="false" onAction="#obrisiFotografiju" prefHeight="25.0" prefWidth="25.0" text="x" />
-            <Label layoutX="455.0" layoutY="57.0" text="Popis policajaca na slučaju:" />
+            <Label fx:id="labelaPolicajci" layoutX="455.0" layoutY="57.0" text="Popis policajaca na slučaju:" />
             <ListView fx:id="popisPolicajaca" layoutX="455.0" layoutY="74.0" prefHeight="85.0" prefWidth="190.0" />
             <TextField fx:id="upisaniPolicajac" layoutX="455.0" layoutY="159.0" prefHeight="25.0" prefWidth="140.0" promptText="Jedinstveni broj" />
             <Button fx:id="dodajPolicajca" layoutX="595.0" layoutY="159.0" mnemonicParsing="false" onAction="#dodajPolicajca" prefHeight="25.0" prefWidth="25.0" text="+" />

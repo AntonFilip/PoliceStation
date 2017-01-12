@@ -176,30 +176,20 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void posaljiUpitKriminalac(Osumnjiceni kriminalac) {
-		try {
-			mapaOsumnjiceni = policajac.posaljiUpit(kriminalac);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		postaviScenuPopis("Osumnjiceni", mapaOsumnjiceni);
+            mapaOsumnjiceni = policajac.posaljiUpit(kriminalac);
+            postaviScenuPopis("Osumnjiceni", mapaOsumnjiceni);
 	}
 
 	@Override
 	public void posaljiUpitSlucaj(Slucaj slucaj) {
-		mapaSlucaj = policajac.posaljiUpit(slucaj);
-		postaviScenuPopis("Slucaj", mapaSlucaj);
-
+            mapaSlucaj = policajac.posaljiUpit(slucaj);
+            postaviScenuPopis("Slucaj", mapaSlucaj);
 	}
 
 	@Override
 	public void posaljiUpitDokaz(Dokaz dokaz) {
-		try {
-			mapaDokaz = policajac.posaljiUpit(dokaz);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		postaviScenuPopis("Dokaz", mapaDokaz);
+            mapaDokaz = policajac.posaljiUpit(dokaz);
+            postaviScenuPopis("Dokaz", mapaDokaz);
 	}
 
 	@Override
@@ -251,14 +241,16 @@ public class Controller extends Application implements ViewDelegate {
 
 	@Override
 	public void prikaziPodatkeKriminalca(Osumnjiceni kriminalac) {
-		Loader loader = new Loader("PrikazKriminalca");
-		Parent loadScreen = loader.getLoadScreen();
-
-		PrikazKriminalcaController controller = (PrikazKriminalcaController) loader.getMyLoader().getController();
-		controller.init(this);
-		kriminalac = policajac.dohvatiPodatkeOsumnjiceni(kriminalac.getOib().toString());
-		controller.prikaziPodatke(kriminalac);
-		pane.getChildren().setAll(loadScreen);
+            Loader loader = new Loader("PrikazKriminalca");
+            Parent loadScreen = loader.getLoadScreen();
+            
+            PrikazKriminalcaController controller = (PrikazKriminalcaController) loader.getMyLoader().getController();
+            controller.init(this);
+            
+            kriminalac = policajac.dohvatiPodatkeOsumnjiceni(kriminalac.getOib().toString());
+            
+            controller.prikaziPodatke(kriminalac);
+            pane.getChildren().setAll(loadScreen);
 	}
 
 	@Override
@@ -306,7 +298,6 @@ public class Controller extends Application implements ViewDelegate {
 	@Override
 	public void pristupiDnevniku(String odabir) {
 		PristupBaziPodataka.izaberiZapisUDnevniku(Integer.parseInt(odabir));
-
 	}
 
 	@Override
@@ -411,7 +402,9 @@ public class Controller extends Application implements ViewDelegate {
 		slucaj = policajac.dohvatiPodatkeSlucaj(slucaj.getBrojSlucaja().toString());
 		IzmjenaSlucajController controller = (IzmjenaSlucajController) loader.getMyLoader().getController();
 		controller.init(this);
-		controller.postaviTrenutnePodatke(slucaj);
+                if (policajac.getAccess().equals(RazinaPristupa.SREDNJA))
+                    controller.disablePopisPolicajaca();
+                controller.postaviTrenutnePodatke(slucaj);
 		pane.getChildren().setAll(loadScreen);
 	}
 

@@ -56,6 +56,7 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
     @FXML TextField upisaniPolicajac;
     @FXML Button dodajPolicajca;
     @FXML Button obrisiPolicajca;
+    @FXML Label labelaPolicajci;
 
     @FXML ListView<String> popisDogadaja;
     @FXML Button dodajDogadaj;
@@ -379,6 +380,14 @@ public class IzmjenaSlucajController implements Initializable, ControlledScreen,
             info.setText(ispisGreske);
         }
 
+    }
+    
+    public void disablePopisPolicajaca() {
+        popisPolicajaca.setVisible(false);
+        upisaniPolicajac.setVisible(false);
+        dodajPolicajca.setVisible(false);
+        obrisiPolicajca.setVisible(false);
+        labelaPolicajci.setVisible(false);
     }
 
     /**
