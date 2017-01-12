@@ -8,13 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.management.Query;
-
-import com.itextpdf.text.log.SysoCounter;
-import com.mysql.jdbc.StringUtils;
-
 import java.util.Set;
+
+import com.mysql.jdbc.StringUtils;
 
 public class Context <E> {
 	private StrategijaUpit<E> strategy;
