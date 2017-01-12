@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.ResourceBundle;
-
 import Controller.ViewDelegate;
 import Model.AdresaIMjestoStanovanja;
 import Model.FizickeOsobine;
@@ -78,15 +77,15 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         
         AdresaIMjestoStanovanja adr = new AdresaIMjestoStanovanja();
 
-		if (!adresa.getText().isEmpty()) {
+        if (!adresa.getText().isEmpty()) {
 
-			String[] adresaIMjesto = adresa.getText().split(",");
-			String adress = adresaIMjesto[0];
-			String mjesto = adresaIMjesto[1];
-			adr.setAdresa(adress);
-			adr.setNazivMjesta(mjesto);
+            String[] adresaIMjesto = adresa.getText().split(",");
+            String adress = adresaIMjesto[0];
+            String mjesto = adresaIMjesto[1];
+            adr.setAdresa(adress);
+            adr.setNazivMjesta(mjesto);
 
-		}
+        }
         osumnjiceni.setAdresaPrebivalista(adr);
         
         osumnjiceni.setBrojTelefona(brojTelefona.getText());
@@ -104,18 +103,17 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
         osumnjiceni.setPopisAliasa(popis(popisAliasa.getText().split(";")));
         
         HashSet<AdresaIMjestoStanovanja> poznateAdr = null;
-		if (!poznateAdrese.getText().isEmpty()) {
-
-			poznateAdr = new HashSet<>();
-			String[] adrese = poznateAdrese.getText().split(";");
-			for (String adresa : adrese) {
-				AdresaIMjestoStanovanja a = new AdresaIMjestoStanovanja();
-				String[] temp = adresa.split(",");
-				a.setAdresa(temp[0].trim());
-				a.setNazivMjesta(temp[1].trim());
-				poznateAdr.add(a);
-			}
-		}
+	if (!poznateAdrese.getText().isEmpty()) {
+            poznateAdr = new HashSet<>();
+            String[] adrese = poznateAdrese.getText().split(";");
+            for (String adresa : adrese) {
+                AdresaIMjestoStanovanja a = new AdresaIMjestoStanovanja();
+                String[] temp = adresa.split(",");
+                a.setAdresa(temp[0].trim());
+                a.setNazivMjesta(temp[1].trim());
+                poznateAdr.add(a);
+            }
+        }
         osumnjiceni.setPoznateAdrese(poznateAdr);
 
         String[] slucajevi = popisPovezanihSlucajeva.getText().split(";");
@@ -149,28 +147,27 @@ public class UpitKriminalacController implements Initializable, ControlledScreen
                 fizickeOsobine.setSpol(Spol.Ž);
             }
         }
+        
         fizickeOsobine.setRasa(rasa.getText());
+        
         if (!visina.getText().isEmpty()) {
         	String[] visinamm = visina.getText().split("-");
         	fizickeOsobine.setVisinaMin(Float.parseFloat(visinamm[0]));
         	fizickeOsobine.setVisinaMax(Float.parseFloat(visinamm[1]));
-        	
-            //fizickeOsobine.setVisina(Float.parseFloat(visina.getText()));
         }
+        
         if (!tezina.getText().isEmpty()) {
         	String[] tezinamm = tezina.getText().split("-");
         	fizickeOsobine.setTezinaMin(Float.parseFloat(tezinamm[0]));
         	fizickeOsobine.setTezinaMax(Float.parseFloat(tezinamm[1]));
-        	
-           // fizickeOsobine.setTezina(Float.parseFloat(tezina.getText()));
         }
+        
         if (!godine.getText().isEmpty()) {
         	String[] godinemm = godine.getText().split("-");
         	fizickeOsobine.setGodineMin(Integer.parseInt(godinemm[0]));
         	fizickeOsobine.setGodineMax(Integer.parseInt(godinemm[1]));
-        	
-           // fizickeOsobine.setGodine(Integer.parseInt(godine.getText()));
         }
+        
         fizickeOsobine.setBojaKose(bojaKose.getText());
         fizickeOsobine.setOblikGlave(oblikGlave.getText());
         fizickeOsobine.setOblikFrizure(oblikFrizure.getText());

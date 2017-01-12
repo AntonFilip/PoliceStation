@@ -77,78 +77,80 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
     @Override
     public void init(ViewDelegate delegate) {
         this.delegate = delegate;
-        index = 0;
-        
+        index = 0;       
     }
 
-    
-	public void prikaziPodatke(Osumnjiceni osumnjiceni){
+    public void prikaziPodatke(Osumnjiceni osumnjiceni) {
         this.osumnjiceni = osumnjiceni;
-		if (!osumnjiceni.getFotografijeURL().isEmpty()) {
-			
-			ArrayList<String> lista = new ArrayList<>();
-			lista.addAll(osumnjiceni.getFotografijeURL());
-			System.out.println(lista);
-			Image img = new Image(lista.get(index));
-			fotografija.setImage(img);
-			fotografija.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent mouseEvent) {
-					if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-						if (lista.size() > 1) {
-							index++;
-							Image img2 = new Image(lista.get(index % lista.size()));
-							fotografija.setImage(img2);
-						}
-					}
-				}
+        if (!osumnjiceni.getFotografijeURL().isEmpty()) {
+            ArrayList<String> lista = new ArrayList<>();
+            lista.addAll(osumnjiceni.getFotografijeURL());
+            System.out.println(lista);
+            Image img = new Image(lista.get(index));
+            fotografija.setImage(img);
+            fotografija.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                        if (lista.size() > 1) {
+                            index++;
+                            Image img2 = new Image(lista.get(index % lista.size()));
+                            fotografija.setImage(img2);
+                        }
+                    }
+                }
+            });
+        }
 
-			});
-		}
-
-        if(osumnjiceni.getIme() != null)
-        	ime.setText(osumnjiceni.getIme());
-        if(osumnjiceni.getPrezime() != null)
-        	prezime.setText(osumnjiceni.getPrezime());
-        if(osumnjiceni.getOib() != null)
-        	oib.setText(Long.toString(osumnjiceni.getOib()));
-        if(osumnjiceni.getAdresaPrebivalista().getAdresa() != null)
-        	adresa.setText(osumnjiceni.getAdresaPrebivalista().getAdresa());
-        if(osumnjiceni.getBrojTelefona() != null)
-        	brojTelefona.setText(osumnjiceni.getBrojTelefona());
+        if (osumnjiceni.getIme() != null) {
+            ime.setText(osumnjiceni.getIme());
+        }
+        if (osumnjiceni.getPrezime() != null) {
+            prezime.setText(osumnjiceni.getPrezime());
+        }
+        if (osumnjiceni.getOib() != null) {
+            oib.setText(Long.toString(osumnjiceni.getOib()));
+        }
+        if (osumnjiceni.getAdresaPrebivalista().getAdresa() != null) {
+            adresa.setText(osumnjiceni.getAdresaPrebivalista().getAdresa());
+        }
+        if (osumnjiceni.getBrojTelefona() != null) {
+            brojTelefona.setText(osumnjiceni.getBrojTelefona());
+        }
         if (osumnjiceni.getStatus() != null) {
             status.setText(osumnjiceni.getStatus().toString());
         }
-        
+
         ObservableList<String> observableOpisKriminalnihDjelatnosti = FXCollections.observableArrayList();
-        if(osumnjiceni.getOpisKriminalnihDjelatnosti() != null){
+        if (osumnjiceni.getOpisKriminalnihDjelatnosti() != null) {
             observableOpisKriminalnihDjelatnosti.add(osumnjiceni.getOpisKriminalnihDjelatnosti());
             opisKriminalnihDjelatnosti.setItems(observableOpisKriminalnihDjelatnosti);
         }
-        
+
         ObservableList<String> observablePopisAliasa = FXCollections.observableArrayList();
-        if(!osumnjiceni.getPopisAliasa().isEmpty()){           
+        if (!osumnjiceni.getPopisAliasa().isEmpty()) {
             observablePopisAliasa.addAll(osumnjiceni.getPopisAliasa());
             popisAliasa.setItems(observablePopisAliasa);
         }
-        
+
         ObservableList<String> observableAdrese = FXCollections.observableArrayList();
-        if(!osumnjiceni.getPoznateAdrese().isEmpty()){
+        if (!osumnjiceni.getPoznateAdrese().isEmpty()) {
             for (AdresaIMjestoStanovanja adresa : osumnjiceni.getPoznateAdrese()) {
                 observableAdrese.add(adresa.getAdresa() + ", " + adresa.getNazivMjesta() + ", " + adresa.getPbrMjesto().toString());
             }
             poznateAdrese.setItems(observableAdrese);
         }
-        
+
         ObservableList<String> observableSlucajevi = FXCollections.observableArrayList();
-        if(osumnjiceni.getPovezaniSlucajevi() != null){
+        if (osumnjiceni.getPovezaniSlucajevi() != null) {
             for (Slucaj slucaj : osumnjiceni.getPovezaniSlucajevi()) {
-        	if(slucaj.getBrojSlucaja() != null)
-                observableSlucajevi.add(Integer.toString(slucaj.getBrojSlucaja()));
+                if (slucaj.getBrojSlucaja() != null) {
+                    observableSlucajevi.add(Integer.toString(slucaj.getBrojSlucaja()));
+                }
             }
             popisPovezanihSlucajeva.setItems(observableSlucajevi);
         }
-        
+
         ObservableList<String> observableKriminalci = FXCollections.observableArrayList();
         if (!osumnjiceni.getPopisPovezanihKriminalaca().isEmpty()) {
             for (Osumnjiceni krimi : osumnjiceni.getPopisPovezanihKriminalaca()) {
@@ -156,7 +158,7 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
             }
             popisPovezanihKriminalaca.setItems(observableKriminalci);
         }
-        
+
         if (osumnjiceni.getFizickeOsobine() != null) {
             if (osumnjiceni.getFizickeOsobine().getSpol() != null) {
                 spol.setText(osumnjiceni.getFizickeOsobine().getSpol().toString());
@@ -213,7 +215,7 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
                 ostaleFizickeOsobine.setItems(observableOstaleFizicke);
             }
         }
-        
+
         if (osumnjiceni.getKarakterneOsobine() != null) {
             if (osumnjiceni.getKarakterneOsobine().getNacinGovora() != null) {
                 nacinGovora.setText(osumnjiceni.getKarakterneOsobine().getNacinGovora());
@@ -235,8 +237,9 @@ public class PrikazKriminalcaController implements Initializable, ControlledScre
             }
         }
     }
-    
-    @FXML private void generirajPDF(ActionEvent event) throws DocumentException, IOException {
+
+    @FXML
+    private void generirajPDF(ActionEvent event) throws DocumentException, IOException {
         GenerirajPDF.generiraj(osumnjiceni);
     }
     
