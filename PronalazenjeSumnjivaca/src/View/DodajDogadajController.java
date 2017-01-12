@@ -1,8 +1,11 @@
 package View;
 
 import Model.Dogadaj;
+import Model.PristupBaziPodataka;
+
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +37,10 @@ public class DodajDogadajController implements Initializable {
         Dogadaj dogadaj = new Dogadaj();
         
         String poruka = "Unesite: ";
+        Boolean pogresanFormat=false;
+        Boolean pogresanPbr=false;
+        Boolean loseMjesto=false;
+        String IspisGreske="";
         
         if (nazivDogadaja.getText() != null)
             if (!nazivDogadaja.getText().isEmpty()) 
@@ -43,7 +50,11 @@ public class DodajDogadajController implements Initializable {
         
         if (pbrMjestaDogadaja.getText() != null)
             if (!pbrMjestaDogadaja.getText().isEmpty()) 
-                dogadaj.setPbrMjesto(Integer.parseInt(pbrMjestaDogadaja.getText()));
+                try {
+                	dogadaj.setPbrMjesto(Integer.parseInt(pbrMjestaDogadaja.getText()));
+                }catch (Exception e) {
+					pogresanFormat=true;
+				}
             else 
                 poruka = poruka.concat("poštanski broj; ");
         
@@ -60,13 +71,36 @@ public class DodajDogadajController implements Initializable {
         
         if (vrijemeDogadaja.getText() != null)
             if (!vrijemeDogadaja.getText().isEmpty())
-                dogadaj.setVrijeme(LocalDateTime.parse(vrijemeDogadaja.getText()));
+            	try{
+            		dogadaj.setVrijeme(LocalDateTime.parse(vrijemeDogadaja.getText()));
+            	}
+            	catch (DateTimeParseException e) {
+            		pogresanFormat=true;
+				}
             else 
                 poruka = poruka.concat("vrijeme; ");
+        if(!pogresanPbr && !PristupBaziPodataka.provjeriNazivMjesta(pbrMjestaDogadaja.getText(), nazivMjestaDogadaja.getText())){
+        	loseMjesto=true;
+        }
         
-        if (poruka.equals("Unesite: "))
+        if (poruka.equals("Unesite: ") && !pogresanFormat && !pogresanPbr && !loseMjesto )
             delegate.dodajDogadaj(dogadaj);
-        else info.setText(poruka);
+        else {
+        	if(!poruka.equals("Unesite: ")) IspisGreske+=poruka;
+        	if(pogresanFormat) {
+        		if(!IspisGreske.equals("")) IspisGreske+="\n";
+        		IspisGreske+="Unijeli ste pogrešan format datuma.";
+        	}
+        	if(pogresanPbr){
+        		if(!IspisGreske.equals("")) IspisGreske+="\n";
+        		IspisGreske+="Unijeli ste pogrešan poštanski broj mjesta.";
+        	}
+        	if(loseMjesto){
+        		if(!IspisGreske.equals("")) IspisGreske+="\n";
+        		IspisGreske+="Unjeli ste pogrešne podatke za mjesto događaja.";
+        	}
+        	info.setText(IspisGreske);
+        }
     }
 
     @Override

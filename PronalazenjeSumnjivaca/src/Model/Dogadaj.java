@@ -3,11 +3,6 @@ package Model;
 import java.time.LocalDateTime;
 
 public class Dogadaj {
-	@Override
-	public String toString() {
-		return "Dogadaj [dogadajID=" + dogadajID + ", naziv=" + naziv + ", pbrMjesto=" + pbrMjesto + ", brojSlucaja="
-				+ brojSlucaja + ", adresa=" + adresa + ", vrijeme=" + vrijeme + ", nazivMjesto=" + nazivMjesto + "]";
-	}
 	private Integer dogadajID;
 	private String naziv;
 	private Integer pbrMjesto;

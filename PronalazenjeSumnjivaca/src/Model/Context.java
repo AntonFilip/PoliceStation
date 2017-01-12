@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.management.Query;
+
+import com.itextpdf.text.log.SysoCounter;
+import com.mysql.jdbc.StringUtils;
 
 import java.util.Set;
 
@@ -42,14 +46,17 @@ public class Context <E> {
 	
 	private boolean dodajUlistu(String ID,String atributID,String vrijednost, String relacija1,String atribut1,String relacija2,String atribu2){
 		String id;
-		if(relacija1.equals(relacija2)) id=vrijednost;
-		else if(relacija1.equals("ListaDogađaja")){
+			
+		if(relacija1.equals("ListaDogađaja")){
 			Dogadaj dogadaj=new Dogadaj();
 			String [] parts=vrijednost.split(",");
-			String pbrMjesto=parts[0];
-			String adresa=parts[1];
-			String vrijeme=parts[2];
-			String naziv=parts[3];
+			String pbrMjesto=parts[3];
+			String adresa=parts[2];
+			String vrijeme=parts[1];
+			String naziv=parts[0];
+			
+			for(String o:parts)System.out.println(o);
+			
 			dogadaj.setAdresa(adresa);
 			dogadaj.setNaziv(naziv);
 			dogadaj.setVrijeme(LocalDateTime.parse(vrijeme));
@@ -57,11 +64,29 @@ public class Context <E> {
 			dogadaj.setBrojSlucaja(Integer.parseInt(ID));
 			return PristupBaziPodataka.dodajNoviDogadaj(dogadaj);
 		}
+		else if(relacija1.equals("DokazniMaterijal")){
+			String [] parts2=vrijednost.split(",");
+			String naziv=parts2[0];
+			String fotografija=parts2[1];
+			Dokaz d=new Dokaz();
+			d.setNaziv(naziv);
+			d.setFotografija(fotografija);
+			d.setBrojSlucaja(Integer.parseInt(strategy.vratiID()));
+			if(StringUtils.isEmptyOrWhitespaceOnly(PristupBaziPodataka.dodajNoviDokaz(d))) return false;
+			else System.out.println("USpjeh"); return true;
+		}
+		else if(relacija1.equals(relacija2)) {
+			System.out.println("$$$$$$$$$$$$$$$$$$$$");
+			id=vrijednost;
+		}
 		else{
 			System.out.println("tu sam");
-			id=PristupBaziPodataka.provjeriUnos(atribu2, vrijednost, relacija1, atribut1);
+			if(atribu2.equals("fizičkaOsobinaID")) id=PristupBaziPodataka.provjeriUnos("fizičkaOsobina", vrijednost, relacija1, atribut1);
+			else id=PristupBaziPodataka.provjeriUnos(atribu2, vrijednost, relacija1, atribut1);
 			if(id.equals("nema")){
-				String query=StrategijaUpit.upitUnos(relacija1, atribut1, atribu2, vrijednost, "NULL");
+				String query;
+				if(atribu2.equals("fizičkaOsobinaID")) query=StrategijaUpit.upitUnos(relacija1, atribut1, "fizičkaOsobina", vrijednost, "NULL");
+				else query=StrategijaUpit.upitUnos(relacija1, atribut1, atribu2, vrijednost, "NULL");
 				id=PristupBaziPodataka.izvrsiUpit(query);
 			}}
 		

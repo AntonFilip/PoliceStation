@@ -227,11 +227,7 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 
 	@Override
 	public String toString() {
-		return "Slucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", opis=" + opis
-				+ ", glavniOsumnjiceni=" + glavniOsumnjiceni + ", popisOsumnjicenih=" + popisOsumnjicenih
-				+ ", popisSvjedoka=" + popisSvjedoka + ", popisDokaza=" + popisDokaza + ", popisPolicajaca="
-				+ popisPolicajaca + ", status=" + status + ", fotografijeSlučaja=" + fotografijeSlučaja
-				+ ", popisDogadaja=" + popisDogadaja + "]";
+		return "\nSlucaj [brojSlucaja=" + brojSlucaja + ", nazivSlucaja=" + nazivSlucaja + ", status=" + status + "]";
 	}
 
 	@Override
@@ -375,7 +371,7 @@ public class Slucaj implements StrategijaUpit<Slucaj>{
 		if(this.status!=izmjenjeniSlucaj.getStatus()&& izmjenjeniSlucaj.getStatus()!=null) atributiSlucaja.add(izmjenjeniSlucaj.getStatus().name()+"*trenutniStatus");
 		if(this.glavniOsumnjiceni!=izmjenjeniSlucaj.getGlavniOsumnjiceni() ) {
 			if (izmjenjeniSlucaj.getGlavniOsumnjiceni()!=null) {
-				atributiSlucaja.add(izmjenjeniSlucaj.getGlavniOsumnjiceni().getOib().toString()+"*glavnaOsumnjicenaOsoba");
+				atributiSlucaja.add(izmjenjeniSlucaj.getGlavniOsumnjiceni().getOib().toString()+"*glavnaOsumljicenaOsobaOib");
 			}else atributiSlucaja.add("NULL*glavnaOsumljicenaOsobaOib");
 		}
 		return atributiSlucaja;
